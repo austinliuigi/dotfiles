@@ -2,7 +2,7 @@
 
 syntax on						" enable syntax highlighting
 
-filetype plugin indenton		" enable filetype detection, execute filetype-specific ex commands local to the local buffer, and load the indent file for the detected filetype
+filetype plugin indent on		" enable filetype detection, execute filetype-specific ex commands local to the local buffer, and load the indent file for the detected filetype
 
 set encoding=utf-8				" character encoding format
 
