@@ -8,12 +8,7 @@ set encoding=utf-8				" character encoding format
 
 set backspace=start,eol,indent	" better backspace in insert mode
 
-showcmd
-
-" Change runtimepath on windows
-if has('windows')
-  set runtimepath=~/.vim,C:\Program Files (x86)\Vim/vimfiles,C:\Program Files (x86)\Vim\vim82,C:\Program Files (x86)\Vim\vim82\pack\dist\opt\matchit,C:\Program Files (x86)\Vim/vimfiles/after,~/.vim/after
-endif
+set showcmd
 
 
 """Niceties
@@ -33,6 +28,10 @@ set scrolloff=5					" num of lines to keep above/below cursor
 set wildmenu					" command-line autocomplete bar
 
 set lazyredraw					" be conservative with screen refreshes
+
+"set directory=~/tmp
+
+"set backupdir=~/tmp
 
 
 """ Whitespace
@@ -62,5 +61,3 @@ set hlsearch					" search highlighting
 inoremap jk <esc>
 
 nnoremap <space>h :nohlsearch<CR>
-
-
