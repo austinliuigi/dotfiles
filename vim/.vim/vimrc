@@ -15,6 +15,8 @@ set showcmd
 
 let $RC="HOME./vim/vimrc"		" define environment variable to alias our vimrc file
 
+colorscheme custom
+
 set hidden						" allow a buffer to load in a window that currently has a modified buffer
 
 set relativenumber				" make line numbers relative to current line
@@ -28,6 +30,8 @@ set scrolloff=5					" num of lines to keep above/below cursor
 set wildmenu					" command-line autocomplete bar
 
 set lazyredraw					" be conservative with screen refreshes
+
+set cursorline                  " highlight line that cursor is on
 
 "set directory=~/tmp
 
@@ -55,9 +59,11 @@ set incsearch					" search as you type
 
 set hlsearch					" search highlighting
 
+set ignorecase                  " default to case insensitive
 
 """ Mappings
 
-inoremap jk <esc>
+inoremap jk <esc> 
 
 nnoremap <space>h :nohlsearch<CR>
+
