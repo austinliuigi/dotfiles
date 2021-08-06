@@ -44,7 +44,7 @@ else
 endif
 
 " }}}
-" Default option values"{{{
+" Default Option Values"{{{
 " ---------------------------------------------------------------------
 function! s:SetOption(name,default)
     if type(a:default) == type(0)
@@ -68,13 +68,11 @@ call s:SetOption("termtrans",s:scheme_termtrans_default)
 call s:SetOption("bold",1)
 call s:SetOption("underline",1)
 call s:SetOption("italic",1) " note that we need to override this later if the terminal doesn't support
-call s:SetOption("termcolors",16)
-call s:SetOption("visibility","normal")
 call s:SetOption("diffmode","normal")
 call s:SetOption("hitrail",0)
 
 "}}}
-" Colorscheme initialization "{{{
+" Colorscheme Initialization "{{{
 " ---------------------------------------------------------------------
 hi clear
 if exists("syntax_on")
@@ -83,7 +81,7 @@ endif
 let colors_name = "custom"
 
 "}}}
-" GUI & CSApprox hexadecimal palettes"{{{
+" Set Colors"{{{
 " ---------------------------------------------------------------------
 "
 " Set both gui and terminal color values in separate conditional statements
@@ -91,113 +89,40 @@ let colors_name = "custom"
 " leave the hex values out entirely in that case and include only cterm colors)
 if (has("gui_running") && g:scheme_degrade == 0)
     let s:vmode       = "gui"
-    let s:base03      = "#1D2124" "background
-    let s:base02      = "#073642" "cursorline
-    let s:base01      = "#669C50" "comments
-    let s:base00      = "#F2D696"
-    let s:base0       = "#227B4D" "primary text
-    let s:base1       = "#E18F62" "emphasized text
-    let s:base2       = "#EAF4DE" "statusline active
-    let s:base3       = "#EAF4DE" "statuseline inactive
-    let s:yellow      = "#F2D696"
-    let s:orange      = "#EB6F6F"
-    let s:red         = "#EB6F6F"
-    let s:magenta     = "#A5ABDA"
-    let s:violet      = "#A5ABDA"
-    let s:blue        = "#227B4D"
-    let s:cyan        = "#E18F62"
-    "let s:green       = "#859900" "original
-    let s:green       = "#3a7a44" "experimental
+    let s:back        = "#303030" "background
+    let s:dgray       = "#3a3a3a" "cursorline
+    let s:mgray       = "#9e9e9e" "comments
+    let s:lgray       = "#a8a8a8" "statusline inactive
+    let s:vlgray      = "#dadada"
+    let s:dwhite      = "#eeeeee" "primary text
+    let s:white       = "#ffffff" "emphasized text
+    let s:white       = "#e4e4e4" "statusline active
+    let s:yellow      = "#d7af00"
+    let s:orange      = "#d78787"
+    let s:red         = "#af5f5f"
+    let s:magenta     = "#d7afaf"
+    let s:violet      = "#afafff"
+    let s:blue        = "#afd7d7"
+    let s:cyan        = "#87afaf"
+    let s:green       = "#d7d75f" 
 else
     let s:vmode       = "cterm"
-    let s:base03      = "234"
-    let s:base02      = "235"
-    let s:base01      = "247"
-    let s:base00      = "253"
-    let s:base0       = "255"
-    let s:base1       = "231"
-    let s:base2       = "254"
-    let s:base3       = "248"
-    let s:yellow      = "220"
-    let s:orange      = "172"
+    let s:back        = "235" "background
+    let s:dgray       = "236" "cursorline
+    let s:mgray       = "247" "comments
+    let s:lgray       = "248" "statusline inactive
+    let s:vlgray      = "253"
+    let s:dwhite      = "255" "primary text
+    let s:white       = "231" "emphasized text
+    let s:white       = "254" "statusline active
+    let s:yellow      = "178"
+    let s:orange      = "174"
     let s:red         = "131"
-    let s:magenta     = "131"
-    let s:violet      = "140"
-    let s:blue        = "153"
-    let s:cyan        = "158"
-    let s:green       = "149"
-"elseif g:scheme_termcolors != 256 && &t_Co >= 16
-"    let s:vmode       = "cterm"
-"    let s:base03      = "8"
-"    let s:base02      = "0"
-"    let s:base01      = "10"
-"    let s:base00      = "11"
-"    let s:base0       = "12"
-"    let s:base1       = "14"
-"    let s:base2       = "7"
-"    let s:base3       = "15"
-"    let s:yellow      = "3"
-"    let s:orange      = "9"
-"    let s:red         = "1"
-"    let s:magenta     = "5"
-"    let s:violet      = "13"
-"    let s:blue        = "4"
-"    let s:cyan        = "6"
-"    let s:green       = "2"
-"elseif g:scheme_termcolors == 256
-"    let s:vmode       = "cterm"
-"    let s:base03      = "234"
-"    let s:base02      = "235"
-"    let s:base01      = "239"
-"    let s:base00      = "240"
-"    let s:base0       = "244"
-"    let s:base1       = "245"
-"    let s:base2       = "187"
-"    let s:base3       = "230"
-"    let s:yellow      = "136"
-"    let s:orange      = "166"
-"    let s:red         = "124"
-"    let s:magenta     = "125"
-"    let s:violet      = "61"
-"    let s:blue        = "33"
-"    let s:cyan        = "37"
-"    let s:green       = "64"
-"else
-"    let s:vmode       = "cterm"
-"    let s:bright      = "* term=bold cterm=bold"
-""   let s:base03      = "0".s:bright
-""   let s:base02      = "0"
-""   let s:base01      = "2".s:bright
-""   let s:base00      = "3".s:bright
-""   let s:base0       = "4".s:bright
-""   let s:base1       = "6".s:bright
-""   let s:base2       = "7"
-""   let s:base3       = "7".s:bright
-""   let s:yellow      = "3"
-""   let s:orange      = "1".s:bright
-""   let s:red         = "1"
-""   let s:magenta     = "5"
-""   let s:violet      = "5".s:bright
-""   let s:blue        = "4"
-""   let s:cyan        = "6"
-""   let s:green       = "2"
-"    let s:base03      = "DarkGray"      " 0*
-"    let s:base02      = "Black"         " 0
-"    let s:base01      = "LightGreen"    " 2*
-"    let s:base00      = "LightYellow"   " 3*
-"    let s:base0       = "LightBlue"     " 4*
-"    let s:base1       = "LightCyan"     " 6*
-"    let s:base2       = "LightGray"     " 7
-"    let s:base3       = "White"         " 7*
-"    let s:yellow      = "DarkYellow"    " 3
-"    let s:orange      = "LightRed"      " 1*
-"    let s:red         = "DarkRed"       " 1
-"    let s:magenta     = "DarkMagenta"   " 5
-"    let s:violet      = "LightMagenta"  " 5*
-"    let s:blue        = "DarkBlue"      " 4
-"    let s:cyan        = "DarkCyan"      " 6
-"    let s:green       = "DarkGreen"     " 2
-
+    let s:magenta     = "181"
+    let s:violet      = "147"
+    let s:blue        = "152"
+    let s:cyan        = "109"
+    let s:green       = "185"
 endif
 "}}}
 " Formatting options and null values for passthrough effect "{{{
@@ -211,14 +136,6 @@ endif
     let s:s               = ",standout"
     let s:ou              = ""
     let s:ob              = ""
-"}}}
-" Background value based on termtrans setting "{{{
-" ---------------------------------------------------------------------
-if (has("gui_running") || g:scheme_termtrans == 0)
-    let s:back        = s:base03
-else
-    let s:back        = "NONE"
-endif
 "}}}
 " Overrides dependent on user specified values and environment "{{{
 " ---------------------------------------------------------------------
@@ -242,19 +159,18 @@ else
     let s:i           = ",italic"
 endif
 "}}}
-" Highlighting primitives"{{{
+" Highlighting Primitives"{{{
 " ---------------------------------------------------------------------
 
 exe "let s:bg_none      = ' ".s:vmode."bg=".s:none   ."'"
-exe "let s:bg_back      = ' ".s:vmode."bg=".s:back   ."'"
-exe "let s:bg_base03    = ' ".s:vmode."bg=".s:base03 ."'"
-exe "let s:bg_base02    = ' ".s:vmode."bg=".s:base02 ."'"
-exe "let s:bg_base01    = ' ".s:vmode."bg=".s:base01 ."'"
-exe "let s:bg_base00    = ' ".s:vmode."bg=".s:base00 ."'"
-exe "let s:bg_base0     = ' ".s:vmode."bg=".s:base0  ."'"
-exe "let s:bg_base1     = ' ".s:vmode."bg=".s:base1  ."'"
-exe "let s:bg_base2     = ' ".s:vmode."bg=".s:base2  ."'"
-exe "let s:bg_base3     = ' ".s:vmode."bg=".s:base3  ."'"
+exe "let s:bg_back      = ' ".s:vmode."bg=".s:back ."'"
+exe "let s:bg_dgray     = ' ".s:vmode."bg=".s:dgray ."'"
+exe "let s:bg_mgray     = ' ".s:vmode."bg=".s:mgray ."'"
+exe "let s:bg_vlgray    = ' ".s:vmode."bg=".s:vlgray ."'"
+exe "let s:bg_dwhite    = ' ".s:vmode."bg=".s:dwhite  ."'"
+exe "let s:bg_white     = ' ".s:vmode."bg=".s:white  ."'"
+exe "let s:bg_white     = ' ".s:vmode."bg=".s:white  ."'"
+exe "let s:bg_lgray     = ' ".s:vmode."bg=".s:lgray  ."'"
 exe "let s:bg_green     = ' ".s:vmode."bg=".s:green  ."'"
 exe "let s:bg_yellow    = ' ".s:vmode."bg=".s:yellow ."'"
 exe "let s:bg_orange    = ' ".s:vmode."bg=".s:orange ."'"
@@ -265,15 +181,14 @@ exe "let s:bg_blue      = ' ".s:vmode."bg=".s:blue   ."'"
 exe "let s:bg_cyan      = ' ".s:vmode."bg=".s:cyan   ."'"
 
 exe "let s:fg_none      = ' ".s:vmode."fg=".s:none   ."'"
-exe "let s:fg_back      = ' ".s:vmode."fg=".s:back   ."'"
-exe "let s:fg_base03    = ' ".s:vmode."fg=".s:base03 ."'"
-exe "let s:fg_base02    = ' ".s:vmode."fg=".s:base02 ."'"
-exe "let s:fg_base01    = ' ".s:vmode."fg=".s:base01 ."'"
-exe "let s:fg_base00    = ' ".s:vmode."fg=".s:base00 ."'"
-exe "let s:fg_base0     = ' ".s:vmode."fg=".s:base0  ."'"
-exe "let s:fg_base1     = ' ".s:vmode."fg=".s:base1  ."'"
-exe "let s:fg_base2     = ' ".s:vmode."fg=".s:base2  ."'"
-exe "let s:fg_base3     = ' ".s:vmode."fg=".s:base3  ."'"
+exe "let s:fg_back      = ' ".s:vmode."fg=".s:back ."'"
+exe "let s:fg_dgray     = ' ".s:vmode."fg=".s:dgray ."'"
+exe "let s:fg_mgray     = ' ".s:vmode."fg=".s:mgray ."'"
+exe "let s:fg_vlgray    = ' ".s:vmode."fg=".s:vlgray ."'"
+exe "let s:fg_dwhite    = ' ".s:vmode."fg=".s:dwhite  ."'"
+exe "let s:fg_white     = ' ".s:vmode."fg=".s:white  ."'"
+exe "let s:fg_white     = ' ".s:vmode."fg=".s:white  ."'"
+exe "let s:fg_lgray     = ' ".s:vmode."fg=".s:lgray  ."'"
 exe "let s:fg_green     = ' ".s:vmode."fg=".s:green  ."'"
 exe "let s:fg_yellow    = ' ".s:vmode."fg=".s:yellow ."'"
 exe "let s:fg_orange    = ' ".s:vmode."fg=".s:orange ."'"
@@ -303,15 +218,14 @@ exe "let s:fmt_revbbu   = ' ".s:vmode."=NONE".s:r.s:bb.s:u." term=NONE".s:r.s:bb
 
 if has("gui_running")
     exe "let s:sp_none      = ' guisp=".s:none   ."'"
-    exe "let s:sp_back      = ' guisp=".s:back   ."'"
-    exe "let s:sp_base03    = ' guisp=".s:base03 ."'"
-    exe "let s:sp_base02    = ' guisp=".s:base02 ."'"
-    exe "let s:sp_base01    = ' guisp=".s:base01 ."'"
-    exe "let s:sp_base00    = ' guisp=".s:base00 ."'"
-    exe "let s:sp_base0     = ' guisp=".s:base0  ."'"
-    exe "let s:sp_base1     = ' guisp=".s:base1  ."'"
-    exe "let s:sp_base2     = ' guisp=".s:base2  ."'"
-    exe "let s:sp_base3     = ' guisp=".s:base3  ."'"
+    exe "let s:sp_back    = ' guisp=".s:back ."'"
+    exe "let s:sp_dgray    = ' guisp=".s:dgray ."'"
+    exe "let s:sp_mgray    = ' guisp=".s:mgray ."'"
+    exe "let s:sp_vlgray    = ' guisp=".s:vlgray ."'"
+    exe "let s:sp_dwhite     = ' guisp=".s:dwhite  ."'"
+    exe "let s:sp_white     = ' guisp=".s:white  ."'"
+    exe "let s:sp_white     = ' guisp=".s:white  ."'"
+    exe "let s:sp_lgray     = ' guisp=".s:lgray  ."'"
     exe "let s:sp_green     = ' guisp=".s:green  ."'"
     exe "let s:sp_yellow    = ' guisp=".s:yellow ."'"
     exe "let s:sp_orange    = ' guisp=".s:orange ."'"
@@ -323,14 +237,13 @@ if has("gui_running")
 else
     let s:sp_none      = ""
     let s:sp_back      = ""
-    let s:sp_base03    = ""
-    let s:sp_base02    = ""
-    let s:sp_base01    = ""
-    let s:sp_base00    = ""
-    let s:sp_base0     = ""
-    let s:sp_base1     = ""
-    let s:sp_base2     = ""
-    let s:sp_base3     = ""
+    let s:sp_dgray    = ""
+    let s:sp_mgray    = ""
+    let s:sp_vlgray    = ""
+    let s:sp_dwhite     = ""
+    let s:sp_white     = ""
+    let s:sp_white     = ""
+    let s:sp_lgray     = ""
     let s:sp_green     = ""
     let s:sp_yellow    = ""
     let s:sp_orange    = ""
@@ -347,12 +260,12 @@ endif
 " note that link syntax to avoid duplicate configuration doesn't work with the
 " exe compiled formats
 
-exe "hi! Normal"         .s:fmt_none   .s:fg_base0  .s:bg_back
+exe "hi! Normal"         .s:fmt_none   .s:fg_dwhite  .s:bg_back
 
-exe "hi! Comment"        .s:fmt_ital   .s:fg_base01 .s:bg_none
+exe "hi! Comment"        .s:fmt_ital   .s:fg_mgray .s:bg_none
 "       *Comment         any comment
 
-exe "hi! Constant"       .s:fmt_none   .s:fg_orange   .s:bg_none
+exe "hi! Constant"       .s:fmt_none   .s:fg_magenta   .s:bg_none
 "       *Constant        any constant
 "        String          a string constant: "this is a string"
 "        Character       a character constant: 'c', '\n'
@@ -403,94 +316,82 @@ exe "hi! Ignore"         .s:fmt_none   .s:fg_none   .s:bg_none
 exe "hi! Error"          .s:fmt_bold   .s:fg_red    .s:bg_none
 "       *Error           any erroneous construct
 
-exe "hi! Todo"           .s:fmt_bold   .s:fg_magenta.s:bg_none
+exe "hi! Todo"           .s:fmt_bold   .s:fg_red    .s:bg_none
 "       *Todo            anything that needs extra attention; mostly the
 "                        keywords TODO FIXME and XXX
 "
 "}}}
 " Extended highlighting "{{{
 " ---------------------------------------------------------------------
-if      (g:scheme_visibility=="high")
-    exe "hi! SpecialKey" .s:fmt_revr   .s:fg_red    .s:bg_none
-    exe "hi! NonText"    .s:fmt_bold   .s:fg_red    .s:bg_none
-elseif  (g:scheme_visibility=="low")
-    exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base02 .s:bg_none
-    exe "hi! NonText"    .s:fmt_bold   .s:fg_base02 .s:bg_none
-else
-    exe "hi! SpecialKey" .s:fmt_bold   .s:fg_base00 .s:bg_base02
-    exe "hi! NonText"    .s:fmt_bold   .s:fg_base00 .s:bg_none
-endif
-exe "hi! StatusLine"     .s:fmt_none   .s:fg_base2  .s:bg_base02 .s:fmt_revbb
-exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_base3  .s:bg_base02 .s:fmt_revbb
-exe "hi! Visual"         .s:fmt_none   .s:fg_base01 .s:bg_base03 .s:fmt_revbb
+exe "hi! SpecialKey"     .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
+exe "hi! NonText"        .s:fmt_bold   .s:fg_vlgray .s:bg_none
+exe "hi! StatusLine"     .s:fmt_none   .s:fg_white  .s:bg_dgray .s:fmt_revbb
+exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_lgray  .s:bg_dgray .s:fmt_revbb
+exe "hi! Visual"         .s:fmt_none   .s:fg_mgray  .s:bg_back  .s:fmt_revbb
 exe "hi! Directory"      .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! ErrorMsg"       .s:fmt_revr   .s:fg_red    .s:bg_none
 exe "hi! IncSearch"      .s:fmt_stnd   .s:fg_orange .s:bg_none
 exe "hi! Search"         .s:fmt_revr   .s:fg_yellow .s:bg_none
-exe "hi! MoreMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
+exe "hi! MoreMsg"        .s:fmt_none   .s:fg_green  .s:bg_none
 exe "hi! ModeMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
-exe "hi! LineNr"         .s:fmt_none   .s:fg_base01 .s:bg_back
-exe "hi! Question"       .s:fmt_bold   .s:fg_cyan   .s:bg_none
-if ( has("gui_running") || &t_Co > 8 )
-    exe "hi! VertSplit"  .s:fmt_none   .s:fg_base02 .s:bg_base3
-else
-    exe "hi! VertSplit"  .s:fmt_revbb  .s:fg_base00 .s:bg_base02
-endif
-exe "hi! Title"          .s:fmt_bold   .s:fg_orange .s:bg_none
-exe "hi! VisualNOS"      .s:fmt_stnd   .s:fg_none   .s:bg_base02 .s:fmt_revbb
+exe "hi! LineNr"         .s:fmt_none   .s:fg_mgray  .s:bg_back
+exe "hi! Question"       .s:fmt_bold   .s:fg_green  .s:bg_none
+exe "hi! VertSplit"      .s:fmt_none   .s:fg_dgray  .s:bg_lgray
+exe "hi! Title"          .s:fmt_bold   .s:fg_yellow .s:bg_none
+exe "hi! VisualNOS"      .s:fmt_stnd   .s:fg_none   .s:bg_dgray .s:fmt_revbb
 exe "hi! WarningMsg"     .s:fmt_bold   .s:fg_red    .s:bg_none
-exe "hi! WildMenu"       .s:fmt_none   .s:fg_yellow .s:bg_base02 .s:fmt_revbb
-exe "hi! Folded"         .s:fmt_undb   .s:fg_base0  .s:bg_base02  .s:sp_base03
-exe "hi! FoldColumn"     .s:fmt_none   .s:fg_base0  .s:bg_base02
+exe "hi! WildMenu"       .s:fmt_none   .s:fg_yellow .s:bg_dgray .s:fmt_revbb
+exe "hi! Folded"         .s:fmt_undb   .s:fg_vlgray .s:bg_none .s:sp_back
+exe "hi! FoldColumn"     .s:fmt_none   .s:fg_dwhite .s:bg_dgray
 if      (g:scheme_diffmode=="high")
 exe "hi! DiffAdd"        .s:fmt_revr   .s:fg_green  .s:bg_none
 exe "hi! DiffChange"     .s:fmt_revr   .s:fg_yellow .s:bg_none
 exe "hi! DiffDelete"     .s:fmt_revr   .s:fg_red    .s:bg_none
 exe "hi! DiffText"       .s:fmt_revr   .s:fg_blue   .s:bg_none
 elseif  (g:scheme_diffmode=="low")
-exe "hi! DiffAdd"        .s:fmt_undr   .s:fg_green  .s:bg_none   .s:sp_green
-exe "hi! DiffChange"     .s:fmt_undr   .s:fg_yellow .s:bg_none   .s:sp_yellow
+exe "hi! DiffAdd"        .s:fmt_undr   .s:fg_green  .s:bg_none  .s:sp_green
+exe "hi! DiffChange"     .s:fmt_undr   .s:fg_yellow .s:bg_none  .s:sp_yellow
 exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_red    .s:bg_none
-exe "hi! DiffText"       .s:fmt_undr   .s:fg_blue   .s:bg_none   .s:sp_blue
+exe "hi! DiffText"       .s:fmt_undr   .s:fg_blue   .s:bg_none  .s:sp_blue
 else " normal
     if has("gui_running")
-exe "hi! DiffAdd"        .s:fmt_bold   .s:fg_green  .s:bg_base02 .s:sp_green
-exe "hi! DiffChange"     .s:fmt_bold   .s:fg_yellow .s:bg_base02 .s:sp_yellow
-exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_red    .s:bg_base02
-exe "hi! DiffText"       .s:fmt_bold   .s:fg_blue   .s:bg_base02 .s:sp_blue
+exe "hi! DiffAdd"        .s:fmt_bold   .s:fg_green  .s:bg_dgray .s:sp_green
+exe "hi! DiffChange"     .s:fmt_bold   .s:fg_yellow .s:bg_dgray .s:sp_yellow
+exe "hi! DiffDelete"     .s:fmt_bold   .s:fg_red    .s:bg_dgray
+exe "hi! DiffText"       .s:fmt_bold   .s:fg_blue   .s:bg_dgray .s:sp_blue
     else
-exe "hi! DiffAdd"        .s:fmt_none   .s:fg_green  .s:bg_base02 .s:sp_green
-exe "hi! DiffChange"     .s:fmt_none   .s:fg_yellow .s:bg_base02 .s:sp_yellow
-exe "hi! DiffDelete"     .s:fmt_none   .s:fg_red    .s:bg_base02
-exe "hi! DiffText"       .s:fmt_none   .s:fg_blue   .s:bg_base02 .s:sp_blue
+exe "hi! DiffAdd"        .s:fmt_none   .s:fg_green  .s:bg_dgray .s:sp_green
+exe "hi! DiffChange"     .s:fmt_none   .s:fg_yellow .s:bg_dgray .s:sp_yellow
+exe "hi! DiffDelete"     .s:fmt_none   .s:fg_red    .s:bg_dgray
+exe "hi! DiffText"       .s:fmt_none   .s:fg_blue   .s:bg_dgray .s:sp_blue
     endif
 endif
-exe "hi! SignColumn"     .s:fmt_none   .s:fg_base0
+exe "hi! SignColumn"     .s:fmt_none   .s:fg_dwhite
 exe "hi! Conceal"        .s:fmt_none   .s:fg_blue   .s:bg_none
-exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_red
-exe "hi! SpellCap"       .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_violet
-exe "hi! SpellRare"      .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_cyan
-exe "hi! SpellLocal"     .s:fmt_curl   .s:fg_none   .s:bg_none    .s:sp_yellow
-exe "hi! Pmenu"          .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
-exe "hi! PmenuSel"       .s:fmt_none   .s:fg_base01 .s:bg_base2   .s:fmt_revbb
-exe "hi! PmenuSbar"      .s:fmt_none   .s:fg_base2  .s:bg_base0   .s:fmt_revbb
-exe "hi! PmenuThumb"     .s:fmt_none   .s:fg_base0  .s:bg_base03  .s:fmt_revbb
-exe "hi! TabLine"        .s:fmt_undr   .s:fg_base0  .s:bg_base02  .s:sp_base0
-exe "hi! TabLineFill"    .s:fmt_undr   .s:fg_base0  .s:bg_base02  .s:sp_base0
-exe "hi! TabLineSel"     .s:fmt_undr   .s:fg_base01 .s:bg_base2   .s:sp_base0  .s:fmt_revbbu
-exe "hi! CursorColumn"   .s:fmt_none   .s:fg_none   .s:bg_base02
-exe "hi! CursorLine"     .s:fmt_uopt   .s:fg_none   .s:bg_base02  .s:sp_base1
-exe "hi! CursorLineNr"   .s:fmt_none   .s:fg_base2  .s:bg_none
-exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_base02
-exe "hi! Cursor"         .s:fmt_none   .s:fg_base03 .s:bg_base0
+exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none   .s:sp_red
+exe "hi! SpellCap"       .s:fmt_curl   .s:fg_none   .s:bg_none   .s:sp_violet
+exe "hi! SpellRare"      .s:fmt_curl   .s:fg_none   .s:bg_none   .s:sp_cyan
+exe "hi! SpellLocal"     .s:fmt_curl   .s:fg_none   .s:bg_none   .s:sp_yellow
+exe "hi! Pmenu"          .s:fmt_none   .s:fg_dwhite .s:bg_dgray  .s:fmt_revbb
+exe "hi! PmenuSel"       .s:fmt_none   .s:fg_mgray  .s:bg_white  .s:fmt_revbb
+exe "hi! PmenuSbar"      .s:fmt_none   .s:fg_white  .s:bg_dwhite .s:fmt_revbb
+exe "hi! PmenuThumb"     .s:fmt_none   .s:fg_dwhite .s:bg_back   .s:fmt_revbb
+exe "hi! TabLine"        .s:fmt_undr   .s:fg_dwhite .s:bg_dgray  .s:sp_dwhite
+exe "hi! TabLineFill"    .s:fmt_undr   .s:fg_dwhite .s:bg_dgray  .s:sp_dwhite
+exe "hi! TabLineSel"     .s:fmt_undr   .s:fg_mgray  .s:bg_white  .s:sp_dwhite  .s:fmt_revbbu
+exe "hi! CursorColumn"   .s:fmt_none   .s:fg_none   .s:bg_dgray
+exe "hi! CursorLine"     .s:fmt_uopt   .s:fg_none   .s:bg_dgray  .s:sp_white
+exe "hi! CursorLineNr"   .s:fmt_none   .s:fg_white  .s:bg_none
+exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_dgray
+exe "hi! Cursor"         .s:fmt_none   .s:fg_back   .s:bg_dwhite
 hi! link lCursor Cursor
-exe "hi! MatchParen"     .s:fmt_bold   .s:fg_magenta    .s:bg_base02
-exe "hi! EndOfBuffer"    .s:fmt_none   .s:fg_blue       .s:bg_none
+exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_dgray
+exe "hi! EndOfBuffer"    .s:fmt_none   .s:fg_yellow .s:bg_none
 
 "}}}
 " vim syntax highlighting "{{{
 " ---------------------------------------------------------------------
-"exe "hi! vimLineComment" . s:fg_base01 .s:bg_none   .s:fmt_ital
+"exe "hi! vimLineComment" . s:fg_mgray .s:bg_none   .s:fmt_ital
 "hi! link vimComment Comment
 "hi! link vimLineComment Comment
 hi! link vimVar Identifier
@@ -502,13 +403,13 @@ hi! link vimSetEqual Normal
 exe "hi! vimCommentString"  .s:fmt_none    .s:fg_violet .s:bg_none
 exe "hi! vimCommand"        .s:fmt_none    .s:fg_yellow .s:bg_none
 exe "hi! vimCmdSep"         .s:fmt_bold    .s:fg_blue   .s:bg_none
-exe "hi! helpExample"       .s:fmt_none    .s:fg_base1  .s:bg_none
+exe "hi! helpExample"       .s:fmt_none    .s:fg_white  .s:bg_none
 exe "hi! helpOption"        .s:fmt_none    .s:fg_cyan   .s:bg_none
 exe "hi! helpNote"          .s:fmt_none    .s:fg_magenta.s:bg_none
 exe "hi! helpVim"           .s:fmt_none    .s:fg_magenta.s:bg_none
 exe "hi! helpHyperTextJump" .s:fmt_undr    .s:fg_blue   .s:bg_none
 exe "hi! helpHyperTextEntry".s:fmt_none    .s:fg_green  .s:bg_none
-exe "hi! vimIsCommand"      .s:fmt_none    .s:fg_base00 .s:bg_none
+exe "hi! vimIsCommand"      .s:fmt_none    .s:fg_vlgray .s:bg_none
 exe "hi! vimSynMtchOpt"     .s:fmt_none    .s:fg_yellow .s:bg_none
 exe "hi! vimSynType"        .s:fmt_none    .s:fg_cyan   .s:bg_none
 exe "hi! vimHiLink"         .s:fmt_none    .s:fg_blue   .s:bg_none
@@ -543,12 +444,12 @@ hi! link diffLine Identifier
 "exe "hi! gitDiffRemoved"
 "gitcommit
 "exe "hi! gitcommitSummary"      
-exe "hi! gitcommitComment"      .s:fmt_ital     .s:fg_base01    .s:bg_none
+exe "hi! gitcommitComment"      .s:fmt_ital     .s:fg_mgray    .s:bg_none
 hi! link gitcommitUntracked gitcommitComment
 hi! link gitcommitDiscarded gitcommitComment
 hi! link gitcommitSelected  gitcommitComment
 exe "hi! gitcommitUnmerged"     .s:fmt_bold     .s:fg_green     .s:bg_none
-exe "hi! gitcommitOnBranch"     .s:fmt_bold     .s:fg_base01    .s:bg_none
+exe "hi! gitcommitOnBranch"     .s:fmt_bold     .s:fg_mgray    .s:bg_none
 exe "hi! gitcommitBranch"       .s:fmt_bold     .s:fg_magenta   .s:bg_none
 hi! link gitcommitNoBranch gitcommitBranch
 exe "hi! gitcommitDiscardedType".s:fmt_none     .s:fg_red       .s:bg_none
@@ -557,12 +458,12 @@ exe "hi! gitcommitSelectedType" .s:fmt_none     .s:fg_green     .s:bg_none
 "exe "hi! gitcommitType"
 "exe "hi! gitcommitNoChanges"
 "exe "hi! gitcommitHeader"
-exe "hi! gitcommitHeader"       .s:fmt_none     .s:fg_base01    .s:bg_none
+exe "hi! gitcommitHeader"       .s:fmt_none     .s:fg_mgray    .s:bg_none
 exe "hi! gitcommitUntrackedFile".s:fmt_bold     .s:fg_cyan      .s:bg_none
 exe "hi! gitcommitDiscardedFile".s:fmt_bold     .s:fg_red       .s:bg_none
 exe "hi! gitcommitSelectedFile" .s:fmt_bold     .s:fg_green     .s:bg_none
 exe "hi! gitcommitUnmergedFile" .s:fmt_bold     .s:fg_yellow    .s:bg_none
-exe "hi! gitcommitFile"         .s:fmt_bold     .s:fg_base0     .s:bg_none
+exe "hi! gitcommitFile"         .s:fmt_bold     .s:fg_dwhite     .s:bg_none
 hi! link gitcommitDiscardedArrow gitcommitDiscardedFile
 hi! link gitcommitSelectedArrow  gitcommitSelectedFile
 hi! link gitcommitUnmergedArrow  gitcommitUnmergedFile
@@ -572,17 +473,17 @@ hi! link gitcommitUnmergedArrow  gitcommitUnmergedFile
 " }}}
 " html highlighting "{{{
 " ---------------------------------------------------------------------
-exe "hi! htmlTag"           .s:fmt_none .s:fg_base01 .s:bg_none
-exe "hi! htmlEndTag"        .s:fmt_none .s:fg_base01 .s:bg_none
-exe "hi! htmlTagN"          .s:fmt_bold .s:fg_base1  .s:bg_none
+exe "hi! htmlTag"           .s:fmt_none .s:fg_mgray .s:bg_none
+exe "hi! htmlEndTag"        .s:fmt_none .s:fg_mgray .s:bg_none
+exe "hi! htmlTagN"          .s:fmt_bold .s:fg_white  .s:bg_none
 exe "hi! htmlTagName"       .s:fmt_bold .s:fg_blue   .s:bg_none
 exe "hi! htmlSpecialTagName".s:fmt_ital .s:fg_blue   .s:bg_none
-exe "hi! htmlArg"           .s:fmt_none .s:fg_base00 .s:bg_none
+exe "hi! htmlArg"           .s:fmt_none .s:fg_vlgray .s:bg_none
 exe "hi! javaScript"        .s:fmt_none .s:fg_yellow .s:bg_none
 "}}}
 " perl highlighting "{{{
 " ---------------------------------------------------------------------
-exe "hi! perlHereDoc"    . s:fg_base1  .s:bg_back   .s:fmt_none
+exe "hi! perlHereDoc"    . s:fg_white  .s:bg_back   .s:fmt_none
 exe "hi! perlVarPlain"   . s:fg_yellow .s:bg_back   .s:fmt_none
 exe "hi! perlStatementFileDesc". s:fg_cyan.s:bg_back.s:fmt_none
 
@@ -597,7 +498,7 @@ exe "hi! texRefLabel"    . s:fg_yellow .s:bg_back   .s:fmt_none
 "}}}
 " ruby highlighting "{{{
 " ---------------------------------------------------------------------
-exe "hi! rubyDefine"     . s:fg_base1  .s:bg_back   .s:fmt_bold
+exe "hi! rubyDefine"     . s:fg_white  .s:bg_back   .s:fmt_bold
 "rubyInclude
 "rubySharpBang
 "rubyAccess
@@ -637,7 +538,7 @@ exe "hi! cPreCondit". s:fg_orange.s:bg_none   .s:fmt_none
 exe "hi! VarId"    . s:fg_blue   .s:bg_none   .s:fmt_none
 exe "hi! ConId"    . s:fg_yellow .s:bg_none   .s:fmt_none
 exe "hi! hsImport" . s:fg_magenta.s:bg_none   .s:fmt_none
-exe "hi! hsString" . s:fg_base00 .s:bg_none   .s:fmt_none
+exe "hi! hsString" . s:fg_vlgray .s:bg_none   .s:fmt_none
 
 exe "hi! hsStructure"        . s:fg_cyan   .s:bg_none   .s:fmt_none
 exe "hi! hs_hlFunctionName"  . s:fg_blue   .s:bg_none
@@ -668,7 +569,7 @@ exe "hi! hsniceoperator"     . s:fg_cyan   .s:bg_none   .s:fmt_none
 exe "hi! pandocTitleBlock"               .s:fg_blue   .s:bg_none   .s:fmt_none
 exe "hi! pandocTitleBlockTitle"          .s:fg_blue   .s:bg_none   .s:fmt_bold
 exe "hi! pandocTitleComment"             .s:fg_blue   .s:bg_none   .s:fmt_bold
-exe "hi! pandocComment"                  .s:fg_base01 .s:bg_none   .s:fmt_ital
+exe "hi! pandocComment"                  .s:fg_mgray .s:bg_none   .s:fmt_ital
 exe "hi! pandocVerbatimBlock"            .s:fg_yellow .s:bg_none   .s:fmt_none
 hi! link pandocVerbatimBlockDeep         pandocVerbatimBlock
 hi! link pandocCodeBlock                 pandocVerbatimBlock
@@ -678,8 +579,8 @@ exe "hi! pandocBlockQuoteLeader1"        .s:fg_blue   .s:bg_none   .s:fmt_none
 exe "hi! pandocBlockQuoteLeader2"        .s:fg_cyan   .s:bg_none   .s:fmt_none
 exe "hi! pandocBlockQuoteLeader3"        .s:fg_yellow .s:bg_none   .s:fmt_none
 exe "hi! pandocBlockQuoteLeader4"        .s:fg_red    .s:bg_none   .s:fmt_none
-exe "hi! pandocBlockQuoteLeader5"        .s:fg_base0  .s:bg_none   .s:fmt_none
-exe "hi! pandocBlockQuoteLeader6"        .s:fg_base01 .s:bg_none   .s:fmt_none
+exe "hi! pandocBlockQuoteLeader5"        .s:fg_dwhite  .s:bg_none   .s:fmt_none
+exe "hi! pandocBlockQuoteLeader6"        .s:fg_mgray .s:bg_none   .s:fmt_none
 exe "hi! pandocListMarker"               .s:fg_magenta.s:bg_none   .s:fmt_none
 exe "hi! pandocListReference"            .s:fg_magenta.s:bg_none   .s:fmt_undr
 
@@ -706,8 +607,8 @@ exe "hi! pandocTable"                        .s:fg_ptable.s:bg_none  .s:fmt_none
 exe "hi! pandocTableStructure"               .s:fg_ptable.s:bg_none  .s:fmt_none
 hi! link pandocTableStructureTop             pandocTableStructre
 hi! link pandocTableStructureEnd             pandocTableStructre
-exe "hi! pandocTableZebraLight"              .s:fg_ptable.s:bg_base03.s:fmt_none
-exe "hi! pandocTableZebraDark"               .s:fg_ptable.s:bg_base02.s:fmt_none
+exe "hi! pandocTableZebraLight"              .s:fg_ptable.s:bg_back.s:fmt_none
+exe "hi! pandocTableZebraDark"               .s:fg_ptable.s:bg_dgray.s:fmt_none
 exe "hi! pandocEmphasisTable"                .s:fg_ptable.s:bg_none  .s:fmt_ital
 exe "hi! pandocEmphasisNestedTable"          .s:fg_ptable.s:bg_none  .s:fmt_bldi
 exe "hi! pandocStrongEmphasisTable"          .s:fg_ptable.s:bg_none  .s:fmt_bold
@@ -735,13 +636,13 @@ exe "hi! pandocSubscriptHeading"             .s:fg_phead .s:bg_none.s:fmt_bold
 
 " Links
 " ---------------------------------------------------------------------
-exe "hi! pandocLinkDelim"                .s:fg_base01 .s:bg_none   .s:fmt_none
+exe "hi! pandocLinkDelim"                .s:fg_mgray .s:bg_none   .s:fmt_none
 exe "hi! pandocLinkLabel"                .s:fg_blue   .s:bg_none   .s:fmt_undr
 exe "hi! pandocLinkText"                 .s:fg_blue   .s:bg_none   .s:fmt_undb
-exe "hi! pandocLinkURL"                  .s:fg_base00 .s:bg_none   .s:fmt_undr
-exe "hi! pandocLinkTitle"                .s:fg_base00 .s:bg_none   .s:fmt_undi
-exe "hi! pandocLinkTitleDelim"           .s:fg_base01 .s:bg_none   .s:fmt_undi   .s:sp_base00
-exe "hi! pandocLinkDefinition"           .s:fg_cyan   .s:bg_none   .s:fmt_undr   .s:sp_base00
+exe "hi! pandocLinkURL"                  .s:fg_vlgray .s:bg_none   .s:fmt_undr
+exe "hi! pandocLinkTitle"                .s:fg_vlgray .s:bg_none   .s:fmt_undi
+exe "hi! pandocLinkTitleDelim"           .s:fg_mgray .s:bg_none   .s:fmt_undi   .s:sp_vlgray
+exe "hi! pandocLinkDefinition"           .s:fg_cyan   .s:bg_none   .s:fmt_undr   .s:sp_vlgray
 exe "hi! pandocLinkDefinitionID"         .s:fg_blue   .s:bg_none   .s:fmt_bold
 exe "hi! pandocImageCaption"             .s:fg_violet .s:bg_none   .s:fmt_undb
 exe "hi! pandocFootnoteLink"             .s:fg_green  .s:bg_none   .s:fmt_undr
@@ -755,13 +656,13 @@ exe "hi! pandocCitationRef"              .s:fg_magenta.s:bg_none   .s:fmt_none
 
 " Main Styles
 " ---------------------------------------------------------------------
-exe "hi! pandocStyleDelim"               .s:fg_base01 .s:bg_none  .s:fmt_none
-exe "hi! pandocEmphasis"                 .s:fg_base0  .s:bg_none  .s:fmt_ital
-exe "hi! pandocEmphasisNested"           .s:fg_base0  .s:bg_none  .s:fmt_bldi
-exe "hi! pandocStrongEmphasis"           .s:fg_base0  .s:bg_none  .s:fmt_bold
-exe "hi! pandocStrongEmphasisNested"     .s:fg_base0  .s:bg_none  .s:fmt_bldi
-exe "hi! pandocStrongEmphasisEmphasis"   .s:fg_base0  .s:bg_none  .s:fmt_bldi
-exe "hi! pandocStrikeout"                .s:fg_base01 .s:bg_none  .s:fmt_revr
+exe "hi! pandocStyleDelim"               .s:fg_mgray .s:bg_none  .s:fmt_none
+exe "hi! pandocEmphasis"                 .s:fg_dwhite  .s:bg_none  .s:fmt_ital
+exe "hi! pandocEmphasisNested"           .s:fg_dwhite  .s:bg_none  .s:fmt_bldi
+exe "hi! pandocStrongEmphasis"           .s:fg_dwhite  .s:bg_none  .s:fmt_bold
+exe "hi! pandocStrongEmphasisNested"     .s:fg_dwhite  .s:bg_none  .s:fmt_bldi
+exe "hi! pandocStrongEmphasisEmphasis"   .s:fg_dwhite  .s:bg_none  .s:fmt_bldi
+exe "hi! pandocStrikeout"                .s:fg_mgray .s:bg_none  .s:fmt_revr
 exe "hi! pandocVerbatimInline"           .s:fg_yellow .s:bg_none  .s:fmt_none
 exe "hi! pandocSuperscript"              .s:fg_violet .s:bg_none  .s:fmt_none
 exe "hi! pandocSubscript"                .s:fg_violet .s:bg_none  .s:fmt_none
@@ -776,7 +677,7 @@ hi! link pandocLineBreak                 pandocEscapePair
 
 " Embedded Code
 " ---------------------------------------------------------------------
-exe "hi! pandocMetadataDelim"            .s:fg_base01 .s:bg_none   .s:fmt_none
+exe "hi! pandocMetadataDelim"            .s:fg_mgray .s:bg_none   .s:fmt_none
 exe "hi! pandocMetadata"                 .s:fg_blue   .s:bg_none   .s:fmt_none
 exe "hi! pandocMetadataKey"              .s:fg_blue   .s:bg_none   .s:fmt_none
 exe "hi! pandocMetadata"                 .s:fg_blue   .s:bg_none   .s:fmt_bold

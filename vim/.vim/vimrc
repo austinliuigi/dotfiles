@@ -1,4 +1,8 @@
-"""Essentials
+"Name: vimrc
+"Author: Austin Liu
+"Date Created: July 2020
+"Date Modified: August 5, 2020
+"""Essentials"{{{
 
 syntax on						" enable syntax highlighting
 
@@ -9,13 +13,15 @@ set encoding=utf-8				" character encoding format
 set backspace=start,eol,indent	" better backspace in insert mode
 
 set showcmd
+"}}}
 
+"""Niceties"{{{
 
-"""Niceties
+colorscheme custom              " use personal colorscheme
 
-let $RC="HOME./vim/vimrc"		" define environment variable to alias our vimrc file
+set splitright                  " default vert split window to appear on the right
 
-colorscheme custom
+set foldmethod=marker           " use {{{ and }}} to indicate beginning and end of a fold
 
 set hidden						" allow a buffer to load in a window that currently has a modified buffer
 
@@ -33,12 +39,30 @@ set lazyredraw					" be conservative with screen refreshes
 
 set cursorline                  " highlight line that cursor is on
 
+set linebreak                   " avoid wrapping mid-word
 "set directory=~/tmp
 
 "set backupdir=~/tmp
+"}}}
 
+""" Status Line {{{
 
-""" Whitespace
+""set laststatus=2                " always show status line
+""
+""set statusline=%#search#
+""set statusline+=%{mode(0)}       " current vim mode
+""
+""set statusline+=\ %m            " indicate if buffer has unsaved changes
+""
+""set statusline+=\ %t            " file name
+""
+""let b:currentmode = {
+""    \ 'n' : NORMAL
+""    \ 'i' : INSERT
+""    \ 'v' : VISUAL
+"}}}
+
+""" Whitespace"{{{
 
 set tabstop=4					" length of <tab> when it is displayed
 
@@ -51,19 +75,26 @@ set expandtab					" tab will act as spaces (makes its length consistent across a
 set autoindent					" indent to the previous line's indent level
 
 set smartindent					" indent based on c syntax
+"}}}
 
-
-""" Searching
+""" Searching"{{{
 
 set incsearch					" search as you type
 
 set hlsearch					" search highlighting
 
 set ignorecase                  " default to case insensitive
+"}}}
 
-""" Mappings
+""" Mappings{{{
 
-inoremap jk <esc> 
+let mapleader = " "
 
-nnoremap <space>h :nohlsearch<CR>
+nnoremap <leader>v :vsp<CR>
 
+nnoremap <leader>h :nohl<CR>
+
+nnoremap <leader>n :set relativenumber!<CR>
+
+nnoremap <space> <nop>
+"}}}
