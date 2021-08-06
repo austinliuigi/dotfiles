@@ -94,9 +94,9 @@ if (has("gui_running") && g:scheme_degrade == 0)
     let s:mgray       = "#9e9e9e" "comments
     let s:lgray       = "#a8a8a8" "statusline inactive
     let s:vlgray      = "#dadada"
-    let s:dwhite      = "#eeeeee" "primary text
+    let s:dwhite      = "#e4e4e4" "statusline active
+    let s:mwhite      = "#eeeeee" "primary text
     let s:white       = "#ffffff" "emphasized text
-    let s:white       = "#e4e4e4" "statusline active
     let s:yellow      = "#d7af00"
     let s:orange      = "#d78787"
     let s:red         = "#af5f5f"
@@ -112,9 +112,9 @@ else
     let s:mgray       = "247" "comments
     let s:lgray       = "248" "statusline inactive
     let s:vlgray      = "253"
-    let s:dwhite      = "255" "primary text
+    let s:dwhite      = "254" "statusline active
+    let s:mwhite      = "255" "primary text
     let s:white       = "231" "emphasized text
-    let s:white       = "254" "statusline active
     let s:yellow      = "178"
     let s:orange      = "174"
     let s:red         = "131"
@@ -167,8 +167,8 @@ exe "let s:bg_back      = ' ".s:vmode."bg=".s:back ."'"
 exe "let s:bg_dgray     = ' ".s:vmode."bg=".s:dgray ."'"
 exe "let s:bg_mgray     = ' ".s:vmode."bg=".s:mgray ."'"
 exe "let s:bg_vlgray    = ' ".s:vmode."bg=".s:vlgray ."'"
-exe "let s:bg_dwhite    = ' ".s:vmode."bg=".s:dwhite  ."'"
-exe "let s:bg_white     = ' ".s:vmode."bg=".s:white  ."'"
+exe "let s:bg_mwhite    = ' ".s:vmode."bg=".s:mwhite  ."'"
+exe "let s:bg_dwhite     = ' ".s:vmode."bg=".s:dwhite  ."'"
 exe "let s:bg_white     = ' ".s:vmode."bg=".s:white  ."'"
 exe "let s:bg_lgray     = ' ".s:vmode."bg=".s:lgray  ."'"
 exe "let s:bg_green     = ' ".s:vmode."bg=".s:green  ."'"
@@ -185,8 +185,8 @@ exe "let s:fg_back      = ' ".s:vmode."fg=".s:back ."'"
 exe "let s:fg_dgray     = ' ".s:vmode."fg=".s:dgray ."'"
 exe "let s:fg_mgray     = ' ".s:vmode."fg=".s:mgray ."'"
 exe "let s:fg_vlgray    = ' ".s:vmode."fg=".s:vlgray ."'"
-exe "let s:fg_dwhite    = ' ".s:vmode."fg=".s:dwhite  ."'"
-exe "let s:fg_white     = ' ".s:vmode."fg=".s:white  ."'"
+exe "let s:fg_mwhite    = ' ".s:vmode."fg=".s:mwhite  ."'"
+exe "let s:fg_dwhite     = ' ".s:vmode."fg=".s:dwhite  ."'"
 exe "let s:fg_white     = ' ".s:vmode."fg=".s:white  ."'"
 exe "let s:fg_lgray     = ' ".s:vmode."fg=".s:lgray  ."'"
 exe "let s:fg_green     = ' ".s:vmode."fg=".s:green  ."'"
@@ -222,8 +222,8 @@ if has("gui_running")
     exe "let s:sp_dgray    = ' guisp=".s:dgray ."'"
     exe "let s:sp_mgray    = ' guisp=".s:mgray ."'"
     exe "let s:sp_vlgray    = ' guisp=".s:vlgray ."'"
+    exe "let s:sp_mwhite     = ' guisp=".s:mwhite  ."'"
     exe "let s:sp_dwhite     = ' guisp=".s:dwhite  ."'"
-    exe "let s:sp_white     = ' guisp=".s:white  ."'"
     exe "let s:sp_white     = ' guisp=".s:white  ."'"
     exe "let s:sp_lgray     = ' guisp=".s:lgray  ."'"
     exe "let s:sp_green     = ' guisp=".s:green  ."'"
@@ -240,8 +240,8 @@ else
     let s:sp_dgray    = ""
     let s:sp_mgray    = ""
     let s:sp_vlgray    = ""
+    let s:sp_mwhite     = ""
     let s:sp_dwhite     = ""
-    let s:sp_white     = ""
     let s:sp_white     = ""
     let s:sp_lgray     = ""
     let s:sp_green     = ""
@@ -260,7 +260,7 @@ endif
 " note that link syntax to avoid duplicate configuration doesn't work with the
 " exe compiled formats
 
-exe "hi! Normal"         .s:fmt_none   .s:fg_dwhite  .s:bg_back
+exe "hi! Normal"         .s:fmt_none   .s:fg_mwhite  .s:bg_back
 
 exe "hi! Comment"        .s:fmt_ital   .s:fg_mgray .s:bg_none
 "       *Comment         any comment
@@ -342,7 +342,7 @@ exe "hi! VisualNOS"      .s:fmt_stnd   .s:fg_none   .s:bg_dgray .s:fmt_revbb
 exe "hi! WarningMsg"     .s:fmt_bold   .s:fg_red    .s:bg_none
 exe "hi! WildMenu"       .s:fmt_none   .s:fg_yellow .s:bg_dgray .s:fmt_revbb
 exe "hi! Folded"         .s:fmt_undb   .s:fg_vlgray .s:bg_none .s:sp_back
-exe "hi! FoldColumn"     .s:fmt_none   .s:fg_dwhite .s:bg_dgray
+exe "hi! FoldColumn"     .s:fmt_none   .s:fg_mwhite .s:bg_dgray
 if      (g:scheme_diffmode=="high")
 exe "hi! DiffAdd"        .s:fmt_revr   .s:fg_green  .s:bg_none
 exe "hi! DiffChange"     .s:fmt_revr   .s:fg_yellow .s:bg_none
@@ -366,24 +366,24 @@ exe "hi! DiffDelete"     .s:fmt_none   .s:fg_red    .s:bg_dgray
 exe "hi! DiffText"       .s:fmt_none   .s:fg_blue   .s:bg_dgray .s:sp_blue
     endif
 endif
-exe "hi! SignColumn"     .s:fmt_none   .s:fg_dwhite
+exe "hi! SignColumn"     .s:fmt_none   .s:fg_mwhite
 exe "hi! Conceal"        .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none   .s:sp_red
 exe "hi! SpellCap"       .s:fmt_curl   .s:fg_none   .s:bg_none   .s:sp_violet
 exe "hi! SpellRare"      .s:fmt_curl   .s:fg_none   .s:bg_none   .s:sp_cyan
 exe "hi! SpellLocal"     .s:fmt_curl   .s:fg_none   .s:bg_none   .s:sp_yellow
-exe "hi! Pmenu"          .s:fmt_none   .s:fg_dwhite .s:bg_dgray  .s:fmt_revbb
-exe "hi! PmenuSel"       .s:fmt_none   .s:fg_mgray  .s:bg_white  .s:fmt_revbb
-exe "hi! PmenuSbar"      .s:fmt_none   .s:fg_white  .s:bg_dwhite .s:fmt_revbb
-exe "hi! PmenuThumb"     .s:fmt_none   .s:fg_dwhite .s:bg_back   .s:fmt_revbb
-exe "hi! TabLine"        .s:fmt_undr   .s:fg_dwhite .s:bg_dgray  .s:sp_dwhite
-exe "hi! TabLineFill"    .s:fmt_undr   .s:fg_dwhite .s:bg_dgray  .s:sp_dwhite
-exe "hi! TabLineSel"     .s:fmt_undr   .s:fg_mgray  .s:bg_white  .s:sp_dwhite  .s:fmt_revbbu
+exe "hi! Pmenu"          .s:fmt_none   .s:fg_mwhite .s:bg_dgray  .s:fmt_revbb
+exe "hi! PmenuSel"       .s:fmt_none   .s:fg_mgray  .s:bg_dwhite  .s:fmt_revbb
+exe "hi! PmenuSbar"      .s:fmt_none   .s:fg_dwhite .s:bg_mwhite .s:fmt_revbb
+exe "hi! PmenuThumb"     .s:fmt_none   .s:fg_mwhite .s:bg_back   .s:fmt_revbb
+exe "hi! TabLine"        .s:fmt_undr   .s:fg_mwhite .s:bg_dgray  .s:sp_mwhite
+exe "hi! TabLineFill"    .s:fmt_undr   .s:fg_mwhite .s:bg_dgray  .s:sp_mwhite
+exe "hi! TabLineSel"     .s:fmt_undr   .s:fg_mgray  .s:bg_dwhite  .s:sp_mwhite  .s:fmt_revbbu
 exe "hi! CursorColumn"   .s:fmt_none   .s:fg_none   .s:bg_dgray
 exe "hi! CursorLine"     .s:fmt_uopt   .s:fg_none   .s:bg_dgray  .s:sp_white
 exe "hi! CursorLineNr"   .s:fmt_none   .s:fg_white  .s:bg_none
 exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_dgray
-exe "hi! Cursor"         .s:fmt_none   .s:fg_back   .s:bg_dwhite
+exe "hi! Cursor"         .s:fmt_none   .s:fg_back   .s:bg_mwhite
 hi! link lCursor Cursor
 exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_dgray
 exe "hi! EndOfBuffer"    .s:fmt_none   .s:fg_yellow .s:bg_none
@@ -463,7 +463,7 @@ exe "hi! gitcommitUntrackedFile".s:fmt_bold     .s:fg_cyan      .s:bg_none
 exe "hi! gitcommitDiscardedFile".s:fmt_bold     .s:fg_red       .s:bg_none
 exe "hi! gitcommitSelectedFile" .s:fmt_bold     .s:fg_green     .s:bg_none
 exe "hi! gitcommitUnmergedFile" .s:fmt_bold     .s:fg_yellow    .s:bg_none
-exe "hi! gitcommitFile"         .s:fmt_bold     .s:fg_dwhite     .s:bg_none
+exe "hi! gitcommitFile"         .s:fmt_bold     .s:fg_mwhite     .s:bg_none
 hi! link gitcommitDiscardedArrow gitcommitDiscardedFile
 hi! link gitcommitSelectedArrow  gitcommitSelectedFile
 hi! link gitcommitUnmergedArrow  gitcommitUnmergedFile
@@ -579,7 +579,7 @@ exe "hi! pandocBlockQuoteLeader1"        .s:fg_blue   .s:bg_none   .s:fmt_none
 exe "hi! pandocBlockQuoteLeader2"        .s:fg_cyan   .s:bg_none   .s:fmt_none
 exe "hi! pandocBlockQuoteLeader3"        .s:fg_yellow .s:bg_none   .s:fmt_none
 exe "hi! pandocBlockQuoteLeader4"        .s:fg_red    .s:bg_none   .s:fmt_none
-exe "hi! pandocBlockQuoteLeader5"        .s:fg_dwhite  .s:bg_none   .s:fmt_none
+exe "hi! pandocBlockQuoteLeader5"        .s:fg_mwhite  .s:bg_none   .s:fmt_none
 exe "hi! pandocBlockQuoteLeader6"        .s:fg_mgray .s:bg_none   .s:fmt_none
 exe "hi! pandocListMarker"               .s:fg_magenta.s:bg_none   .s:fmt_none
 exe "hi! pandocListReference"            .s:fg_magenta.s:bg_none   .s:fmt_undr
@@ -657,11 +657,11 @@ exe "hi! pandocCitationRef"              .s:fg_magenta.s:bg_none   .s:fmt_none
 " Main Styles
 " ---------------------------------------------------------------------
 exe "hi! pandocStyleDelim"               .s:fg_mgray .s:bg_none  .s:fmt_none
-exe "hi! pandocEmphasis"                 .s:fg_dwhite  .s:bg_none  .s:fmt_ital
-exe "hi! pandocEmphasisNested"           .s:fg_dwhite  .s:bg_none  .s:fmt_bldi
-exe "hi! pandocStrongEmphasis"           .s:fg_dwhite  .s:bg_none  .s:fmt_bold
-exe "hi! pandocStrongEmphasisNested"     .s:fg_dwhite  .s:bg_none  .s:fmt_bldi
-exe "hi! pandocStrongEmphasisEmphasis"   .s:fg_dwhite  .s:bg_none  .s:fmt_bldi
+exe "hi! pandocEmphasis"                 .s:fg_mwhite  .s:bg_none  .s:fmt_ital
+exe "hi! pandocEmphasisNested"           .s:fg_mwhite  .s:bg_none  .s:fmt_bldi
+exe "hi! pandocStrongEmphasis"           .s:fg_mwhite  .s:bg_none  .s:fmt_bold
+exe "hi! pandocStrongEmphasisNested"     .s:fg_mwhite  .s:bg_none  .s:fmt_bldi
+exe "hi! pandocStrongEmphasisEmphasis"   .s:fg_mwhite  .s:bg_none  .s:fmt_bldi
 exe "hi! pandocStrikeout"                .s:fg_mgray .s:bg_none  .s:fmt_revr
 exe "hi! pandocVerbatimInline"           .s:fg_yellow .s:bg_none  .s:fmt_none
 exe "hi! pandocSuperscript"              .s:fg_violet .s:bg_none  .s:fmt_none
