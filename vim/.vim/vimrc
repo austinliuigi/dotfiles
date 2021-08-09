@@ -19,19 +19,17 @@ set showcmd
 
 colorscheme custom              " use personal colorscheme
 
-set splitright                  " default vert split window to appear on the right
-
-set foldmethod=marker           " use {{{ and }}} to indicate beginning and end of a fold
-
 set hidden						" allow a buffer to load in a window that currently has a modified buffer
 
 set relativenumber				" make line numbers relative to current line
 
 set number						" show line numbers (only shows current line # with relativenumber set)
 
-set showmatch					" show matching symmetric delimiter
+set splitright                  " default vert split window to appear on the right
 
-set scrolloff=5					" num of lines to keep above/below cursor
+set foldmethod=marker           " use {{{ and }}} to indicate beginning and end of a fold
+
+set showmatch					" show matching symmetric delimiter
 
 set wildmenu					" command-line autocomplete bar
 
@@ -40,6 +38,11 @@ set lazyredraw					" be conservative with screen refreshes
 set cursorline                  " highlight line that cursor is on
 
 set linebreak                   " avoid wrapping mid-word
+
+set noshowmode                  " don't show modemsg on cmdline
+
+set tildeop                     " tilde acts like an operator
+
 "set directory=~/tmp
 
 "set backupdir=~/tmp
@@ -47,19 +50,75 @@ set linebreak                   " avoid wrapping mid-word
 
 """ Status Line {{{
 
-""set laststatus=2                " always show status line
-""
-""set statusline=%#search#
-""set statusline+=%{mode(0)}       " current vim mode
-""
-""set statusline+=\ %m            " indicate if buffer has unsaved changes
-""
-""set statusline+=\ %t            " file name
-""
-""let b:currentmode = {
-""    \ 'n' : NORMAL
-""    \ 'i' : INSERT
-""    \ 'v' : VISUAL
+set laststatus=2                                " always show status line
+
+let g:currentmode = {
+    \ 'n' : 'NORMAL',
+    \ 'v' : 'VISUAL',
+    \ 'V' : 'V-LINE',
+    \ "\<C-v>" : 'V-BLOCK',
+    \ 'i' : 'INSERT',
+    \ 'R' : 'REPLACE',
+    \ 's' : 'SELECT',
+    \ 'S' : 'S-LINE',
+    \ "\<C-s>" : 'S-BLOCK'
+\ }
+
+function! Getcurrentmode()
+    return get(g:currentmode, mode())
+endfunction
+
+function! Getfiletype()
+    let l:ftype = &filetype
+    if strlen(ftype) ==? 0
+        return '[UND]'
+    else
+        return '[' . toupper(l:ftype) . ']'
+    endif
+endfunction
+
+function! Getmodified()
+    if &modified
+        return '[+]'
+    else
+        return ''
+    endif
+endfunction
+
+function! StatusLine()
+    if win_getid(winnr()) ==? g:statusline_winid
+        " statusline of active window
+        return '%#User3# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User6#%{Getmodified()}%* %=%#User1# '
+    else                                                                               
+        " statusline of inactive windows
+        return '%#User3# %{Getfiletype()} %#User5# %{Getcurrentmode()} %* %f %#User7#%{Getmodified()}%* %=%#User2# '
+    endif
+endfunction
+
+set statusline=%!StatusLine()
+
+"set statusline=%#User1#
+"
+"set statusline+=\ 
+"
+"set statusline+=%#User3#
+"
+"set statusline+=\ %{Getfiletype()}\             " file name
+"
+"set statusline+=%4*
+"
+"set statusline+=\ %{Getcurrentmode()}\          " current vim mode
+"
+"set statusline+=%*
+"
+"set statusline+=\ %f\                           " file type 
+"
+"set statusline+=%=
+"
+"set statusline+=%#User6#
+"
+"set statusline+=%m                              " indicate if buffer has unsaved changes
+
 "}}}
 
 """ Whitespace"{{{
@@ -89,6 +148,8 @@ set ignorecase                  " default to case insensitive
 """ Mappings{{{
 
 let mapleader = " "
+
+nnoremap <leader>e :vsp .<CR><C-W>H
 
 nnoremap <leader>v :vsp<CR>
 

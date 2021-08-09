@@ -87,7 +87,7 @@ let colors_name = "custom"
 " Set both gui and terminal color values in separate conditional statements
 " Due to possibility that CSApprox is running (though I suppose we could just
 " leave the hex values out entirely in that case and include only cterm colors)
-if (has("gui_running") && g:scheme_degrade == 0)
+if (has("gui_running"))
     let s:vmode       = "gui"
     let s:back        = "#303030" "background
     let s:dgray       = "#3a3a3a" "cursorline
@@ -323,10 +323,18 @@ exe "hi! Todo"           .s:fmt_bold   .s:fg_red    .s:bg_none
 "}}}
 " Extended highlighting "{{{
 " ---------------------------------------------------------------------
+
+exe "hi! User1"          .s:fmt_bold   .s:fg_none   .s:bg_yellow
+exe "hi! User2"          .s:fmt_bold   .s:fg_none   .s:bg_mgray
+exe "hi! User3"          .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
+exe "hi! User4"          .s:fmt_bold   .s:fg_white  .s:bg_cyan
+exe "hi! User5"          .s:fmt_bold   .s:fg_mgray  .s:bg_dwhite
+exe "hi! User6"          .s:fmt_bold   .s:fg_red    .s:bg_white
+exe "hi! User7"          .s:fmt_bold   .s:fg_red    .s:bg_mgray
 exe "hi! SpecialKey"     .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
 exe "hi! NonText"        .s:fmt_bold   .s:fg_vlgray .s:bg_none
-exe "hi! StatusLine"     .s:fmt_none   .s:fg_white  .s:bg_dgray .s:fmt_revbb
-exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_lgray  .s:bg_dgray .s:fmt_revbb
+exe "hi! StatusLine"     .s:fmt_none   .s:fg_white  .s:bg_cyan .s:fmt_revbb
+exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_mgray  .s:bg_dwhite .s:fmt_revbb
 exe "hi! Visual"         .s:fmt_none   .s:fg_mgray  .s:bg_back  .s:fmt_revbb
 exe "hi! Directory"      .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! ErrorMsg"       .s:fmt_revr   .s:fg_red    .s:bg_none
