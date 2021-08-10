@@ -27,11 +27,13 @@ set number						" show line numbers (only shows current line # with relativenumb
 
 set splitright                  " default vert split window to appear on the right
 
-set foldmethod=marker           " use {{{ and }}} to indicate beginning and end of a fold
+set foldmethod=marker           " use triple braces to indicate beginning and end of a fold
 
 set showmatch					" show matching symmetric delimiter
 
 set wildmenu					" command-line autocomplete bar
+
+set scrolloff=5
 
 set lazyredraw					" be conservative with screen refreshes
 
@@ -143,6 +145,12 @@ set incsearch					" search as you type
 set hlsearch					" search highlighting
 
 set ignorecase                  " default to case insensitive
+"}}}
+
+""" NetRW {{{
+
+let g:netrw_liststyle=3
+
 "}}}
 
 """ Mappings{{{
