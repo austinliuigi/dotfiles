@@ -2,6 +2,7 @@
 "Author: Austin Liu
 "Date Created: July 2020
 "Date Modified: August 5, 2020
+
 """Essentials"{{{
 
 syntax on						" enable syntax highlighting
@@ -16,6 +17,8 @@ set showcmd
 "}}}
 
 """Niceties"{{{
+
+let g:scheme_termtrans=1
 
 colorscheme custom              " use personal colorscheme
 
@@ -44,6 +47,8 @@ set linebreak                   " avoid wrapping mid-word
 set noshowmode                  " don't show modemsg on cmdline
 
 set tildeop                     " tilde acts like an operator
+
+set guifont=Consolas:h10
 
 "set directory=~/tmp
 
