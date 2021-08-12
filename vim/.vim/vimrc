@@ -48,7 +48,7 @@ set noshowmode                  " don't show modemsg on cmdline
 
 set tildeop                     " tilde acts like an operator
 
-set guifont=Consolas:h10
+set guifont=Cascadia_Mono:h11
 
 "set directory=~/tmp
 
