@@ -98,13 +98,13 @@ if (has("gui_running"))
     let s:mwhite      = "#eeeeee" "primary text
     let s:white       = "#ffffff" "emphasized text
     let s:yellow      = "#d7af00"
-    let s:green      = "#afaf00"
+    let s:green       = "#afaf00"
     let s:red         = "#af5f5f"
     let s:magenta     = "#d7afaf"
     let s:violet      = "#afafff"
     let s:blue        = "#afd7d7"
     let s:cyan        = "#87afaf"
-    let s:ygreen       = "#d7d75f" 
+    let s:ygreen      = "#d7d75f" 
 else
     let s:vmode       = "cterm"
     let s:back        = "236" "background
@@ -116,13 +116,13 @@ else
     let s:mwhite      = "255" "primary text
     let s:white       = "231" "emphasized text
     let s:yellow      = "178"
-    let s:green      = "142"
+    let s:green       = "142"
     let s:red         = "131"
     let s:magenta     = "181"
     let s:violet      = "147"
     let s:blue        = "152"
     let s:cyan        = "109"
-    let s:ygreen       = "185"
+    let s:ygreen      = "185"
 endif
 "}}}
 " Formatting options and null values for passthrough effect "{{{
@@ -341,6 +341,8 @@ exe "hi! User1"          .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
 exe "hi! User2"          .s:fmt_bold   .s:fg_white  .s:bg_cyan
 exe "hi! User3"          .s:fmt_bold   .s:fg_white  .s:bg_yellow
 exe "hi! User4"          .s:fmt_bold   .s:fg_dgray  .s:bg_mgray
+exe "hi! User5"          .s:fmt_bold   .s:fg_white  .s:bg_red
+exe "hi! User6"          .s:fmt_bold   .s:fg_white  .s:bg_green
 exe "hi! User7"          .s:fmt_bold   .s:fg_mgray  .s:bg_dwhite
 exe "hi! User8"          .s:fmt_bold   .s:fg_red    .s:bg_white
 exe "hi! User9"          .s:fmt_bold   .s:fg_red    .s:bg_mgray
