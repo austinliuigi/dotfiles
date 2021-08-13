@@ -3,7 +3,7 @@
 "Date Created: July 2020
 "Date Modified: August 5, 2020
 
-"""Options {{{
+""" Options {{{
 
 " Boiler Plate
 
@@ -88,6 +88,11 @@ set guioptions-=r               " remove scrollbar in gvim
 "set backupdir=~/tmp
 
 "}}}
+""" NetRW {{{
+
+let g:netrw_liststyle=3     " Tree-Style Listing
+
+"}}}
 """ Status Line {{{
 
 set laststatus=2                                " always show status line
@@ -109,14 +114,16 @@ function! Getcurrentmode()
     return get(g:currentmode, mode())
 endfunction
 
+
 function! Getfiletype()
     let l:ftype = &filetype
     if strlen(ftype) ==? 0
-        return '[UND]'
+        return '[UNDEFINED]'
     else
         return '[' . toupper(l:ftype) . ']'
     endif
 endfunction
+
 
 function! Getmodified()
     if &modified
@@ -126,44 +133,32 @@ function! Getmodified()
     endif
 endfunction
 
+
 function! StatusLine()
     if win_getid(winnr()) ==? g:statusline_winid
-        " statusline of active window
-        return '%#User3# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User6#%{Getmodified()}%* %=%#User1# '
+        if mode() ==? 'n'
+            " set statusline highlight group
+            hi! StatusLine cterm=NONE ctermfg=109 ctermbg=231 gui=NONE guifg=#87afaf guibg=#ffffff 
+            " statusline of active window in normal or command mode
+            return '%#User1# %{Getfiletype()} %#User2# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
+        elseif mode() ==? 'i' || mode() ==? 'r' 
+            " set statusline highlight group
+            hi! StatusLine cterm=NONE ctermfg=178 ctermbg=231 gui=NONE guifg=#d7af00 guibg=#ffffff 
+            " statusline of active window in insert or replace modes
+            return '%#User1# %{Getfiletype()} %#User3# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
+        elseif mode() ==? 'v' || mode() ==? 's'
+            " set statusline highlight group
+            hi! StatusLine cterm=NONE ctermfg=247 ctermbg=231 gui=NONE guifg=#9e9e9e guibg=#ffffff 
+            " statusline of active window in visual or select modes
+            return '%#User1# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
+        endif
     else                                                                               
         " statusline of inactive windows
-        return '%#User3# %{Getfiletype()} %#User5# %{Getcurrentmode()} %* %f %#User7#%{Getmodified()}%* %=%#User2# '
+        return '%#User1# %{Getfiletype()} %#User7# %{Getcurrentmode()} %* %f %#User9#%{Getmodified()}'
     endif
 endfunction
 
 set statusline=%!StatusLine()
-
-"set statusline=%#User1#
-"
-"set statusline+=\ 
-"
-"set statusline+=%#User3#
-"
-"set statusline+=\ %{Getfiletype()}\             " file name
-"
-"set statusline+=%4*
-"
-"set statusline+=\ %{Getcurrentmode()}\          " current vim mode
-"
-"set statusline+=%*
-"
-"set statusline+=\ %f\                           " file type 
-"
-"set statusline+=%=
-"
-"set statusline+=%#User6#
-"
-"set statusline+=%m                              " indicate if buffer has unsaved changes
-
-"}}}
-""" NetRW {{{
-
-let g:netrw_liststyle=3
 
 "}}}
 """ Mappings{{{
@@ -179,4 +174,5 @@ nnoremap <leader>h :nohl<CR>
 nnoremap <leader>n :set relativenumber!<CR>
 
 nnoremap <space> <nop>
+
 "}}}

@@ -337,13 +337,13 @@ exe "hi! Todo"           .s:fmt_bold   .s:fg_red    .s:bg_none
 " Extended highlighting "{{{
 " ---------------------------------------------------------------------
 
-exe "hi! User1"          .s:fmt_bold   .s:fg_none   .s:bg_yellow
-exe "hi! User2"          .s:fmt_bold   .s:fg_none   .s:bg_mgray
-exe "hi! User3"          .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
-exe "hi! User4"          .s:fmt_bold   .s:fg_white  .s:bg_cyan
-exe "hi! User5"          .s:fmt_bold   .s:fg_mgray  .s:bg_dwhite
-exe "hi! User6"          .s:fmt_bold   .s:fg_red    .s:bg_white
-exe "hi! User7"          .s:fmt_bold   .s:fg_red    .s:bg_mgray
+exe "hi! User1"          .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
+exe "hi! User2"          .s:fmt_bold   .s:fg_white  .s:bg_cyan
+exe "hi! User3"          .s:fmt_bold   .s:fg_white  .s:bg_yellow
+exe "hi! User4"          .s:fmt_bold   .s:fg_dgray  .s:bg_mgray
+exe "hi! User7"          .s:fmt_bold   .s:fg_mgray  .s:bg_dwhite
+exe "hi! User8"          .s:fmt_bold   .s:fg_red    .s:bg_white
+exe "hi! User9"          .s:fmt_bold   .s:fg_red    .s:bg_mgray
 exe "hi! SpecialKey"     .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
 exe "hi! NonText"        .s:fmt_bold   .s:fg_vlgray .s:bg_none
 exe "hi! StatusLine"     .s:fmt_none   .s:fg_white  .s:bg_cyan .s:fmt_revbb
