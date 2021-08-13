@@ -3,7 +3,9 @@
 "Date Created: July 2020
 "Date Modified: August 5, 2020
 
-"""Essentials"{{{
+"""Options {{{
+
+" Boiler Plate
 
 syntax on						" enable syntax highlighting
 
@@ -14,11 +16,32 @@ set encoding=utf-8				" character encoding format
 set backspace=start,eol,indent	" better backspace in insert mode
 
 set showcmd
-"}}}
 
-"""Niceties"{{{
+" Whitespace
 
-let g:scheme_termtrans=1
+set tabstop=4					" length of <tab> when it is displayed
+
+set softtabstop=4				" length of <tab> (& respective <bksp>) when you type it
+
+set shiftwidth=4				" indent length
+
+set expandtab					" tab will act as spaces (makes its length consistent across all platforms)
+
+set autoindent					" indent to the previous line's indent level
+
+set smartindent					" indent based on c syntax
+
+" Searching
+
+set incsearch					" search as you type
+
+set hlsearch					" search highlighting
+
+set ignorecase                  " default to case insensitive
+
+" Personal Preferences
+
+let g:scheme_termtrans=1        " make colorscheme bg transparent by default
 
 colorscheme custom              " use personal colorscheme
 
@@ -32,29 +55,39 @@ set splitright                  " default vert split window to appear on the rig
 
 set foldmethod=marker           " use triple braces to indicate beginning and end of a fold
 
-set showmatch					" show matching symmetric delimiter
-
 set wildmenu					" command-line autocomplete bar
 
-set scrolloff=5
-
-set lazyredraw					" be conservative with screen refreshes
-
-set cursorline                  " highlight line that cursor is on
-
-set linebreak                   " avoid wrapping mid-word
-
-set noshowmode                  " don't show modemsg on cmdline
+set scrolloff=5                 " set number of lines to keep above/below cursor
 
 set tildeop                     " tilde acts like an operator
 
-set guifont=Cascadia_Mono:h11
+set cursorline                  " highlight line that cursor is on
+
+set noshowmode                  " don't show modemsg on cmdline
+
+set showmatch					" show matching symmetric delimiter
+
+set linebreak                   " avoid wrapping mid-word
+
+set lazyredraw					" be conservative with screen refreshes
+
+" GUI
+
+set guifont=Cascadia_Mono:h11   " set gvim font & font size
+
+set guioptions-=m               " remove menu in gvim
+
+set guioptions-=T               " remove toolbar in gvim
+
+set guioptions-=r               " remove scrollbar in gvim
+
+" Backup Files
 
 "set directory=~/tmp
 
 "set backupdir=~/tmp
-"}}}
 
+"}}}
 """ Status Line {{{
 
 set laststatus=2                                " always show status line
@@ -68,7 +101,8 @@ let g:currentmode = {
     \ 'R' : 'REPLACE',
     \ 's' : 'SELECT',
     \ 'S' : 'S-LINE',
-    \ "\<C-s>" : 'S-BLOCK'
+    \ "\<C-s>" : 'S-BLOCK',
+    \ 'c' : 'COMMAND'
 \ }
 
 function! Getcurrentmode()
@@ -127,37 +161,11 @@ set statusline=%!StatusLine()
 "set statusline+=%m                              " indicate if buffer has unsaved changes
 
 "}}}
-
-""" Whitespace"{{{
-
-set tabstop=4					" length of <tab> when it is displayed
-
-set softtabstop=4				" length of <tab> (& respective <bksp>) when you type it
-
-set shiftwidth=4				" indent length
-
-set expandtab					" tab will act as spaces (makes its length consistent across all platforms)
-
-set autoindent					" indent to the previous line's indent level
-
-set smartindent					" indent based on c syntax
-"}}}
-
-""" Searching"{{{
-
-set incsearch					" search as you type
-
-set hlsearch					" search highlighting
-
-set ignorecase                  " default to case insensitive
-"}}}
-
 """ NetRW {{{
 
 let g:netrw_liststyle=3
 
 "}}}
-
 """ Mappings{{{
 
 let mapleader = " "
