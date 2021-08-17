@@ -1,7 +1,7 @@
 " Name:     Custom Color Scheme
 " Author:   Austin Liu
 " Created:  July 30, 2021
-" Modified: July 30, 2021
+" Modified: August 17, 2021
 "
 " Resources "{{{
 "
@@ -91,6 +91,7 @@ if (has("gui_running"))
     let s:vmode       = "gui"
     let s:back        = "#303030" "background
     let s:dgray       = "#3a3a3a" "cursorline
+    let s:mdgray      = "#585858" "listchars
     let s:mgray       = "#9e9e9e" "comments
     let s:lgray       = "#a8a8a8" "statusline inactive
     let s:vlgray      = "#dadada"
@@ -109,6 +110,7 @@ else
     let s:vmode       = "cterm"
     let s:back        = "236" "background
     let s:dgray       = "237" "cursorline
+    let s:mdgray      = "240" "listchars
     let s:mgray       = "247" "comments
     let s:lgray       = "248" "statusline inactive
     let s:vlgray      = "253"
@@ -143,7 +145,7 @@ if (has("gui_running") || g:scheme_termtrans == 0)
     let s:backtp        = s:back
 else
     let s:backtp        = "NONE"
-    let s:dgray         = "238"
+    let s:dgray         = "236"
 endif
 "}}}
 " Overrides dependent on user specified values and environment "{{{
@@ -162,7 +164,7 @@ else
     let s:u           = ",underline"
 endif
 
-if g:scheme_italic == 0 || s:terminal_italic == 0
+if g:scheme_italic == 0 " || s:terminal_italic == 0
     let s:i           = ""
 else
     let s:i           = ",italic"
@@ -175,15 +177,16 @@ exe "let s:bg_none      = ' ".s:vmode."bg=".s:none   ."'"
 exe "let s:bg_backtp    = ' ".s:vmode."bg=".s:backtp ."'"
 exe "let s:bg_back      = ' ".s:vmode."bg=".s:back ."'"
 exe "let s:bg_dgray     = ' ".s:vmode."bg=".s:dgray ."'"
+exe "let s:bg_mdgray    = ' ".s:vmode."bg=".s:mdgray ."'"
 exe "let s:bg_mgray     = ' ".s:vmode."bg=".s:mgray ."'"
 exe "let s:bg_vlgray    = ' ".s:vmode."bg=".s:vlgray ."'"
 exe "let s:bg_mwhite    = ' ".s:vmode."bg=".s:mwhite  ."'"
-exe "let s:bg_dwhite     = ' ".s:vmode."bg=".s:dwhite  ."'"
+exe "let s:bg_dwhite    = ' ".s:vmode."bg=".s:dwhite  ."'"
 exe "let s:bg_white     = ' ".s:vmode."bg=".s:white  ."'"
 exe "let s:bg_lgray     = ' ".s:vmode."bg=".s:lgray  ."'"
-exe "let s:bg_ygreen     = ' ".s:vmode."bg=".s:ygreen  ."'"
+exe "let s:bg_ygreen    = ' ".s:vmode."bg=".s:ygreen  ."'"
 exe "let s:bg_yellow    = ' ".s:vmode."bg=".s:yellow ."'"
-exe "let s:bg_green    = ' ".s:vmode."bg=".s:green ."'"
+exe "let s:bg_green     = ' ".s:vmode."bg=".s:green ."'"
 exe "let s:bg_red       = ' ".s:vmode."bg=".s:red    ."'"
 exe "let s:bg_magenta   = ' ".s:vmode."bg=".s:magenta."'"
 exe "let s:bg_violet    = ' ".s:vmode."bg=".s:violet ."'"
@@ -194,6 +197,7 @@ exe "let s:fg_none      = ' ".s:vmode."fg=".s:none   ."'"
 exe "let s:fg_backtp    = ' ".s:vmode."fg=".s:backtp ."'"
 exe "let s:fg_back      = ' ".s:vmode."fg=".s:back ."'"
 exe "let s:fg_dgray     = ' ".s:vmode."fg=".s:dgray ."'"
+exe "let s:fg_mdgray     = ' ".s:vmode."fg=".s:mdgray ."'"
 exe "let s:fg_mgray     = ' ".s:vmode."fg=".s:mgray ."'"
 exe "let s:fg_vlgray    = ' ".s:vmode."fg=".s:vlgray ."'"
 exe "let s:fg_mwhite    = ' ".s:vmode."fg=".s:mwhite  ."'"
@@ -211,10 +215,10 @@ exe "let s:fg_cyan      = ' ".s:vmode."fg=".s:cyan   ."'"
 
 exe "let s:fmt_none     = ' ".s:vmode."=NONE".          " term=NONE".    "'"
 exe "let s:fmt_bold     = ' ".s:vmode."=NONE".s:b.      " term=NONE".s:b."'"
-exe "let s:fmt_bldi     = ' ".s:vmode."=NONE".s:b.      " term=NONE".s:b."'"
+exe "let s:fmt_bldi     = ' ".s:vmode."=NONE".s:b.s:i.  " term=NONE".s:b.s:i."'"
 exe "let s:fmt_undr     = ' ".s:vmode."=NONE".s:u.      " term=NONE".s:u."'"
 exe "let s:fmt_undb     = ' ".s:vmode."=NONE".s:u.s:b.  " term=NONE".s:u.s:b."'"
-exe "let s:fmt_undi     = ' ".s:vmode."=NONE".s:u.      " term=NONE".s:u."'"
+exe "let s:fmt_undi     = ' ".s:vmode."=NONE".s:u.s:i.  " term=NONE".s:u.s:i."'"
 exe "let s:fmt_uopt     = ' ".s:vmode."=NONE".s:ou.     " term=NONE".s:ou."'"
 exe "let s:fmt_curl     = ' ".s:vmode."=NONE".s:c.      " term=NONE".s:c."'"
 exe "let s:fmt_ital     = ' ".s:vmode."=NONE".s:i.      " term=NONE".s:i."'"
@@ -232,6 +236,7 @@ if has("gui_running")
     exe "let s:sp_backtp    = ' guisp=".s:backtp ."'"
     exe "let s:sp_back      = ' guisp=".s:back ."'"
     exe "let s:sp_dgray     = ' guisp=".s:dgray ."'"
+    exe "let s:sp_mdgray     = ' guisp=".s:mdgray ."'"
     exe "let s:sp_mgray     = ' guisp=".s:mgray ."'"
     exe "let s:sp_vlgray    = ' guisp=".s:vlgray ."'"
     exe "let s:sp_mwhite    = ' guisp=".s:mwhite  ."'"
@@ -251,6 +256,7 @@ else
     let s:sp_backtp    = ""
     let s:sp_back      = ""
     let s:sp_dgray     = ""
+    let s:sp_mdgray     = ""
     let s:sp_mgray     = ""
     let s:sp_vlgray    = ""
     let s:sp_mwhite    = ""
@@ -346,8 +352,8 @@ exe "hi! User6"          .s:fmt_bold   .s:fg_white  .s:bg_green
 exe "hi! User7"          .s:fmt_bold   .s:fg_mgray  .s:bg_dwhite
 exe "hi! User8"          .s:fmt_bold   .s:fg_red    .s:bg_white
 exe "hi! User9"          .s:fmt_bold   .s:fg_red    .s:bg_mgray
-exe "hi! SpecialKey"     .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
-exe "hi! NonText"        .s:fmt_bold   .s:fg_vlgray .s:bg_none
+exe "hi! SpecialKey"     .s:fmt_bold   .s:fg_mdgray  .s:bg_none
+exe "hi! NonText"        .s:fmt_bold   .s:fg_mdgray  .s:bg_none
 exe "hi! StatusLine"     .s:fmt_none   .s:fg_white  .s:bg_cyan .s:fmt_revbb
 exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_mgray  .s:bg_dwhite .s:fmt_revbb
 exe "hi! Visual"         .s:fmt_none   .s:fg_mgray  .s:bg_back  .s:fmt_revbb
@@ -584,6 +590,40 @@ hi! link hsModuleWhereLabel  hsModuleStartLabel
 exe "hi! hsNiceOperator"     . s:fg_cyan   .s:bg_none   .s:fmt_none
 exe "hi! hsniceoperator"     . s:fg_cyan   .s:bg_none   .s:fmt_none
 
+"}}}
+" Markdown Highlighting"{{{
+" exe "hi! markdownAutomaticLink"
+" exe "hi! markdownBlockQuote"
+exe "hi! markdownBold"                  . s:fmt_bold    .s:fg_none      .s:bg_none
+exe "hi! markdownBoldDelimiter"         . s:fmt_bold    .s:fg_violet   .s:bg_none
+exe "hi! markdownBoldItalic"            . s:fmt_bldi    .s:fg_none      .s:bg_none
+exe "hi! markdownBoldItalicDelimiter"   . s:fmt_bldi    .s:fg_violet      .s:bg_none
+" exe "hi! markdownCodeDelimiter"
+" exe "hi! markdownError"
+" exe "hi! markdownEscape"
+" exe "hi! markdownFootnote"
+" exe "hi! markdownFootnoteDefinition"
+exe "hi! markdownH1"                    . s:fmt_bold    .s:fg_yellow    .s:bg_none
+exe "hi! markdownH2"                    . s:fmt_bold    .s:fg_ygreen    .s:bg_none
+hi! link markdownH3 markdownH2
+hi! link markdownH4 markdownH2
+hi! link markdownH5 markdownH2
+hi! link markdownH6 markdownH2
+exe "hi! markdownHeadingDelimiter"      . s:fmt_bold    .s:fg_magenta    .s:bg_none
+" exe "hi! markdownHeadingRule"
+" exe "hi! markdownId"
+" exe "hi! markdownIdDeclaration"
+" exe "hi! markdownIdDelimiter"
+exe "hi! markdownItalic"                . s:fmt_ital    .s:fg_none      .s:bg_none
+exe "hi! markdownItalicDelimiter"       . s:fmt_ital    .s:fg_violet    .s:bg_none
+" exe "hi! markdownLinkText"
+exe "hi! markdownListMarker"            . s:fmt_none    .s:fg_blue      .s:bg_none
+hi! link markdownOrderedListMarker markdownListMarker
+" exe "hi! markdownRule"
+" exe "hi! markdownUrl"
+" exe "hi! markdownUrlDelimiter"
+" exe "hi! markdownUrlTitle"
+" exe "hi! markdownUrlTitleDelimiter"
 "}}}
 " pandoc markdown syntax highlighting "{{{
 " ---------------------------------------------------------------------

@@ -7,35 +7,39 @@
 
 " Boiler Plate
 
-syntax on						" enable syntax highlighting
+syntax on                       " enable syntax highlighting
 
-filetype plugin indent on		" enable filetype detection, execute filetype-specific ex commands local to the local buffer, and load the indent file for the detected filetype
+filetype plugin indent on       " enable filetype detection, execute filetype-specific ex commands local to the local buffer, and load the indent file for the detected filetype
 
-set encoding=utf-8				" character encoding format
+set encoding=utf-8              " character encoding format
 
-set backspace=start,eol,indent	" better backspace in insert mode
+set backspace=start,eol,indent  " better backspace in insert mode
 
 set showcmd
 
 " Whitespace
 
-set tabstop=4					" length of <tab> when it is displayed
+set tabstop=4                   " length of <tab> when it is displayed
 
-set softtabstop=4				" length of <tab> (& respective <bksp>) when you type it
+set softtabstop=4               " length of <tab> (& respective <bksp>) when you type it
 
-set shiftwidth=4				" indent length
+set shiftwidth=4                " indent length
 
-set expandtab					" tab will act as spaces (makes its length consistent across all platforms)
+set expandtab                   " tab will act as spaces (makes its length consistent across all platforms)
 
-set autoindent					" indent to the previous line's indent level
+set autoindent                  " indent to the previous line's indent level
 
-set smartindent					" indent based on c syntax
+set smartindent                 " indent based on c syntax
+
+set list                        " show whitespace characters
+
+set listchars=tab:▸\ ,eol:¬     " set whitespace characters
 
 " Searching
 
-set incsearch					" search as you type
+set incsearch                   " search as you type
 
-set hlsearch					" search highlighting
+set hlsearch                    " search highlighting
 
 set ignorecase                  " default to case insensitive
 
@@ -45,17 +49,17 @@ let g:scheme_termtrans=1        " make colorscheme bg transparent by default
 
 colorscheme custom              " use personal colorscheme
 
-set hidden						" allow a buffer to load in a window that currently has a modified buffer
+set hidden                      " allow a buffer to load in a window that currently has a modified buffer
 
-set relativenumber				" make line numbers relative to current line
+set relativenumber              " make line numbers relative to current line
 
-set number						" show line numbers (only shows current line # with relativenumber set)
+set number                      " show line numbers (only shows current line # with relativenumber set)
 
 set splitright                  " default vert split window to appear on the right
 
 set foldmethod=marker           " use triple braces to indicate beginning and end of a fold
 
-set wildmenu					" command-line autocomplete bar
+set wildmenu                    " command-line autocomplete bar
 
 set scrolloff=5                 " set number of lines to keep above/below cursor
 
@@ -65,11 +69,11 @@ set cursorline                  " highlight line that cursor is on
 
 set noshowmode                  " don't show modemsg on cmdline
 
-set showmatch					" show matching symmetric delimiter
+set showmatch                   " show matching symmetric delimiter
 
 set linebreak                   " avoid wrapping mid-word
 
-set lazyredraw					" be conservative with screen refreshes
+set lazyredraw                  " be conservative with screen refreshes
 
 " GUI
 
@@ -137,7 +141,7 @@ endfunction
 
 function! StatusLine()
     if win_getid(winnr()) ==? g:statusline_winid
-        if mode() ==? 'n'
+        if mode() ==? 'n' || mode() ==? 'c'
             " set statusline highlight group
             hi! StatusLine cterm=NONE ctermfg=109 ctermbg=231 gui=NONE guifg=#87afaf guibg=#ffffff 
             " statusline of active window in normal or command mode
@@ -152,11 +156,11 @@ function! StatusLine()
             hi! StatusLine cterm=NONE ctermfg=247 ctermbg=231 gui=NONE guifg=#9e9e9e guibg=#ffffff 
             " statusline of active window in visual or select modes
             return '%#User1# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
-        elseif mode() ==? 'c'
-            " set statusline highlight group
-            hi! StatusLine cterm=NONE ctermfg=131 ctermbg=231 gui=NONE guifg=#af5f5f guibg=#ffffff 
-            " statusline of active window in command mode
-            return '%#User1# %{Getfiletype()} %#User5# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
+        " elseif mode() ==? 'c'
+        "     " set statusline highlight group
+        "     hi! StatusLine cterm=NONE ctermfg=131 ctermbg=231 gui=NONE guifg=#af5f5f guibg=#ffffff 
+        "     " statusline of active window in command mode
+        "     return '%#User1# %{Getfiletype()} %#User5# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
         elseif mode() ==? 't'
             " set statusline highlight group
             hi! StatusLine cterm=NONE ctermfg=142 ctermbg=231 gui=NONE guifg=#afaf00 guibg=#ffffff 
@@ -178,11 +182,13 @@ let mapleader = " "
 
 nnoremap <leader>e :vsp .<CR><C-W>H
 
-nnoremap <leader>v :vsp<CR>
-
 nnoremap <leader>h :nohl<CR>
 
+nnoremap <leader>l :set list!<CR>
+
 nnoremap <leader>n :set relativenumber!<CR>
+
+nnoremap <leader>v :vsp<CR>
 
 nnoremap <space> <nop>
 
