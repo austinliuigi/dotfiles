@@ -61,7 +61,7 @@ set foldmethod=marker           " use triple braces to indicate beginning and en
 
 set wildmenu                    " command-line autocomplete bar
 
-set scrolloff=5                 " set number of lines to keep above/below cursor
+set scrolloff=3                 " set number of lines to keep above/below cursor
 
 set tildeop                     " tilde acts like an operator
 
@@ -71,13 +71,11 @@ set noshowmode                  " don't show modemsg on cmdline
 
 set showmatch                   " show matching symmetric delimiter
 
-set linebreak                   " avoid wrapping mid-word
-
 set lazyredraw                  " be conservative with screen refreshes
 
 " GUI
 
-set guifont=Cascadia_Mono:h11   " set gvim font & font size
+set guifont=Source_Code_Pro_Medium:h10:b,Fixedsys:h10:b   " set gvim font & font size
 
 set guioptions-=m               " remove menu in gvim
 
@@ -162,10 +160,11 @@ function! StatusLine()
         "     " statusline of active window in command mode
         "     return '%#User1# %{Getfiletype()} %#User5# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
         elseif mode() ==? 't'
-            " set statusline highlight group
-            hi! StatusLine cterm=NONE ctermfg=142 ctermbg=231 gui=NONE guifg=#afaf00 guibg=#ffffff 
-            " statusline of active window in command mode
-            return '%#User1# %{Getfiletype()} %#User6# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
+            " " set statusline highlight group
+            " hi! StatusLine cterm=NONE ctermfg=142 ctermbg=231 gui=NONE guifg=#afaf00 guibg=#ffffff 
+            "
+            " statusline of active window in terminal mode
+            return '%#User1# %{Getfiletype()} %#User6# %{Getcurrentmode()} %* %f '
         endif
     else                                                                               
         " statusline of inactive windows
@@ -180,7 +179,7 @@ set statusline=%!StatusLine()
 
 let mapleader = " "
 
-nnoremap <leader>e :vsp .<CR><C-W>H
+nnoremap <leader>e :vsp .<CR><C-W>L
 
 nnoremap <leader>h :nohl<CR>
 
@@ -191,5 +190,7 @@ nnoremap <leader>n :set relativenumber!<CR>
 nnoremap <leader>v :vsp<CR>
 
 nnoremap <space> <nop>
+
+nnoremap Y y$
 
 "}}}

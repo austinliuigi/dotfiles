@@ -89,23 +89,23 @@ let colors_name = "custom"
 " leave the hex values out entirely in that case and include only cterm colors)
 if (has("gui_running"))
     let s:vmode       = "gui"
-    let s:back        = "#303030" "background
-    let s:dgray       = "#3a3a3a" "cursorline
+    let s:back        = "#2b303b" "background
+    let s:dgray       = "#343d46" "cursorline
     let s:mdgray      = "#585858" "listchars
-    let s:mgray       = "#9e9e9e" "comments
-    let s:lgray       = "#a8a8a8" "statusline inactive
-    let s:vlgray      = "#dadada"
-    let s:dwhite      = "#e4e4e4" "statusline active
-    let s:mwhite      = "#eeeeee" "primary text
-    let s:white       = "#ffffff" "emphasized text
-    let s:yellow      = "#d7af00"
-    let s:green       = "#afaf00"
-    let s:red         = "#af5f5f"
-    let s:magenta     = "#d7afaf"
-    let s:violet      = "#afafff"
-    let s:blue        = "#afd7d7"
-    let s:cyan        = "#87afaf"
-    let s:ygreen      = "#d7d75f" 
+    let s:mgray       = "#4f5b66" "comments
+    let s:lgray       = "#65737e" "statusline inactive
+    let s:vlgray      = "#a7adba"
+    let s:dwhite      = "#c0c5ce" "statusline active
+    let s:mwhite      = "#dfe1e8" "primary text
+    let s:white       = "#eff1f5" "emphasized text
+    let s:yellow      = "#ebcb8b"
+    let s:green       = "#a3be8c"
+    let s:red         = "#bf616a"
+    let s:magenta     = "#ab7967"
+    let s:violet      = "#b48ead"
+    let s:blue        = "#96b5b4"
+    let s:cyan        = "#8fa1b3"
+    let s:ygreen      = "#d08770" 
 else
     let s:vmode       = "cterm"
     let s:back        = "236" "background
@@ -117,14 +117,14 @@ else
     let s:dwhite      = "254" "statusline active
     let s:mwhite      = "255" "primary text
     let s:white       = "231" "emphasized text
-    let s:yellow      = "178"
-    let s:green       = "142"
-    let s:red         = "131"
-    let s:magenta     = "181"
-    let s:violet      = "147"
-    let s:blue        = "152"
+    let s:yellow      = "178" "type
+    let s:green       = "142" "preproc
+    let s:red         = "131" "special
+    let s:magenta     = "181" "constant
+    let s:violet      = "147" "underlined
+    let s:blue        = "152" "identifier
     let s:cyan        = "109"
-    let s:ygreen      = "185"
+    let s:ygreen      = "185" "statement
 endif
 "}}}
 " Formatting options and null values for passthrough effect "{{{
@@ -356,6 +356,8 @@ exe "hi! SpecialKey"     .s:fmt_bold   .s:fg_mdgray  .s:bg_none
 exe "hi! NonText"        .s:fmt_bold   .s:fg_mdgray  .s:bg_none
 exe "hi! StatusLine"     .s:fmt_none   .s:fg_white  .s:bg_cyan .s:fmt_revbb
 exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_mgray  .s:bg_dwhite .s:fmt_revbb
+exe "hi! StatusLineTerm" .s:fmt_none   .s:fg_white  .s:bg_green .s:fmt_revbb
+hi! link StatusLineTermNC StatusLineNC
 exe "hi! Visual"         .s:fmt_none   .s:fg_mgray  .s:bg_back  .s:fmt_revbb
 exe "hi! Directory"      .s:fmt_none   .s:fg_blue   .s:bg_none
 exe "hi! ErrorMsg"       .s:fmt_revr   .s:fg_red    .s:bg_none
@@ -414,7 +416,7 @@ exe "hi! CursorLineNr"   .s:fmt_none   .s:fg_white  .s:bg_none
 exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_dgray
 exe "hi! Cursor"         .s:fmt_none   .s:fg_back   .s:bg_mwhite
 hi! link lCursor Cursor
-exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_dgray
+exe "hi! MatchParen"     .s:fmt_bold   .s:fg_violet .s:bg_none
 exe "hi! EndOfBuffer"    .s:fmt_none   .s:fg_yellow .s:bg_none
 
 "}}}
@@ -594,17 +596,17 @@ exe "hi! hsniceoperator"     . s:fg_cyan   .s:bg_none   .s:fmt_none
 " Markdown Highlighting"{{{
 " exe "hi! markdownAutomaticLink"
 " exe "hi! markdownBlockQuote"
-exe "hi! markdownBold"                  . s:fmt_bold    .s:fg_none      .s:bg_none
-exe "hi! markdownBoldDelimiter"         . s:fmt_bold    .s:fg_violet   .s:bg_none
-exe "hi! markdownBoldItalic"            . s:fmt_bldi    .s:fg_none      .s:bg_none
-exe "hi! markdownBoldItalicDelimiter"   . s:fmt_bldi    .s:fg_violet      .s:bg_none
+exe "hi! markdownBold"                  . s:fmt_bold    .s:fg_none       .s:bg_none
+exe "hi! markdownBoldDelimiter"         . s:fmt_bold    .s:fg_violet     .s:bg_none
+exe "hi! markdownBoldItalic"            . s:fmt_bldi    .s:fg_none       .s:bg_none
+exe "hi! markdownBoldItalicDelimiter"   . s:fmt_bldi    .s:fg_violet     .s:bg_none
 " exe "hi! markdownCodeDelimiter"
 " exe "hi! markdownError"
 " exe "hi! markdownEscape"
 " exe "hi! markdownFootnote"
 " exe "hi! markdownFootnoteDefinition"
-exe "hi! markdownH1"                    . s:fmt_bold    .s:fg_yellow    .s:bg_none
-exe "hi! markdownH2"                    . s:fmt_bold    .s:fg_ygreen    .s:bg_none
+exe "hi! markdownH1"                    . s:fmt_bold    .s:fg_cyan       .s:bg_none
+exe "hi! markdownH2"                    . s:fmt_bold    .s:fg_ygreen     .s:bg_none
 hi! link markdownH3 markdownH2
 hi! link markdownH4 markdownH2
 hi! link markdownH5 markdownH2
