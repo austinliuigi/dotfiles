@@ -343,7 +343,7 @@ exe "hi! Todo"           .s:fmt_bold   .s:fg_red    .s:bg_none
 " Extended highlighting "{{{
 " ---------------------------------------------------------------------
 
-exe "hi! User1"          .s:fmt_bold   .s:fg_vlgray .s:bg_dgray
+exe "hi! User1"          .s:fmt_bold   .s:fg_dwhite .s:bg_mdgray
 exe "hi! User2"          .s:fmt_bold   .s:fg_white  .s:bg_cyan
 exe "hi! User3"          .s:fmt_bold   .s:fg_white  .s:bg_yellow
 exe "hi! User4"          .s:fmt_bold   .s:fg_dgray  .s:bg_mgray

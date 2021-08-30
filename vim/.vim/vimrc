@@ -85,9 +85,16 @@ set guioptions-=r               " remove scrollbar in gvim
 
 " Backup Files
 
-"set directory=~/tmp
+let &directory=expand('~/.vimdata/Swap//')
+if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
 
-"set backupdir=~/tmp
+set backup
+let &backupdir=expand('~/.vimdata/Backup//')
+if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
+
+set undofile
+let &undodir=expand('~/.vimdata/Undo//')
+if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 
 "}}}
 """ NetRW {{{
@@ -143,17 +150,17 @@ function! StatusLine()
             " set statusline highlight group
             hi! StatusLine cterm=NONE ctermfg=109 ctermbg=231 gui=NONE guifg=#87afaf guibg=#ffffff 
             " statusline of active window in normal or command mode
-            return '%#User1# %{Getfiletype()} %#User2# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
+            return '%#User1# %{Getfiletype()} %#User2# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
         elseif mode() ==? 'i' || mode() ==? 'r' 
             " set statusline highlight group
             hi! StatusLine cterm=NONE ctermfg=178 ctermbg=231 gui=NONE guifg=#d7af00 guibg=#ffffff 
             " statusline of active window in insert or replace modes
-            return '%#User1# %{Getfiletype()} %#User3# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
+            return '%#User1# %{Getfiletype()} %#User3# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
         elseif mode() ==? 'v' || mode() ==? 's' || mode() ==? "\<C-v>" || mode() ==? "\<C-s>"
             " set statusline highlight group
             hi! StatusLine cterm=NONE ctermfg=247 ctermbg=231 gui=NONE guifg=#9e9e9e guibg=#ffffff 
             " statusline of active window in visual or select modes
-            return '%#User1# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
+            return '%#User1# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
         " elseif mode() ==? 'c'
         "     " set statusline highlight group
         "     hi! StatusLine cterm=NONE ctermfg=131 ctermbg=231 gui=NONE guifg=#af5f5f guibg=#ffffff 
@@ -168,7 +175,7 @@ function! StatusLine()
         endif
     else                                                                               
         " statusline of inactive windows
-        return '%#User1# %{Getfiletype()} %#User7# %{Getcurrentmode()} %* %f %#User9#%{Getmodified()}'
+        return '%#User1# %{Getfiletype()} %#User7# %{Getcurrentmode()} %* %f %#User9#%{Getmodified()}%=%*LN:%4l  CN:%3c '
     endif
 endfunction
 
@@ -179,6 +186,10 @@ set statusline=%!StatusLine()
 
 let mapleader = " "
 
+nnoremap <leader>cn :cn<CR>
+
+nnoremap <leader>cp :cp<CR>
+
 nnoremap <leader>e :vsp .<CR><C-W>L
 
 nnoremap <leader>h :nohl<CR>
@@ -187,7 +198,11 @@ nnoremap <leader>l :set list!<CR>
 
 nnoremap <leader>n :set relativenumber!<CR>
 
-nnoremap <leader>v :vsp<CR>
+nnoremap <leader>o o<esc>
+
+nnoremap <leader>w :set wrap!<CR>
+
+nnoremap <leader>O O<esc>
 
 nnoremap <space> <nop>
 
