@@ -1,0 +1,65 @@
+# Name: inputrc
+# Author: Austin Liu
+# Date Created: August 31, 2020
+# Date Modified: August 31, 2020
+
+# Options {{{
+
+# Use vi mode
+set editing-mode vi
+
+# Colorize a common prefix in ambiguous completion
+# set colored-completion-prefix on
+
+# Colorize completions based on filetype
+set colored-stats on
+
+# Ignorecase for completion and filename matching
+set completion-ignore-case on
+
+# Prefix modified history lines with a '*'
+# set mark-modified-lines on
+
+# Append a '/' to completed symlinks that point to a dir
+set mark-symlinked-directories on
+
+# Require a manually supplied '.' to autocomplete hidden files
+set match-hidden-files off
+
+# Always insert common prefix in menu completion
+# set menu-complete-display-prefix on
+
+# Display completions horizontally rather than vertically
+# set print-completions-horizontally on
+
+# List matches rather than ringing bell if word has more than one possible completion
+set show-all-if-ambiguous on
+
+# Same as show-all-if-ambigious but when the matches don't share a common prefix
+# set show-all-if-unmodified on
+
+# Add string to beginning of prompt that indicates editing mode
+set show-mode-in-prompt on
+
+# Specify string that is displayed in prompt when in vi normal mode
+# set vi-cmd-mode-string (CMD)
+
+# Specify string that is displayed in prompt when in vi insert mode
+# set vi-ins-mode-string (INS)
+
+# }}}
+# Bindings {{{
+
+# Bind tab to menu-complete rather than complete
+TAB: menu-complete
+
+# Bind S-tab to go backwards in menu-complete
+"\e[Z": menu-complete-backward
+
+# Bind C-p to go back in history using what is currently typed as context
+"\C-p": history-search-backward
+
+# Bind C-n to go forward in history using what is currently typed as context
+"\C-n": history-search-backward
+
+# }}}
