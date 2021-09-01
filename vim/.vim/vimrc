@@ -73,6 +73,8 @@ set showmatch                   " show matching symmetric delimiter
 
 set lazyredraw                  " be conservative with screen refreshes
 
+set notimeout                   " wait indefinitely for key sequence
+
 " GUI
 
 set guifont=Source_Code_Pro_Medium:h10:b,Fixedsys:h10:b   " set gvim font & font size
@@ -102,6 +104,37 @@ if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 let g:netrw_liststyle=3     " Tree-Style Listing
 
 "}}}
+""" Diff {{{
+
+" Diff current file with last saved state
+function! DiffWithLastSaved()
+    let filetype=&ft
+    diffthis
+    vnew | read # | normal! ggddH
+    exe "setlocal noswapfile readonly bufhidden=delete ft=" . filetype
+    diffthis
+    autocmd BufDelete <buffer> diffoff!
+    " wincmd p
+endfunction
+command! DiffLastSaved call DiffWithLastSaved()
+
+" Diff current file with state when opened
+
+" autocmd BufReadPost * let b:changenr_on_load=changenr()
+" function! DiffWithOrig()
+"     let tmpfile=tempname()
+"     let curchange=changenr()
+"     exe 'undo ' . b:changenr_on_load
+"     exe 'w ' . tmpfile
+"     exe 'undo ' . curchange
+"     exe 'vertical diffsplit ' . tmpfile
+"     wincmd H
+"     setlocal noswapfile readonly bufhidden=delete
+"     autocmd BufDelete <buffer> diffoff!
+" endfunction
+" command! DiffOrig call DiffWithOrig()
+
+"}}}
 """ Status Line {{{
 
 set laststatus=2                                " always show status line
@@ -128,7 +161,7 @@ endfunction
 function! Getfiletype()
     let l:ftype = &filetype
     if strlen(ftype) ==? 0
-        return '[UND]'
+        return '[NONE]'
     else
         return '[' . toupper(l:ftype) . ']'
     endif
@@ -161,11 +194,6 @@ function! StatusLine()
             hi! StatusLine cterm=NONE ctermfg=247 ctermbg=231 gui=NONE guifg=#9e9e9e guibg=#ffffff 
             " statusline of active window in visual or select modes
             return '%#User1# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
-        " elseif mode() ==? 'c'
-        "     " set statusline highlight group
-        "     hi! StatusLine cterm=NONE ctermfg=131 ctermbg=231 gui=NONE guifg=#af5f5f guibg=#ffffff 
-        "     " statusline of active window in command mode
-        "     return '%#User1# %{Getfiletype()} %#User5# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}'
         elseif mode() ==? 't'
             " " set statusline highlight group
             " hi! StatusLine cterm=NONE ctermfg=142 ctermbg=231 gui=NONE guifg=#afaf00 guibg=#ffffff 
@@ -185,10 +213,6 @@ set statusline=%!StatusLine()
 """ Mappings{{{
 
 let mapleader = " "
-
-nnoremap <leader>cn :cn<CR>
-
-nnoremap <leader>cp :cp<CR>
 
 nnoremap <leader>e :vsp .<CR><C-W>L
 
