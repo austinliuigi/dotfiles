@@ -73,7 +73,11 @@ set showmatch                   " show matching symmetric delimiter
 
 set lazyredraw                  " be conservative with screen refreshes
 
-set notimeout                   " wait indefinitely for key sequence
+set notimeout ttimeout          " wait indefinitely for a mapping, but a set time for key-codes
+
+set ttimeoutlen=0               " set time to wait for key-codes
+
+set belloff=esc                 " don't ring bell when esc is pressed in normal-mode
 
 " GUI
 
@@ -104,35 +108,50 @@ if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 let g:netrw_liststyle=3     " Tree-Style Listing
 
 "}}}
+""" Mundo {{{
+
+" let g:mundo_width=75            " Set width of graph and preview (default 45)
+
+" let g:mundo_preview_height=15   " Set height of preview window (default 15)
+
+let g:mundo_preview_bottom=1    " Force preview window to be below windows instead of below graph
+
+" let g:mundo_inline_undo=1       " Enable one line diff in graph
+
+" let g:mundo_return_on_revert=0  " Keep focus in graph after selecting old undo state
+
+"}}}
 """ Diff {{{
 
 " Diff current file with last saved state
-function! DiffWithLastSaved()
+function! DiffWithLastSave()
     let filetype=&ft
     diffthis
-    vnew | read # | normal! ggddH
+    leftabove vnew | read # | normal! ggdd
     exe "setlocal noswapfile readonly bufhidden=delete ft=" . filetype
     diffthis
     autocmd BufDelete <buffer> diffoff!
     " wincmd p
 endfunction
-command! DiffLastSaved call DiffWithLastSaved()
+command! DiffLastSave call DiffWithLastSave()
 
 " Diff current file with state when opened
-
-" autocmd BufReadPost * let b:changenr_on_load=changenr()
-" function! DiffWithOrig()
-"     let tmpfile=tempname()
-"     let curchange=changenr()
-"     exe 'undo ' . b:changenr_on_load
-"     exe 'w ' . tmpfile
-"     exe 'undo ' . curchange
-"     exe 'vertical diffsplit ' . tmpfile
-"     wincmd H
-"     setlocal noswapfile readonly bufhidden=delete
-"     autocmd BufDelete <buffer> diffoff!
-" endfunction
-" command! DiffOrig call DiffWithOrig()
+let b:changenr_on_load=0
+augroup setchangenr
+    autocmd!
+    autocmd SourcePost,BufReadPost * let b:changenr_on_load=changenr()
+augroup END
+function! DiffWithOrig()
+    let tmpfile=tempname()
+    let curchange=changenr()
+    exe 'undo ' . b:changenr_on_load
+    exe 'w ' . tmpfile
+    exe 'undo ' . curchange
+    exe 'leftabove vertical diffsplit ' . tmpfile
+    setlocal readonly bufhidden=delete
+    autocmd BufDelete <buffer> diffoff!
+endfunction
+command! DiffOrig silent call DiffWithOrig()
 
 "}}}
 """ Status Line {{{
@@ -214,6 +233,10 @@ set statusline=%!StatusLine()
 
 let mapleader = " "
 
+nnoremap <leader>do :DiffOrig<CR>
+
+nnoremap <leader>dls :DiffLastSave<CR>
+
 nnoremap <leader>e :vsp .<CR><C-W>L
 
 nnoremap <leader>h :nohl<CR>
@@ -222,14 +245,20 @@ nnoremap <leader>l :set list!<CR>
 
 nnoremap <leader>n :set relativenumber!<CR>
 
-nnoremap <leader>o o<esc>
+nnoremap <leader>o o<C-U><esc>
+
+nnoremap <leader>u :MundoToggle<CR>
 
 nnoremap <leader>w :set wrap!<CR>
 
-nnoremap <leader>O O<esc>
+nnoremap <leader>O O<C-U><esc>
 
 nnoremap <space> <nop>
 
+nnoremap dD 0D
+
 nnoremap Y y$
+
+inoremap <C-R> <C-R><C-R>
 
 "}}}
