@@ -10,6 +10,9 @@ $include /etc/inputrc
 # Use vi mode
 set editing-mode vi
 
+# Disable bell-ringing for readline
+set bell-style none
+
 # Colorize a common prefix in ambiguous completion
 # set colored-completion-prefix on
 
