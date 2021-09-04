@@ -31,6 +31,10 @@ endfunction
 
 " main function, called on press of Tab (or whatever key Minisnip is bound to)
 function! minisnip#Minisnip() abort
+    " temporarily disable folding (open all folds)
+    let s:ogfold = &foldenable
+    set nofoldenable
+
     if exists('s:snippetfile')
         " reset placeholder text history (for backrefs)
         let s:placeholder_texts = []
@@ -90,6 +94,8 @@ function! minisnip#Minisnip() abort
         " jump to the next placeholder
         call s:SelectPlaceholder()
     endif
+
+    let &foldenable = s:ogfold
 endfunction
 
 " this is the function that finds and selects the next placeholder
