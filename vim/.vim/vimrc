@@ -4,8 +4,7 @@
 " Date Modified: August 5, 2020
 "
 """ Options {{{
-
-" Boiler Plate
+" Boiler Plate {{{
 
 syntax on                       " enable syntax highlighting
 
@@ -17,7 +16,8 @@ set backspace=start,eol,indent  " better backspace in insert mode
 
 set showcmd
 
-" Whitespace
+" }}}
+" Whitespace {{{
 
 set tabstop=4                   " length of <tab> when it is displayed
 
@@ -35,7 +35,8 @@ set list                        " show whitespace characters
 
 set listchars=tab:▸\ ,eol:¬     " set whitespace characters
 
-" Searching
+" }}}
+" Searching {{{
 
 set incsearch                   " search as you type
 
@@ -43,7 +44,26 @@ set hlsearch                    " search highlighting
 
 set ignorecase                  " default to case insensitive
 
-" Personal Preferences
+" }}}
+" Folding {{{
+
+set foldmethod=expr             " define folding using foldexpr option
+
+augroup vimfold
+autocmd!
+" define folding in vim files using markers
+autocmd BufReadPost *.vim,*/vimrc,*/.inputrc setlocal foldmethod=marker
+augroup END
+
+" }}}
+" Timeout {{{
+
+set notimeout ttimeout          " wait indefinitely for a mapping, but a set time for key-codes
+
+set ttimeoutlen=0               " set time to wait for key-codes
+
+" }}}
+" Personal Preferences {{{
 
 let g:scheme_termtrans=1        " make colorscheme bg transparent by default
 
@@ -56,8 +76,6 @@ set relativenumber              " make line numbers relative to current line
 set number                      " show line numbers (only shows current line # with relativenumber set)
 
 set splitright                  " default vert split window to appear on the right
-
-set foldmethod=marker           " use triple braces to indicate beginning and end of a fold
 
 set wildmenu                    " command-line autocomplete bar
 
@@ -73,13 +91,11 @@ set showmatch                   " show matching symmetric delimiter
 
 set lazyredraw                  " be conservative with screen refreshes
 
-set notimeout ttimeout          " wait indefinitely for a mapping, but a set time for key-codes
-
-set ttimeoutlen=0               " set time to wait for key-codes
-
 set belloff=esc                 " don't ring bell when esc is pressed in normal-mode
 
-" GUI
+
+" }}}
+" GUI {{{
 
 set guifont=Source_Code_Pro_Medium:h10:b,Fixedsys:h10:b   " set gvim font & font size
 
@@ -89,7 +105,8 @@ set guioptions-=T               " remove toolbar in gvim
 
 set guioptions-=r               " remove scrollbar in gvim
 
-" Backup Files
+" }}}
+" Backup Files {{{
 
 let &directory=expand('~/.vimdata/Swap//')
 if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
@@ -102,6 +119,7 @@ set undofile
 let &undodir=expand('~/.vimdata/Undo//')
 if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 
+" }}}
 "}}}
 """ NetRW {{{
 
@@ -245,13 +263,13 @@ nnoremap <leader>l :set list!<CR>
 
 nnoremap <leader>n :set relativenumber!<CR>
 
-nnoremap <leader>o o<C-U><esc>
+nnoremap <leader>o o_<C-u><esc>
 
 nnoremap <leader>u :MundoToggle<CR>
 
 nnoremap <leader>w :set wrap!<CR>
 
-nnoremap <leader>O O<C-U><esc>
+nnoremap <leader>O O_<C-u><esc>
 
 nnoremap <space> <nop>
 
