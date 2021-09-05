@@ -123,6 +123,8 @@ if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 "}}}
 """ NetRW {{{
 
+let g:netrw_dirhistmax=0
+
 if has("gui_running")
     let g:netrw_home="~/vimfiles"
 else
