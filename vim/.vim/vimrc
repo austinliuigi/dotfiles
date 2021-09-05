@@ -123,6 +123,12 @@ if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 "}}}
 """ NetRW {{{
 
+if has("gui_running")
+    let g:netrw_home="~/vimfiles"
+else
+    let g:netrw_home="~/.vim"
+endif
+
 let g:netrw_liststyle=3     " Tree-Style Listing
 
 "}}}
@@ -251,9 +257,13 @@ set statusline=%!StatusLine()
 
 let mapleader = " "
 
-nnoremap <leader>do :DiffOrig<CR>
+nnoremap <leader>c c
 
-nnoremap <leader>dls :DiffLastSave<CR>
+nnoremap <leader>C C
+
+nnoremap <leader>d d
+
+nnoremap <leader>D D
 
 nnoremap <leader>e :vsp .<CR><C-W>L
 
@@ -263,17 +273,45 @@ nnoremap <leader>l :set list!<CR>
 
 nnoremap <leader>n :set relativenumber!<CR>
 
-nnoremap <leader>o o_<C-u><esc>
+function! BlankLineBelow()
+    execute 'normal!' . "o\<esc>0\"_D"
+    call repeat#set("\<Plug>BlankLineBelow")
+endfunction
+nnoremap <Plug>BlankLineBelow :call BlankLineBelow()<CR>
+nmap <leader>o <Plug>BlankLineBelow
+
+function! BlankLineAbove()
+    execute 'normal!' . "O\<esc>0\"_D"
+    call repeat#set("O\<esc>0\"_D") " function doesn't get recalled
+    " call repeat#set("\<leader>O") " interprets leader literally, try
+    " \<lt>leader>O ?
+endfunction
+nnoremap <leader>O :call BlankLineAbove()<CR>
+" :h b:changedtick
 
 nnoremap <leader>u :MundoToggle<CR>
 
 nnoremap <leader>w :set wrap!<CR>
 
-nnoremap <leader>O O_<C-u><esc>
+nnoremap <leader>x x
+
+nnoremap <leader><leader>do :DiffOrig<CR>
+
+nnoremap <leader><leader>dls :DiffLastSave<CR>
 
 nnoremap <space> <nop>
 
+nnoremap c "_c
+
+nnoremap C "_C
+
+nnoremap d "_d
+
 nnoremap dD 0D
+
+nnoremap D "_D
+
+nnoremap x "_x
 
 nnoremap Y y$
 
