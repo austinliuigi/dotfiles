@@ -103,6 +103,10 @@ function! s:SelectPlaceholder() abort
     " don't clobber s register
     let l:old_s = @s
 
+    " turn off error bell
+    let l:old_belloff = &belloff
+    set belloff+=error
+
     " get the contents of the placeholder
     " we use /e here in case the cursor is already on it (which occurs ex.
     "   when a snippet begins with a placeholder)
@@ -178,6 +182,9 @@ function! s:SelectPlaceholder() abort
 
     " restore old value of s register
     let @s = l:old_s
+
+    " restore old belloff option
+    let &belloff = l:old_belloff
 endfunction
 
 function! minisnip#complete() abort
