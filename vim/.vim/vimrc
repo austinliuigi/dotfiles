@@ -19,21 +19,30 @@ set showcmd
 " }}}
 " Whitespace {{{
 
-set tabstop=4                   " length of <tab> when it is displayed
+set tabstop=4                                       " length of <tab> when it is displayed
 
-set softtabstop=4               " length of <tab> (& respective <bksp>) when you type it
+set softtabstop=4                                   " length of <tab> (& respective <bksp>) when you type it
 
-set shiftwidth=4                " indent length
+set shiftwidth=4                                    " indent length
 
-set expandtab                   " tab will act as spaces (makes its length consistent across all platforms)
+set expandtab                                       " tab will act as spaces (makes its length consistent across all platforms)
 
-set autoindent                  " indent to the previous line's indent level
+set autoindent                                      " indent to the previous line's indent level
 
-set smartindent                 " indent based on c syntax
+set smartindent                                     " indent based on c syntax
 
-set list                        " show whitespace characters
+set list                                            " show whitespace characters
 
-set listchars=tab:▸\ ,eol:¬     " set whitespace characters
+set listchars=tab:▸\ ,eol:¬,precedes:‹,extends:›    " set whitespace characters
+
+function! ToggleSpaceChar()
+    if stridx(&listchars, "space") <= 0
+        set listchars+=space:.
+    else
+        set listchars-=space:.
+    endif
+endfunction
+command! ToggleSpaceChar call ToggleSpaceChar()
 
 " }}}
 " Searching {{{
@@ -51,8 +60,8 @@ set foldmethod=expr             " define folding using foldexpr option
 
 augroup vimfold
 autocmd!
-" define folding in vim files using markers
-autocmd BufReadPost *.vim,*/vimrc,*/.inputrc setlocal foldmethod=marker
+" define folding in vimrc and inputrc using markers
+autocmd BufReadPost */vimrc,*/.inputrc setlocal foldmethod=marker
 augroup END
 
 " }}}
@@ -93,6 +102,11 @@ set lazyredraw                  " be conservative with screen refreshes
 
 set belloff=esc                 " don't ring bell when esc is pressed in normal-mode
 
+" remove excess comment characters when joining lines
+augroup fo
+    autocmd!
+    autocmd FileType * set formatoptions=j
+augroup END
 
 " }}}
 " GUI {{{
@@ -125,11 +139,11 @@ if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 
 let g:netrw_dirhistmax=0
 
-if has("gui_running")
-    let g:netrw_home="~/vimfiles"
-else
-    let g:netrw_home="~/.vim"
-endif
+" if has("gui_running")
+"     let g:netrw_home="~/vimfiles"
+" else
+"     let g:netrw_home="~/.vim"
+" endif
 
 let g:netrw_liststyle=3     " Tree-Style Listing
 
@@ -147,37 +161,11 @@ let g:mundo_preview_bottom=1    " Force preview window to be below windows inste
 " let g:mundo_return_on_revert=0  " Keep focus in graph after selecting old undo state
 
 "}}}
-""" Diff {{{
+""" Wsl-Clip {{{
 
-" Diff current file with last saved state
-function! DiffWithLastSave()
-    let filetype=&ft
-    diffthis
-    leftabove vnew | read # | normal! ggdd
-    exe "setlocal noswapfile readonly bufhidden=delete ft=" . filetype
-    diffthis
-    autocmd BufDelete <buffer> diffoff!
-    " wincmd p
-endfunction
-command! DiffLastSave call DiffWithLastSave()
+let g:disable_wsl_yank=has('gui_running')       " disable wslyank for gui, enable for terminal
 
-" Diff current file with state when opened
-let b:changenr_on_load=0
-augroup setchangenr
-    autocmd!
-    autocmd SourcePost,BufReadPost * let b:changenr_on_load=changenr()
-augroup END
-function! DiffWithOrig()
-    let tmpfile=tempname()
-    let curchange=changenr()
-    exe 'undo ' . b:changenr_on_load
-    exe 'w ' . tmpfile
-    exe 'undo ' . curchange
-    exe 'leftabove vertical diffsplit ' . tmpfile
-    setlocal readonly bufhidden=delete
-    autocmd BufDelete <buffer> diffoff!
-endfunction
-command! DiffOrig silent call DiffWithOrig()
+let g:disable_wsl_paste=has('gui_running')      " disable wslpaste for gui, enable for terminal
 
 "}}}
 """ Status Line {{{
@@ -265,31 +253,21 @@ nnoremap <leader>C C
 
 nnoremap <leader>d d
 
+nmap <leader>dD <Plug>ClearLineDefaultReg
+
 nnoremap <leader>D D
 
 nnoremap <leader>e :vsp .<CR><C-W>L
 
 nnoremap <leader>h :nohl<CR>
 
-nnoremap <leader>l :set list!<CR>
+nnoremap <leader>l :ToggleSpaceChar<CR>
 
 nnoremap <leader>n :set relativenumber!<CR>
 
-function! BlankLineBelow()
-    execute 'normal!' . "o\<esc>0\"_D"
-    call repeat#set("\<Plug>BlankLineBelow")
-endfunction
-nnoremap <Plug>BlankLineBelow :call BlankLineBelow()<CR>
 nmap <leader>o <Plug>BlankLineBelow
 
-function! BlankLineAbove()
-    execute 'normal!' . "O\<esc>0\"_D"
-    call repeat#set("O\<esc>0\"_D") " function doesn't get recalled
-    " call repeat#set("\<leader>O") " interprets leader literally, try
-    " \<lt>leader>O ?
-endfunction
-nnoremap <leader>O :call BlankLineAbove()<CR>
-" :h b:changedtick
+nmap <leader>O <Plug>BlankLineAbove
 
 nnoremap <leader>u :MundoToggle<CR>
 
@@ -301,6 +279,8 @@ nnoremap <leader><leader>do :DiffOrig<CR>
 
 nnoremap <leader><leader>dls :DiffLastSave<CR>
 
+nnoremap <leader><leader>l :set list!<CR>
+
 nnoremap <space> <nop>
 
 nnoremap c "_c
@@ -309,7 +289,7 @@ nnoremap C "_C
 
 nnoremap d "_d
 
-nnoremap dD 0D
+nmap dD <Plug>ClearLineBlackHole
 
 nnoremap D "_D
 
