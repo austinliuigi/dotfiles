@@ -87,4 +87,7 @@ TAB: menu-complete
 # Bind C-b to go backward one character
 "\C-b": backward-char
 
+# Bind C-] to expand special keywords
+"\C-]": shell-expand-line
+
 # }}}
