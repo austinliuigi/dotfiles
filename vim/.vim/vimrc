@@ -105,7 +105,7 @@ set belloff=esc                 " don't ring bell when esc is pressed in normal-
 " remove excess comment characters when joining lines
 augroup fo
     autocmd!
-    autocmd FileType * set formatoptions=j
+    autocmd FileType * set formatoptions=jn
 augroup END
 
 " }}}
