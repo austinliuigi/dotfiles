@@ -76,7 +76,11 @@ set ttimeoutlen=0               " set time to wait for key-codes
 
 let g:scheme_termtrans=1        " make colorscheme bg transparent by default
 
-colorscheme custom              " use personal colorscheme
+if has("gui_running")
+    colorscheme github
+else
+    colorscheme custom
+endif
 
 set hidden                      " allow a buffer to load in a window that currently has a modified buffer
 
