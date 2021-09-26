@@ -33,7 +33,7 @@ hi CursorLineNr guifg=#4E4E4E ctermfg=239  guibg=NONE    ctermbg=NONE  gui=NONE 
 hi NonText      guifg=#D2D2D2 ctermfg=250  guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 hi EndOfBuffer  guifg=#AFAFD7 ctermfg=146  guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 hi VertSplit    guifg=#BBBBBB ctermfg=250  guibg=#BBBBBB ctermbg=250  gui=NONE cterm=NONE
-hi StatusLine   guifg=#404040 ctermfg=238  guibg=#BBBBBB ctermbg=250  gui=BOLD cterm=BOLD
+hi StatusLine   guifg=#87afaf ctermfg=109  guibg=#ECECEC ctermbg=255  gui=BOLD cterm=BOLD
 hi StatusLineNC guifg=#BBBBBB ctermfg=250  guibg=#ECECEC ctermbg=255  gui=ITALIC cterm=NONE
 hi ModeMsg      guifg=#990000 ctermfg=88   gui=NONE cterm=NONE
 hi MoreMsg      guifg=#990000 ctermfg=88   gui=NONE cterm=NONE
