@@ -24,7 +24,7 @@ hi DiffAdd      guifg=#003300 ctermfg=22   guibg=#DDFFDD ctermbg=194  gui=NONE c
 hi DiffChange   guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
 hi DiffText     guifg=#000033 ctermfg=17   guibg=#DDDDFF ctermbg=189  gui=NONE cterm=NONE
 hi DiffDelete   guifg=#DDCCCC ctermfg=252  guibg=#FFDDDD ctermbg=224  gui=NONE cterm=NONE
-hi Folded       guifg=#808080 ctermfg=244  guibg=#F8F8FF ctermbg=231  gui=NONE cterm=NONE
+hi Folded       guifg=#808080 ctermfg=244  guibg=NONE    ctermbg=231  gui=BOLD,UNDERLINE cterm=NONE
 " hi Folded       guifg=#808080 ctermfg=244  guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
 hi LineNr       guifg=#BBBBBB ctermfg=250  guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 " hi LineNr       guifg=#BBBBBB ctermfg=250  guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
@@ -81,14 +81,14 @@ hi Cursor       guifg=#F8F8FF ctermfg=231  guibg=#444454 ctermbg=238  gui=NONE c
 hi CursorLine   guibg=#EEEEEE ctermbg=255  gui=NONE cterm=NONE
 hi CursorColumn guibg=#D8D8DD ctermbg=253  gui=NONE cterm=NONE
 
-hi User1 guifg=#e4e4e4 ctermfg=254  guibg=#585858 ctermbg=240  gui=BOLD cterm=BOLD
+hi User1 guifg=#e4e4e4 ctermfg=254  guibg=#8a8a8a ctermbg=245  gui=BOLD cterm=BOLD
 hi User2 guifg=#ffffff ctermfg=231  guibg=#87afaf ctermbg=109  gui=BOLD cterm=BOLD
 hi User3 guifg=#ffffff ctermfg=231  guibg=#d7af00 ctermbg=178  gui=BOLD cterm=BOLD
 hi User4 guifg=#3a3a3a ctermfg=237  guibg=#9e9e9e ctermbg=247  gui=BOLD cterm=BOLD
 hi User5 guifg=#ffffff ctermfg=231  guibg=#af5f5f ctermbg=131  gui=BOLD cterm=BOLD
 hi User6 guifg=#ffffff ctermfg=231  guibg=#afaf00 ctermbg=142  gui=BOLD cterm=BOLD
-hi User7 guifg=#9e9e9e ctermfg=247  guibg=#e4e4e4 ctermbg=254  gui=BOLD cterm=BOLD
-hi User8 guifg=#af5f5f ctermfg=131  guibg=#ffffff ctermbg=231  gui=BOLD cterm=BOLD
-hi User9 guifg=#af5f5f ctermfg=131  guibg=#9e9e9e ctermbg=247  gui=BOLD cterm=BOLD
+hi User7 guifg=#9e9e9e ctermfg=247  guibg=#d0d0d0 ctermbg=252  gui=BOLD cterm=BOLD
+hi User8 guifg=#af5f5f ctermfg=131  guibg=#ececec ctermbg=255  gui=BOLD cterm=BOLD
+hi User9 guifg=#af5f5f ctermfg=131  guibg=#ececec ctermbg=255  gui=BOLD cterm=BOLD
 
 hi link rubyStringDelimiter String
