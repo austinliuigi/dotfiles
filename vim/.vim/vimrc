@@ -58,11 +58,10 @@ set ignorecase                  " default to case insensitive
 
 set foldmethod=expr             " define folding using foldexpr option
 
-augroup vimfold
-autocmd!
-" define folding in vimrc and inputrc using markers
-autocmd BufReadPost */vimrc,*/.inputrc setlocal foldmethod=marker
-augroup END
+" use markers to fold in vimrc, inputrc, and txt files
+if (expand("%:t") ==? "vimrc") || (expand("%:t") ==? "inputrc") || (expand("%:e") ==? "txt")
+    setlocal foldmethod=marker
+endif
 
 " }}}
 " Timeout {{{
