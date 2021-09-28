@@ -207,7 +207,9 @@ endfunction
 
 
 function! Getmodified()
-    if &modified
+    if &readonly
+        return '[RO]'
+    elseif &modified && (&buftype !=? "terminal")
         return '[+]'
     else
         return ''
