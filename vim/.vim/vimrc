@@ -316,6 +316,10 @@ nmap dD <Plug>ClearLineBlackHole
 
 nnoremap D "_D
 
+nnoremap <expr> k v:count ? 'k' : 'gk'
+
+nnoremap <expr> j v:count ? 'j' : 'gj'
+
 nnoremap x "_x
 
 nnoremap Y y$
