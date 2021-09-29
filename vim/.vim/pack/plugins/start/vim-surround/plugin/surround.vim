@@ -536,7 +536,8 @@ function! s:opfunc(type, ...) abort " {{{1
     return s:beep()
   endif
   let keeper = getreg(reg)
-  if type ==# "v" && a:type !=# "v"
+  let append = ''
+  if type ==# "v" && a:type !=# "v" && !g:surround_ws
     let append = matchstr(keeper,'\_s\@<!\s*$')
     let keeper = substitute(keeper,'\_s\@<!\s*$','','')
   endif
@@ -550,6 +551,7 @@ function! s:opfunc(type, ...) abort " {{{1
     call s:reindent()
   endif
   call setreg(reg,reg_save,reg_type)
+  let g:surround_ws = 0
   let &selection = sel_save
   let &clipboard = cb_save
   if a:type =~ '^\d\+$'
@@ -583,18 +585,21 @@ function! s:closematch(str) " {{{1
   endif
 endfunction " }}}1
 
-nnoremap <silent> <Plug>SurroundRepeat .
-nnoremap <silent> <Plug>Dsurround  :<C-U>call <SID>dosurround(<SID>inputtarget())<CR>
-nnoremap <silent> <Plug>Csurround  :<C-U>call <SID>changesurround()<CR>
-nnoremap <silent> <Plug>CSurround  :<C-U>call <SID>changesurround(1)<CR>
-nnoremap <expr>   <Plug>Yssurround '^'.v:count1.<SID>opfunc('setup').'g_'
-nnoremap <expr>   <Plug>YSsurround <SID>opfunc2('setup').'_'
-nnoremap <expr>   <Plug>Ysurround  <SID>opfunc('setup')
-nnoremap <expr>   <Plug>YSurround  <SID>opfunc2('setup')
-vnoremap <silent> <Plug>VSurround  :<C-U>call <SID>opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
-vnoremap <silent> <Plug>VgSurround :<C-U>call <SID>opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
-inoremap <silent> <Plug>Isurround  <C-R>=<SID>insert()<CR>
-inoremap <silent> <Plug>ISurround  <C-R>=<SID>insert(1)<CR>
+let g:surround_ws = 0    " variable that determines if ending whitespace should be included in the surround
+
+nnoremap <silent>       <Plug>SurroundRepeat .
+nnoremap <silent>       <Plug>Dsurround  :<C-U>call <SID>dosurround(<SID>inputtarget())<CR>
+nnoremap <silent>       <Plug>Csurround  :<C-U>call <SID>changesurround()<CR>
+nnoremap <silent>       <Plug>CSurround  :<C-U>call <SID>changesurround(1)<CR>
+nnoremap <expr>         <Plug>Yssurround '^'.v:count1.<SID>opfunc('setup').'g_'
+nnoremap <silent><expr> <Plug>YsSurround ":let g:surround_ws = 1<CR>".'0'.v:count1.<SID>opfunc('setup').'$'
+nnoremap <expr>         <Plug>YSsurround <SID>opfunc2('setup').'_'
+nnoremap <expr>         <Plug>Ysurround  <SID>opfunc('setup')
+nnoremap <expr>         <Plug>YSurround  <SID>opfunc2('setup')
+vnoremap <silent>       <Plug>VSurround  :<C-U>call <SID>opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+vnoremap <silent>       <Plug>VgSurround :<C-U>call <SID>opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
+inoremap <silent>       <Plug>Isurround  <C-R>=<SID>insert()<CR>
+inoremap <silent>       <Plug>ISurround  <C-R>=<SID>insert(1)<CR>
 
 if !exists("g:surround_no_mappings") || ! g:surround_no_mappings
   nmap ds  <Plug>Dsurround
@@ -603,6 +608,7 @@ if !exists("g:surround_no_mappings") || ! g:surround_no_mappings
   nmap ys  <Plug>Ysurround
   nmap yS  <Plug>YSurround
   nmap yss <Plug>Yssurround
+  nmap ysS <Plug>YsSurround
   nmap ySs <Plug>YSsurround
   nmap ySS <Plug>YSsurround
   xmap S   <Plug>VSurround
