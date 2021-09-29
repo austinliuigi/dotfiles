@@ -44,6 +44,15 @@ function! ToggleSpaceChar()
 endfunction
 command! ToggleSpaceChar call ToggleSpaceChar()
 
+function! ToggleConcealLevel()
+    if &conceallevel != 0
+        set conceallevel=0
+    else
+        set conceallevel=2
+    endif
+endfunction
+command! ToggleConcealLevel call ToggleConcealLevel()
+
 " }}}
 " Searching {{{
 
@@ -255,11 +264,17 @@ let mapleader = " "
 
 nnoremap <leader>c c
 
+nnoremap <leader><leader>c :ToggleConcealLevel<CR>
+
 nnoremap <leader>C C
 
 nnoremap <leader>d d
 
 nmap <leader>dD <Plug>ClearLineDefaultReg
+
+nnoremap <leader><leader>do :DiffOrig<CR>
+
+nnoremap <leader><leader>dls :DiffLastSave<CR>
 
 nnoremap <leader>D D
 
@@ -268,6 +283,8 @@ nnoremap <leader>e :vsp .<CR><C-W>L
 nnoremap <leader>h :nohl<CR>
 
 nnoremap <leader>l :ToggleSpaceChar<CR>
+
+nnoremap <leader><leader>l :set list!<CR>
 
 nnoremap <leader>n :set relativenumber!<CR>
 
@@ -280,12 +297,6 @@ nnoremap <leader>u :MundoToggle<CR>
 nnoremap <leader>w :set wrap!<CR>
 
 nnoremap <leader>x x
-
-nnoremap <leader><leader>do :DiffOrig<CR>
-
-nnoremap <leader><leader>dls :DiffLastSave<CR>
-
-nnoremap <leader><leader>l :set list!<CR>
 
 nnoremap <space> <nop>
 
