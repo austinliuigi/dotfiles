@@ -132,6 +132,11 @@ set guioptions-=T               " remove toolbar in gvim
 
 set guioptions-=r               " remove scrollbar in gvim
 
+" conceal characters by default in gui
+if has("gui_running")
+    set conceallevel=2
+endif
+
 " }}}
 " Backup Files {{{
 
