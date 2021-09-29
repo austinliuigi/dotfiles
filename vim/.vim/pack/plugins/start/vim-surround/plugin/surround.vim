@@ -585,7 +585,7 @@ function! s:closematch(str) " {{{1
   endif
 endfunction " }}}1
 
-let g:surround_ws = 0    " variable that determines if ending whitespace should be included in the surround
+let g:surround_ws = 0   " variable that determines if ending whitespace should be included in the surround
 
 nnoremap <silent>       <Plug>SurroundRepeat .
 nnoremap <silent>       <Plug>Dsurround  :<C-U>call <SID>dosurround(<SID>inputtarget())<CR>
