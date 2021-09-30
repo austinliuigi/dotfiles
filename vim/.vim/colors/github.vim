@@ -80,7 +80,7 @@ hi htmlTagN     gui=BOLD cterm=BOLD
 hi Cursor       guifg=#F8F8FF ctermfg=231  guibg=#444454 ctermbg=238  gui=NONE cterm=NONE
 hi CursorLine   guibg=#EEEEEE ctermbg=255  gui=NONE cterm=NONE
 hi CursorColumn guibg=#D8D8DD ctermbg=253  gui=NONE cterm=NONE
-hi link Conceal Normal
+hi! link Conceal Normal
 
 hi User1 guifg=#e4e4e4 ctermfg=254  guibg=#8a8a8a ctermbg=245  gui=BOLD cterm=BOLD
 hi User2 guifg=#ffffff ctermfg=231  guibg=#87afaf ctermbg=109  gui=BOLD cterm=BOLD
