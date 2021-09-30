@@ -48,4 +48,4 @@ syntax match underscore '\v\\_' conceal cchar=_
 
 syntax match backslash '\v\\\\' conceal cchar=\
 
-}}}
+" }}}
