@@ -293,6 +293,10 @@ nmap <leader>o <Plug>BlankLineBelow
 
 nmap <leader>O <Plug>BlankLineAbove
 
+nnoremap <leader>p :put<CR>
+
+nnoremap <leader>P :put!<CR>
+
 nnoremap <leader>u :MundoToggle<CR>
 
 nnoremap <leader>w :set wrap!<CR>
