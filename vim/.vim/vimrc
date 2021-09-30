@@ -45,10 +45,10 @@ endfunction
 command! ToggleSpaceChar call ToggleSpaceChar()
 
 function! ToggleConcealLevel()
-    if &conceallevel != 0
-        set conceallevel=0
+    if &l:conceallevel != 0
+        setlocal conceallevel=0
     else
-        set conceallevel=2
+        setlocal conceallevel=2
     endif
 endfunction
 command! ToggleConcealLevel call ToggleConcealLevel()
@@ -132,11 +132,6 @@ set guioptions-=m               " remove menu in gvim
 set guioptions-=T               " remove toolbar in gvim
 
 set guioptions-=r               " remove scrollbar in gvim
-
-" conceal characters by default in gui
-if has("gui_running")
-    set conceallevel=2
-endif
 
 " }}}
 " Backup Files {{{

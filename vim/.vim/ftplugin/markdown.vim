@@ -32,3 +32,20 @@ function! MdFoldLevel(lnum)
 endfunction
 
 " }}}
+
+" Concealing {{{
+
+" conceal characters by default in gui
+if has("gui_running")
+    setlocal conceallevel=2
+endif
+
+" set conceal characters for those that need escaping
+
+syntax match star '\v\\\*' conceal cchar=*
+
+syntax match underscore '\v\\_' conceal cchar=_
+
+syntax match backslash '\v\\\\' conceal cchar=\
+
+}}}
