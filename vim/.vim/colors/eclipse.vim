@@ -35,9 +35,10 @@ highlight DiffAdd    gui=none guifg=blue  guibg=#e7e7ff ctermbg=green cterm=bold
 highlight Cursor   gui=none guifg=#ffffff guibg=#0080f0
 highlight lCursor  gui=none guifg=#ffffff guibg=#8040ff
 highlight CursorIM gui=none guifg=#ffffff guibg=#8040ff
+highlight CursorLine gui=none guibg=#eeeeee
 
 " Fold
-highlight Folded     gui=none guifg=#804030 guibg=#fff0d0 ctermbg=black ctermfg=black cterm=bold
+highlight Folded     gui=none guifg=#804030 guibg=bg ctermbg=black ctermfg=black cterm=bold
 highlight FoldColumn gui=none guifg=#6b6b6b guibg=#e7e7e7 ctermfg=black ctermbg=white
 
 " Popup Menu
@@ -48,11 +49,12 @@ highlight PMenuThumb ctermbg=white ctermfg=red
 
 " Other
 highlight Directory  gui=none guifg=#7050ff guibg=bg
-highlight LineNr     gui=none guifg=#6b6b6b guibg=#eeeeee
-highlight NonText    gui=none guifg=#707070 guibg=#e7e7e7
+highlight LineNr     gui=none guifg=#6b6b6b guibg=bg
+highlight NonText    gui=none guifg=#707070 guibg=bg
 highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      cterm=none       ctermfg=4
 highlight Title      gui=bold guifg=#0033cc guibg=bg
 highlight Visual     gui=none guifg=#804020 guibg=#ffc0a0 ctermfg=DarkCyan
+highlight EndOfBuffer gui=none guifg=#804030 guibg=bg
 
 " Syntax group
 highlight Comment    gui=none guifg=#236e25 guibg=bg      ctermfg=2
@@ -83,5 +85,15 @@ if !has("gui_running")
     hi link SpecialComment Special
     hi link Debug          Special
 endif
+
+hi User1 guifg=#e4e4e4 ctermfg=254  guibg=#8a8a8a ctermbg=245  gui=BOLD cterm=BOLD
+hi User2 guifg=#ffffff ctermfg=231  guibg=#87afaf ctermbg=109  gui=BOLD cterm=BOLD
+hi User3 guifg=#ffffff ctermfg=231  guibg=#d7af00 ctermbg=178  gui=BOLD cterm=BOLD
+hi User4 guifg=#3a3a3a ctermfg=237  guibg=#9e9e9e ctermbg=247  gui=BOLD cterm=BOLD
+hi User5 guifg=#ffffff ctermfg=231  guibg=#af5f5f ctermbg=131  gui=BOLD cterm=BOLD
+hi User6 guifg=#ffffff ctermfg=231  guibg=#afaf00 ctermbg=142  gui=BOLD cterm=BOLD
+hi User7 guifg=#9e9e9e ctermfg=247  guibg=#d0d0d0 ctermbg=252  gui=BOLD cterm=BOLD
+hi User8 guifg=#af5f5f ctermfg=131  guibg=#ececec ctermbg=255  gui=BOLD cterm=BOLD
+hi User9 guifg=#af5f5f ctermfg=131  guibg=#ececec ctermbg=255  gui=BOLD cterm=BOLD
 
 " vim:ff=unix:
