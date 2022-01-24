@@ -65,12 +65,29 @@ set ignorecase                  " default to case insensitive
 " }}}
 " Folding {{{
 
-set foldmethod=expr             " define folding using foldexpr option
+" define folding using foldexpr option
+set foldmethod=expr
 
 " use markers to fold in vimrc, inputrc, and txt files
 if (expand("%:t") ==? "vimrc") || (expand("%:t") ==? "inputrc") || (expand("%:e") ==? "txt")
     setlocal foldmethod=marker
 endif
+
+" set string that closed folds show
+function! MyFoldText()
+    let line = getline(v:foldstart)
+    let fold_title = substitute(line, '^\s\+\|"\ *\|//\|/\*\|\*/\|\ *{\+\d\=', '', 'g') . ' '
+    let num_of_spaces = (v:foldlevel - 1) * 4
+    let fold_start = repeat(' ', num_of_spaces)
+    let num_of_lines = v:foldend - v:foldstart
+    let fold_linecount = '(' . num_of_lines . ' L)'
+    let lastline_digits = strchars(line('$'))
+    let fillcharcount = winwidth(0) - strchars(fold_title) - strchars(fold_start) - strchars(fold_linecount) - &numberwidth - ((lastline_digits >= &numberwidth) ? (lastline_digits - &numberwidth + 1) : 0)
+    return fold_start . fold_title . repeat('·', fillcharcount) . fold_linecount
+endfunction
+
+set foldtext=MyFoldText()
+set fillchars=fold:\ 
 
 " }}}
 " Timeout {{{
@@ -82,12 +99,13 @@ set ttimeoutlen=0               " set time to wait for key-codes
 " }}}
 " Personal Preferences {{{
 
-let g:scheme_termtrans=1        " make colorscheme bg transparent by default
+" let g:scheme_termtrans=1        " make colorscheme bg transparent by default
+let g:gruvbox_transp_bg=1        " make colorscheme bg transparent by default
 
 if has("gui_running")
     colorscheme github
 else
-    colorscheme custom
+    colorscheme gruvbox8
 endif
 
 set hidden                      " allow a buffer to load in a window that currently has a modified buffer
