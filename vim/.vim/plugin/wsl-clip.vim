@@ -13,21 +13,25 @@ endif
 
 
 " powershell.exe -Command {command} executes a powershell command as if it were in the command line
-" let s:has_pshell = executable(glob('/mnt/c/Windows/System32/WindowsPowershell/*/powershell.exe'))
-let s:has_pshell = !empty(system('which powershell.exe'))
+let s:has_pshell = executable(glob('/mnt/c/Windows/System32/WindowsPowershell/*/powershell.exe'))
+" let s:has_pshell = !empty(system('which powershell.exe'))
 
 function! WslPaste(direction)
     if s:has_pshell
         let tmp = tempname() | exe 'vsplit '.tmp
-        read !powershell.exe -Command Get-Clipboard
+        read !/mnt/c/Windows/System32/WindowsPowershell/v1.0/powershell.exe -Command Get-Clipboard
         exe 'normal! gg"_dd' | wq
         let clip_content = readfile(tmp)
+        " If pasting linewise
         if len(clip_content) > 1
             if a:direction ==? "after"
                 call append(line('.'), clip_content)
+                exe 'normal! j'
             else
                 call append(line('.')-1, clip_content)
+                exe 'normal! k'
             endif
+        " If pasting characterwise
         elseif len(clip_content) == 1
             if a:direction ==? "after"
                 let str_after_cursor = strpart(getline(line('.')), col('.'))
@@ -40,8 +44,11 @@ function! WslPaste(direction)
             endif
             call append(line('.'), clip_content)
             join!
+            exe 'normal! $'
+            let curr_col = col('.')
             call append(line('.'), str_after_cursor)
             join!
+            exe 'normal! ' .curr_col. '|'
         endif
         if a:direction ==? "after"
             call repeat#set("\<Plug>WslPasteAfter")
