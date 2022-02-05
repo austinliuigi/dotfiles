@@ -10,10 +10,24 @@ setlocal foldexpr=MdFoldLevel(v:lnum)
 function! MdFoldLevel(lnum)
     " If line is blank
     if getline(a:lnum) =~? '\v^\s*$'
-        " If next line is a heading
-        if getline(a:lnum + 1) =~? '\v^\s*#{1,6}(#)@!'
-            " Set foldlevel to one less than next line
-            return string(foldlevel(line(a:lnum)+1) - 1)
+        " If next line is a level 6 subheading
+        if getline(a:lnum + 1) =~? '\v^\s*\######(#)@!'
+            return '5'
+        " If next line is a level 5 subheading
+        elseif getline(a:lnum + 1) =~? '\v^\s*\#####(#)@!'
+            return '4'
+        " If next line is a level 4 subheading
+        elseif getline(a:lnum + 1) =~? '\v^\s*\####(#)@!'
+            return '3'
+        " If next line is a level 3 subheading
+        elseif getline(a:lnum + 1) =~? '\v^\s*\###(#)@!'
+            return '2'
+        " If next line is a level 2 subheading
+        elseif getline(a:lnum + 1) =~? '\v^\s*\##(#)@!'
+            return '1'
+        " If next line is a level 1 subheading
+        elseif getline(a:lnum + 1) =~? '\v^\s*\#(#)@!'
+            return '0'
         else
             " Set foldlevel to that of the prev line
             return '='
