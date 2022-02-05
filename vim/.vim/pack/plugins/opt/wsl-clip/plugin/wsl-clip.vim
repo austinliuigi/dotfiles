@@ -26,10 +26,10 @@ function! WslPaste(direction)
         if len(clip_content) > 1
             if a:direction ==? "after"
                 call append(line('.'), clip_content)
-                exe 'normal! j'
+                exe 'normal! ' . len(clip_content) . 'j"_dd' . len(clip_content)-1 . 'k^'
             else
                 call append(line('.')-1, clip_content)
-                exe 'normal! k'
+                exe 'normal! k"_dd' . len(clip_content)-1 . 'k^'
             endif
         " If pasting characterwise
         elseif len(clip_content) == 1
