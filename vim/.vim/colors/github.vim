@@ -35,6 +35,8 @@ hi EndOfBuffer  guifg=#AFAFD7 ctermfg=146  guibg=NONE    ctermbg=NONE gui=NONE c
 hi VertSplit    guifg=#BBBBBB ctermfg=250  guibg=#BBBBBB ctermbg=250  gui=NONE cterm=NONE
 hi StatusLine   guifg=#87afaf ctermfg=109  guibg=#ECECEC ctermbg=255  gui=BOLD cterm=BOLD
 hi StatusLineNC guifg=#BBBBBB ctermfg=250  guibg=#ECECEC ctermbg=255  gui=ITALIC cterm=NONE
+hi StatusLineTerm guifg=#AFAF00 ctermfg=142 guibg=#EFF1F5 ctermbg=231 gui=NONE 
+hi! link StatusLineTermNC StatusLineNC
 hi ModeMsg      guifg=#990000 ctermfg=88   gui=NONE cterm=NONE
 hi MoreMsg      guifg=#990000 ctermfg=88   gui=NONE cterm=NONE
 hi Title        guifg=#EF5939 ctermfg=203  gui=NONE cterm=NONE
