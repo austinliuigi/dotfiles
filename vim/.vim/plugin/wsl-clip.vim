@@ -55,19 +55,20 @@ endfunction
 nnoremap <silent> <Plug>WslPasteAfter :call WslPaste("after")<CR>
 nnoremap <silent> <Plug>WslPasteBefore :call WslPaste("before")<CR>
 
-
-if exists("g:disable_wsl_paste") && g:disable_wsl_paste == 0
-    if !hasmapto('<Plug>WslPasteAfter')
-        nmap "+p <Plug>WslPasteAfter
-        nmap "*p <Plug>WslPasteAfter
+if has("win32")
+    if exists("g:disable_wsl_paste") && g:disable_wsl_paste == 0
+        if !hasmapto('<Plug>WslPasteAfter')
+            nmap "+p <Plug>WslPasteAfter
+            nmap "*p <Plug>WslPasteAfter
+        endif
+        if !hasmapto('<Plug>WslPasteBefore')
+            nmap "+P <Plug>WslPasteBefore
+            nmap "*P <Plug>WslPasteBefore
+        endif
     endif
-    if !hasmapto('<Plug>WslPasteBefore')
-        nmap "+P <Plug>WslPasteBefore
-        nmap "*P <Plug>WslPasteBefore
-    endif
-endif
 
-if exists("g:disable_wsl_yank") && g:disable_wsl_yank == 0
-    nnoremap "+ "p
-    nnoremap "* "p
+    if exists("g:disable_wsl_yank") && g:disable_wsl_yank == 0
+        nnoremap "+ "p
+        nnoremap "* "p
+    endif
 endif
