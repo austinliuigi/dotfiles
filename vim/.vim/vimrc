@@ -1,9 +1,60 @@
 " Name: vimrc
 " Author: Austin Liu
 " Date Created: July 2020
-" Date Modified: August 5, 2020
+" Date Modified: January 30, 2022
 "
 """ Options {{{
+" Personal Preferences {{{
+
+" let g:scheme_termtrans=1        " make colorscheme bg transparent by default
+let g:gruvbox_transp_bg=1        " make colorscheme bg transparent by default
+
+if has("gui_running")
+    colorscheme github
+else
+    colorscheme gruvbox8
+endif
+
+" highlight todo everywhere (not just in comments)
+augroup todo
+    autocmd!
+    autocmd Syntax * syn keyword myTodo TODO containedin=ALL
+    autocmd Syntax * hi link myTodo TODO
+augroup END
+
+set clipboard^=unnamed
+
+set hidden                      " allow a buffer to load in a window that currently has a modified buffer
+
+set relativenumber              " make line numbers relative to current line
+
+set number                      " show line numbers (only shows current line # with relativenumber set)
+
+set splitright                  " default vert split window to appear on the right
+
+set wildmenu                    " command-line autocomplete bar
+
+set scrolloff=3                 " set number of lines to keep above/below cursor
+
+set tildeop                     " tilde acts like an operator
+
+set cursorline                  " highlight line that cursor is on
+
+set noshowmode                  " don't show modemsg on cmdline
+
+set showmatch                   " show matching symmetric delimiter
+
+set lazyredraw                  " be conservative with screen refreshes
+
+set belloff=esc                 " don't ring bell when esc is pressed in normal-mode
+
+" remove excess comment characters when joining lines
+augroup fo
+    autocmd!
+    autocmd FileType * set formatoptions=jn
+augroup END
+
+" }}}
 " Boiler Plate {{{
 
 syntax on                       " enable syntax highlighting
@@ -31,9 +82,14 @@ set autoindent                                      " indent to the previous lin
 
 set smartindent                                     " indent based on c syntax
 
+set breakindent                                     " make wrapped lines have same indentation as original line
+
 set list                                            " show whitespace characters
 
 set listchars=tab:▸\ ,eol:¬,precedes:‹,extends:›    " set whitespace characters
+
+set showbreak=↪
+" set showbreak=⊂
 
 function! ToggleSpaceChar()
     if stridx(&listchars, "space") <= 0
@@ -69,20 +125,21 @@ set ignorecase                  " default to case insensitive
 set foldmethod=expr
 
 " use markers to fold in vimrc, inputrc, and txt files
-if (expand("%:t") ==? "vimrc") || (expand("%:t") ==? "inputrc") || (expand("%:e") ==? "txt")
-    setlocal foldmethod=marker
-endif
+augroup foldmarker
+    autocmd!
+    autocmd BufNewFile,BufReadPost,BufWritePost * if (expand("%:t") ==? "vimrc") || (expand("%:t") ==? "inputrc") || (expand("%:e") ==? "txt") | setlocal foldmethod=marker | endif
+augroup END
 
 " set string that closed folds show
 function! MyFoldText()
-    let line = getline(v:foldstart)
-    let fold_title = substitute(line, '^\s\+\|"\ *\|//\|/\*\|\*/\|\ *{\+\d\=', '', 'g') . ' '
     let num_of_spaces = (v:foldlevel - 1) * 4
     let fold_start = repeat(' ', num_of_spaces)
+    let line = getline(v:foldstart)
+    let fold_title = substitute(line, '^\s\+\|"\ *\|//\|/\*\|\*/\|\ *{\+\d\=', '', 'g') . ' '
     let num_of_lines = v:foldend - v:foldstart
     let fold_linecount = '(' . num_of_lines . ' L)'
-    let lastline_digits = strchars(line('$'))
-    let fillcharcount = winwidth(0) - strchars(fold_title) - strchars(fold_start) - strchars(fold_linecount) - &numberwidth - ((lastline_digits >= &numberwidth) ? (lastline_digits - &numberwidth + 1) : 0)
+    let last_linenr_digits = strchars(line('$'))
+    let fillcharcount = winwidth(0) - strchars(fold_title) - strchars(fold_start) - strchars(fold_linecount) - &numberwidth - ((last_linenr_digits >= &numberwidth) ? (last_linenr_digits - &numberwidth + 1) : 0)
     return fold_start . fold_title . repeat('·', fillcharcount) . fold_linecount
 endfunction
 
@@ -97,53 +154,21 @@ set notimeout ttimeout          " wait indefinitely for a mapping, but a set tim
 set ttimeoutlen=0               " set time to wait for key-codes
 
 " }}}
-" Personal Preferences {{{
-
-" let g:scheme_termtrans=1        " make colorscheme bg transparent by default
-let g:gruvbox_transp_bg=1        " make colorscheme bg transparent by default
-
-if has("gui_running")
-    colorscheme github
-else
-    colorscheme gruvbox8
-endif
-
-set hidden                      " allow a buffer to load in a window that currently has a modified buffer
-
-set relativenumber              " make line numbers relative to current line
-
-set number                      " show line numbers (only shows current line # with relativenumber set)
-
-set splitright                  " default vert split window to appear on the right
-
-set wildmenu                    " command-line autocomplete bar
-
-set scrolloff=3                 " set number of lines to keep above/below cursor
-
-set tildeop                     " tilde acts like an operator
-
-set cursorline                  " highlight line that cursor is on
-
-set noshowmode                  " don't show modemsg on cmdline
-
-set showmatch                   " show matching symmetric delimiter
-
-set lazyredraw                  " be conservative with screen refreshes
-
-set belloff=esc                 " don't ring bell when esc is pressed in normal-mode
-
-" remove excess comment characters when joining lines
-augroup fo
-    autocmd!
-    autocmd FileType * set formatoptions=jn
-augroup END
-
-" }}}
 " GUI {{{
 
-" set guifont=Source_Code_Pro_Medium:h10:b,Fixedsys:h10:b   " set gvim font & font size
-" set guifont=Cascadia_Code:h11   " set gvim font & font size
-set guifont=Consolas:h11        " set gvim font & font size
+" set gvim font & font size
+if has("gui_running")
+    if has("gui_gtk2")
+        set guifont=Luxi\ Mono\ 12
+    elseif has("x11")
+    " Also for GTK 1
+        set guifont=*-lucidatypewriter-medium-r-normal-*-*-180-*-*-m-*-*
+    elseif has("gui_win32")
+        set guifont=Consolas:h11
+    elseif has("gui_macvim")
+         set guifont=Menlo:h12,DejaVu\ Sans\ Mono:h13
+    endif
+endif
 
 set guioptions-=m               " remove menu in gvim
 
@@ -281,6 +306,8 @@ set statusline=%!StatusLine()
 
 let mapleader = " "
 
+nnoremap <leader>b :ls<CR>:b<SPACE>
+
 nnoremap <leader>c c
 
 nnoremap <leader><leader>c :ToggleConcealLevel<CR>
@@ -301,9 +328,13 @@ nnoremap <leader>e :vsp .<CR><C-W>L
 
 nnoremap <leader>h :nohl<CR>
 
+nmap <leader>H <Plug>ToTopQuarter
+
 nnoremap <leader>l :ToggleSpaceChar<CR>
 
 nnoremap <leader><leader>l :set list!<CR>
+
+nmap <leader>L <Plug>ToBottomQuarter
 
 nnoremap <leader>n :set relativenumber!<CR>
 
@@ -341,6 +372,34 @@ nnoremap x "_x
 
 nnoremap Y y$
 
+nnoremap zC zCVjzC
+
 inoremap <C-R> <C-R><C-R>
+
+vnoremap if :<C-U>normal! [zV]z<CR>
+
+omap if :normal Vif<CR>
+
+vnoremap aF :<C-U>normal! ggVG<CR>
+
+omap aF :normal VaF<CR>
+
+function! MoveToFirstNonBlankLine()
+    normal! gg
+    if empty(substitute(getline(line('.')), '\s', '', "g"))
+        call search('^\s*\S\+')
+    endif
+endfunction
+
+function! MoveToLastNonBlankLine()
+    normal! G
+    if empty(substitute(getline(line('.')), '\s', '', "g"))
+        call search('^\s*\S\+', 'b')
+    endif
+endfunction
+
+vnoremap iF :<C-U>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\|normal! V``<CR>
+
+omap iF :normal ViF<CR>
 
 "}}}
