@@ -1,0 +1,4 @@
+# Change focus
+
+# Open MinimaList
+cmd - return : open -a /Applications/MinimaList.app/
