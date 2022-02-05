@@ -3,9 +3,11 @@
 
 " Diff current file with last saved state
 function! DiffWithLastSave()
+    let tmpfile=tempname()
     let filetype=&ft
     diffthis
     leftabove vnew | read # | normal! gg"_dd
+    exe 'w ' . tmpfile
     exe "setlocal noswapfile readonly bufhidden=delete ft=" . filetype
     diffthis
     autocmd BufDelete <buffer> diffoff!
