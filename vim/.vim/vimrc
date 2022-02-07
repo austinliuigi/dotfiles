@@ -4,7 +4,20 @@
 " Date Modified: January 30, 2022
 "
 """ Options {{{
-" Personal Preferences {{{
+" Boiler Plate {{{
+
+syntax on                       " enable syntax highlighting
+
+filetype plugin indent on       " enable filetype detection, execute filetype-specific ex commands local to the local buffer, and load the indent file for the detected filetype
+
+set encoding=utf-8              " character encoding format
+
+set backspace=start,eol,indent  " better backspace in insert mode
+
+set showcmd
+
+" }}}
+" Preferences {{{
 
 set clipboard^=unnamed
 
@@ -32,24 +45,16 @@ set lazyredraw                  " be conservative with screen refreshes
 
 set belloff=esc                 " don't ring bell when esc is pressed in normal-mode
 
+augroup bell
+    autocmd!
+    autocmd FileType markdown,text setlocal belloff+=showmatch
+augroup END
+
 " remove excess comment characters when joining lines
 augroup fo
     autocmd!
     autocmd FileType * set formatoptions=jn
 augroup END
-
-" }}}
-" Boiler Plate {{{
-
-syntax on                       " enable syntax highlighting
-
-filetype plugin indent on       " enable filetype detection, execute filetype-specific ex commands local to the local buffer, and load the indent file for the detected filetype
-
-set encoding=utf-8              " character encoding format
-
-set backspace=start,eol,indent  " better backspace in insert mode
-
-set showcmd
 
 " }}}
 " Color {{{
