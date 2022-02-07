@@ -3,6 +3,12 @@
 " Date Created: September 3, 2021
 " Date Modified: September 3, 2021
 "
+" Whitespace {{{
+
+setlocal softtabstop=2
+
+" }}}
+
 " Folding {{{
 
 setlocal foldexpr=MdFoldLevel(v:lnum)
