@@ -14,13 +14,15 @@
 " repeat#set, causing an unpredictable result from the dot command.
 
 function! BlankLineBelow()
-    execute 'normal! ' . "o\<esc>0\"_D"
+    execute 'normal! ' . string(v:count1) . "o\<C-U>\<esc>"
     call repeat#set("\<Plug>BlankLineBelow")
 endfunction
-" nmap <leader>o <Plug>BlankLineBelow
 
-function! BlankLineAbove()
-    execute 'normal! ' . "O\<esc>0\"_D"
+" count does not work with 'o' in formatoptions; executing a <C-U> after
+" pressing 'O' in normal mode with a count causes only one line to be created above,
+" essentially ignoring the count
+function! BlankLineAbove() range
+    execute 'normal! ' . string(v:count1) . "O\<C-U>\<esc>"
     call repeat#set("\<Plug>BlankLineAbove")
 endfunction
 
@@ -34,7 +36,9 @@ function! ClearLineDefaultReg()
     call repeat#set("\<Plug>ClearLineDefaultReg")
 endfunction
 
-nnoremap <silent> <Plug>BlankLineBelow :call BlankLineBelow()<CR>
-nnoremap <silent> <Plug>BlankLineAbove :call BlankLineAbove()<CR>
+" when the mapping to <Plug>BlankLineBelow is supplied with a count, the count prefixes the RHS, therefore the <C-U> is necessary
+" to remove the range created when a count is provided (because a count before ':' in normal mode creates a range)
+nnoremap <silent> <Plug>BlankLineBelow :<C-U>call BlankLineBelow()<CR>
+nnoremap <silent> <Plug>BlankLineAbove :<C-U>call BlankLineAbove()<CR>
 nnoremap <silent> <Plug>ClearLineBlackHole :call ClearLineBlackHole()<CR>
 nnoremap <silent> <Plug>ClearLineDefaultReg :call ClearLineDefaultReg()<CR>
