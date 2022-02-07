@@ -14,15 +14,23 @@
 " repeat#set, causing an unpredictable result from the dot command.
 
 function! BlankLineBelow()
-    execute 'normal! ' . string(v:count1) . "o\<C-U>\<esc>"
+    let cnt = v:count1
+    execute 'normal! ' . "o\<esc>0\"_D"
+    if cnt > 1
+        execute 'normal! ' . string(cnt-1) . "o\<esc>"
+    endif
     call repeat#set("\<Plug>BlankLineBelow")
 endfunction
 
 " count does not work with 'o' in formatoptions; executing a <C-U> after
 " pressing 'O' in normal mode with a count causes only one line to be created above,
 " essentially ignoring the count
-function! BlankLineAbove() range
-    execute 'normal! ' . string(v:count1) . "O\<C-U>\<esc>"
+function! BlankLineAbove()
+    let cnt = v:count1
+    execute 'normal! ' . "O\<esc>0\"_D"
+    if cnt > 1
+        execute 'normal! ' . string(cnt-1) . "o\<esc>"
+    endif
     call repeat#set("\<Plug>BlankLineAbove")
 endfunction
 
