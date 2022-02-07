@@ -60,11 +60,10 @@ hi Function     guifg=#990000 ctermfg=88   gui=BOLD cterm=BOLD
 hi Statement    guifg=#000000 ctermfg=16   gui=BOLD cterm=BOLD
 hi Type         guifg=#445588 ctermfg=60   gui=BOLD cterm=BOLD
 hi Number       guifg=#1C9898 ctermfg=30   gui=NONE cterm=NONE
-hi Todo         guifg=#FFFFFF ctermfg=231  guibg=#990000 ctermbg=88   gui=BOLD cterm=BOLD
 hi Special      guifg=#159828 ctermfg=28   gui=BOLD cterm=BOLD
 hi rubySymbol   guifg=#960B73 ctermfg=89   gui=NONE cterm=NONE
 hi Error        guifg=#F8F8FF ctermfg=231  guibg=#FF1100 ctermbg=196  gui=NONE cterm=NONE
-hi Todo         guifg=#F8F8FF ctermfg=231  guibg=#FF1100 ctermbg=196  gui=UNDERLINE cterm=UNDERLINE
+hi Todo         guifg=#8F0711 ctermfg=231  guibg=#DCB1B4 ctermbg=196  gui=UNDERLINE,ITALIC cterm=UNDERLINE,ITALIC
 hi Label        guifg=#000000 ctermfg=16   gui=BOLD cterm=BOLD
 hi StorageClass guifg=#000000 ctermfg=16   gui=BOLD cterm=BOLD
 hi Structure    guifg=#000000 ctermfg=16   gui=BOLD cterm=BOLD
