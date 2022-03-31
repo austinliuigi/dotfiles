@@ -23,7 +23,7 @@ set colored-stats on
 set completion-ignore-case on
 
 # Set timeout value
-set keyseq-timeout 0
+set keyseq-timeout 1
 
 # Prefix modified history lines with a '*'
 # set mark-modified-lines on
@@ -53,11 +53,13 @@ set show-all-if-ambiguous on
 set show-mode-in-prompt on
 
 # Specify string that is displayed in prompt when in vi normal mode
-set vi-cmd-mode-string \1\e[38;2;167;166;186m\2[n] \1\e[0m\2
+set vi-cmd-mode-string \1\e[1 q\2
+# set vi-cmd-mode-string \1\e[38;2;167;166;186m\2[n] \1\e[0m\2
 # set vi-cmd-mode-string \1\e[38;5;189m\2(cmd)\1\e[0m\2
 
 # Specify string that is displayed in prompt when in vi insert mode
-set vi-ins-mode-string \1\e[38;2;207;185;151m\2[i] \1\e[0m\2
+set vi-ins-mode-string \1\e[5 q\2
+# set vi-ins-mode-string \1\e[38;2;207;185;151m\2[i] \1\e[0m\2
 # set vi-ins-mode-string \1\e[38;2;184;172;158m\2(ins)\1\e[0m\2
 
 # }}}
