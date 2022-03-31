@@ -6,13 +6,13 @@
 """ Options {{{
 " Boiler Plate {{{
 
-syntax on                       " enable syntax highlighting
+syntax on                       " Enable syntax highlighting
 
-filetype plugin indent on       " enable filetype detection, execute filetype-specific ex commands local to the local buffer, and load the indent file for the detected filetype
+filetype plugin indent on       " Enable filetype detection, execute filetype-specific ex commands local to the local buffer, and load the indent file for the detected filetype
 
-set encoding=utf-8              " character encoding format
+set encoding=utf-8              " Character encoding format
 
-set backspace=start,eol,indent  " better backspace in insert mode
+set backspace=start,eol,indent  " Better backspace in insert mode
 
 set showcmd
 
@@ -21,39 +21,61 @@ set showcmd
 
 set clipboard^=unnamed
 
-set hidden                      " allow a buffer to load in a window that currently has a modified buffer
+set hidden                      " Allow a buffer to load in a window that currently has a modified buffer
 
-set relativenumber              " make line numbers relative to current line
+set relativenumber              " Make line numbers relative to current line
 
-set number                      " show line numbers (only shows current line # with relativenumber set)
+set number                      " Show line numbers (only shows current line # with relativenumber set)
 
-set splitright                  " default vert split window to appear on the right
+set splitright                  " Default vert split window to appear on the right
 
-set wildmenu                    " command-line autocomplete bar
+set wildmenu                    " Command-line autocomplete bar
 
-set scrolloff=3                 " set number of lines to keep above/below cursor
+set scrolloff=3                 " Set number of lines to keep above/below cursor
 
-set tildeop                     " tilde acts like an operator
+set tildeop                     " Tilde acts like an operator
 
-set cursorline                  " highlight line that cursor is on
+set cursorline                  " Highlight line that cursor is on
 
-set noshowmode                  " don't show modemsg on cmdline
+set noshowmode                  " Don't show modemsg on cmdline
 
-set showmatch                   " show matching symmetric delimiter
+set showmatch                   " Show matching symmetric delimiter
 
-set lazyredraw                  " be conservative with screen refreshes
+set lazyredraw                  " Be conservative with screen refreshes
 
-set belloff=esc                 " don't ring bell when esc is pressed in normal-mode
+set belloff=esc                 " Don't ring bell when esc is pressed in normal-mode
 
+" Cursor style in different modes
+ "Ps = 0  -> blinking block.
+ "Ps = 1  -> blinking block (default).
+ "Ps = 2  -> steady block.
+ "Ps = 3  -> blinking underline.
+ "Ps = 4  -> steady underline.
+ "Ps = 5  -> blinking bar (xterm).
+ "Ps = 6  -> steady bar (xterm).
+let &t_SI = "\e[5 q"
+let &t_SR = "\e[4 q"
+let &t_EI = "\e[1 q"
+augroup cursorinit
+    autocmd!
+    autocmd VimEnter * if !has("gui_running") | silent execute '!echo -ne "\e[1 q"' | redraw! | endif
+augroup END
+
+" Don't ring bell for unmatched characters
 augroup bell
     autocmd!
     autocmd FileType markdown,text setlocal belloff+=showmatch
 augroup END
 
-" remove excess comment characters when joining lines
+" Remove excess comment characters when joining lines
 augroup fo
     autocmd!
     autocmd FileType * set formatoptions=jn
+augroup END
+
+augroup h
+    autocmd!
+    autocmd BufWinEnter * if &buftype == "help" | setlocal relativenumber | endif
 augroup END
 
 " }}}
@@ -68,7 +90,7 @@ else
     colorscheme gruvbox8
 endif
 
-" highlight todo everywhere (not just in comments)
+" Highlight todo everywhere (not just in comments)
 augroup todo
     autocmd!
     autocmd Syntax * syn keyword myTodo TODO XXX containedin=ALL
@@ -78,25 +100,25 @@ augroup END
 " }}}
 " Whitespace {{{
 
-set tabstop=4                                       " length of <tab> when it is displayed
+set tabstop=4                                       " Length of <tab> when it is displayed
 
-set softtabstop=4                                   " length of <tab> (& respective <bksp>) when you type it
+set softtabstop=4                                   " Length of <tab> (& respective <bksp>) when you type it
 
-set shiftwidth=4                                    " indent length
+set shiftwidth=4                                    " Indent length
 
-set expandtab                                       " tab will act as spaces (makes its length consistent across all platforms)
+set expandtab                                       " Tab will act as spaces (makes its length consistent across all platforms)
 
-set autoindent                                      " indent to the previous line's indent level
+set autoindent                                      " Indent to the previous line's indent level
 
-set smartindent                                     " indent based on c syntax
+set smartindent                                     " Indent based on c syntax
 
-set breakindent                                     " make wrapped lines have same indentation as original line
+set breakindent                                     " Make wrapped lines have same indentation as original line
 
-set list                                            " show whitespace characters
+set list                                            " Show whitespace characters
 
-set listchars=tab:▸\ ,eol:¬,precedes:‹,extends:›    " set whitespace characters
+set listchars=tab:▸\ ,eol:¬,precedes:‹,extends:›    " Set whitespace characters
 
-set showbreak=↪
+let &showbreak = '↪ '
 " set showbreak=⊂
 
 function! ToggleSpaceChar()
@@ -120,25 +142,25 @@ command! ToggleConcealLevel call ToggleConcealLevel()
 " }}}
 " Searching {{{
 
-set incsearch                   " search as you type
+set incsearch                   " Search as you type
 
-set hlsearch                    " search highlighting
+set hlsearch                    " Search highlighting
 
-set ignorecase                  " default to case insensitive
+set ignorecase                  " Default to case insensitive
 
 " }}}
 " Folding {{{
 
-" define folding using foldexpr option
+" Define folding using foldexpr option
 set foldmethod=expr
 
-" use markers to fold in vimrc, inputrc, and txt files
+" Use markers to fold in vimrc, inputrc, and txt files
 augroup foldmarker
     autocmd!
     autocmd BufNewFile,BufReadPost,BufWritePost * if (expand("%:t") ==? "vimrc") || (expand("%:t") ==? "inputrc") || (expand("%:e") ==? "txt") | setlocal foldmethod=marker | endif
 augroup END
 
-" set string that closed folds show
+" Set string that closed folds show
 function! MyFoldText()
     let num_of_spaces = (v:foldlevel - 1) * 2
     let fold_start = repeat(' ', num_of_spaces)
@@ -157,14 +179,14 @@ set fillchars=fold:\
 " }}}
 " Timeout {{{
 
-set notimeout ttimeout          " wait indefinitely for a mapping, but a set time for key-codes
+set notimeout ttimeout          " Wait indefinitely for a mapping, but a set time for key-codes
 
-set ttimeoutlen=0               " set time to wait for key-codes
+set ttimeoutlen=0               " Set time to wait for key-codes
 
 " }}}
 " GUI {{{
 
-" set gvim font & font size
+" Set gvim font & font size
 if has("gui_running")
     if has("gui_gtk2")
         set guifont=Luxi\ Mono\ 12
@@ -178,11 +200,11 @@ if has("gui_running")
     endif
 endif
 
-set guioptions-=m               " remove menu in gvim
+set guioptions-=m               " Remove menu in gvim
 
-set guioptions-=T               " remove toolbar in gvim
+set guioptions-=T               " Remove toolbar in gvim
 
-set guioptions-=r               " remove scrollbar in gvim
+set guioptions-=r               " Remove scrollbar in gvim
 
 " }}}
 " Backup Files {{{
@@ -228,9 +250,9 @@ let g:mundo_preview_bottom=1    " Force preview window to be below windows inste
 "}}}
 """ Wsl-Clip {{{
 
-let g:disable_wsl_yank=has('gui_running')       " disable wslyank for gui, enable for terminal
+let g:disable_wsl_yank=has('gui_running')       " Disable wslyank for gui, enable for terminal
 
-let g:disable_wsl_paste=has('gui_running')      " disable wslpaste for gui, enable for terminal
+let g:disable_wsl_paste=has('gui_running')      " Disable wslpaste for gui, enable for terminal
 
 "}}}
 """ Status Line {{{
@@ -314,15 +336,77 @@ set statusline=%!StatusLine()
 
 let mapleader = " "
 
-nnoremap <leader>b :ls<CR>:b<SPACE>
+" Alter default register mappings
 
 nnoremap <leader>c c
-
-nnoremap <leader><leader>c :ToggleConcealLevel<CR>
 
 nnoremap <leader>C C
 
 nnoremap <leader>d d
+
+nnoremap <leader>D D
+
+nnoremap <leader>s s
+
+nnoremap <leader>S S
+
+nnoremap <leader>x x
+
+nnoremap <leader>X X
+
+nnoremap c "_c
+
+nnoremap C "_C
+
+nnoremap d "_d
+
+nnoremap D "_D
+
+nnoremap s "_s
+
+nnoremap S "_S
+
+nnoremap x "_x
+
+nnoremap X "_X
+
+vnoremap <leader>c c
+
+vnoremap <leader>C C
+
+vnoremap <leader>d d
+
+vnoremap <leader>D D
+
+vnoremap <leader>s s
+
+vnoremap <leader>S S
+
+vnoremap <leader>x x
+
+vnoremap <leader>X X
+
+vnoremap c "_c
+
+vnoremap C "_C
+
+vnoremap d "_d
+
+vnoremap D "_D
+
+vnoremap s "_s
+
+vnoremap S "_S
+
+vnoremap x "_x
+
+vnoremap X "_X
+
+" Leader mappings
+
+nnoremap <leader>b :ls<CR>:b<SPACE>
+
+nnoremap <leader><leader>c :ToggleConcealLevel<CR>
 
 nmap <leader>dD <Plug>ClearLineDefaultReg
 
@@ -330,9 +414,9 @@ nnoremap <leader><leader>do :DiffOrig<CR>
 
 nnoremap <leader><leader>dls :DiffLastSave<CR>
 
-nnoremap <leader>D D
+nnoremap <leader>e :e .<CR>
 
-nnoremap <leader>e :vsp .<CR><C-W>L
+nnoremap <leader><leader>e :vsp .<CR><C-W>L
 
 nnoremap <leader>h :nohl<CR>
 
@@ -358,25 +442,15 @@ nnoremap <leader>u :MundoToggle<CR>
 
 nnoremap <leader>w :set wrap!<CR>
 
-nnoremap <leader>x x
+" Non-leader mappings
 
 nnoremap <space> <nop>
 
-nnoremap c "_c
-
-nnoremap C "_C
-
-nnoremap d "_d
-
 nmap dD <Plug>ClearLineBlackHole
-
-nnoremap D "_D
 
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
 nnoremap <expr> j v:count ? 'j' : 'gj'
-
-nnoremap x "_x
 
 nnoremap Y y$
 
@@ -385,6 +459,8 @@ nnoremap zC zCvzC
 inoremap <C-R> <C-R><C-R>
 
 vnoremap af :<C-U>normal! [zV]z<CR>
+
+" Custom text objects
 
 omap af :normal Vaf<CR>
 
