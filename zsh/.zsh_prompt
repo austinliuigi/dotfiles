@@ -1,3 +1,5 @@
+# Austin's zsh prompt
+
 # Calculate how many characters a string takes up in prompt (accounts
 # for escaping & wide characters)
 function promptLength () {

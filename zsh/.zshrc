@@ -1,4 +1,4 @@
-# ~/.zshrc: executed by zsh upon startup
+# Austin's zshrc
 
 # Login message
 printf "Welcome $USER! It is currently %s.\n\n" "$(date "+%A, %B %d %Y, %I:%M %p")"
