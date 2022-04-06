@@ -31,6 +31,8 @@ set splitright                  " Default vert split window to appear on the rig
 
 set wildmenu                    " Command-line autocomplete bar
 
+set wildcharm=<Tab>             " Set key for mappings to acticatte windmenu
+
 set scrolloff=3                 " Set number of lines to keep above/below cursor
 
 set tildeop                     " Tilde acts like an operator
@@ -73,7 +75,7 @@ augroup fo
     autocmd FileType * set formatoptions=jn
 augroup END
 
-augroup h
+augroup rn
     autocmd!
     autocmd BufWinEnter * if &buftype == "help" | setlocal relativenumber | endif
 augroup END
@@ -120,24 +122,6 @@ set listchars=tab:▸\ ,eol:¬,precedes:‹,extends:›    " Set whitespace char
 
 let &showbreak = '↪ '
 " set showbreak=⊂
-
-function! ToggleSpaceChar()
-    if stridx(&listchars, "space") <= 0
-        set listchars+=space:.
-    else
-        set listchars-=space:.
-    endif
-endfunction
-command! ToggleSpaceChar call ToggleSpaceChar()
-
-function! ToggleConcealLevel()
-    if &l:conceallevel != 0
-        setlocal conceallevel=0
-    else
-        setlocal conceallevel=2
-    endif
-endfunction
-command! ToggleConcealLevel call ToggleConcealLevel()
 
 " }}}
 " Searching {{{
@@ -336,7 +320,15 @@ set statusline=%!StatusLine()
 
 let mapleader = " "
 
-" Alter default register mappings
+nnoremap <leader> <nop>
+
+" Motion mappings
+
+nnoremap <expr> k v:count ? 'k' : 'gk'
+
+nnoremap <expr> j v:count ? 'j' : 'gj'
+
+" Register mappings
 
 nnoremap <leader>c c
 
@@ -402,19 +394,81 @@ vnoremap x "_x
 
 vnoremap X "_X
 
-" Leader mappings
+" Buffer list mappings
 
-nnoremap <leader>b :ls<CR>:b<SPACE>
+nnoremap <leader>bn :find <Tab><S-Tab>
+
+nnoremap <leader>bj :bn<CR>
+
+nnoremap <leader>bk :bp<CR>
+
+nnoremap <leader>bl :b#<CR>
+
+nnoremap <leader><leader>b :ls<CR>:b<SPACE>
+
+" Argument list mappings
+
+nnoremap <leader>aj :n<CR>
+
+nnoremap <leader>ak :N<CR>
+
+nnoremap <leader><leader>a :args
+
+" Quickfix list mappings
+
+nnoremap <leader>cj :cn<CR>
+
+nnoremap <leader>ck :cp<CR>
+
+nnoremap <leader><leader>c :copen<CR>
+
+" Window mappings
+
+nnoremap <leader>wh :topleft vert sfind <Tab><S-Tab>
+
+nnoremap <leader>wj :botright sfind <Tab><S-Tab>
+
+nnoremap <leader>wk :topleft sfind <Tab><S-Tab>
+
+nnoremap <leader>wl :botright vert sfind <Tab><S-Tab>
+
+nnoremap <leader>wH <C-W>H
+
+nnoremap <leader>wJ <C-W>J
+
+nnoremap <leader>wK <C-W>K
+
+nnoremap <leader>wL <C-W>L
+
+" Tab mappings
+
+nnoremap <C-L> :tabn<CR>
+
+nnoremap <C-H> :tabp<CR>
+
+nnoremap <leader>th :-tabfind <Tab><S-Tab>
+
+nnoremap <leader>tl :tabfind <Tab><S-Tab>
+
+nnoremap <leader>tH :-tabmove<CR>
+
+nnoremap <leader>tL :+tabmove<CR>
+
+nnoremap <leader>tm :tabs<CR>:tabmove<SPACE>
+
+nnoremap <leader><leader>t :tabs<CR>:tabn<SPACE>
+
+" Normal mode mappings
 
 nnoremap <leader><leader>c :ToggleConcealLevel<CR>
+
+nmap dD <Plug>ClearLineBlackHole
 
 nmap <leader>dD <Plug>ClearLineDefaultReg
 
 nnoremap <leader><leader>do :DiffOrig<CR>
 
 nnoremap <leader><leader>dls :DiffLastSave<CR>
-
-nnoremap <leader>e :e .<CR>
 
 nnoremap <leader><leader>e :vsp .<CR><C-W>L
 
@@ -442,21 +496,15 @@ nnoremap <leader>u :MundoToggle<CR>
 
 nnoremap <leader>w :set wrap!<CR>
 
-" Non-leader mappings
-
-nnoremap <space> <nop>
-
-nmap dD <Plug>ClearLineBlackHole
-
-nnoremap <expr> k v:count ? 'k' : 'gk'
-
-nnoremap <expr> j v:count ? 'j' : 'gj'
-
 nnoremap Y y$
 
 nnoremap zC zCvzC
 
+" Insert mode mappings
+
 inoremap <C-R> <C-R><C-R>
+
+" Visual mode mappings
 
 vnoremap af :<C-U>normal! [zV]z<CR>
 
@@ -472,6 +520,31 @@ vnoremap aF :<C-U>normal! ggVG<CR>
 
 omap aF :normal VaF<CR>
 
+vnoremap iF :<C-U>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\|normal! V``<CR>
+
+omap iF :normal ViF<CR>
+
+"}}}
+""" Mapping Functions{{{
+
+function! ToggleSpaceChar()
+    if stridx(&listchars, "space") <= 0
+        set listchars+=space:.
+    else
+        set listchars-=space:.
+    endif
+endfunction
+command! ToggleSpaceChar call ToggleSpaceChar()
+
+function! ToggleConcealLevel()
+    if &l:conceallevel != 0
+        setlocal conceallevel=0
+    else
+        setlocal conceallevel=2
+    endif
+endfunction
+command! ToggleConcealLevel call ToggleConcealLevel()
+
 function! MoveToFirstNonBlankLine()
     normal! gg
     if empty(substitute(getline(line('.')), '\s', '', "g"))
@@ -485,9 +558,5 @@ function! MoveToLastNonBlankLine()
         call search('^\s*\S\+', 'b')
     endif
 endfunction
-
-vnoremap iF :<C-U>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\|normal! V``<CR>
-
-omap iF :normal ViF<CR>
 
 "}}}
