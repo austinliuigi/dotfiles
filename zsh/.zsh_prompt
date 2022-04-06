@@ -124,7 +124,7 @@ function gitstatusPromptUpdate () {
     # 'merge' if the repo is in an unusual state.
     [[ -n $VCS_STATUS_ACTION     ]] && p+=" ${r}${VCS_STATUS_ACTION}"
 
-    GITSTATUS_PROMPT="${p}%F{15}]%f"
+    GITSTATUS_PROMPT="${p}%F{15}]"
 }
 
 function setPrompt () {
@@ -135,10 +135,10 @@ function setPrompt () {
     gitstatusPromptUpdate
 
     # Set prompt information
-    local top_left=$'\n%F{15}╭─(%(!.%F{196}.)%n%(!.%F{15}.) @ %m)-[%~]%f'
+    local top_left=$'\n%F{15}╭─(%(!.%F{196}.)%n%(!.%F{15}.) @ %m)-[%~]'
     local top_right="${GITSTATUS_PROMPT}─╮"
     local bottom_left='%F{15}╰─ ⚡%f'
-    local bottom_right='%@ ─╯'
+    local bottom_right='%F{15}%@ ─╯'
 
     # Call padMiddle to set RETURN
     padMiddle "$top_left" "$top_right"
