@@ -141,7 +141,7 @@ set foldmethod=expr
 " Use markers to fold in vimrc, inputrc, and txt files
 augroup foldmarker
     autocmd!
-    autocmd BufNewFile,BufReadPost,BufWritePost * if (expand("%:t") ==? "vimrc") || (expand("%:t") ==? "inputrc") || (expand("%:e") ==? "txt") | setlocal foldmethod=marker | endif
+    autocmd BufNewFile,BufReadPost,BufWritePost,SourcePost * if (expand("%:t") ==? "vimrc") || (expand("%:t") ==? "inputrc") || (expand("%:e") ==? "txt") | setlocal foldmethod=marker | endif
 augroup END
 
 " Set string that closed folds show
@@ -457,6 +457,10 @@ nnoremap <leader>tL :+tabmove<CR>
 nnoremap <leader>tm :tabs<CR>:tabmove<SPACE>
 
 nnoremap <leader><leader>t :tabs<CR>:tabn<SPACE>
+
+inoremap <C-L> <Esc>:tabn<CR>i
+
+inoremap <C-H> <Esc>:tabp<CR>i
 
 " Normal mode mappings
 
