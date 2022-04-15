@@ -1,7 +1,7 @@
 " Name: vimrc
 " Author: Austin Liu
 " Date Created: July 2020
-" Date Modified: January 30, 2022
+" Date Modified: April 8, 2022
 "
 """ Options {{{
 " Boiler Plate {{{
@@ -91,6 +91,32 @@ if has("gui_running")
 else
     colorscheme gruvbox8
 endif
+
+" Set vim terminal colors
+let g:terminal_ansi_colors = map(range(16), 0)
+let g:terminal_ansi_colors[0]  = "#282828"  " black
+let g:terminal_ansi_colors[1]  = "#CC241D"  " dark red
+let g:terminal_ansi_colors[2]  = "#98971C"  " dark green
+let g:terminal_ansi_colors[3]  = "#D79921"  " dark yellow
+let g:terminal_ansi_colors[4]  = "#458588"  " dark blue
+let g:terminal_ansi_colors[5]  = "#B16286"  " dark magenta
+let g:terminal_ansi_colors[6]  = "#689D6A"  " dark cyan
+let g:terminal_ansi_colors[7]  = "#A89984"  " light gray
+let g:terminal_ansi_colors[8]  = "#928374"  " dark gray
+let g:terminal_ansi_colors[9]  = "#FB4934"  " red
+let g:terminal_ansi_colors[10] = "#B8BB26"  " green
+let g:terminal_ansi_colors[11] = "#FABD2F"  " yellow
+let g:terminal_ansi_colors[12] = "#83A598"  " blue
+let g:terminal_ansi_colors[13] = "#D3869B"  " magenta
+let g:terminal_ansi_colors[14] = "#8EC07C"  " cyan
+let g:terminal_ansi_colors[15] = "#EBDBB2"  " white
+
+hi! Terminal guibg=#282828 guifg=#EBDBB2
+
+augroup termcolor
+    autocmd!
+    autocmd TerminalWinOpen * setlocal norelativenumber
+augroup END
 
 " Highlight todo everywhere (not just in comments)
 augroup todo
@@ -216,7 +242,9 @@ let g:netrw_dirhistmax=0
 "     let g:netrw_home="~/.vim"
 " endif
 
-let g:netrw_liststyle=3     " Tree-Style Listing
+let g:netrw_liststyle=3     " Tree-style listing
+
+let g:netrw_bufsettings = "noma nomod nowrap ro nobl nu rnu"    " NetRW buffer settings
 
 "}}}
 """ Mundo {{{
@@ -388,7 +416,7 @@ vnoremap D "_D
 
 vnoremap s "_s
 
-vnoremap S "_S
+" vnoremap S "_S
 
 vnoremap x "_x
 
@@ -424,13 +452,21 @@ nnoremap <leader><leader>c :copen<CR>
 
 " Window mappings
 
-nnoremap <leader>wh :topleft vert sfind <Tab><S-Tab>
+nnoremap <leader>wnh :topleft vnew 
 
-nnoremap <leader>wj :botright sfind <Tab><S-Tab>
+nnoremap <leader>wnj :botright new 
 
-nnoremap <leader>wk :topleft sfind <Tab><S-Tab>
+nnoremap <leader>wnk :topleft new 
 
-nnoremap <leader>wl :botright vert sfind <Tab><S-Tab>
+nnoremap <leader>wnl :botright vnew 
+
+nnoremap <leader>wh :topleft vert sfind 
+
+nnoremap <leader>wj :botright sfind 
+
+nnoremap <leader>wk :topleft sfind 
+
+nnoremap <leader>wl :botright vert sfind 
 
 nnoremap <leader>wH <C-W>H
 
@@ -446,9 +482,13 @@ nnoremap <C-L> :tabn<CR>
 
 nnoremap <C-H> :tabp<CR>
 
-nnoremap <leader>th :-tabfind <Tab><S-Tab>
+nnoremap <leader>tnh :-tabnew 
 
-nnoremap <leader>tl :tabfind <Tab><S-Tab>
+nnoremap <leader>tnl :tabnew 
+
+nnoremap <leader>th :-tabfind 
+
+nnoremap <leader>tl :tabfind 
 
 nnoremap <leader>tH :-tabmove<CR>
 
@@ -458,9 +498,9 @@ nnoremap <leader>tm :tabs<CR>:tabmove<SPACE>
 
 nnoremap <leader><leader>t :tabs<CR>:tabn<SPACE>
 
-inoremap <C-L> <Esc>:tabn<CR>i
+inoremap <C-L> <Esc>:TabRightIns<CR>
 
-inoremap <C-H> <Esc>:tabp<CR>i
+inoremap <C-H> <Esc>:TabLeftIns<CR>
 
 " Normal mode mappings
 
@@ -470,9 +510,9 @@ nmap dD <Plug>ClearLineBlackHole
 
 nmap <leader>dD <Plug>ClearLineDefaultReg
 
-nnoremap <leader><leader>do :DiffOrig<CR>
+nmap <leader><leader>do <Plug>DiffOrig
 
-nnoremap <leader><leader>dls :DiffLastSave<CR>
+nmap <leader><leader>dls <Plug>DiffLastSave
 
 nnoremap <leader><leader>e :vsp .<CR><C-W>L
 
@@ -497,6 +537,8 @@ nnoremap <leader>p :put<CR>
 nnoremap <leader>P :put!<CR>
 
 nnoremap <leader>u :MundoToggle<CR>
+
+nnoremap <expr> <leader>v empty(&virtualedit) ? ':set virtualedit+=all<CR>' : ':set virtualedit-=all<CR>'
 
 nnoremap <leader>w :set wrap!<CR>
 
@@ -528,8 +570,38 @@ vnoremap iF :<C-U>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\
 
 omap iF :normal ViF<CR>
 
+" Misc
+
+xmap ,c  <Plug>Commentary
+
+nmap ,c  <Plug>Commentary
+
+omap ,c  <Plug>Commentary
+
+nmap ,cc <Plug>CommentaryLine
+
 "}}}
 """ Mapping Functions{{{
+
+function! TabRightIns()
+    execute "normal! \<Esc>:tabn\<CR>"
+    if col('.')!=1
+        call feedkeys('a', 'n')
+    else
+        call feedkeys('i', 'n')
+    endif
+endfunction
+command! TabRightIns call TabRightIns()
+
+function! TabLeftIns()
+    execute "normal! \<Esc>:tabp\<CR>"
+    if col('.')!=1
+        call feedkeys('a', 'n')
+    else
+        call feedkeys('i', 'n')
+    endif
+endfunction
+command! TabLeftIns call TabLeftIns()
 
 function! ToggleSpaceChar()
     if stridx(&listchars, "space") <= 0
