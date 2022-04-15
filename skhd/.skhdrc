@@ -1,4 +1,8 @@
-# Change focus
-
 # Open MinimaList
 cmd - return : open -a /Applications/MinimaList.app/
+
+# Open terminal
+ctrl - return : open -a /Applications/iTerm.app/
+
+# Backspace word
+ctrl - backspace : skhd -k "alt - backspace"

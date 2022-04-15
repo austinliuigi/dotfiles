@@ -7,3 +7,12 @@
 [submodule "zsh/.zsh_plugins/gitstatus"]
 	path = zsh/.zsh_plugins/gitstatus
 	url = https://github.com/romkatv/gitstatus.git
+[submodule "vim/.vim/pack/plugins/start/auto-pairs"]
+	path = vim/.vim/pack/plugins/start/auto-pairs
+	url = https://github.com/jiangmiao/auto-pairs.git
+[submodule "vim/.vim/pack/plugins/start/fzf.vim"]
+	path = vim/.vim/pack/plugins/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
+[submodule "vim/.vim/pack/plugins/start/ultisnips"]
+	path = vim/.vim/pack/plugins/start/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
