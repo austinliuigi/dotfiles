@@ -47,6 +47,10 @@ set lazyredraw                  " Be conservative with screen refreshes
 
 set belloff=esc                 " Don't ring bell when esc is pressed in normal-mode
 
+set shortmess+=c                " Disable completion menu messages
+
+set mouse=a                     " Allow use of mouse in all modes
+
 " Cursor style in different modes
  "Ps = 0  -> blinking block.
  "Ps = 1  -> blinking block (default).
@@ -75,10 +79,17 @@ augroup fo
     autocmd FileType * set formatoptions=jn
 augroup END
 
+" Set relative numbers for help windows
 augroup rn
     autocmd!
     autocmd BufWinEnter * if &buftype == "help" | setlocal relativenumber | endif
 augroup END
+
+" " Set relative numbers for help windows
+" augroup quickfix
+"     autocmd!
+"     autocmd BufWinEnter * if &buftype == "help" | setlocal relativenumber | endif
+" augroup END
 
 " }}}
 " Color {{{
@@ -159,6 +170,19 @@ set hlsearch                    " Search highlighting
 set ignorecase                  " Default to case insensitive
 
 " }}}
+" Completion {{{
+
+set spell
+hi SpellBad cterm=NONE ctermfg=NONE gui=NONE
+hi SpellLocal cterm=NONE ctermfg=NONE gui=NONE
+hi SpellRare cterm=NONE ctermfg=NONE gui=NONE
+hi SpellCap cterm=NONE ctermfg=NONE gui=NONE
+
+set complete+=kspell
+
+set completeopt=menuone,noinsert
+
+" }}}
 " Folding {{{
 
 " Define folding using foldexpr option
@@ -232,7 +256,62 @@ if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 
 " }}}
 "}}}
-""" NetRW {{{
+""" Plugins {{{
+" AutoComplPop {{{
+
+" let g:acp_enableAtStartup=0
+
+
+" }}}
+" Auto-Pairs {{{
+
+let g:AutoPairsCenterLine = 0
+
+" }}}
+" Colorizer {{{
+
+" let g:colorizer_auto_color = 1      " Turn on colorizer automatically for every file
+
+" let g:colorizer_auto_filetype='css,html,txt,md'       " Define filetypes in which colorizer will be turned on automatically
+
+" Turn on colorizer automatically for every filetype and use fg coloring
+augroup colorizerfg
+    autocmd!
+    autocmd VimEnter * if exists(":ColorSwapFgBg") | silent execute "ColorSwapFgBg" | silent execute "ColorSwapFgBg" | endif
+augroup END
+
+" }}}
+" FZF {{{
+
+if isdirectory("/opt/homebrew/opt/fzf")
+    set rtp+=/opt/homebrew/opt/fzf
+endif
+
+" }}}
+" Gitgutter {{{
+
+set updatetime=100
+
+" }}}
+" Highlighted-Yank {{{
+
+highlight HighlightedyankRegion ctermbg=59 guibg=#F1E3B9
+
+" }}}
+" Mundo {{{
+
+" let g:mundo_width=75            " Set width of graph and preview (default 45)
+
+" let g:mundo_preview_height=15   " Set height of preview window (default 15)
+
+let g:mundo_preview_bottom=1    " Force preview window to be below windows instead of below graph
+
+" let g:mundo_inline_undo=1       " Enable one line diff in graph
+
+" let g:mundo_return_on_revert=0  " Keep focus in graph after selecting old undo state
+
+" }}}
+" NetRW {{{
 
 let g:netrw_dirhistmax=0
 
@@ -246,26 +325,44 @@ let g:netrw_liststyle=3     " Tree-style listing
 
 let g:netrw_bufsettings = "noma nomod nowrap ro nobl nu rnu"    " NetRW buffer settings
 
-"}}}
-""" Mundo {{{
+" }}}
+" Quick-Scope {{{
 
-" let g:mundo_width=75            " Set width of graph and preview (default 45)
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+highlight QuickScopePrimary guifg='#239B56' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#1F618D' gui=underline ctermfg=81 cterm=underline
 
-" let g:mundo_preview_height=15   " Set height of preview window (default 15)
+" }}}
+" UltiSnips {{{
 
-let g:mundo_preview_bottom=1    " Force preview window to be below windows instead of below graph
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/snips']
 
-" let g:mundo_inline_undo=1       " Enable one line diff in graph
+let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 
-" let g:mundo_return_on_revert=0  " Keep focus in graph after selecting old undo state
+" }}}
+" Vim-Markdown-Preview {{{
 
-"}}}
-""" Wsl-Clip {{{
+let vim_markdown_preview_toggle=1
+
+let vim_markdown_preview_browser='Google Chrome'
+
+let vim_markdown_preview_temp_file=1
+
+" }}}
+" Wordmotion {{{
+
+let g:wordmotion_prefix = ','       " Set prefix key for wordmotion mapping
+
+" }}}
+" Wsl-Clip {{{
 
 let g:disable_wsl_yank=has('gui_running')       " Disable wslyank for gui, enable for terminal
 
 let g:disable_wsl_paste=has('gui_running')      " Disable wslpaste for gui, enable for terminal
 
+" }}}
 "}}}
 """ Status Line {{{
 
@@ -442,14 +539,6 @@ nnoremap <leader>ak :N<CR>
 
 nnoremap <leader><leader>a :args
 
-" Quickfix list mappings
-
-nnoremap <leader>cj :cn<CR>
-
-nnoremap <leader>ck :cp<CR>
-
-nnoremap <leader><leader>c :copen<CR>
-
 " Window mappings
 
 nnoremap <leader>wnh :topleft vnew 
@@ -468,19 +557,19 @@ nnoremap <leader>wk :topleft sfind
 
 nnoremap <leader>wl :botright vert sfind 
 
-nnoremap <leader>wH <C-W>H
+nnoremap <leader>wH <C-w>H
 
-nnoremap <leader>wJ <C-W>J
+nnoremap <leader>wJ <C-w>J
 
-nnoremap <leader>wK <C-W>K
+nnoremap <leader>wK <C-w>K
 
-nnoremap <leader>wL <C-W>L
+nnoremap <leader>wL <C-w>L
 
 " Tab mappings
 
-nnoremap <C-L> :tabn<CR>
+nnoremap <C-l> :tabn<CR>
 
-nnoremap <C-H> :tabp<CR>
+nnoremap <C-h> :tabp<CR>
 
 nnoremap <leader>tnh :-tabnew 
 
@@ -498,9 +587,9 @@ nnoremap <leader>tm :tabs<CR>:tabmove<SPACE>
 
 nnoremap <leader><leader>t :tabs<CR>:tabn<SPACE>
 
-inoremap <C-L> <Esc>:TabRightIns<CR>
+inoremap <C-l> <Esc>:TabRightIns<CR>
 
-inoremap <C-H> <Esc>:TabLeftIns<CR>
+inoremap <C-h> <Esc>:TabLeftIns<CR>
 
 " Normal mode mappings
 
@@ -510,13 +599,11 @@ nmap dD <Plug>ClearLineBlackHole
 
 nmap <leader>dD <Plug>ClearLineDefaultReg
 
-nmap <leader><leader>do <Plug>DiffOrig
+nmap <leader><leader>do <Plug>DiffWithOpened
 
-nmap <leader><leader>dls <Plug>DiffLastSave
+nmap <leader><leader>dls <Plug>DiffWithLastSave
 
-nnoremap <leader><leader>e :vsp .<CR><C-W>L
-
-nnoremap <leader>h :nohl<CR>
+nnoremap <leader><leader>e :vsp .<CR><C-w>L
 
 nmap <leader>H <Plug>ToTopQuarter
 
@@ -548,27 +635,31 @@ nnoremap zC zCvzC
 
 " Insert mode mappings
 
-inoremap <C-R> <C-R><C-R>
+inoremap <C-r> <C-r><C-r>
 
-" Visual mode mappings
+inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
 
-vnoremap af :<C-U>normal! [zV]z<CR>
+inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
+
+inoremap <expr> <CR> pumvisible() ? "<C-e><CR>" : "<CR>"
 
 " Custom text objects
 
+vnoremap az :<C-u>normal! [zV]z<CR>
+
+omap az :normal Vaz<CR>
+
+vnoremap iz :<C-u>normal! [zV]z<CR>
+
+omap iz :normal Viz<CR>
+
+vnoremap af :<C-u>normal! ggVG<CR>
+
 omap af :normal Vaf<CR>
 
-vnoremap if :<C-U>normal! [zV]z<CR>
+vnoremap if :<C-u>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\|normal! V``<CR>
 
 omap if :normal Vif<CR>
-
-vnoremap aF :<C-U>normal! ggVG<CR>
-
-omap aF :normal VaF<CR>
-
-vnoremap iF :<C-U>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\|normal! V``<CR>
-
-omap iF :normal ViF<CR>
 
 " Misc
 
@@ -579,6 +670,18 @@ nmap ,c  <Plug>Commentary
 omap ,c  <Plug>Commentary
 
 nmap ,cc <Plug>CommentaryLine
+
+nnoremap <leader><leader>dg :GitGutterDiffOrig<CR>
+
+nnoremap <leader>g :GitGutterLineHighlightsToggle<CR>
+
+nmap n <Plug>(anzu-n-with-echo)
+
+nmap N <Plug>(anzu-N-with-echo)
+
+nmap * <Plug>(anzu-star-with-echo)
+
+nmap # <Plug>(anzu-sharp-with-echo)
 
 "}}}
 """ Mapping Functions{{{

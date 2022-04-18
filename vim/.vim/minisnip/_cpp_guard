@@ -1,6 +1,0 @@
-#ifndef {{+`~toupper(expand('%:r'))+}}
-#define {{+`~\~1+}}
-
-{{--}}
-
-#endif // {{+`~\~2+}}

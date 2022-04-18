@@ -16,3 +16,51 @@
 [submodule "vim/.vim/pack/plugins/start/ultisnips"]
 	path = vim/.vim/pack/plugins/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "vim/.vim/pack/plugins/start/vim-commentary"]
+	path = vim/.vim/pack/plugins/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "vim/.vim/pack/plugins/start/vim-eunuch"]
+	path = vim/.vim/pack/plugins/start/vim-eunuch
+	url = https://github.com/tpope/vim-eunuch.git
+[submodule "vim/.vim/pack/plugins/start/vim-fugitive"]
+	path = vim/.vim/pack/plugins/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule "vim/.vim/pack/plugins/start/vim-mundo"]
+	path = vim/.vim/pack/plugins/start/vim-mundo
+	url = https://github.com/simnalamburt/vim-mundo.git
+[submodule "vim/.vim/pack/plugins/start/vim-repeat"]
+	path = vim/.vim/pack/plugins/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule "vim/.vim/pack/plugins/start/vim-smoothie"]
+	path = vim/.vim/pack/plugins/start/vim-smoothie
+	url = https://github.com/psliwka/vim-smoothie.git
+[submodule "vim/.vim/pack/plugins/start/vim-surround"]
+	path = vim/.vim/pack/plugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "vim/.vim/pack/plugins/start/vim-highlightedyank"]
+	path = vim/.vim/pack/plugins/start/vim-highlightedyank
+	url = https://github.com/machakann/vim-highlightedyank.git
+[submodule "vim/.vim/pack/plugins/start/quick-scope"]
+	path = vim/.vim/pack/plugins/start/quick-scope
+	url = https://github.com/unblevable/quick-scope.git
+[submodule "vim/.vim/pack/plugins/start/vim-wordmotion"]
+	path = vim/.vim/pack/plugins/start/vim-wordmotion
+	url = https://github.com/chaoren/vim-wordmotion.git
+[submodule "vim/.vim/pack/plugins/start/AutoComplPop"]
+	path = vim/.vim/pack/plugins/start/AutoComplPop
+	url = https://github.com/vim-scripts/AutoComplPop.git
+[submodule "vim/.vim/pack/plugins/start/Colorizer"]
+	path = vim/.vim/pack/plugins/start/Colorizer
+	url = https://github.com/chrisbra/Colorizer.git
+[submodule "vim/.vim/pack/plugins/start/vim-markdown-preview"]
+	path = vim/.vim/pack/plugins/start/vim-markdown-preview
+	url = https://github.com/JamshedVesuna/vim-markdown-preview.git
+[submodule "vim/.vim/pack/plugins/start/vim-gitgutter"]
+	path = vim/.vim/pack/plugins/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "vim/.vim/pack/plugins/start/is.vim"]
+	path = vim/.vim/pack/plugins/start/is.vim
+	url = https://github.com/haya14busa/is.vim.git
+[submodule "vim/.vim/pack/plugins/start/vim-anzu"]
+	path = vim/.vim/pack/plugins/start/vim-anzu
+	url = https://github.com/osyo-manga/vim-anzu.git

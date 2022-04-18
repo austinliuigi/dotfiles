@@ -20,20 +20,24 @@ endif
 
 hi Normal       guifg=#000000 ctermfg=16   guibg=#F8F8FA ctermbg=231  gui=NONE cterm=NONE
 " hi Normal       guifg=#000000 ctermfg=16   guibg=#F8F8FF ctermbg=231  gui=NONE cterm=NONE
-hi DiffAdd      guifg=#003300 ctermfg=22   guibg=#DDFFDD ctermbg=194  gui=NONE cterm=NONE
-hi DiffChange   guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
+hi DiffAdd      guibg=#DDFFDD ctermbg=194  gui=NONE cterm=NONE
+hi DiffChange   guibg=#FDEBD0 ctermbg=255  gui=NONE cterm=NONE
 hi DiffText     guifg=#000033 ctermfg=17   guibg=#DDDDFF ctermbg=189  gui=NONE cterm=NONE
 hi DiffDelete   guifg=#DDCCCC ctermfg=252  guibg=#FFDDDD ctermbg=224  gui=NONE cterm=NONE
+hi GitGutterAdd    guifg=#4EA504 ctermfg=2
+hi GitGutterChange guifg=#EAB53A ctermfg=3
+hi GitGutterDelete guifg=#DF5749 ctermfg=1
 hi Folded       guifg=#808080 ctermfg=244  guibg=NONE    ctermbg=231  gui=BOLD,UNDERLINE cterm=NONE
 " hi Folded       guifg=#808080 ctermfg=244  guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
 hi LineNr       guifg=#BBBBBB ctermfg=250  guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 " hi LineNr       guifg=#BBBBBB ctermfg=250  guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
+hi! link Signcolumn LineNr
 hi CursorLineNr guifg=#4E4E4E ctermfg=239  guibg=NONE    ctermbg=NONE  gui=NONE cterm=NONE
 " hi CursorLineNr guifg=#7D7D7D ctermfg=250  guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
 hi NonText      guifg=#D2D2D2 ctermfg=250  guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 hi EndOfBuffer  guifg=#AFAFD7 ctermfg=146  guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 hi VertSplit    guifg=#BBBBBB ctermfg=250  guibg=#BBBBBB ctermbg=250  gui=NONE cterm=NONE
-hi StatusLine   guifg=#87afaf ctermfg=109  guibg=#ECECEC ctermbg=255  gui=BOLD cterm=BOLD
+hi StatusLine   guifg=#87AFAF ctermfg=109  guibg=#ECECEC ctermbg=255  gui=BOLD cterm=BOLD
 hi StatusLineNC guifg=#BBBBBB ctermfg=250  guibg=#ECECEC ctermbg=255  gui=ITALIC cterm=NONE
 hi StatusLineTerm guifg=#AFAF00 ctermfg=142 guibg=#EFF1F5 ctermbg=231 gui=NONE 
 hi! link StatusLineTermNC StatusLineNC
@@ -62,7 +66,7 @@ hi Type         guifg=#445588 ctermfg=60   gui=BOLD cterm=BOLD
 hi Number       guifg=#1C9898 ctermfg=30   gui=NONE cterm=NONE
 hi Special      guifg=#159828 ctermfg=28   gui=BOLD cterm=BOLD
 hi rubySymbol   guifg=#960B73 ctermfg=89   gui=NONE cterm=NONE
-hi Error        guifg=#F8F8FF ctermfg=231  guibg=#FF1100 ctermbg=196  gui=NONE cterm=NONE
+hi Error        guifg=#8F0711 ctermfg=231  guibg=#FF1100 ctermbg=196  gui=NONE cterm=NONE
 hi Todo         guifg=#8F0711 ctermfg=231  guibg=#DCB1B4 ctermbg=196  gui=UNDERLINE,ITALIC cterm=UNDERLINE,ITALIC
 hi Label        guifg=#000000 ctermfg=16   gui=BOLD cterm=BOLD
 hi StorageClass guifg=#000000 ctermfg=16   gui=BOLD cterm=BOLD
