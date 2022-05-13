@@ -55,9 +55,6 @@
 [submodule "vim/.vim/pack/plugins/opt/vim-lumen"]
 	path = vim/.vim/pack/plugins/opt/vim-lumen
 	url = https://github.com/vimpostor/vim-lumen.git
-[submodule "vim/.vim/pack/plugins/opt/vim-markdown-preview"]
-	path = vim/.vim/pack/plugins/opt/vim-markdown-preview
-	url = https://github.com/JamshedVesuna/vim-markdown-preview.git
 [submodule "vim/.vim/pack/plugins/opt/vim-mundo"]
 	path = vim/.vim/pack/plugins/opt/vim-mundo
 	url = https://github.com/simnalamburt/vim-mundo.git
@@ -79,3 +76,12 @@
 [submodule "vim/.vim/pack/plugins/opt/vim-zoom"]
 	path = vim/.vim/pack/plugins/opt/vim-zoom
 	url = https://github.com/dhruvasagar/vim-zoom.git
+[submodule "vim/.vim/pack/plugins/opt/vim-easy-align"]
+	path = vim/.vim/pack/plugins/opt/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align.git
+[submodule "vim/.vim/pack/plugins/opt/indentLine"]
+	path = vim/.vim/pack/plugins/opt/indentLine
+	url = https://github.com/Yggdroot/indentLine.git
+[submodule "vim/.vim/pack/plugins/opt/markdown-preview.nvim"]
+	path = vim/.vim/pack/plugins/opt/markdown-preview.nvim
+	url = https://github.com/iamcco/markdown-preview.nvim.git
