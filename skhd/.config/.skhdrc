@@ -1,0 +1,48 @@
+# Open MinimaList
+cmd - return : open -a /Applications/MinimaList.app/
+
+# Open terminal
+ctrl - return : open -a /Applications/iTerm.app/
+
+# Backspace word
+ctrl - backspace : skhd -k "alt - backspace"
+
+# Yabai
+
+ctrl - space : yabai -m window --toggle float
+
+cmd + shift - w : yabai -m space --destroy && afplay /System/Library/Sounds/Bottle.aiff
+
+# cmd + shift - h : curr_index=$(yabai -m query --spaces --space | jq '.index') && yabai -m space --create && yabai -m space --focus last && sleep .01 && yabai -m space --move "${curr_index}" ; yabai -m space --focus next ; afplay /System/Library/Sounds/Glass.aiff
+
+# cmd + shift - l : curr_index=$(yabai -m query --spaces --space | jq '.index') && yabai -m space --create && yabai -m space --focus last && sleep .01 && yabai -m space --move "$((1+${curr_index}))" ; yabai -m space --focus prev ; afplay /System/Library/Sounds/Glass.aiff
+
+cmd + shift - h : curr_index=$(yabai -m query --spaces --space | jq '.index') && yabai -m space --create && yabai -m space --focus last && sleep .01 && yabai -m space --move "${curr_index}" ; afplay /System/Library/Sounds/Glass.aiff
+
+cmd + shift - l : curr_index=$(yabai -m query --spaces --space | jq '.index') && yabai -m space --create && yabai -m space --focus last && sleep .01 && yabai -m space --move "$((1+${curr_index}))" ; afplay /System/Library/Sounds/Glass.aiff
+
+alt + shift - h : yabai -m space --move prev || yabai -m space --move last && afplay /System/Library/Sounds/Pop.aiff
+
+alt + shift - l : yabai -m space --move next || yabai -m space --move first && afplay /System/Library/Sounds/Pop.aiff
+
+ctrl + shift - h : yabai -m space --focus prev || yabai -m space --focus last
+
+ctrl + shift - l : yabai -m space --focus next || yabai -m space --focus first
+
+alt - h : yabai -m window --swap west || (yabai -m window --space prev && yabai -m space --focus prev) || (yabai -m window --space last && yabai -m space --focus last)
+
+alt - l : yabai -m window --swap east || (yabai -m window --space next && yabai -m space --focus next) || (yabai -m window --space first && yabai -m space --focus first)
+
+alt - j : yabai -m window --swap south
+
+alt - k : yabai -m window --swap north
+
+ctrl - h : yabai -m window --focus west || yabai -m window --focus last
+
+ctrl - l : yabai -m window --focus east || yabai -m window --focus first
+
+ctrl - j : yabai -m window --focus south
+
+ctrl - k : yabai -m window --focus north
+
+ctrl - f : yabai -m window --toggle zoom-fullscreen
