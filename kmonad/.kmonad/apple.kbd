@@ -21,7 +21,7 @@
 
 (defalias fn (around (layer-toggle function) fn))
 (defalias cap (around (layer-toggle caps) sft))
-(defalias vim (tap-next-release esc (layer-toggle vim)))
+(defalias vim (tap-hold-next-release 500 esc (layer-toggle vim)))
 (defalias hme M-left end M-rght bck A-left wrd A-rght)
 
 (deflayer default
