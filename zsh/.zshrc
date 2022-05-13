@@ -99,6 +99,8 @@ zstyle ':completion:*' menu select                          # Menu completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'         # Case insensitive completion
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"     # Add color to completion menu
 compinit
+setopt menu_complete                                        # Complete first match even in ambiguous
+unsetopt list_beep                                          # Turn off beeping on ambiguous completions
 setopt glob_dots                                            # Match hidden files
 
 #######################
