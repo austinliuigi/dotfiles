@@ -25,7 +25,9 @@ hi! link lCursor Cursor
 hi! link iCursor Cursor
 hi! link vCursor Cursor
 
+" GUI Colors
 if (has('termguicolors') && &termguicolors) || has('gui_running')
+  " Dark Background
   if &background ==# 'dark'
     let g:terminal_ansi_colors = ['#282828', '#cc241d', '#98971a', '#d79921', '#458588', '#b16286', '#689d6a', '#a89984', '#928374', '#fb4934', '#b8bb26', '#fabd2f', '#83a598', '#d3869b', '#8ec07c', '#ebdbb2']
     if has('nvim')
@@ -46,12 +48,22 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
       let g:terminal_color_14 = '#8ec07c'
       let g:terminal_color_15 = '#ebdbb2'
     endif
+    " If background set as transparent and in terminal
     if get(g:, 'gruvbox_transp_bg', 0) && !has('gui_running')
       hi Normal guifg=#ebdbb2 guibg=NONE gui=NONE cterm=NONE
       hi CursorLineNr guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
       hi FoldColumn guifg=#928374 guibg=NONE gui=NONE cterm=NONE
       hi SignColumn guifg=#ebdbb2 guibg=NONE gui=NONE cterm=NONE
       hi VertSplit guifg=#665c54 guibg=NONE gui=NONE cterm=NONE
+
+      " Custom
+      hi! HighlightedyankRegion guibg=#565352
+      hi! link LineOdd Normal
+      " hi! LineEven guibg=#2C2C2C
+      hi! LineEven guibg=#2E2E2E
+      " hi! LineEven guibg=#323232
+
+    " If background set as non-transparent or in gui
     else
       hi Normal guifg=#ebdbb2 guibg=#282828 gui=NONE cterm=NONE
       hi CursorLineNr guifg=#fabd2f guibg=#3c3836 gui=NONE cterm=NONE
@@ -64,7 +76,8 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     hi CursorLine guifg=NONE guibg=#3c3836 gui=NONE cterm=NONE
     hi Error guifg=#fb4934 guibg=#282828 gui=bold,reverse cterm=bold,reverse
     hi ErrorMsg guifg=#282828 guibg=#fb4934 gui=bold cterm=bold
-    hi Folded guifg=#928374 guibg=#3c3836 gui=italic cterm=italic
+    hi Folded guifg=#928374 guibg=NONE gui=italic cterm=italic
+    " hi Folded guifg=#928374 guibg=#3c3836 gui=italic cterm=italic
     hi LineNr guifg=#7c6f64 guibg=NONE gui=NONE cterm=NONE
     hi MatchParen guifg=NONE guibg=#504945 gui=bold,underline cterm=bold,underline
     hi NonText guifg=#504945 guibg=NONE gui=NONE cterm=NONE
@@ -135,6 +148,7 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     hi Typedef guifg=#fabd2f guibg=NONE gui=NONE cterm=NONE
     hi Underlined guifg=#83a598 guibg=NONE guisp=#83a598 gui=underline cterm=underline
     hi CursorIM guifg=NONE guibg=NONE gui=reverse ctermfg=NONE ctermbg=NONE cterm=reverse
+    " If italics are not available
     if !s:italics
       hi Comment gui=NONE cterm=NONE
       hi Folded gui=NONE cterm=NONE

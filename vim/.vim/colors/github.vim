@@ -37,10 +37,6 @@ hi CursorLineNr guifg=#4E4E4E ctermfg=239  guibg=NONE    ctermbg=NONE  gui=NONE 
 hi NonText      guifg=#D2D2D2 ctermfg=250  guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 hi EndOfBuffer  guifg=#AFAFD7 ctermfg=146  guibg=NONE    ctermbg=NONE gui=NONE cterm=NONE
 hi VertSplit    guifg=#BBBBBB ctermfg=250  guibg=#BBBBBB ctermbg=250  gui=NONE cterm=NONE
-hi StatusLine   guifg=#87AFAF ctermfg=109  guibg=#ECECEC ctermbg=255  gui=BOLD cterm=BOLD
-hi StatusLineNC guifg=#BBBBBB ctermfg=250  guibg=#ECECEC ctermbg=255  gui=ITALIC cterm=NONE
-hi StatusLineTerm guifg=#AFAF00 ctermfg=142 guibg=#EFF1F5 ctermbg=231 gui=NONE 
-hi! link StatusLineTermNC StatusLineNC
 hi ModeMsg      guifg=#990000 ctermfg=88   gui=NONE cterm=NONE
 hi MoreMsg      guifg=#990000 ctermfg=88   gui=NONE cterm=NONE
 hi Title        guifg=#EF5939 ctermfg=203  gui=NONE cterm=NONE
@@ -66,7 +62,7 @@ hi Type         guifg=#445588 ctermfg=60   gui=BOLD cterm=BOLD
 hi Number       guifg=#1C9898 ctermfg=30   gui=NONE cterm=NONE
 hi Special      guifg=#159828 ctermfg=28   gui=BOLD cterm=BOLD
 hi rubySymbol   guifg=#960B73 ctermfg=89   gui=NONE cterm=NONE
-hi Error        guifg=#8F0711 ctermfg=231  guibg=#FF1100 ctermbg=196  gui=NONE cterm=NONE
+hi Error        guifg=#8F0711 ctermfg=231  guibg=#DCB1B4 ctermbg=196  gui=NONE cterm=NONE
 hi Todo         guifg=#8F0711 ctermfg=231  guibg=#DCB1B4 ctermbg=196  gui=UNDERLINE,ITALIC cterm=UNDERLINE,ITALIC
 hi Label        guifg=#000000 ctermfg=16   gui=BOLD cterm=BOLD
 hi StorageClass guifg=#000000 ctermfg=16   gui=BOLD cterm=BOLD
@@ -83,12 +79,17 @@ hi TabLineSel   guifg=#404040 ctermfg=238  gui=BOLD cterm=BOLD
 hi cucumberTags guifg=#333333 ctermfg=236  guibg=#FFFF66 ctermbg=227  gui=BOLD cterm=BOLD
 hi htmlTagN     gui=BOLD cterm=BOLD
 hi Cursor       guifg=#F8F8FF ctermfg=231  guibg=#444454 ctermbg=238  gui=NONE cterm=NONE
-hi CursorLine   guibg=#EEEEEE ctermbg=255  gui=NONE cterm=NONE
+hi CursorLine   guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
+" hi CursorLine   guibg=#EEEEEE ctermbg=255  gui=NONE cterm=NONE
 hi CursorColumn guibg=#D8D8DD ctermbg=253  gui=NONE cterm=NONE
 hi! link Conceal Normal
 
+hi StatusLine   guifg=#445588 ctermfg=109  guibg=#ECECEC ctermbg=255  gui=ITALIC cterm=BOLD
+hi StatusLineNC guifg=#BBBBBB ctermfg=250  guibg=#ECECEC ctermbg=255  gui=NONE cterm=NONE
+hi StatusLineTerm guifg=#AFAF00 ctermfg=142 guibg=#EFF1F5 ctermbg=231 gui=NONE 
+hi! link StatusLineTermNC StatusLineNC
 hi User1 guifg=#e4e4e4 ctermfg=254  guibg=#8a8a8a ctermbg=245  gui=BOLD cterm=BOLD
-hi User2 guifg=#ffffff ctermfg=231  guibg=#87afaf ctermbg=109  gui=BOLD cterm=BOLD
+hi User2 guifg=#ffffff ctermfg=231  guibg=#445588 ctermbg=109  gui=BOLD cterm=BOLD
 hi User3 guifg=#ffffff ctermfg=231  guibg=#d7af00 ctermbg=178  gui=BOLD cterm=BOLD
 hi User4 guifg=#3a3a3a ctermfg=237  guibg=#9e9e9e ctermbg=247  gui=BOLD cterm=BOLD
 hi User5 guifg=#ffffff ctermfg=231  guibg=#af5f5f ctermbg=131  gui=BOLD cterm=BOLD
@@ -96,5 +97,10 @@ hi User6 guifg=#ffffff ctermfg=231  guibg=#afaf00 ctermbg=142  gui=BOLD cterm=BO
 hi User7 guifg=#9e9e9e ctermfg=247  guibg=#d0d0d0 ctermbg=252  gui=BOLD cterm=BOLD
 hi User8 guifg=#af5f5f ctermfg=131  guibg=#ececec ctermbg=255  gui=BOLD cterm=BOLD
 hi User9 guifg=#af5f5f ctermfg=131  guibg=#ececec ctermbg=255  gui=BOLD cterm=BOLD
+
+" Custom
+hi HighlightedyankRegion ctermbg=222 guibg=#F1E3B9
+hi LineOdd guibg=#F8F8FA
+hi LineEven guibg=#F2F2F2
 
 hi link rubyStringDelimiter String
