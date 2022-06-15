@@ -19,7 +19,7 @@ set showcmd
 " }}}
 " Preferences {{{
 
-set clipboard^=unnamed
+set clipboard^=unnamed          " Make system clipboard default
 
 set hidden                      " Allow a buffer to load in a window that currently has a modified buffer
 
@@ -49,7 +49,15 @@ set belloff=esc                 " Don't ring bell when esc is pressed in normal-
 
 set shortmess+=c                " Disable completion menu messages
 
+set shortmess-=S                " Show search match index
+
 set mouse=a                     " Allow use of mouse in all modes
+
+set nowrap
+
+set sidescroll=1
+
+set sidescrolloff=3
 
 " Cursor style in different modes
  "Ps = 0  -> blinking block.
@@ -76,51 +84,59 @@ augroup END
 " Remove excess comment characters when joining lines
 augroup fo
     autocmd!
-    autocmd FileType * set formatoptions=jn
+    autocmd FileType * set formatoptions=tcjnqp
 augroup END
 
 " Set relative numbers for help windows
-augroup rn
+augroup relnumhelp
     autocmd!
     autocmd BufWinEnter * if &buftype == "help" | setlocal relativenumber | endif
 augroup END
 
-" " Set relative numbers for help windows
-" augroup quickfix
-"     autocmd!
-"     autocmd BufWinEnter * if &buftype == "help" | setlocal relativenumber | endif
-" augroup END
-
 " }}}
 " Color {{{
 
-" let g:scheme_termtrans=1        " make colorscheme bg transparent by default
-let g:gruvbox_transp_bg=1        " make colorscheme bg transparent by default
+let g:gruvbox_transp_bg = 1        " make colorscheme bg transparent by default
+let g:solarized_termtrans  =1
 
-if has("gui_running")
-    colorscheme github
-else
+set termguicolors               " use gui colors in terminal; NOTE: must come before setting colorscheme
+
+if &background ==# 'dark'
     colorscheme gruvbox8
+else
+    colorscheme github
 endif
 
+" Change iterm colorscheme to match vim colorscheme
+augroup itermcolor
+    autocmd!
+    " autocmd Colorscheme * execute 'silent !echo -e "\033]50;SetProfile=<amatch>\a"'
+    autocmd Colorscheme * if expand("<amatch>") ==# "gruvbox8" | execute 'silent !echo -e "\033]50;SetProfile=gruvbox\a"' | endif
+    autocmd Colorscheme * if expand("<amatch>") ==# "github" | execute 'silent !echo -e "\033]50;SetProfile=github\a"' | endif
+    autocmd Colorscheme * if expand("<amatch>") ==# "solarized8" | execute 'silent !echo -e "\033]50;SetProfile=solarized\a"' | endif
+    " autocmd Colorscheme * echo expand("<amatch>") ==# "gruvbox8"
+    " autocmd Colorscheme * echo g:colors_name ==# "gruvbox8"
+    " autocmd Colorscheme * echo "<amatch>" ==# "gruvbox8"
+augroup END
+
 " Set vim terminal colors
-let g:terminal_ansi_colors = map(range(16), 0)
-let g:terminal_ansi_colors[0]  = "#282828"  " black
-let g:terminal_ansi_colors[1]  = "#CC241D"  " dark red
-let g:terminal_ansi_colors[2]  = "#98971C"  " dark green
-let g:terminal_ansi_colors[3]  = "#D79921"  " dark yellow
-let g:terminal_ansi_colors[4]  = "#458588"  " dark blue
-let g:terminal_ansi_colors[5]  = "#B16286"  " dark magenta
-let g:terminal_ansi_colors[6]  = "#689D6A"  " dark cyan
-let g:terminal_ansi_colors[7]  = "#A89984"  " light gray
-let g:terminal_ansi_colors[8]  = "#928374"  " dark gray
-let g:terminal_ansi_colors[9]  = "#FB4934"  " red
-let g:terminal_ansi_colors[10] = "#B8BB26"  " green
-let g:terminal_ansi_colors[11] = "#FABD2F"  " yellow
-let g:terminal_ansi_colors[12] = "#83A598"  " blue
-let g:terminal_ansi_colors[13] = "#D3869B"  " magenta
-let g:terminal_ansi_colors[14] = "#8EC07C"  " cyan
-let g:terminal_ansi_colors[15] = "#EBDBB2"  " white
+" let g:terminal_ansi_colors = map(range(16), 0)
+" let g:terminal_ansi_colors[0]  = "#282828"  " black
+" let g:terminal_ansi_colors[1]  = "#CC241D"  " dark red
+" let g:terminal_ansi_colors[2]  = "#98971C"  " dark green
+" let g:terminal_ansi_colors[3]  = "#D79921"  " dark yellow
+" let g:terminal_ansi_colors[4]  = "#458588"  " dark blue
+" let g:terminal_ansi_colors[5]  = "#B16286"  " dark magenta
+" let g:terminal_ansi_colors[6]  = "#689D6A"  " dark cyan
+" let g:terminal_ansi_colors[7]  = "#A89984"  " light gray
+" let g:terminal_ansi_colors[8]  = "#928374"  " dark gray
+" let g:terminal_ansi_colors[9]  = "#FB4934"  " red
+" let g:terminal_ansi_colors[10] = "#B8BB26"  " green
+" let g:terminal_ansi_colors[11] = "#FABD2F"  " yellow
+" let g:terminal_ansi_colors[12] = "#83A598"  " blue
+" let g:terminal_ansi_colors[13] = "#D3869B"  " magenta
+" let g:terminal_ansi_colors[14] = "#8EC07C"  " cyan
+" let g:terminal_ansi_colors[15] = "#EBDBB2"  " white
 
 hi! Terminal guibg=#282828 guifg=#EBDBB2
 
@@ -134,6 +150,12 @@ augroup todo
     autocmd!
     autocmd Syntax * syn keyword myTodo TODO XXX containedin=ALL
     autocmd Syntax * hi link myTodo TODO
+augroup END
+
+" Resource all ftplugin stuff after changing colorschemes
+augroup ftcolors
+    autocmd!
+    autocmd Colorscheme * let &filetype = &filetype
 augroup END
 
 " }}}
@@ -155,7 +177,10 @@ set breakindent                                     " Make wrapped lines have sa
 
 set list                                            " Show whitespace characters
 
-set listchars=tab:▸\ ,eol:¬,precedes:‹,extends:›    " Set whitespace characters
+" set listchars=tab:▸\ ,eol:¬,precedes:‹,extends:›    " Set whitespace characters
+set listchars=tab:▸\ ,eol:↴,precedes:‹,extends:›    " Set whitespace characters
+
+set concealcursor=
 
 let &showbreak = '↪ '
 " set showbreak=⊂
@@ -172,15 +197,20 @@ set ignorecase                  " Default to case insensitive
 " }}}
 " Completion {{{
 
-set spell
-hi SpellBad cterm=NONE ctermfg=NONE gui=NONE
-hi SpellLocal cterm=NONE ctermfg=NONE gui=NONE
-hi SpellRare cterm=NONE ctermfg=NONE gui=NONE
-hi SpellCap cterm=NONE ctermfg=NONE gui=NONE
+" set spell
+" augroup spell
+"     autocmd!
+"     autocmd VimEnter,ColorScheme * hi! SpellBad cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE guisp=NONE
+"     autocmd VimEnter,ColorScheme * hi! SpellLocal cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE guisp=NONE
+"     autocmd VimEnter,ColorScheme * hi! SpellRare cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE guisp=NONE
+"     autocmd VimEnter,ColorScheme * hi! SpellCap cterm=NONE ctermfg=NONE ctermbg=NONE gui=NONE guifg=NONE guibg=NONE guisp=NONE
+" augroup END
 
-set complete+=kspell
+" set complete+=kspell
 
 set completeopt=menuone,noinsert
+
+set pumheight=5
 
 " }}}
 " Folding {{{
@@ -203,7 +233,8 @@ function! MyFoldText()
     let num_of_lines = v:foldend - v:foldstart
     let fold_linecount = '(' . num_of_lines . ' L)'
     let last_linenr_digits = strchars(line('$'))
-    let fillcharcount = winwidth(0) - strchars(fold_title) - strchars(fold_start) - strchars(fold_linecount) - &numberwidth - ((last_linenr_digits >= &numberwidth) ? (last_linenr_digits - &numberwidth + 1) : 0)
+    let fillcharcount = winwidth(0) - strchars(fold_title) - strchars(fold_start) - strchars(fold_linecount) - &numberwidth - ((last_linenr_digits >= &numberwidth) ? (last_linenr_digits - &numberwidth + 1) : 0) - 2
+    " extra 2 for the signcolumn
     return fold_start . fold_title . repeat('·', fillcharcount) . fold_linecount
 endfunction
 
@@ -256,194 +287,11 @@ if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 
 " }}}
 "}}}
-""" Plugins {{{
-" AutoComplPop {{{
-
-" let g:acp_enableAtStartup=0
-
-
-" }}}
-" Auto-Pairs {{{
-
-let g:AutoPairsCenterLine = 0
-
-" }}}
-" Colorizer {{{
-
-" let g:colorizer_auto_color = 1      " Turn on colorizer automatically for every file
-
-" let g:colorizer_auto_filetype='css,html,txt,md'       " Define filetypes in which colorizer will be turned on automatically
-
-" Turn on colorizer automatically for every filetype and use fg coloring
-augroup colorizerfg
-    autocmd!
-    autocmd VimEnter * if exists(":ColorSwapFgBg") | silent execute "ColorSwapFgBg" | silent execute "ColorSwapFgBg" | endif
-augroup END
-
-" }}}
-" FZF {{{
-
-if isdirectory("/opt/homebrew/opt/fzf")
-    set rtp+=/opt/homebrew/opt/fzf
-endif
-
-" }}}
-" Gitgutter {{{
-
-set updatetime=100
-
-" }}}
-" Highlighted-Yank {{{
-
-highlight HighlightedyankRegion ctermbg=59 guibg=#F1E3B9
-
-" }}}
-" Mundo {{{
-
-" let g:mundo_width=75            " Set width of graph and preview (default 45)
-
-" let g:mundo_preview_height=15   " Set height of preview window (default 15)
-
-let g:mundo_preview_bottom=1    " Force preview window to be below windows instead of below graph
-
-" let g:mundo_inline_undo=1       " Enable one line diff in graph
-
-" let g:mundo_return_on_revert=0  " Keep focus in graph after selecting old undo state
-
-" }}}
-" NetRW {{{
-
-let g:netrw_dirhistmax=0
-
-" if has("gui_running")
-"     let g:netrw_home="~/vimfiles"
-" else
-"     let g:netrw_home="~/.vim"
-" endif
-
-let g:netrw_liststyle=3     " Tree-style listing
-
-let g:netrw_bufsettings = "noma nomod nowrap ro nobl nu rnu"    " NetRW buffer settings
-
-" }}}
-" Quick-Scope {{{
-
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-highlight QuickScopePrimary guifg='#239B56' gui=underline ctermfg=155 cterm=underline
-highlight QuickScopeSecondary guifg='#1F618D' gui=underline ctermfg=81 cterm=underline
-
-" }}}
-" UltiSnips {{{
-
-let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/snips']
-
-let g:UltiSnipsExpandTrigger = '<Tab>'
-let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-
-" }}}
-" Vim-Markdown-Preview {{{
-
-let vim_markdown_preview_toggle=1
-
-let vim_markdown_preview_browser='Google Chrome'
-
-let vim_markdown_preview_temp_file=1
-
-" }}}
-" Wordmotion {{{
-
-let g:wordmotion_prefix = ','       " Set prefix key for wordmotion mapping
-
-" }}}
-" Wsl-Clip {{{
-
-let g:disable_wsl_yank=has('gui_running')       " Disable wslyank for gui, enable for terminal
-
-let g:disable_wsl_paste=has('gui_running')      " Disable wslpaste for gui, enable for terminal
-
-" }}}
-"}}}
-""" Status Line {{{
-
-set laststatus=2                                " always show status line
-
-let g:currentmode = {
-    \ 'n' : 'NORMAL',
-    \ 'v' : 'VISUAL',
-    \ 'V' : 'V-LINE',
-    \ "\<C-v>" : 'V-BLOCK',
-    \ 'i' : 'INSERT',
-    \ 'R' : 'REPLACE',
-    \ 's' : 'SELECT',
-    \ 'S' : 'S-LINE',
-    \ "\<C-s>" : 'S-BLOCK',
-    \ 'c' : 'COMMAND',
-    \ 't' : 'TERMINAL'
-\ }
-
-function! Getcurrentmode()
-    return get(g:currentmode, mode())
-endfunction
-
-
-function! Getfiletype()
-    let l:ftype = &filetype
-    if strlen(ftype) ==? 0
-        return '[NONE]'
-    else
-        return '[' . toupper(l:ftype) . ']'
-    endif
-endfunction
-
-
-function! Getmodified()
-    if &readonly
-        return '[RO]'
-    elseif &modified && (&buftype !=? "terminal")
-        return '[+]'
-    else
-        return ''
-    endif
-endfunction
-
-
-function! StatusLine()
-    if win_getid(winnr()) ==? g:statusline_winid
-        if mode() ==? 'n' || mode() ==? 'c'
-            " set statusline highlight group
-            hi! StatusLine cterm=NONE ctermfg=109 ctermbg=231 gui=NONE guifg=#87afaf guibg=#ececec 
-            " statusline of active window in normal or command mode
-            return '%#User1# %{Getfiletype()} %#User2# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
-        elseif mode() ==? 'i' || mode() ==? 'r' 
-            " set statusline highlight group
-            hi! StatusLine cterm=NONE ctermfg=178 ctermbg=231 gui=NONE guifg=#d7af00 guibg=#ececec 
-            " statusline of active window in insert or replace modes
-            return '%#User1# %{Getfiletype()} %#User3# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
-        elseif mode() ==? 'v' || mode() ==? 's' || mode() ==? "\<C-v>" || mode() ==? "\<C-s>"
-            " set statusline highlight group
-            hi! StatusLine cterm=NONE ctermfg=247 ctermbg=231 gui=NONE guifg=#9e9e9e guibg=#ececec 
-            " statusline of active window in visual or select modes
-            return '%#User1# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
-        elseif mode() ==? 't'
-            " " set statusline highlight group
-            " hi! StatusLine cterm=NONE ctermfg=142 ctermbg=231 gui=NONE guifg=#afaf00 guibg=#ffffff 
-            "
-            " statusline of active window in terminal mode
-            return '%#User1# %{Getfiletype()} %#User6# %{Getcurrentmode()} %* %f '
-        endif
-    else                                                                               
-        " statusline of inactive windows
-        return '%#User1# %{Getfiletype()} %#User7# %{Getcurrentmode()} %* %f %#User9#%{Getmodified()}%=%*LN:%4l  CN:%3c '
-    endif
-endfunction
-
-set statusline=%!StatusLine()
-
-"}}}
 """ Mappings{{{
 
 let mapleader = " "
+
+let maplocalleader = " "
 
 nnoremap <leader> <nop>
 
@@ -519,115 +367,116 @@ vnoremap x "_x
 
 vnoremap X "_X
 
+" Static yank
+
+" augroup StaticYank
+"     autocmd!
+"     autocmd VimEnter,CursorMoved * let s:pre_yank_pos = getpos('.')
+"     autocmd TextYankPost * call StaticYank()
+" augroup END
+
+" function! StaticYank()
+"     if v:event.operator == "y" && !empty(s:pre_yank_pos)
+"         call setpos('.',s:pre_yank_pos)
+"     endif
+" endfunction
+
 " Buffer list mappings
 
-nnoremap <leader>bn :find <Tab><S-Tab>
+nnoremap <leader>]b :bn<CR>
 
-nnoremap <leader>bj :bn<CR>
+nnoremap <leader>[b :bp<CR>
 
-nnoremap <leader>bk :bp<CR>
-
-nnoremap <leader>bl :b#<CR>
+nnoremap <leader>\b :b#<CR>
 
 nnoremap <leader><leader>b :ls<CR>:b<SPACE>
 
 " Argument list mappings
 
-nnoremap <leader>aj :n<CR>
+nnoremap <leader>]a :n<CR>
 
-nnoremap <leader>ak :N<CR>
+nnoremap <leader>[a :N<CR>
 
 nnoremap <leader><leader>a :args
 
 " Window mappings
 
-nnoremap <leader>wnh :topleft vnew 
+nmap <leader>oww <Plug>FzfNewBuffer
 
-nnoremap <leader>wnj :botright new 
+nnoremap <leader>nww :enew<CR>
 
-nnoremap <leader>wnk :topleft new 
+nmap <leader>owh <Plug>FzfNewWinLeft
 
-nnoremap <leader>wnl :botright vnew 
+nmap <leader>owj <Plug>FzfNewWinDown
 
-nnoremap <leader>wh :topleft vert sfind 
+nmap <leader>owk <Plug>FzfNewWinUp
 
-nnoremap <leader>wj :botright sfind 
+nmap <leader>owl <Plug>FzfNewWinRight
 
-nnoremap <leader>wk :topleft sfind 
+nmap <leader>nwh :topleft vnew<CR>
 
-nnoremap <leader>wl :botright vert sfind 
+nmap <leader>nwj :botright new<CR>
 
-nnoremap <leader>wH <C-w>H
+nmap <leader>nwk :topleft new<CR>
 
-nnoremap <leader>wJ <C-w>J
-
-nnoremap <leader>wK <C-w>K
-
-nnoremap <leader>wL <C-w>L
+nmap <leader>nwl :botright vnew<CR>
 
 " Tab mappings
 
-nnoremap <C-l> :tabn<CR>
+nnoremap <C-t><C-l> :tabn<CR>
 
-nnoremap <C-h> :tabp<CR>
+nnoremap <C-t><C-h> :tabp<CR>
 
-nnoremap <leader>tnh :-tabnew 
+inoremap <C-t><C-l> <cmd>tabn<CR>
 
-nnoremap <leader>tnl :tabnew 
+inoremap <C-t><C-h> <cmd>tabp<CR>
 
-nnoremap <leader>th :-tabfind 
+nnoremap <C-t>L :+tabmove<CR>
 
-nnoremap <leader>tl :tabfind 
+nnoremap <C-t>H :-tabmove<CR>
 
-nnoremap <leader>tH :-tabmove<CR>
-
-nnoremap <leader>tL :+tabmove<CR>
-
-nnoremap <leader>tm :tabs<CR>:tabmove<SPACE>
+nnoremap <C-t>m :tabs<CR>:tabmove<SPACE>
 
 nnoremap <leader><leader>t :tabs<CR>:tabn<SPACE>
 
-inoremap <C-l> <Esc>:TabRightIns<CR>
+nmap <leader>oth <Plug>FzfNewTabLeft
 
-inoremap <C-h> <Esc>:TabLeftIns<CR>
+nmap <leader>otl <Plug>FzfNewTabRight
+
+" Toggle mappings
+
+nnoremap <leader>tc :HexokinaseToggle<CR>
+" nnoremap <leader>tc :ToggleConcealLevel<CR>
+
+nnoremap <leader>th :nohl<CR>
+
+nnoremap <leader>tl :ToggleSpaceChar<CR>
+
+nnoremap <leader>tn :set relativenumber!<CR>
+
+nnoremap <leader>tw :set wrap!<CR>
 
 " Normal mode mappings
 
-nnoremap <leader><leader>c :ToggleConcealLevel<CR>
+nnoremap ! <cmd>so %<CR>
 
-nmap dD <Plug>ClearLineBlackHole
+nnoremap <BS> <cmd>nohl<CR>
 
-nmap <leader>dD <Plug>ClearLineDefaultReg
-
-nmap <leader><leader>do <Plug>DiffWithOpened
-
-nmap <leader><leader>dls <Plug>DiffWithLastSave
-
-nnoremap <leader><leader>e :vsp .<CR><C-w>L
+nnoremap <leader>E :Lexplore<CR>
 
 nmap <leader>H <Plug>ToTopQuarter
-
-nnoremap <leader>l :ToggleSpaceChar<CR>
 
 nnoremap <leader><leader>l :set list!<CR>
 
 nmap <leader>L <Plug>ToBottomQuarter
 
-nnoremap <leader>n :set relativenumber!<CR>
-
-nmap <leader>o <Plug>BlankLineBelow
-
-nmap <leader>O <Plug>BlankLineAbove
-
 nnoremap <leader>p :put<CR>
 
 nnoremap <leader>P :put!<CR>
 
-nnoremap <leader>u :MundoToggle<CR>
+nnoremap <C-t><C-t> <C-t>
 
 nnoremap <expr> <leader>v empty(&virtualedit) ? ':set virtualedit+=all<CR>' : ':set virtualedit-=all<CR>'
-
-nnoremap <leader>w :set wrap!<CR>
 
 nnoremap Y y$
 
@@ -640,50 +489,43 @@ inoremap <C-r> <C-r><C-r>
 inoremap <expr> <Left> pumvisible() ? "<C-e>" : "<Left>"
 
 inoremap <expr> <Right> pumvisible() ? "<C-y>" : "<Right>"
+" inoremap <expr> <Right> pumvisible() ? "<C-p><C-n><C-x><C-p>" : "<Right>"
 
-inoremap <expr> <CR> pumvisible() ? "<C-e><CR>" : "<CR>"
+imap <expr> <CR> pumvisible() ? "<C-e><Plug>(PearTreeExpand)" : "<Plug>(PearTreeExpand)"
+" imap <expr> <CR> pumvisible() ? "<C-e><CR>" : "<CR>"
+
+" Visual mode mappings
+
+vnoremap < <gv
+
+vnoremap > >gv
 
 " Custom text objects
 
-vnoremap az :<C-u>normal! [zV]z<CR>
+vnoremap <silent> az :<C-u>normal! [zV]z<CR>
 
-omap az :normal Vaz<CR>
+omap <silent> az :normal Vaz<CR>
 
-vnoremap iz :<C-u>normal! [zV]z<CR>
+vnoremap <silent> iz :<C-u>normal! [zjV]zk<CR>
 
-omap iz :normal Viz<CR>
+omap <silent> iz :normal Viz<CR>
 
-vnoremap af :<C-u>normal! ggVG<CR>
+vnoremap <silent> af :<C-u>normal! ggVG<CR>
 
-omap af :normal Vaf<CR>
+omap <silent> af :normal Vaf<CR>
 
-vnoremap if :<C-u>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\|normal! V``<CR>
+vnoremap <silent> if :<C-u>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\|normal! V``<CR>
 
-omap if :normal Vif<CR>
+omap <silent> if :normal Vif<CR>
 
-" Misc
+vnoremap <silent> al :<C-u>normal! 0v$h<CR>
 
-xmap ,c  <Plug>Commentary
+omap <silent> al :normal Val<CR>
 
-nmap ,c  <Plug>Commentary
+vnoremap <silent> il :<C-u> normal! ^vg_<CR>
 
-omap ,c  <Plug>Commentary
+omap <silent> il :normal Vil<CR>
 
-nmap ,cc <Plug>CommentaryLine
-
-nnoremap <leader><leader>dg :GitGutterDiffOrig<CR>
-
-nnoremap <leader>g :GitGutterLineHighlightsToggle<CR>
-
-nmap n <Plug>(anzu-n-with-echo)
-
-nmap N <Plug>(anzu-N-with-echo)
-
-nmap * <Plug>(anzu-star-with-echo)
-
-nmap # <Plug>(anzu-sharp-with-echo)
-
-"}}}
 """ Mapping Functions{{{
 
 function! TabRightIns()
@@ -708,9 +550,9 @@ command! TabLeftIns call TabLeftIns()
 
 function! ToggleSpaceChar()
     if stridx(&listchars, "space") <= 0
-        set listchars+=space:.
+        set listchars+=space:⋅
     else
-        set listchars-=space:.
+        set listchars-=space:⋅
     endif
 endfunction
 command! ToggleSpaceChar call ToggleSpaceChar()
@@ -737,5 +579,395 @@ function! MoveToLastNonBlankLine()
         call search('^\s*\S\+', 'b')
     endif
 endfunction
+
+"}}}
+
+"}}}
+""" Plugins {{{
+" ale {{{
+
+let g:ale_sign_priority = 10
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+augroup alehl
+    autocmd!
+    autocmd ColorScheme * highlight! link ALEErrorSign Error
+    autocmd ColorScheme * highlight! link ALEWarningSign Todo
+augroup END
+
+packadd ale
+
+" }}}
+" AutoComplPop {{{
+
+" let g:acp_enableAtStartup=0
+
+packadd AutoComplPop
+
+" }}}
+" blank-line {{{
+
+packadd blank-line
+
+" nmap <leader>o <Plug>BlankLineBelow
+
+" nmap <leader>O <Plug>BlankLineAbove
+
+" nmap dD <Plug>ClearLineBlackHole
+
+" nmap <leader>dD <Plug>ClearLineDefaultReg
+
+" }}}
+" Colorizer {{{
+
+" let g:colorizer_auto_color = 1      " Turn on colorizer automatically for every file
+
+let g:colorizer_auto_filetype='css,html,txt,md'       " Define filetypes in which colorizer will be turned on automatically
+
+" }}}
+" DynamicSigns {{{
+
+let g:Signs_Alternate = 1
+
+packadd DynamicSigns
+
+" DisableSigns
+
+" }}}
+" fzf.vim {{{
+
+packadd fzf
+packadd fzf.vim
+packadd fzf-open
+
+" }}}
+" indentLine {{{
+
+" packadd indentLine
+
+" }}}
+" markdown-preview.nvim {{{
+
+packadd markdown-preview.nvim
+
+" }}}
+" NetRW {{{
+
+let g:netrw_dirhistmax=0
+
+" if has("gui_running")
+"     let g:netrw_home="~/vimfiles"
+" else
+"     let g:netrw_home="~/.vim"
+" endif
+
+let g:netrw_liststyle=3     " Tree-style listing
+
+let g:netrw_bufsettings = "noma nomod nowrap ro nobl nu rnu"    " NetRW buffer settings
+
+" }}}
+" pear-tree {{{
+
+packadd pear-tree
+
+" }}}
+" quick-scope {{{
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
+augroup qshl
+    autocmd!
+    autocmd ColorScheme * highlight! QuickScopePrimary guifg='#F39C12' gui=underline,bold ctermfg=155 cterm=underline,bold
+    autocmd ColorScheme * highlight! QuickScopeSecondary guifg='#6F8EA3' gui=underline ctermfg=81 cterm=underline
+augroup END
+
+packadd quick-scope
+
+" }}}
+" rainbow {{{
+
+let g:rainbow_active = 0
+
+packadd rainbow
+
+nnoremap ,r :RainbowToggle<CR>
+
+" }}}
+" self-diff {{{
+
+packadd self-diff
+
+nmap <leader><leader>do <Plug>DiffWithOpened
+
+nmap <leader><leader>dls <Plug>DiffWithLastSave
+
+" }}}
+" staticyank.vim {{{
+
+packadd staticyank.vim
+
+" }}}
+" traces.vim {{{
+
+packadd traces.vim
+
+" }}}
+" ultisnips {{{
+
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/snips']
+
+let g:UltiSnipsExpandTrigger = '<Tab>'
+let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+
+packadd ultisnips
+
+" }}}
+" vim-commentary {{{
+
+packadd vim-commentary
+
+" xmap ,c  <Plug>Commentary
+
+" xmap <C-c>  <Plug>Commentary
+
+" nmap ,c  <Plug>Commentary
+
+" omap ,c  <Plug>Commentary
+
+" nmap ,cc <Plug>CommentaryLine
+
+
+" }}}
+" vim-easy-align {{{
+
+" 1. <Enter> key in visual mode, or `ga` followed by a motion or a text object to
+"    start interactive mode
+" 2. Optional: Enter keys to select alignment mode (left, right, or center)
+" 3. Optional: N-th delimiter (default: 1)
+"   - `1` Around the 1st occurrences of delimiters
+"   - `2` Around the 2nd occurrences of delimiters
+"   - ...
+"   - `*` Around all occurrences of delimiters
+"   - `**` Left-right alternating alignment around all delimiters
+"   - `-` Around the last occurrences of delimiters (`-1`)
+"   - `-2` Around the second to last occurrences of delimiters
+"   - ...
+" 4. Delimiter key (a single keystroke; <Space>, `=`, `:`, `.`, `|`, `&`, `#`, `,`)
+
+packadd vim-easy-align
+
+nmap ,a <Plug>LiveEasyAlign
+
+vmap ,a <Plug>LiveEasyAlign
+
+" }}}
+" vim-eunuch {{{
+
+let g:eunuch_no_maps=1
+
+packadd vim-eunuch
+
+" }}}
+" vim-fugitive {{{
+
+packadd vim-fugitive
+
+" }}}
+" vim-gitgutter {{{
+
+let g:gitgutter_signs = 0
+
+set updatetime=100
+
+set signcolumn=yes
+
+packadd vim-gitgutter
+
+nnoremap <leader><leader>dg :GitGutterDiffOrig<CR>
+
+nnoremap <leader>g :GitGutterLineHighlightsToggle<CR>
+
+" }}}
+" vim-highlightedyank {{{
+
+" augroup yankhl
+"     autocmd!
+"     autocmd ColorScheme * highlight HighlightedyankRegion ctermbg=222 guibg=#F1E3B9
+" augroup END
+
+packadd vim-highlightedyank
+
+" }}}
+" vim-lumen {{{
+
+augroup lumen
+    autocmd!
+    autocmd User LumenLight nested colorscheme github
+    autocmd User LumenDark nested colorscheme gruvbox8
+augroup END
+
+packadd vim-lumen
+
+" }}}
+" vim-mundo {{{
+
+" let g:mundo_width=75            " Set width of graph and preview (default 45)
+
+" let g:mundo_preview_height=15   " Set height of preview window (default 15)
+
+let g:mundo_preview_bottom=1    " Force preview window to be below windows instead of below graph
+
+" let g:mundo_inline_undo=1       " Enable one line diff in graph
+
+" let g:mundo_return_on_revert=0  " Keep focus in graph after selecting old undo state
+
+packadd vim-mundo
+
+nnoremap <leader>u :MundoToggle<CR>
+
+" }}}
+" vim-noh {{{
+
+packadd vim-noh
+
+" }}}
+" vim-repeat {{{
+
+packadd vim-repeat
+
+" }}}
+" vim-smoothie {{{
+
+packadd vim-smoothie
+
+" }}}
+" vim-surround {{{
+
+packadd vim-surround
+
+" }}}
+" vim-wordmotion {{{
+
+let g:wordmotion_prefix = "<Space>" " Set prefix key for wordmotion mapping
+
+packadd vim-wordmotion
+
+" }}}
+" vim-zoom {{{
+
+packadd vim-zoom
+
+nmap <C-w><C-m> <Plug>(zoom-toggle)
+
+" }}}
+" wsl-clip {{{
+
+let g:disable_wsl_yank=has('gui_running')       " Disable wslyank for gui, enable for terminal
+
+let g:disable_wsl_paste=has('gui_running')      " Disable wslpaste for gui, enable for terminal
+
+" }}}
+"}}}
+""" Status Line {{{
+
+set laststatus=2                                " always show status line
+
+let g:currentmode = {
+    \ 'n' : 'NORMAL',
+    \ 'v' : 'VISUAL',
+    \ 'V' : 'V-LINE',
+    \ "\<C-v>" : 'V-BLOCK',
+    \ 'i' : 'INSERT',
+    \ 'R' : 'REPLACE',
+    \ 's' : 'SELECT',
+    \ 'S' : 'S-LINE',
+    \ "\<C-s>" : 'S-BLOCK',
+    \ 'c' : 'COMMAND',
+    \ 't' : 'TERMINAL'
+\ }
+
+function! Getcurrentmode()
+    return get(g:currentmode, mode())
+endfunction
+
+
+function! Getfiletype()
+    let l:ftype = &filetype
+    if strlen(ftype) ==? 0
+        return '[NONE]'
+    else
+        return '[' . toupper(l:ftype) . ']'
+    endif
+endfunction
+
+
+function! Getmodified()
+    if &readonly
+        return '[RO]'
+    elseif &modified && (&buftype !=? "terminal")
+        return '[+]'
+    else
+        return ''
+    endif
+endfunction
+
+
+function! StatusLineGui()
+    if win_getid(winnr()) ==? g:statusline_winid
+        if mode() ==? 'n' || mode() ==? 'c'
+            " set statusline highlight group
+            hi! StatusLine cterm=NONE ctermfg=109 ctermbg=231 gui=NONE guifg=#445588 guibg=#ececec 
+            " statusline of active window in normal or command mode
+            return '%#User1# %{Getfiletype()} %#User2# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
+        elseif mode() ==? 'i' || mode() ==? 'r' 
+            " set statusline highlight group
+            hi! StatusLine cterm=NONE ctermfg=178 ctermbg=231 gui=NONE guifg=#d7af00 guibg=#ececec 
+            " statusline of active window in insert or replace modes
+            return '%#User1# %{Getfiletype()} %#User3# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
+        elseif mode() ==? 'v' || mode() ==? 's' || mode() ==? "\<C-v>" || mode() ==? "\<C-s>"
+            " set statusline highlight group
+            hi! StatusLine cterm=NONE ctermfg=247 ctermbg=231 gui=NONE guifg=#9e9e9e guibg=#ececec 
+            " statusline of active window in visual or select modes
+            return '%#User1# %{Getfiletype()} %#User4# %{Getcurrentmode()} %* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
+        elseif mode() ==? 't'
+            " " set statusline highlight group
+            " hi! StatusLine cterm=NONE ctermfg=142 ctermbg=231 gui=NONE guifg=#afaf00 guibg=#ffffff 
+            "
+            " statusline of active window in terminal mode
+            return '%#User1# %{Getfiletype()} %#User6# %{Getcurrentmode()} %* %f '
+        endif
+    else                                                                               
+        " statusline of inactive windows
+        return '%#User1# %{Getfiletype()} %#User7# %{Getcurrentmode()} %* %f %#User9#%{Getmodified()}%=%*LN:%4l  CN:%3c '
+    endif
+endfunction
+
+function! StatusLineTerm()
+    if win_getid(winnr()) ==? g:statusline_winid
+        if mode() ==? 'n' || mode() ==? 'c'
+            " statusline of active window in normal or command mode
+            return '%#User1# %{Getfiletype()}%* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
+        elseif mode() ==? 'i' || mode() ==? 'r' 
+            " statusline of active window in insert or replace modes
+            return '%#User1# %{Getfiletype()}%* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
+        elseif mode() ==? 'v' || mode() ==? 's' || mode() ==? "\<C-v>" || mode() ==? "\<C-s>"
+            " statusline of active window in visual or select modes
+            return '%#User1# %{Getfiletype()}%* %f %#User8#%{Getmodified()}%=%*LN:%4l  CN:%3c '
+        elseif mode() ==? 't'
+            " statusline of active window in terminal mode
+            return '%#User1# %{Getfiletype()}%* %f '
+        endif
+    else                                                                               
+        " statusline of inactive windows
+        return '%#User1# %{Getfiletype()}%* %f %#User9#%{Getmodified()}%=%*LN:%4l  CN:%3c '
+    endif
+endfunction
+
+if has("gui_running")
+    set statusline=%!StatusLineGui()
+else
+    set statusline=%!StatusLineTerm()
+endif
 
 "}}}
