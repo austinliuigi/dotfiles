@@ -15,7 +15,7 @@ function! CFoldLevel(lnum)
     elseif getline(a:lnum) =~? '\v^(\}|\s)@!.*\;'
         return '0'
     " If line does not start with '{' or '}' or whitespace or eol (function signature)
-    elseif getline(a:lnum) =~? '\v^(\{|\}|\s|$)@!'
+    elseif getline(a:lnum) =~? '\v^(\{|\}|\/|\s|$)@!'
         return '>1'
     " If line is blank
     elseif getline(a:lnum) =~? '\v^\s*$'

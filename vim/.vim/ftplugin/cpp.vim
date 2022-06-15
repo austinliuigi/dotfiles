@@ -12,7 +12,7 @@ function! CppFoldLevel(lnum)
         return '0'
     elseif getline(a:lnum) =~? '\v^(\}|\s)@!.*\;'
         return '0'
-    elseif getline(a:lnum) =~? '\v^(\{|\}|\s|$)@!'
+    elseif getline(a:lnum) =~? '\v^(\{|\}|\/|\s|$)@!'
         return '>1'
     elseif getline(a:lnum) =~? '\v^\s*$'
         if a:lnum == 1
