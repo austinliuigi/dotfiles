@@ -3,17 +3,25 @@
 #################
 # Login message #
 #################
-printf "Welcome $USER! It is currently %s.\n\n" "$(date "+%A, %B %d %Y, %I:%M %p")"
-echo "                    --------          \|/                           "
-echo "           \|/     |  moo?  |                                       "
-echo "                    --------       --------          \|/            "
-echo " \|/            (__)  /           |  moo.  |                        "
-echo "         \------(oo) /             --------                         "
-echo "          ||    (__)                     \  ^__^                    "
-echo "          ||w--||          \|/            \ (oo)\_______        \|/ "
-echo "                                            (__)\       )\/\\       "
-echo "                                    \|/        ||----w |            "
-echo "         \|/                                   ||     ||          \n"
+function center_text() {
+    local text=$1
+    local -i pad_length=$((($(tput cols)-${#text})/2))
+    local pad=${(pl:$pad_length:: :)}
+    echo $pad$text
+}
+
+local welcome_message=$(printf "Welcome $USER! It is currently %s.\n\n" "$(date "+%A, %B %d %Y, %I:%M %p")")
+center_text $welcome_message"\n\n"
+center_text "                    --------          \|/                           "
+center_text "           \|/     |  moo?  |                                       "
+center_text "                    --------       --------          \|/            "
+center_text " \|/            (__)  /           |  moo.  |                        "
+center_text "         \------(oo) /             --------                         "
+center_text "          ||    (__)                     \  ^__^                    "
+center_text "          ||w--||          \|/            \ (oo)\_______        \|/ "
+center_text "                                            (__)\       )\/\\       "
+center_text "                                    \|/        ||----w |            "
+center_text "         \|/                                   ||     ||          \n"
 
 #############################
 # Set environment variables #
