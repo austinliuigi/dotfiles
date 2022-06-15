@@ -1,0 +1,21 @@
+snippet class "Class declaration" b
+class ${1:`!v expand('%:t:r')`}
+{
+	public:
+	  $1();
+	  $1(const $1& other);
+	  $1& operator=(const $1& rhs);
+	  ~$1();
+	private:
+	  $0
+};
+endsnippet
+
+snippet guard "Include guard" b
+#ifndef ${1:`!v toupper(expand('%:t:r'))`}
+#define $1
+
+$0
+
+#endif $1
+endsnippet
