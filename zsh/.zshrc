@@ -5,21 +5,25 @@
 #################
 function center_text() {
     local text=$1
+    #echo ${#text}
     local -i pad_length=$((($(tput cols)-${#text})/2))
+    pad_length=$((pad_length>=0?pad_length:0))
+    #echo $pad_length
     local pad=${(pl:$pad_length:: :)}
     echo $pad$text
 }
 
-local welcome_message=$(printf "Welcome $USER! It is currently %s.\n\n" "$(date "+%A, %B %d %Y, %I:%M %p")")
-center_text $welcome_message"\n\n"
+local welcome_message=$(printf "Welcome $USER! It is currently %s\n\n" "$(date "+%A, %B %d %Y, %I:%M %p")")
+center_text $welcome_message
+echo "\n\n"
 center_text "                    --------          \|/                           "
 center_text "           \|/     |  moo?  |                                       "
 center_text "                    --------       --------          \|/            "
 center_text " \|/            (__)  /           |  moo.  |                        "
 center_text "         \------(oo) /             --------                         "
 center_text "          ||    (__)                     \  ^__^                    "
-center_text "          ||w--||          \|/            \ (oo)\_______        \|/ "
-center_text "                                            (__)\       )\/\\       "
+center_text "          ||w--||          \|/            \ (oo)\_______       \|/  "
+center_text "                                            (__)\       )\/\        "
 center_text "                                    \|/        ||----w |            "
 center_text "         \|/                                   ||     ||          \n"
 
@@ -117,3 +121,17 @@ setopt glob_dots                                            # Match hidden files
 if [ -f ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+########
+# Tmux #
+########
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#     tmux attach -t default || tmux new -s default
+# fi
+
+#############
+# Functions #
+#############
+function fz() {
+	print -z $1 $(fzf)
+}

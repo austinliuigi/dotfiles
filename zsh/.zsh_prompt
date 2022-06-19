@@ -137,7 +137,7 @@ function setPrompt () {
     # Set prompt information
     local top_left=$'\n%F{15}╭─(%(!.%F{196}.)%n%(!.%F{15}.) @ %m)-[%~]'
     local top_right="${GITSTATUS_PROMPT}─╮"
-    local bottom_left='%F{15}╰─ ⚡%f'
+    local bottom_left='%F{15}╰─ %F{yellow}⚡%f'
     local bottom_right='%F{15}%@ ─╯'
 
     # Call padMiddle to set RETURN
