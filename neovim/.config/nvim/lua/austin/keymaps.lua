@@ -1,4 +1,4 @@
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 -- Leader key {{{
 
@@ -17,69 +17,37 @@ keymap("n", "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
 -- }}}
 -- Register mappings {{{
 
-keymap("n", "<leader>c", 'c', {noremap = true})
+keymap({ "n", "v" }, "<leader>c", 'c', {noremap = true})
 
-keymap("n", "<leader>C", 'C', {noremap = true})
+keymap({ "n", "v" }, "<leader>C", 'C', {noremap = true})
 
-keymap("n", "<leader>d", 'd', {noremap = true})
+keymap({ "n", "v" }, "<leader>d", 'd', {noremap = true})
 
-keymap("n", "<leader>D", 'D', {noremap = true})
+keymap({ "n", "v" }, "<leader>D", 'D', {noremap = true})
 
-keymap("n", "<leader>s", 's', {noremap = true})
+keymap({ "n", "v" }, "<leader>s", 's', {noremap = true})
 
-keymap("n", "<leader>S", 'S', {noremap = true})
+keymap({ "n", "v" }, "<leader>S", 'S', {noremap = true})
 
-keymap("n", "<leader>x", 'x', {noremap = true})
+keymap({ "n", "v" }, "<leader>x", 'x', {noremap = true})
 
-keymap("n", "<leader>X", 'X', {noremap = true})
+keymap({ "n", "v" }, "<leader>X", 'X', {noremap = true})
 
-keymap("n", "c", '"_c', {noremap = true})
+keymap({ "n", "v" }, "c", '"_c', {noremap = true})
 
-keymap("n", "C", '"_C', {noremap = true})
+keymap({ "n", "v" }, "C", '"_C', {noremap = true})
 
-keymap("n", "d", '"_d', {noremap = true})
+keymap({ "n", "v" }, "d", '"_d', {noremap = true})
 
-keymap("n", "D", '"_D', {noremap = true})
+keymap({ "n", "v" }, "D", '"_D', {noremap = true})
 
-keymap("n", "s", '"_s', {noremap = true})
+keymap({ "n", "v" }, "s", '"_s', {noremap = true})
 
-keymap("n", "S", '"_S', {noremap = true})
+keymap({ "n", "v" }, "S", '"_S', {noremap = true})
 
-keymap("n", "x", '"_x', {noremap = true})
+keymap({ "n", "v" }, "x", '"_x', {noremap = true})
 
-keymap("n", "X", '"_X', {noremap = true})
-
-keymap("v", "<leader>c", 'c', {noremap = true})
-
-keymap("v", "<leader>C", 'C', {noremap = true})
-
-keymap("v", "<leader>d", 'd', {noremap = true})
-
-keymap("v", "<leader>D", 'D', {noremap = true})
-
-keymap("v", "<leader>s", 's', {noremap = true})
-
-keymap("v", "<leader>S", 'S', {noremap = true})
-
-keymap("v", "<leader>x", 'x', {noremap = true})
-
-keymap("v", "<leader>X", 'X', {noremap = true})
-
-keymap("v", "c", '"_c', {noremap = true})
-
-keymap("v", "C", '"_C', {noremap = true})
-
-keymap("v", "d", '"_d', {noremap = true})
-
-keymap("v", "D", '"_D', {noremap = true})
-
-keymap("v", "s", '"_s', {noremap = true})
-
-keymap("v", "S", '"_S', {noremap = true})
-
-keymap("v", "x", '"_x', {noremap = true})
-
-keymap("v", "X", '"_X', {noremap = true})
+keymap({ "n", "v" }, "X", '"_X', {noremap = true})
 
 -- }}}
 -- Buffer list mappins {{{

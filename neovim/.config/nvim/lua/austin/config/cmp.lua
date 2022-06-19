@@ -70,6 +70,9 @@ cmp.setup {
       return vim_item
     end
   },
+  window = {
+    documentation = cmp.config.window.bordered()
+  },
   experimental = {
     ghost_text = true
   }
@@ -81,7 +84,7 @@ cmp.setup.cmdline(':', {
   },
   sources = {
     { name = 'path' },
-    { name = 'cmdline' }
+    { name = 'cmdline', max_item_count = 10 }
   }
 })
 
@@ -90,7 +93,7 @@ cmp.setup.cmdline('/', {
     keyword_length = 2
   },
   sources = {
-    { name = 'buffer' }
+    { name = 'buffer', max_item_count = 10 }
   }
 })
 

@@ -20,8 +20,21 @@ return require('packer').startup({
     use 'folke/tokyonight.nvim'
     use 'shaunsingh/nord.nvim'
 
+    -- Treesitter
+    use {
+      'nvim-treesitter/nvim-treesitter',
+      config = [[require('austin.config.treesitter')]]
+    }
+
     -- LSP & Linting
-    --use 'neovim/nvim-lspconfig'
+    use {
+      'williamboman/nvim-lsp-installer',
+      {
+        'neovim/nvim-lspconfig',
+        after = { 'nvim-lsp-installer', 'cmp-nvim-lsp' },
+        config = [[require('austin.config.lsp')]]
+      }
+    }
 
     -- Completion & Snippets
     use {
@@ -37,7 +50,7 @@ return require('packer').startup({
         { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
       },
       config = [[require('austin.config.cmp')]],
-      event = 'InsertEnter,CmdlineEnter *'
+      -- event = 'InsertEnter,CmdlineEnter *'
     }
 
     -- Automatically set up configuration after cloning packer.nvim
