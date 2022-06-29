@@ -2,13 +2,13 @@ local lspconfig = require('lspconfig')
 
 -- Configure diagnostics
 local diagnostic_config = {
-  underline = true,
+  underline = false,
   virtual_text = true,
   signs = true,
   update_in_insert = false,
   severity_sort = true,
   float = {
-    scope = 'cursor',
+    scope = 'line',
     header = '',
     source = true,
     prefix = '',
@@ -16,6 +16,17 @@ local diagnostic_config = {
 }
 
 vim.diagnostic.config(diagnostic_config)
+
+-- Define signs for diagnostics
+local signs = {
+  { name = "DiagnosticSignError", text = "" },
+  { name = "DiagnosticSignWarn", text = "" },
+  { name = "DiagnosticSignHint", text = "" },
+  { name = "DiagnosticSignInfo", text = "" },
+}
+for _, sign in ipairs(signs) do
+  vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+end
 
 -- Add borders to floating windows
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -30,7 +41,10 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 require("nvim-lsp-installer").setup {}
 
 -- Function that is called whenever a server attaches
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
+  -- vim-illuminate plugin
+  require('illuminate').on_attach(client)
+  -- Set lsp keymaps
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   vim.keymap.set('n', '\\d', vim.diagnostic.open_float, bufopts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
@@ -46,7 +60,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Set up servers
-local servers = { "clangd", "pyright" }
+local servers = { "clangd", "pyright", "sumneko_lua" }
 for _, server in ipairs(servers) do
   lspconfig[server].setup {
     on_attach = on_attach,

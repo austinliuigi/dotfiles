@@ -20,20 +20,41 @@ return require('packer').startup({
     use 'folke/tokyonight.nvim'
     use 'shaunsingh/nord.nvim'
 
+    -- Telescope
+    use {
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'kyazdani42/nvim-web-devicons' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+      },
+      config = [[require('austin.config.telescope')]]
+    }
+
     -- Treesitter
     use {
       'nvim-treesitter/nvim-treesitter',
-      config = [[require('austin.config.treesitter')]]
+      config = [[require('austin.config.treesitter')]],
+      run = ':TSUpdate'
     }
 
     -- LSP & Linting
     use {
       'williamboman/nvim-lsp-installer',
       {
+        'RRethy/vim-illuminate',
+        config = [[require('austin.config.illuminate')]]
+      },
+      {
         'neovim/nvim-lspconfig',
         after = { 'nvim-lsp-installer', 'cmp-nvim-lsp' },
         config = [[require('austin.config.lsp')]]
-      }
+      },
+      -- {
+      --   'kosayoda/nvim-lightbulb',
+      --   requires = 'antoinemadec/FixCursorHold.nvim',
+      --   config = [[require('austin.config.lightbulb']]
+      -- },
     }
 
     -- Completion & Snippets
@@ -51,6 +72,58 @@ return require('packer').startup({
       },
       config = [[require('austin.config.cmp')]],
       -- event = 'InsertEnter,CmdlineEnter *'
+    }
+
+    -- Statusline
+    use {
+      'b0o/incline.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+      config = [[require('austin.config.incline')]]
+    }
+
+    -- Motions
+    use {
+      'chaoren/vim-wordmotion',
+      config = [[require('austin.config.wordmotion')]]
+    }
+
+    -- Pairs
+    use {
+      'windwp/nvim-autopairs',
+      config = [[require('austin.config.autopairs')]]
+    }
+    use {
+      'machakann/vim-sandwich',
+      requires = { 'tpope/vim-repeat' },
+      config = [[require('austin.config.sandwich')]]
+    }
+    use 'andymass/vim-matchup'
+
+    -- Comments
+    use {
+      'numToStr/Comment.nvim',
+      config = [[require('austin.config.comment')]]
+    }
+
+    -- Git
+    use {
+      'lewis6991/gitsigns.nvim',
+      config = [[require('austin.config.gitsigns')]]
+    }
+
+    -- Whitespace
+    use {
+      'lukas-reineke/indent-blankline.nvim',
+      config = [[require('austin.config.indent-blankline')]]
+    }
+
+    -- Marks
+    use 'kshenoy/vim-signature'
+
+    -- Scrolling
+    use {
+      'declancm/cinnamon.nvim',
+      config = [[require('austin.config.cinnamon')]]
     }
 
     -- Automatically set up configuration after cloning packer.nvim

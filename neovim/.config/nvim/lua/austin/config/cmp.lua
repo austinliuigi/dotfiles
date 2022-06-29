@@ -14,9 +14,9 @@ cmp.setup {
     ['<S-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
   }),
   sources = {
+    { name = 'nvim_lsp_signature_help' },
     { name = 'nvim_lua' },
     { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' },
     { name = 'path' },
     { name = 'luasnip' },
     { name = 'buffer', keyword_length = 3 }
@@ -79,21 +79,33 @@ cmp.setup {
 }
 
 cmp.setup.cmdline(':', {
-  completion = {
-    keyword_length = 2
-  },
+  -- completion = {
+  --   keyword_length = 2
+  -- },
   sources = {
     { name = 'path' },
     { name = 'cmdline', max_item_count = 10 }
+  },
+  formatting = {
+    fields = { 'kind', 'abbr', 'menu' },
+  },
+  window = {
+    completion = cmp.config.window.bordered()
   }
 })
 
 cmp.setup.cmdline('/', {
-  completion = {
-    keyword_length = 2
-  },
+  -- completion = {
+  --   keyword_length = 2
+  -- },
   sources = {
     { name = 'buffer', max_item_count = 10 }
+  },
+  formatting = {
+    fields = { 'kind', 'abbr', 'menu' },
+  },
+  window = {
+    completion = cmp.config.window.bordered()
   }
 })
 

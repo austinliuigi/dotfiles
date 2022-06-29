@@ -60,6 +60,12 @@ vim.opt.shortmess:remove('S')
 -- Set events that don't ring the bell
 vim.opt.belloff = {'esc'}
 
+-- Turn on signcolumn
+vim.opt.signcolumn = "yes:2"
+
+-- Global statusline
+vim.opt.laststatus = 3
+
 -- Set format options
 vim.api.nvim_create_augroup('FormatOptions', {clear = true})
 vim.api.nvim_create_autocmd('FileType', {
