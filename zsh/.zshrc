@@ -13,7 +13,8 @@ function center_text() {
     echo $pad$text
 }
 
-local welcome_message=$(printf "Welcome $USER! It is currently %s\n\n" "$(date "+%A, %B %d %Y, %I:%M %p")")
+# local welcome_message=$(printf "Welcome $USER! It is currently %s\n\n" "$(date "+%A, %B %d %Y, %I:%M %p")")
+local welcome_message=$(printf "Welcome $USER!")
 center_text $welcome_message
 echo "\n\n"
 center_text "                    --------          \|/                           "
