@@ -1,5 +1,6 @@
 require('nvim-autopairs').setup {
-  check_ts = true
+  check_ts = true,
+  break_undo = false
 }
 
 -- Insert `(` after completing function or method item
