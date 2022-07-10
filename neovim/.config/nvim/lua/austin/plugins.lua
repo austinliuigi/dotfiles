@@ -76,9 +76,16 @@ return require('packer').startup({
 
     -- Statusline
     use {
-      'b0o/incline.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons' },
-      config = [[require('austin.config.incline')]]
+      {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+        config = [[require('austin.config.lualine')]]
+      },
+      {
+        'b0o/incline.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons' },
+        config = [[require('austin.config.incline')]]
+      }
     }
 
     -- Motions
@@ -122,9 +129,14 @@ return require('packer').startup({
 
     -- Scrolling
     use {
-      'declancm/cinnamon.nvim',
-      config = [[require('austin.config.cinnamon')]]
+      'psliwka/vim-smoothie'
     }
+
+    -- Zoom
+    -- use {
+    --   'dhruvasagar/vim-zoom',
+    --   config = [[require('austin.config.zoom')]]
+    -- }
 
     -- Automatically set up configuration after cloning packer.nvim
     if packer_bootstrap then
