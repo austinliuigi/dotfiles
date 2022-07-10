@@ -135,10 +135,14 @@ function setPrompt () {
     gitstatusPromptUpdate
 
     # Set prompt information
-    local top_left=$'\n%F{15}╭─(%(!.%F{196}.)%n%(!.%F{15}.) @ %m)-[%~]'
+    local default_color='%F{white}'
+    local user_color='%F{magenta}'
+    local path_color='%F{yellow}'
+
+    local top_left=$'\n'"${default_color}╭─${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color}"
     local top_right="${GITSTATUS_PROMPT}─╮"
-    local bottom_left='%F{15}╰─ %F{yellow}⚡%f'
-    local bottom_right='%F{15}%@ ─╯'
+    local bottom_left="${default_color}╰─ %F{white}ᛋ %f"
+    local bottom_right="${default_color}%@ ─╯"
 
     # Call padMiddle to set RETURN
     padMiddle "$top_left" "$top_right"
@@ -153,7 +157,21 @@ setopt no_prompt_{bang,subst} prompt_{cr,percent,sp}
 # Add hook function (call setPrompt before each new prompt)
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd setPrompt
-# add-zsh-hook precmd gitstatusPromptUpdate
 
-# PROMPT=$'\n%F{15}╭─(%(!.%F{196}.)%n%(!.%F{15}.) @ %m)-[%~]\n╰─ ⚡%f'
-# RPROMPT=%@
+# Transient prompt (change current prompt before each new prompt)
+zle-line-finish() {
+    local default_color='%F{white}'
+    local user_color='%F{magenta}'
+    local path_color='%F{yellow}'
+
+    PROMPT=$'\n'"${default_color}» ${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color} ᛋ "
+    RPROMPT=''
+    zle reset-prompt
+}
+zle -N zle-line-finish
+
+# Recalculate current prompt after window resize
+TRAPWINCH () {
+	setPrompt
+	zle reset-prompt
+}
