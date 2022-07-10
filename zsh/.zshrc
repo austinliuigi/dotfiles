@@ -20,7 +20,7 @@ echo "\n\n"
 center_text "                    --------          \|/                           "
 center_text "           \|/     |  moo?  |                                       "
 center_text "                    --------       --------          \|/            "
-center_text " \|/            (__)  /           |  moo.  |                        "
+center_text " \|/            (__)  /           |  moo.. |                        "
 center_text "         \------(oo) /             --------                         "
 center_text "          ||    (__)                     \  ^__^                    "
 center_text "          ||w--||          \|/            \ (oo)\_______       \|/  "
@@ -33,6 +33,7 @@ center_text "         \|/                                   ||     ||          \
 #############################
 export EDITOR="vim"
 export PATH=~/.local/bin:$PATH
+export MANPAGER='nvim +Man!'
 
 ###########
 # History #
@@ -131,8 +132,10 @@ fi
 # fi
 
 #############
-# Functions #
+# Fzf #
 #############
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 function fz() {
 	print -z $1 $(fzf)
 }
