@@ -158,17 +158,33 @@ setopt no_prompt_{bang,subst} prompt_{cr,percent,sp}
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd setPrompt
 
-# Transient prompt (change current prompt before each new prompt)
-zle-line-finish() {
+function setTransientPrompt () {
     local default_color='%F{white}'
     local user_color='%F{magenta}'
     local path_color='%F{yellow}'
 
-    PROMPT=$'\n'"${default_color}» ${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color} ᛋ "
+    # PROMPT=$'\n'"${default_color}» ${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color} ᛋ "
+    PROMPT=$'\n'"${default_color}╭─${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color}"$'\n'"${default_color}╰─ %F{white}ᛋ %f"
     RPROMPT=''
+}
+
+# Transient prompt (change current prompt before each new prompt)
+zle-line-finish() {
+    setTransientPrompt
     zle reset-prompt
 }
 zle -N zle-line-finish
+
+# Transient prompt upon interrupt (change current prompt before abort signal)
+# Programs terminated by uncaught signals typically return the status 128 plus the signal number
+# Hence the following causes the handler for SIGINT to change the prompt, then mimic the usual effect of the signal
+# https://zsh.sourceforge.io/Doc/Release/Functions.html#Trap-Functions
+TRAPINT () {
+	setTransientPrompt
+	zle reset-prompt
+	setPrompt
+	return $(( 128 + $1 ))
+}
 
 # Recalculate current prompt after window resize
 TRAPWINCH () {
