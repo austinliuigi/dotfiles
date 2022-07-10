@@ -1,0 +1,1 @@
+vim.g['zoom#statustext'] = ''
