@@ -61,7 +61,7 @@ vim.opt.shortmess:remove('S')
 vim.opt.belloff = {'esc'}
 
 -- Turn on signcolumn
-vim.opt.signcolumn = "yes:2"
+vim.opt.signcolumn = "auto:1-3"
 
 -- Global statusline
 vim.opt.laststatus = 3
@@ -86,13 +86,6 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
 -- Colors {{{
 -- Use GUI colors in terminal, Note: must come before setting colorscheme
 vim.opt.termguicolors = true
-
--- Set initial colorscheme based on background setting
-if vim.o.background == 'dark' then
-	vim.cmd('colorscheme default')
-else
-	vim.cmd('colorscheme blue')
-end
 
 -- Highlight TODO everywhere (not just in comments) for text and markdown files
 vim.api.nvim_create_augroup('Todo', {clear = true})
