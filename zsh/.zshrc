@@ -52,15 +52,15 @@ setopt correctall   # Suggest corrections for mis-spelled arguments
 ##########
 # Prompt #
 ##########
-if [ -f ~/.zsh_prompt ]; then
-    source ~/.zsh_prompt
+if [ -f ~/.zsh/zsh_prompt ]; then
+    source ~/.zsh/zsh_prompt
 fi
 
 ###########
 # Aliases #
 ###########
-if [ -f ~/.zsh_aliases ]; then
-    source ~/.zsh_aliases
+if [ -f ~/.zsh/zsh_aliases ]; then
+    source ~/.zsh/zsh_aliases
 fi
 
 ###########
@@ -104,8 +104,8 @@ export LS_COLORS="di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40
 # Autocompletion #
 ##################
 # Autosuggestion plugin (real-time suggestion based on history or completion)
-if [ -f ~/.zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    source ~/.zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+if [ -f ~/.zsh/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source ~/.zsh/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 fi
 autoload -U compinit
@@ -120,8 +120,8 @@ setopt glob_dots                                            # Match hidden files
 #######################
 # Syntax highlighting #
 #######################
-if [ -f ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    source ~/.zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f ~/.zsh/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    source ~/.zsh/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 ########

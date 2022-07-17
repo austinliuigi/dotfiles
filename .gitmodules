@@ -1,12 +1,12 @@
-[submodule "zsh/.zsh_plugins/zsh-syntax-highlighting"]
-	path = zsh/.zsh_plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "zsh/.zsh_plugins/zsh-autosuggestions"]
-	path = zsh/.zsh_plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "zsh/.zsh_plugins/gitstatus"]
-	path = zsh/.zsh_plugins/gitstatus
-	url = https://github.com/romkatv/gitstatus.git
 [submodule "vim/.vim/pack/plugins/opt/AutoComplPop"]
 	path = vim/.vim/pack/plugins/opt/AutoComplPop
 	url = https://github.com/vim-scripts/AutoComplPop.git
+[submodule "zsh/.zsh/zsh_plugins/zsh-syntax-highlighting"]
+	path = zsh/.zsh/zsh_plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh/.zsh/zsh_plugins/zsh-autosuggestions"]
+	path = zsh/.zsh/zsh_plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/.zsh/zsh_plugins/gitstatus"]
+	path = zsh/.zsh/zsh_plugins/gitstatus
+	url = https://github.com/romkatv/gitstatus.git

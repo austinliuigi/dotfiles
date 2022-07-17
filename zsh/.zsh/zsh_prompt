@@ -59,8 +59,8 @@ function padMiddle () {
 }
 
 # Source gitstatus plugin
-if [ -f ~/.zsh_plugins/gitstatus/gitstatus.plugin.zsh ]; then
-    source ~/.zsh_plugins/gitstatus/gitstatus.plugin.zsh
+if [ -f ~/.zsh/zsh_plugins/gitstatus/gitstatus.plugin.zsh ]; then
+    source ~/.zsh/zsh_plugins/gitstatus/gitstatus.plugin.zsh
 fi
 
 # Start instance of gitstatusd plugin to allow for querying
@@ -136,7 +136,7 @@ function setPrompt () {
 
     # Set prompt information
     local default_color='%F{white}'
-    local user_color='%F{magenta}'
+    local user_color='%F{152}'
     local path_color='%F{yellow}'
 
     local top_left=$'\n'"${default_color}╭─${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color}"
@@ -160,7 +160,7 @@ add-zsh-hook precmd setPrompt
 
 function setTransientPrompt () {
     local default_color='%F{white}'
-    local user_color='%F{magenta}'
+    local user_color='%F{152}'
     local path_color='%F{yellow}'
 
     # PROMPT=$'\n'"${default_color}» ${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color} ᛋ "
