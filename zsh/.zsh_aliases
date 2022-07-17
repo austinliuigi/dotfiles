@@ -1,8 +1,15 @@
 # Austin's zsh aliases
 
-alias ls='ls -F'
+
+if ! [ -z "$(command -v lsd)" ]; then
+    alias ls='lsd'
+    alias tree='lsd --tree'
+else
+    alias ls='ls -F'
+fi
 alias la='ls -AF'
 alias ll='ls -AFl'
-alias ls="lsd"
 
-alias tree="lsd --tree"
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
