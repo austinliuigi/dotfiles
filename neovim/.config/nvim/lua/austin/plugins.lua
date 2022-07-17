@@ -125,12 +125,24 @@ return require('packer').startup({
     }
 
     -- Marks
-    use 'kshenoy/vim-signature'
+    use {
+      'kshenoy/vim-signature',
+      config = [[require('austin.config.signature')]]
+    }
 
     -- Scrolling
     use {
       'psliwka/vim-smoothie'
     }
+
+    -- Markdown
+    use {
+      "iamcco/markdown-preview.nvim",
+      run = "cd app && npm install",
+      setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+      ft = { "markdown" }
+    }
+
 
     -- Zoom
     -- use {
