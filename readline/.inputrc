@@ -77,11 +77,11 @@ TAB: menu-complete
 # Bind C-l to clear screen
 "\C-l": clear-screen
 
-# Bind C-p to go back in history using what is currently typed as context
-"\C-p": history-search-backward
+# Bind Up to go back in history using what is currently typed as context
+"\e[A": history-search-backward
 
-# Bind C-n to go forward in history using what is currently typed as context
-"\C-n": history-search-forward
+# Bind Down to go forward in history using what is currently typed as context
+"\e[B": history-search-forward
 
 # Bind C-f to go forward one character
 "\C-f": forward-char
