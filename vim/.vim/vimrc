@@ -35,7 +35,7 @@ set wildmenu                    " Command-line autocomplete bar
 
 set wildcharm=<Tab>             " Set key for mappings to acticatte windmenu
 
-set scrolloff=3                 " Set number of lines to keep above/below cursor
+set scrolloff=0                 " Set number of lines to keep above/below cursor
 
 set tildeop                     " Tilde acts like an operator
 
@@ -59,7 +59,7 @@ set nowrap
 
 set sidescroll=1
 
-set sidescrolloff=3
+set sidescrolloff=999
 
 " Cursor style in different modes
  "Ps = 0  -> blinking block.
@@ -624,13 +624,17 @@ Plug 'machakann/vim-highlightedyank'
 
 Plug 'vimpostor/vim-lumen'
 
-Plug 'simnalamburt/vim-mundo', { 'commit': '595ee33'}
+" Plug 'mbbill/undotree'
+Plug 'simnalamburt/vim-mundo'
 
 Plug 'tpope/vim-repeat'
 
 Plug 'psliwka/vim-smoothie', { 'commit': '10fd0aa57d17'}
 
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
+
+Plug 'junegunn/vim-slash'
 
 Plug 'chaoren/vim-wordmotion'
 
@@ -719,7 +723,7 @@ let g:rainbow_conf = {
 \	'cterms': [''],
 \}
 
-nnoremap <leader>tr :RainbowToggle<CR>
+nnoremap <leader>tr <cmd>RainbowToggle<CR>
 
 " }}}
 
@@ -789,9 +793,9 @@ let g:airline_section_z = airline#section#create(['%l',':','%c'])
 "   - ...
 " 4. Delimiter key (a single keystroke; <Space>, `=`, `:`, `.`, `|`, `&`, `#`, `,`)
 
-" nmap ga <Plug>LiveEasyAlign
+nmap ga <Plug>(LiveEasyAlign)
 
-vmap ga <Plug>LiveEasyAlign
+vmap ga <Plug>(LiveEasyAlign)
 
 " }}}
 
@@ -853,14 +857,66 @@ augroup END
 
 " let g:mundo_preview_height=15   " Set height of preview window (default 15)
 
-let g:mundo_preview_bottom=1    " Force preview window to be below windows instead of below graph
+let g:mundo_preview_bottom = 1    " Force preview window to be below windows instead of below graph
 
 " let g:mundo_inline_undo=1       " Enable one line diff in graph
 
 " let g:mundo_return_on_revert=0  " Keep focus in graph after selecting old undo state
 
-nnoremap <leader>u :MundoToggle<CR>
+let g:mundo_playback_delay = 750  " Set time between each change when running 'play to'
 
+let g:mundo_mappings = {
+            \ '<nowait> <CR>': 'preview',
+            \ '<nowait> o': 'preview',
+            \ '<nowait> J': 'move_older_write',
+            \ '<nowait> K': 'move_newer_write',
+            \ '<nowait> gg': 'move_top',
+            \ '<nowait> G': 'move_bottom',
+            \ '<nowait> P': 'play_to',
+            \ '<nowait> d': 'diff',
+            \ '<nowait> i': 'toggle_inline',
+            \ '<nowait> /': 'search',
+            \ '<nowait> n': 'next_match',
+            \ '<nowait> N': 'previous_match',
+            \ '<nowait> p': 'diff_current_buffer',
+            \ '<nowait> r': 'rdiff',
+            \ '<nowait> ?': 'toggle_help',
+            \ '<nowait> q': 'quit',
+            \ '<nowait> <2-LeftMouse>': 'mouse_click',
+            \ '<nowait> j': 'move_older',
+            \ '<nowait> k': 'move_newer',
+            \ '<nowait> <Down>': 'move_older',
+            \ '<nowait> <Up>': 'move_newer'
+            \ }
+
+nnoremap <leader>tu <cmd>MundoToggle<CR>
+
+" }}}
+
+" vim-sandwich {{{
+
+let g:sandwich_no_default_key_mappings = 1
+let g:operator_sandwich_no_default_key_mappings = 1
+let g:textobj_sandwich_no_default_key_mappings = 1
+
+nmap gs <Plug>(sandwich-add)
+nmap ds <Plug>(sandwich-delete)
+nmap cs <Plug>(sandwich-replace)
+vmap gs <Plug>(sandwich-add)
+
+if hasmapto('<Plug>(RepeatDot)')
+    nmap . <Plug>(operator-sandwich-predot)<Plug>(RepeatDot)
+else
+    nmap . <Plug>(operator-sandwich-predot)
+end
+
+" }}}
+
+" vim-slash {{{
+    if has('timers')
+      " Blink 3 times with 65ms interval
+      noremap <expr> <Plug>(slash-after) 'zz'.slash#blink(3, 65)
+    endif
 " }}}
 
 " vim-wordmotion {{{
