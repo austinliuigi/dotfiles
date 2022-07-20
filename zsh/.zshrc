@@ -38,8 +38,15 @@ export MANPAGER='nvim +Man!'
 ###########
 # History #
 ###########
-HISTSIZE=1000
-SAVEHIST=1000
+HISTFILE="$HOME/.zsh_history"	# File to store history in
+HISTSIZE=999999			# Number of lines of history to keep in memory
+SAVEHIST=$HISTSIZE		# Number of lines to keep in history file
+
+setopt HIST_IGNORE_ALL_DUPS	# Do not put duplicated command into history list
+setopt HIST_SAVE_NO_DUPS	# Do not save duplicated command
+setopt HIST_REDUCE_BLANKS	# Remove unnecessary blanks
+setopt INC_APPEND_HISTORY_TIME	# Append command to history file immediately after execution
+setopt EXTENDED_HISTORY		# Record command start time
 
 ###########
 # Options #
@@ -90,8 +97,8 @@ bindkey '^e' edit-command-line
 ############
 # Bindings #
 ############
-bindkey '[A' up-line-or-search    # Up arrow takes into account what is currently typed
-bindkey '[B' down-line-or-search  # Down arrow takes into account what is currently typed
+bindkey '[A' history-beginning-search-backward    # Up arrow takes into account what is currently typed
+bindkey '[B' history-beginning-search-forward     # Down arrow takes into account what is currently typed
 
 ##########
 # Colors #
