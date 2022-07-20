@@ -376,37 +376,37 @@ nnoremap <leader><leader>a :args
 
 " Window mappings {{{
 
-nnoremap <leader>nww <cmd>enew<CR>
+nnoremap <leader>nww :enew<CR>
 
-nmap <leader>nwh <cmd>topleft vnew<CR>
+nmap <leader>nwh :topleft vnew<CR>
 
-nmap <leader>nwj <cmd>botright new<CR>
+nmap <leader>nwj :botright new<CR>
 
-nmap <leader>nwk <cmd>topleft new<CR>
+nmap <leader>nwk :topleft new<CR>
 
-nmap <leader>nwl <cmd>botright vnew<CR>
+nmap <leader>nwl :botright vnew<CR>
 
 " }}}
 
 " Tab mappings {{{
 
-nnoremap <C-t><C-l> <cmd>tabn<CR>
+nnoremap <C-t><C-l> :tabn<CR>
 
-nnoremap <C-t><C-h> <cmd>tabp<CR>
+nnoremap <C-t><C-h> :tabp<CR>
 
-inoremap <C-t><C-l> <cmd>tabn<CR>
+inoremap <C-t><C-l> :tabn<CR>
 
-inoremap <C-t><C-h> <cmd>tabp<CR>
+inoremap <C-t><C-h> :tabp<CR>
 
-nnoremap <C-t>L <cmd>+tabmove<CR>
+nnoremap <C-t>L :+tabmove<CR>
 
-nnoremap <C-t>H <cmd>-tabmove<CR>
+nnoremap <C-t>H :-tabmove<CR>
 
-nnoremap <C-t>m <cmd>tabs<CR>:tabmove<SPACE>
+nnoremap <C-t>m :tabs<CR>:tabmove<SPACE>
 
-nnoremap <leader><leader>t <cmd>tabs<CR>:tabn<SPACE>
+nnoremap <leader><leader>t :tabs<CR>:tabn<SPACE>
 
-nnoremap <leader>nt <cmd>tabnew<CR>
+nnoremap <leader>nt :tabnew<CR>
 
 " }}}
 
@@ -414,33 +414,31 @@ nnoremap <leader>nt <cmd>tabnew<CR>
 
 " nnoremap <leader>tc :ToggleConcealLevel<CR>
 
-nnoremap <leader>th <cmd>nohl<CR>
+nnoremap <leader>te :Lexplore<CR>
 
-nnoremap <leader>tl <cmd>ToggleSpaceChar<CR>
+nnoremap <expr> <silent> <leader>th v:hlsearch ? ":nohl<CR>" : ":set hlsearch<CR>""
 
-nnoremap <leader>tn <cmd>set relativenumber!<CR>
+nnoremap <leader>tl :ToggleSpaceChar<CR>
 
-nnoremap <leader>tw <cmd>set wrap!<CR>
+nnoremap <leader>tn :set relativenumber!<CR>
+
+nnoremap <leader>tw :set wrap!<CR>
 
 " }}}
 
 " Normal mode mappings {{{
 
-nnoremap ! <cmd>so %<CR>
-
-nnoremap <BS> <cmd>nohl<CR>
-
-nnoremap <leader>E <cmd>Lexplore<CR>
+nnoremap ! :so %<CR>
 
 nmap <leader>H <Plug>ToTopQuarter
 
-nnoremap <leader><leader>l <cmd>set list!<CR>
+nnoremap <leader><leader>l :set list!<CR>
 
 nmap <leader>L <Plug>ToBottomQuarter
 
-nnoremap <leader>p <cmd>put<CR>
+nnoremap <leader>p :put<CR>
 
-nnoremap <leader>P <cmd>put!<CR>
+nnoremap <leader>P :put!<CR>
 
 nnoremap <C-t><C-t> <C-t>
 
@@ -478,27 +476,27 @@ vnoremap > >gv
 
 vnoremap <silent> az :<C-u>normal! [zV]z<CR>
 
-omap <silent> az <cmd>normal Vaz<CR>
+omap <silent> az :normal Vaz<CR>
 
 vnoremap <silent> iz :<C-u>normal! [zjV]zk<CR>
 
-omap <silent> iz <cmd>normal Viz<CR>
+omap <silent> iz :normal Viz<CR>
 
 vnoremap <silent> af :<C-u>normal! ggVG<CR>
 
-omap <silent> af <cmd>normal Vaf<CR>
+omap <silent> af :normal Vaf<CR>
 
 vnoremap <silent> if :<C-u>call MoveToLastNonBlankLine()\|call MoveToFirstNonBlankLine()\|normal! V``<CR>
 
-omap <silent> if <cmd>normal Vif<CR>
+omap <silent> if :normal Vif<CR>
 
 vnoremap <silent> al :<C-u>normal! 0v$h<CR>
 
-omap <silent> al <cmd>normal Val<CR>
+omap <silent> al :normal Val<CR>
 
 vnoremap <silent> il :<C-u>normal! ^vg_<CR>
 
-omap <silent> il <cmd>normal Vil<CR>
+omap <silent> il :normal Vil<CR>
 
 " }}}
 
@@ -663,23 +661,23 @@ augroup END
 
 " fzf {{{
 
-nnoremap <leader>fb <cmd>Buffers<CR>
+nnoremap <leader>fb :Buffers<CR>
 
-nnoremap <leader>fc <cmd>Commands<CR>
+nnoremap <leader>fc :Commands<CR>
 
-nnoremap <leader>ff <cmd>Files<CR>
+nnoremap <leader>ff :Files<CR>
 
-nnoremap <leader>fgc <cmd>Commits<CR>
+nnoremap <leader>fgc :Commits<CR>
 
-nnoremap <leader>fgf <cmd>GitFiles<CR>
+nnoremap <leader>fgf :GitFiles<CR>
 
-nnoremap <leader>fht <cmd>Helptags<CR>
+nnoremap <leader>fht :Helptags<CR>
 
-nnoremap <leader>fhc <cmd>History:<CR>
+nnoremap <leader>fhc :History:<CR>
 
-nnoremap <leader>fht <cmd>Helptags<CR>
+nnoremap <leader>fht :Helptags<CR>
 
-nnoremap <leader>fh/ <cmd>History/<CR>
+nnoremap <leader>fh/ :History/<CR>
 
 
 "}}}
@@ -723,7 +721,7 @@ let g:rainbow_conf = {
 \	'cterms': [''],
 \}
 
-nnoremap <leader>tr <cmd>RainbowToggle<CR>
+nnoremap <leader>tr :RainbowToggle<CR>
 
 " }}}
 
@@ -826,7 +824,7 @@ let g:Hexokinase_highlighters = [ 'sign_column' ]
 let g:Hexokinase_ftEnabled = ['css', 'html', 'javascript', 'md', 'txt']
 
 
-nnoremap <leader>tc <cmd>HexokinaseToggle<CR>
+nnoremap <leader>tc :HexokinaseToggle<CR>
 
 " }}}
 
@@ -889,7 +887,7 @@ let g:mundo_mappings = {
             \ '<nowait> <Up>': 'move_newer'
             \ }
 
-nnoremap <leader>tu <cmd>MundoToggle<CR>
+nnoremap <leader>tu :MundoToggle<CR>
 
 " }}}
 
