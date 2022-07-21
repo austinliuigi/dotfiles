@@ -55,11 +55,11 @@ set shortmess-=S                " Show search match index
 
 set mouse=a                     " Allow use of mouse in all modes
 
-set nowrap
-
 set sidescroll=1
 
 set sidescrolloff=999
+
+set textwidth=0
 
 " Cursor style in different modes
  "Ps = 0  -> blinking block.
@@ -629,6 +629,8 @@ Plug 'tpope/vim-repeat'
 
 Plug 'psliwka/vim-smoothie', { 'commit': '10fd0aa57d17'}
 
+Plug 'lifepillar/vim-solarized8'
+
 " Plug 'tpope/vim-surround'
 Plug 'machakann/vim-sandwich'
 
@@ -757,17 +759,27 @@ let g:airline_extensions = ['branch', 'mundo']
 let g:airline#extensions#branch#vcs_checks = []
 " let g:airline#extensions#branch#vcs_checks = ['untracked', 'dirty']
 
-let g:airline_theme='peaksea'
+let g:airline_theme='tintin'
 augroup AirlineModifiedHL
-    autocmd User AirlineAfterTheme execute 'let g:airline_c_bg = g:airline#themes#'.g:airline_theme.'#palette.normal.airline_c[1]' | execute 'hi! airline_modified guifg=#db4b4b guibg='.g:airline_c_bg
+    autocmd User AirlineAfterTheme execute 'let g:airline_c_bg = g:airline#themes#'.g:airline_theme.'#palette.normal.airline_c[1]' | execute 'hi! airline_modified guifg='.synIDattr(hlID('Function'), "fg").' guibg='.g:airline_c_bg
 augroup END
 
-function! AirlineModifiedHL()
+" Usage: %{%AirlineModifiedHighlightStatusLine()%}
+function! AirlineModifiedHighlightStatusLine()
     return &modified ? '%#airline_modified#' : ''
 endfunction
 
+function! AirlineModifiedSymbol()
+    return &modified ? '[+]' : ''
+endfunction
+
+augroup AirlineInactive
+    autocmd User AirlineAfterTheme execute 'let g:airline_c_bg_inactive = g:airline#themes#'.g:airline_theme.'#palette.inactive.airline_c[1]' | execute 'hi! StatusLineNC guifg='.g:airline_c_bg_inactive
+    autocmd VimEnter,ColorScheme * execute 'let g:airline_c_bg_inactive = g:airline#themes#'.g:airline_theme.'#palette.inactive.airline_c[1]' | execute 'hi! StatusLineNC guifg='.g:airline_c_bg_inactive
+augroup END
+
 let g:airline_section_c = airline#section#create(['mode'])
-let g:airline_section_c = airline#section#create(['%{%AirlineModifiedHL()%}','file',' ','readonly'])
+let g:airline_section_c = airline#section#create(['%f',' ','%#airline_modified#','%{AirlineModifiedSymbol()}',' ','readonly'])
 let g:airline_section_x = airline#section#create([])
 let g:airline_section_y = airline#section#create([' ','%p','%%'])
 let g:airline_section_z = airline#section#create(['%l',':','%c'])
