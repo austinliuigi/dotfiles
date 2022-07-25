@@ -38,8 +38,8 @@ vim.opt.wildoptions = {'pum'}
 vim.cmd('set wildcharm=<Tab>')
 
 -- Number of lines/columns to keep around the cursor
-vim.opt.scrolloff = 3
-vim.opt.sidescrolloff = 3
+vim.opt.scrolloff = 0
+vim.opt.sidescrolloff = 999
 
 -- Number of lines to scroll at a time horizontally
 vim.opt.sidescroll = 1
@@ -58,7 +58,7 @@ vim.opt.shortmess:append('c')
 vim.opt.shortmess:remove('S')
 
 -- Set events that don't ring the bell
-vim.opt.belloff = {'esc'}
+vim.opt.belloff = {'esc', 'cursor', 'error'}
 
 -- Turn on signcolumn
 vim.opt.signcolumn = "auto:1-3"

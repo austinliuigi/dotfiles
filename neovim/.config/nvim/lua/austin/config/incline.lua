@@ -63,4 +63,4 @@ require('incline').setup {
 
 -- Toggle whether incline shows full path or just tail of buffer file
 vim.g.incline_full_path = false
-vim.keymap.set('n', '<leader>ti', function() vim.g.incline_full_path = not vim.g.incline_full_path; require('incline').enable() end)
+vim.keymap.set('n', '<leader>tin', function() vim.g.incline_full_path = not vim.g.incline_full_path; require('incline').enable() end)

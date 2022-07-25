@@ -18,5 +18,6 @@ end
 require('austin.options')
 require('austin.keymaps')
 require('austin.plugins')
+require('austin.colors')
 
-vim.cmd('colorscheme tokyonight')
+vim.cmd('colorscheme nord')

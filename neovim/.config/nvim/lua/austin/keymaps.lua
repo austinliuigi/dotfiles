@@ -101,7 +101,7 @@ keymap("n", "<leader><leader>t", ":tabs<CR>:tabn<Space>", {noremap = true, silen
 
 keymap("n", "<leader>tc", "<cmd>HexokinaseToggle<CR>", {noremap = true, silent = true})
 
-keymap("n", "<leader>th", "<cmd>nohl<CR>", {noremap = true, silent = true})
+keymap("n", "<leader>th", "v:hlsearch ? '<cmd>nohl<CR>' : '<cmd>set hlsearch<CR>'", {noremap = true, silent = true, expr = true})
 
 keymap("n", "<leader>tl", "<cmd>ToggleSpaceChar<CR>", {noremap = true, silent = true})
 

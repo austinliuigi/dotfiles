@@ -16,26 +16,60 @@ return require('packer').startup({
     -- Packer
     use { 'wbthomason/packer.nvim', opt = true }
 
-    -- Colorschemes
-    use 'folke/tokyonight.nvim'
-    use 'shaunsingh/nord.nvim'
-
-    -- Telescope
+    -- Align
     use {
-      'nvim-telescope/telescope.nvim',
-      requires = {
-        { 'nvim-lua/plenary.nvim' },
-        { 'kyazdani42/nvim-web-devicons' },
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-      },
-      config = [[require('austin.config.telescope')]]
+      'junegunn/vim-easy-align',
+      config = [[require('austin.config.easy-align')]]
     }
 
-    -- Treesitter
+    -- Colors
+    use 'folke/tokyonight.nvim'
+    use 'shaunsingh/nord.nvim'
     use {
-      'nvim-treesitter/nvim-treesitter',
-      config = [[require('austin.config.treesitter')]],
-      run = ':TSUpdate'
+      'xiyaowong/nvim-colorizer.lua',
+      config = [[require('austin.config.colorizer')]]
+    }
+
+    -- Comments
+    use {
+      'numToStr/Comment.nvim',
+      config = [[require('austin.config.comment')]]
+    }
+
+    -- Completion & Snippets
+    use {
+      'hrsh7th/nvim-cmp',
+      requires = {
+        'L3MON4D3/LuaSnip',
+        { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
+        { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
+      },
+      config = [[require('austin.config.cmp')]],
+      -- event = 'InsertEnter,CmdlineEnter *'
+    }
+
+    -- Explorer
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+      config = [[require('austin.config.nvimtree')]]
+    }
+
+    -- Git
+    use {
+      'lewis6991/gitsigns.nvim',
+      config = [[require('austin.config.gitsigns')]]
+    }
+
+    -- Highlighting
+    use {
+      'junegunn/vim-slash',
+      config = vim.keymap.set('n', '<Plug>(slash-after)', '"zz"..slash#blink(3, 65)', {noremap = true, expr = true})
     }
 
     -- LSP & Linting
@@ -57,21 +91,43 @@ return require('packer').startup({
       -- },
     }
 
-    -- Completion & Snippets
+    -- Markdown
     use {
-      'hrsh7th/nvim-cmp',
-      requires = {
-        'L3MON4D3/LuaSnip',
-        { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
-        { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
-      },
-      config = [[require('austin.config.cmp')]],
-      -- event = 'InsertEnter,CmdlineEnter *'
+      "iamcco/markdown-preview.nvim",
+      run = "cd app && npm install",
+      setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+      ft = { "markdown" }
+    }
+
+    -- Marks
+    use {
+      'kshenoy/vim-signature',
+      config = [[require('austin.config.signature')]]
+    }
+
+    -- Motions
+    use {
+      'chaoren/vim-wordmotion',
+      config = [[require('austin.config.wordmotion')]]
+    }
+
+    -- Pairs
+    use {
+      'windwp/nvim-autopairs',
+      config = [[require('austin.config.autopairs')]]
+    }
+    use 'andymass/vim-matchup'
+    use {
+      'machakann/vim-sandwich',
+      requires = { 'tpope/vim-repeat' },
+      config = [[require('austin.config.sandwich')]]
+    }
+    use 'p00f/nvim-ts-rainbow'
+
+    -- Scrolling
+    use {
+      'psliwka/vim-smoothie',
+      commit = '10fd0aa'
     }
 
     -- Statusline
@@ -88,34 +144,28 @@ return require('packer').startup({
       }
     }
 
-    -- Motions
+    -- Telescope
     use {
-      'chaoren/vim-wordmotion',
-      config = [[require('austin.config.wordmotion')]]
+      'nvim-telescope/telescope.nvim',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'kyazdani42/nvim-web-devicons' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+      },
+      config = [[require('austin.config.telescope')]]
     }
 
-    -- Pairs
+    -- Treesitter
     use {
-      'windwp/nvim-autopairs',
-      config = [[require('austin.config.autopairs')]]
-    }
-    use {
-      'machakann/vim-sandwich',
-      requires = { 'tpope/vim-repeat' },
-      config = [[require('austin.config.sandwich')]]
-    }
-    use 'andymass/vim-matchup'
-
-    -- Comments
-    use {
-      'numToStr/Comment.nvim',
-      config = [[require('austin.config.comment')]]
+      'nvim-treesitter/nvim-treesitter',
+      config = [[require('austin.config.treesitter')]],
+      run = ':TSUpdate'
     }
 
-    -- Git
+    -- Undo
     use {
-      'lewis6991/gitsigns.nvim',
-      config = [[require('austin.config.gitsigns')]]
+      'simnalamburt/vim-mundo',
+      config = [[require('austin.config.mundo')]]
     }
 
     -- Whitespace
@@ -123,26 +173,6 @@ return require('packer').startup({
       'lukas-reineke/indent-blankline.nvim',
       config = [[require('austin.config.indent-blankline')]]
     }
-
-    -- Marks
-    use {
-      'kshenoy/vim-signature',
-      config = [[require('austin.config.signature')]]
-    }
-
-    -- Scrolling
-    use {
-      'psliwka/vim-smoothie'
-    }
-
-    -- Markdown
-    use {
-      "iamcco/markdown-preview.nvim",
-      run = "cd app && npm install",
-      setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-      ft = { "markdown" }
-    }
-
 
     -- Zoom
     -- use {

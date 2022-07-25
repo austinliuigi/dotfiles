@@ -43,7 +43,7 @@ require("nvim-lsp-installer").setup {}
 -- Function that is called whenever a server attaches
 local on_attach = function(client, bufnr)
   -- vim-illuminate plugin
-  require('illuminate').on_attach(client)
+  -- require('illuminate').on_attach(client)
   -- Set lsp keymaps
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   vim.keymap.set('n', '\\d', vim.diagnostic.open_float, bufopts)
