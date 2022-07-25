@@ -917,7 +917,7 @@ vmap gs <Plug>(sandwich-add)
 if hasmapto('<Plug>(RepeatDot)')
     nmap . <Plug>(operator-sandwich-predot)<Plug>(RepeatDot)
 else
-    nmap . <Plug>(operator-sandwich-predot)
+    nmap . <Plug>(operator-sandwich-dot)
 end
 
 " }}}
