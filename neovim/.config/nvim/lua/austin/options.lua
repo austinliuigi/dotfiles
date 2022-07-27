@@ -127,6 +127,9 @@ vim.opt.concealcursor = ''
 -- Make wrapped lines have same indentation as original line
 vim.opt.breakindent = true
 
+-- Wrap only on "break" characters (not in the middle of words)
+vim.opt.linebreak = true
+
 -- Set string to show in beginning of wrapped lines
 vim.opt.showbreak = '↪'
 -- }}}

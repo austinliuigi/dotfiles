@@ -23,8 +23,9 @@ return require('packer').startup({
     }
 
     -- Colors
-    use 'folke/tokyonight.nvim'
+    use 'lifepillar/vim-gruvbox8'
     use 'shaunsingh/nord.nvim'
+    use 'folke/tokyonight.nvim'
     use {
       'xiyaowong/nvim-colorizer.lua',
       config = [[require('austin.config.colorizer')]]
