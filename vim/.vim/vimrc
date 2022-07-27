@@ -155,6 +155,8 @@ set smartindent                                     " Indent based on c syntax
 
 set breakindent                                     " Make wrapped lines have same indentation as original line
 
+set linebreak                                       " Don't wrap in the middle of words
+
 set list                                            " Show whitespace characters
 
 " set listchars=tab:▸\ ,eol:¬,precedes:‹,extends:›    " Set whitespace characters
@@ -584,7 +586,10 @@ Plug 'junegunn/fzf'
 
 Plug 'junegunn/fzf.vim'
 
-Plug 'Yggdroot/indentLine'
+Plug 'lifepillar/vim-gruvbox8', { 'do': 'cd colors && for f in *; do mv ${f} ${f/8/}; done' }
+
+Plug 'nathanaelkane/vim-indent-guides'
+" Plug 'Yggdroot/indentLine'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
@@ -592,7 +597,7 @@ Plug 'arcticicestudio/nord-vim'
 
 Plug 'unblevable/quick-scope'
 
-Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'
 
 Plug 'austinliuigi/staticyank.vim'
 
@@ -616,14 +621,14 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase', 'on': 'HexokinaseToggle' }
 
 Plug 'machakann/vim-highlightedyank'
 
 Plug 'vimpostor/vim-lumen'
 
-" Plug 'mbbill/undotree'
 Plug 'simnalamburt/vim-mundo'
+" Plug 'mbbill/undotree'
 
 Plug 'tpope/vim-repeat'
 
@@ -631,8 +636,8 @@ Plug 'psliwka/vim-smoothie', { 'commit': '10fd0aa57d17'}
 
 Plug 'lifepillar/vim-solarized8'
 
-" Plug 'tpope/vim-surround'
 Plug 'machakann/vim-sandwich'
+" Plug 'tpope/vim-surround'
 
 Plug 'junegunn/vim-slash'
 
@@ -761,6 +766,7 @@ let g:airline#extensions#branch#vcs_checks = []
 
 let g:airline_theme='tintin'
 augroup AirlineModifiedHL
+    autocmd!
     autocmd User AirlineAfterTheme execute 'let g:airline_c_bg = g:airline#themes#'.g:airline_theme.'#palette.normal.airline_c[1]' | execute 'hi! airline_modified guifg='.synIDattr(hlID('Function'), "fg").' guibg='.g:airline_c_bg
 augroup END
 
@@ -774,8 +780,10 @@ function! AirlineModifiedSymbol()
 endfunction
 
 augroup AirlineInactive
-    autocmd User AirlineAfterTheme execute 'let g:airline_c_bg_inactive = g:airline#themes#'.g:airline_theme.'#palette.inactive.airline_c[1]' | execute 'hi! StatusLineNC guifg='.g:airline_c_bg_inactive
-    autocmd VimEnter,ColorScheme * execute 'let g:airline_c_bg_inactive = g:airline#themes#'.g:airline_theme.'#palette.inactive.airline_c[1]' | execute 'hi! StatusLineNC guifg='.g:airline_c_bg_inactive
+    autocmd!
+    autocmd User AirlineAfterTheme execute 'let g:airline_c_bg_inactive = g:airline#themes#'.g:airline_theme.'#palette.inactive.airline_c[1]' | execute 'hi! StatusLineNC guibg='.g:airline_c_bg_inactive
+    autocmd BufWinEnter * ++once execute 'let g:airline_c_bg_inactive = g:airline#themes#'.g:airline_theme.'#palette.inactive.airline_c[1]' | execute 'hi! StatusLineNC guibg='.g:airline_c_bg_inactive
+    autocmd ColorScheme * execute 'let g:airline_c_bg_inactive = g:airline#themes#'.g:airline_theme.'#palette.inactive.airline_c[1]' | execute 'hi! StatusLineNC guibg='.g:airline_c_bg_inactive
 augroup END
 
 let g:airline_section_c = airline#section#create(['mode'])
@@ -925,7 +933,7 @@ end
 " vim-slash {{{
     if has('timers')
       " Blink 3 times with 65ms interval
-      noremap <expr> <Plug>(slash-after) 'zz'.slash#blink(3, 65)
+      nnoremap <expr> <Plug>(slash-after) 'zz'.slash#blink(3, 65)
     endif
 " }}}
 
@@ -992,3 +1000,5 @@ let g:disable_wsl_paste=has('gui_running')      " Disable wslpaste for gui, enab
 "}}}
 
 colorscheme nord
+
+" vim: foldmethod=marker
