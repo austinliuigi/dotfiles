@@ -1,5 +1,6 @@
 # Austin's zsh aliases
 
+# Defaults
 
 if ! [ -z "$(command -v lsd)" ]; then
     alias ls='lsd'
@@ -14,4 +15,10 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
+# Git
+
 alias gs='git status'
+
+# Misc
+
+alias config='[ -d ~/dotfiles ] && cd ~/dotfiles || echo "~/dotfiles does not exist"'
