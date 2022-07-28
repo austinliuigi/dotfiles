@@ -1,7 +1,12 @@
 require('telescope').setup {
   defaults = {
     prompt_prefix = 'ᛋ ',
-    selection_caret = '❯ '
+    selection_caret = '❯ ',
+    mappings = {
+      n = {
+        ['q'] = 'close';
+      }
+    }
   },
   extensions = {
     fzf = {
@@ -19,7 +24,7 @@ require('telescope').load_extension('fzf')
 vim.keymap.set({'n'}, '<leader>fac', '<cmd>lua require("telescope.builtin").autocommands()<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>fc', '<cmd>lua require("telescope.builtin").commands()<CR>', { noremap = true, silent = true })
-vim.keymap.set({'n'}, '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', { noremap = true, silent = true })
+vim.keymap.set({'n'}, '<leader>ff', '<cmd>lua require("telescope.builtin").find_files({hidden = true})<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>fgc', '<cmd>lua require("telescope.builtin").git_commits()<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>fgf', '<cmd>lua require("telescope.builtin").git_files()<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>fgs', '<cmd>lua require("telescope.builtin").git_status()<CR>', { noremap = true, silent = true })
