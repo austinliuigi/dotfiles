@@ -56,6 +56,40 @@ setopt nocaseglob   # Case insensitive globbing
 setopt correct      # Suggest corrections for mis-spelled commands
 setopt correctall   # Suggest corrections for mis-spelled arguments
 
+#########
+# Tools #
+#########
+
+#------#
+# Tmux #
+#------#
+
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#     tmux attach -t default || tmux new -s default
+# fi
+
+#-----#
+# Fzf #
+#-----#
+
+export FZF_DEFAULT_OPTS="--bind right:accept"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [ -f ~/.zsh/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh ]; then
+    source ~/.zsh/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
+fi
+
+# function fz() {
+# 	print -z $1 $(fzf)
+# }
+
+#--------#
+# Zoxide #
+#--------#
+
+! [ -z "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
+
 ##########
 # Prompt #
 ##########
@@ -130,19 +164,3 @@ setopt glob_dots                                            # Match hidden files
 if [ -f ~/.zsh/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source ~/.zsh/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-########
-# Tmux #
-########
-# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-#     tmux attach -t default || tmux new -s default
-# fi
-
-#############
-# Fzf #
-#############
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-function fz() {
-	print -z $1 $(fzf)
-}
