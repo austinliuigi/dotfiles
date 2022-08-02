@@ -1,8 +1,26 @@
 # Austin's bash aliases
 
-alias ls='ls -F --color=auto'
+# Defaults
+
+if ! [ -z "$(command -v z)" ]; then
+    alias cd='z'
+fi
+
+if ! [ -z "$(command -v lsd)" ]; then
+    alias ls='lsd'
+    alias tree='lsd --tree'
+else
+    alias ls='ls -F'
+fi
 alias la='ls -AF'
-alias ll='ls -AlF'
+alias ll='ls -AFl'
+
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
+
+# Git
+
+alias gs='git status'
+
+# Misc
+
+alias config='[ -d ~/dotfiles ] && cd ~/dotfiles || echo "~/dotfiles does not exist"'
