@@ -31,7 +31,7 @@ center_text "         \|/                                   ||     ||          \
 #############################
 # Set environment variables #
 #############################
-export EDITOR="vim"
+export EDITOR="nvim"
 export PATH=~/.local/bin:$PATH
 export MANPAGER='nvim +Man!'
 
@@ -79,6 +79,8 @@ export FZF_DEFAULT_OPTS="--bind right:accept"
 if [ -f ~/.zsh/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh ]; then
     source ~/.zsh/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
 fi
+
+zstyle ':fzf-tab:*' continuous-trigger 'right'
 
 # function fz() {
 # 	print -z $1 $(fzf)
@@ -131,8 +133,14 @@ bindkey '^e' edit-command-line
 ############
 # Bindings #
 ############
-bindkey '[A' history-beginning-search-backward    # Up arrow takes into account what is currently typed
-bindkey '[B' history-beginning-search-forward     # Down arrow takes into account what is currently typed
+# bindkey '[A' history-beginning-search-backward    # Up arrow takes into account what is currently typed
+# bindkey '[B' history-beginning-search-forward     # Down arrow takes into account what is currently typed
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
 
 ##########
 # Colors #
