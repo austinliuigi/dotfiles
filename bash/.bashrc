@@ -6,6 +6,9 @@ export EDITOR="vim"
 # Allow you to cd into directory by just typing its name
 shopt -s autocd
 
+# PATH
+export PATH=$PATH:~/.local/bin/
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
