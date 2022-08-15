@@ -13,6 +13,11 @@ require('nvim-tree').setup {
     highlight_git = false,
     highlight_opened_files = "none"
   },
+  actions = {
+    open_file = {
+      quit_on_open = true
+    }
+  },
   view = {
     adaptive_size = true,
     relativenumber = true,
@@ -20,6 +25,7 @@ require('nvim-tree').setup {
     width = 30,
     mappings = {
       list = {
+        -- { key = '<CR>',  action = 'edit' },
         { key = 'c',     action = 'create' },
         { key = 'f',     action = 'search_node' },
         { key = 'h',     action = 'close_node' },
