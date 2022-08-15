@@ -167,6 +167,12 @@ vim.cmd([[
 vim.opt.foldtext = 'MyFoldText()'
 vim.opt.fillchars:append({fold = ' '})
 -- }}}
+-- Diff
+-- vim.opt.fillchars += diff:╱
+vim.opt.fillchars:append({diff = '╱'})
+-- vim.opt.diffopt += algorithm:histogram
+vim.opt.diffopt:append('algorithm:histogram')
+-- }}}
 -- Timeout {{{
 -- Wait indefinitely for a mapping, but a set time for key-codes
 vim.opt.timeout = false
