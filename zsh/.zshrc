@@ -81,6 +81,7 @@ if [ -f ~/.zsh/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh ]; then
 fi
 
 zstyle ':fzf-tab:*' continuous-trigger 'right'
+zstyle ':fzf-tab:complete:*' fzf-flags '--query='
 
 # function fz() {
 # 	print -z $1 $(fzf)
@@ -140,7 +141,6 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
 
 ##########
 # Colors #
@@ -157,6 +157,8 @@ if [ -f ~/.zsh/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     source ~/.zsh/zsh_plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 fi
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
+
 autoload -U compinit
 zstyle ':completion:*' menu select                          # Menu completion
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'         # Case insensitive completion
