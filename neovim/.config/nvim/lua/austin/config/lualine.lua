@@ -44,7 +44,8 @@ require('lualine').setup {
   sections = {
     lualine_a = {{'mode', fmt=trunc(80, 1, nil, false), color={gui='bold'}}},
     lualine_b = {'branch'},
-    lualine_c = {'%=', { cwd, fmt=truncwd(80), color=function() return vim.o.modified and {fg = '#db4b4b'} or nil end }},
+    lualine_c = {'%=', { cwd, fmt=truncwd(80) }},
+    -- lualine_c = {'%=', { cwd, fmt=truncwd(80), color=function() return vim.o.modified and {fg = '#db4b4b'} or nil end }},
     lualine_x = {'fileformat'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
