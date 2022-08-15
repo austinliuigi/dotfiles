@@ -83,7 +83,7 @@ local function InitialColorschemeFunc()
   if kitty_theme ~= nil then
     vim.cmd('colorscheme ' .. kitty_to_nvim[kitty_theme])
   else
-    vim.cmd('nord')
+    vim.cmd('colorscheme nord')
   end
 end
 
