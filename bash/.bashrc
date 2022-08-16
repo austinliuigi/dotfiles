@@ -49,14 +49,7 @@ export LS_COLORS="di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40
 
 export FZF_DEFAULT_OPTS="--bind right:accept"
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-if [ -f ~/.zsh/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh ]; then
-    source ~/.zsh/zsh_plugins/fzf-tab/fzf-tab.plugin.zsh
-fi
-
-zstyle ':fzf-tab:*' continuous-trigger 'right'
-zstyle ':fzf-tab:complete:*' fzf-flags '--query='
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # function fz() {
 # 	print -z $1 $(fzf)
