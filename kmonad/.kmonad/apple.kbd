@@ -25,7 +25,7 @@
 (defalias hme M-left end M-rght bck A-left wrd A-rght)
 
 (deflayer default
-  _    brdn brup lp   mctl bldn blup prev pp   next mute vold volu
+  _    brdn brup mctl lp   bldn blup prev pp   next mute vold volu
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _    _
   @vim _    _    _    _    _    _    _    _    _    _    _    _
