@@ -114,9 +114,9 @@ bindkey -v
 export KEYTIMEOUT=1
 # Change cursor based on vi mode (bar for insert, block otherwise)
 zle-keymap-select() {
-    if [[ ${KEYMAP} == vicmd ]]; then
+    if [[ ${KEYMAP} == vicmd ]] || [[ $1 = 'block' ]]; then
         echo -ne '\e[1 q'
-    elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]]; then
+    elif [[ ${KEYMAP} == main ]] || [[ ${KEYMAP} == viins ]] || [[ ${KEYMAP} = '' ]] || [[ $1 = 'beam' ]]; then
         echo -ne '\e[5 q'
     fi
 }
