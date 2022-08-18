@@ -21,39 +21,39 @@ set showcmd
 
 " Preferences {{{
 
-set clipboard^=unnamed          " Make system clipboard default
+set clipboard=unnamedplus,unnamed   " Make system clipboard default
 
-set hidden                      " Allow a buffer to load in a window that currently has a modified buffer
+set hidden                          " Allow a buffer to load in a window that currently has a modified buffer
 
-set relativenumber              " Make line numbers relative to current line
+set relativenumber                  " Make line numbers relative to current line
 
-set number                      " Show line numbers (only shows current line # with relativenumber set)
+set number                          " Show line numbers (only shows current line # with relativenumber set)
 
-set splitright                  " Default vert split window to appear on the right
+set splitright                      " Default vert split window to appear on the right
 
-set wildmenu                    " Command-line autocomplete bar
+set wildmenu                        " Command-line autocomplete bar
 
-set wildcharm=<Tab>             " Set key for mappings to acticatte windmenu
+set wildcharm=<Tab>                 " Set key for mappings to acticatte windmenu
 
-set scrolloff=0                 " Set number of lines to keep above/below cursor
+set scrolloff=0                     " Set number of lines to keep above/below cursor
 
-set tildeop                     " Tilde acts like an operator
+set tildeop                         " Tilde acts like an operator
 
-set cursorline                  " Highlight line that cursor is on
+set cursorline                      " Highlight line that cursor is on
 
-set noshowmode                  " Don't show modemsg on cmdline
+set noshowmode                      " Don't show modemsg on cmdline
 
-set showmatch                   " Show matching symmetric delimiter
+set showmatch                       " Show matching symmetric delimiter
 
-set lazyredraw                  " Be conservative with screen refreshes
+set lazyredraw                      " Be conservative with screen refreshes
 
-set belloff=esc                 " Don't ring bell when esc is pressed in normal-mode
+set belloff=esc                     " Don't ring bell when esc is pressed in normal-mode
 
-set shortmess+=c                " Disable completion menu messages
+set shortmess+=c                    " Disable completion menu messages
 
-set shortmess-=S                " Show search match index
+set shortmess-=S                    " Show search match index
 
-set mouse=a                     " Allow use of mouse in all modes
+set mouse=a                         " Allow use of mouse in all modes
 
 set sidescroll=1
 
