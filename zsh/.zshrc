@@ -174,10 +174,3 @@ setopt glob_dots                                            # Match hidden files
 if [ -f ~/.zsh/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source ~/.zsh/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-
-################
-# Zsh Vim Mode #
-################
-
-# zvm_after_init_commands+=('[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh')
-# source $HOME/.zsh-vi-mode/zsh-vi-mode.plugin.zsh
