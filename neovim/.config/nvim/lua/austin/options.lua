@@ -1,6 +1,6 @@
 -- General {{{
 -- Make system clipboard the default
-vim.opt.clipboard:append('unnamed')
+vim.opt.clipboard:append('unnamedplus')
 
 -- Allow use of mouse in all modes
 vim.opt.mouse = 'a'
