@@ -27,7 +27,7 @@ return require('packer').startup({
     use 'shaunsingh/nord.nvim'
     use 'folke/tokyonight.nvim'
     use {
-      'xiyaowong/nvim-colorizer.lua',
+      'NvChad/nvim-colorizer.lua',
       config = [[require('austin.config.colorizer')]]
     }
 
