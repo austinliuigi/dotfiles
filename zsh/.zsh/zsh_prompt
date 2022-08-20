@@ -181,7 +181,7 @@ zle -N zle-line-finish
 # https://zsh.sourceforge.io/Doc/Release/Functions.html#Trap-Functions
 TRAPINT () {
 	setTransientPrompt
-	zle reset-prompt
+	zle reset-prompt 2> /dev/null
 	setPrompt
 	return $(( 128 + $1 ))
 }
