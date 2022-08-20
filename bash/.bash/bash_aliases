@@ -21,6 +21,8 @@ alias grep='grep --color=auto'
 
 alias gs='git status'
 
+alias cdr='cd "$(git rev-parse --show-toplevel)"'
+
 # Misc
 
 alias config='[ -d ~/dotfiles ] && cd ~/dotfiles || echo "~/dotfiles does not exist"'
