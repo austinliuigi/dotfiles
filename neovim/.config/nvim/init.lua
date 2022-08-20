@@ -18,4 +18,6 @@ end
 require('austin.options')
 require('austin.keymaps')
 require('austin.plugins')
-require('austin.colors')
+if not packer_bootstrap then
+  require('austin.colors')
+end
