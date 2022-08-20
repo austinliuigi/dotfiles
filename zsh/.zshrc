@@ -53,8 +53,8 @@ setopt EXTENDED_HISTORY		# Record command start time
 ###########
 setopt autocd       # Type directory to cd
 setopt nocaseglob   # Case insensitive globbing
-setopt correct      # Suggest corrections for mis-spelled commands
-setopt correctall   # Suggest corrections for mis-spelled arguments
+# setopt correct      # Suggest corrections for mis-spelled commands
+# setopt correctall   # Suggest corrections for mis-spelled arguments
 
 #########
 # Tools #
