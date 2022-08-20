@@ -588,7 +588,8 @@ Plug 'junegunn/fzf'
 
 Plug 'junegunn/fzf.vim'
 
-Plug 'lifepillar/vim-gruvbox8', { 'do': 'cd colors && for f in *; do mv ${f} ${f/8/}; done' }
+Plug 'lifepillar/vim-gruvbox8'
+" Plug 'lifepillar/vim-gruvbox8', { 'do': 'cd colors && for f in *; do mv ${f} ${f/8/}; done' }
 
 Plug 'nathanaelkane/vim-indent-guides'
 " Plug 'Yggdroot/indentLine'
@@ -770,7 +771,8 @@ let g:airline_extensions = ['branch', 'mundo']
 let g:airline#extensions#branch#vcs_checks = []
 " let g:airline#extensions#branch#vcs_checks = ['untracked', 'dirty']
 
-let g:airline_theme='tintin'
+let g:airline_theme='gruvbox8'
+" Set highlight color of modified symbol
 augroup AirlineModifiedHL
     autocmd!
     autocmd User AirlineAfterTheme execute 'let g:airline_c_bg = g:airline#themes#'.g:airline_theme.'#palette.normal.airline_c[1]' | execute 'hi! airline_modified guifg='.synIDattr(hlID('Function'), "fg").' guibg='.g:airline_c_bg
@@ -781,6 +783,7 @@ function! AirlineModifiedHighlightStatusLine()
     return &modified ? '%#airline_modified#' : ''
 endfunction
 
+" Add custom modified symbol to airline
 function! AirlineModifiedSymbol()
     return &modified ? '[+]' : ''
 endfunction
@@ -1005,6 +1008,6 @@ let g:disable_wsl_paste=has('gui_running')      " Disable wslpaste for gui, enab
 " }}}
 "}}}
 
-colorscheme nord
+colorscheme gruvbox8
 
 " vim: foldmethod=marker
