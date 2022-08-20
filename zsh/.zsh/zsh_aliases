@@ -25,4 +25,4 @@ alias gs='git status'
 
 alias config='[ -d ~/dotfiles ] && cd ~/dotfiles || echo "~/dotfiles does not exist"'
 
-alias fuk='sudo !!'
+# alias fuk='sudo !!'
