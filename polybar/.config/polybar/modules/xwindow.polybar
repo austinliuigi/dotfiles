@@ -1,0 +1,7 @@
+[module/xwindow]
+type = internal/xwindow
+format-prefix = " "
+format-prefix-foreground = ${colors.special}
+label = %title:0:35:...%
+
+; vim:ft=dosini

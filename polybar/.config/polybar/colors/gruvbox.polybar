@@ -1,0 +1,35 @@
+[colors]
+;background = ${xrdb:color0:#222}
+;foreground = ${xrdb:color7:#222}
+background             = #111111
+foreground             = #ebdbb2
+red                    = #B73B3B
+green                  = #98971A
+yellow                 = #D79921
+blue                   = #458588
+magenta                = #B16286
+cyan                   = #689D6A
+gray                   = #928374
+lightred               = #FB4934
+lightgreen             = #B8BB26
+lightyellow            = #FABD2F
+lightblue              = #83A598
+lightmagenta           = #D3869B
+lightcyan              = #8EC07C
+lightgray              = #928374
+
+special                = #A78E36
+
+module-date            = ${colors.green}
+module-wifi            = #60887C
+module-audio           = #917F9B
+
+wm-underline           = ${colors.special}
+wm-focused-background  = #333333
+wm-focused-foreground  = #FBF1C7
+wm-occupied-background = #ffffff
+wm-occupied-foreground = #ffffff
+wm-empty-background    = #ffffff
+wm-empty-foreground    = #ffffff
+
+; vim:ft=dosini
