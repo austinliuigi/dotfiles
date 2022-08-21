@@ -1,0 +1,21 @@
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = "Time to get "
+
+day =
+day-alt = "%A"
+
+time = "%A %b %d %I:%M %p"
+time-alt = "off your bum"
+
+format-prefix = " "
+format-prefix-foreground = ${colors.module-date}
+format-prefix-background = ${colors.background}
+format-underline = ${colors.background}
+
+label = %date%%time%
+
+; vim:ft=dosini
