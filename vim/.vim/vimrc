@@ -177,6 +177,8 @@ set hlsearch                    " Search highlighting
 
 set ignorecase                  " Default to case insensitive
 
+set smartcase                   " Make search case sensitive if pattern contains capital letter
+
 " }}}
 
 " Completion {{{
