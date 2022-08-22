@@ -4,7 +4,8 @@ require('telescope').setup {
     selection_caret = '❯ ',
     mappings = {
       n = {
-        ['q'] = 'close';
+        ['q'] = 'close',
+        ['<C-w><C-l>'] = require('telescope.actions').select_vertical
       }
     }
   },
