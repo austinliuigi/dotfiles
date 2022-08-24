@@ -2,6 +2,6 @@
 .netrwhist
 .DS_Store
 kitty/.config/kitty/kitty.conf.bak
-neovim/.config/nvim/plugin/packer_compiled.lua
+nvim/.config/nvim/plugin/packer_compiled.lua
 vim/.vim/plugged
 vim/.vim/autoload/plug.vim
