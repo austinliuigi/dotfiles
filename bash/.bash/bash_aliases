@@ -7,8 +7,8 @@ if ! [ -z "$(command -v z)" ]; then
 fi
 
 if ! [ -z "$(command -v lsd)" ]; then
-    alias ls='lsd'
-    alias tree='lsd --tree'
+    alias ls='lsd --group-directories-first'
+    alias tree='lsd --tree --group-directories-first'
 else
     alias ls='ls -F'
 fi
