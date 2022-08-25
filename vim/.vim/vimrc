@@ -933,6 +933,7 @@ nmap ds <Plug>(sandwich-delete)
 nmap cs <Plug>(sandwich-replace)
 vmap gs <Plug>(sandwich-add)
 
+runtime autoload/repeat.vim
 if hasmapto('<Plug>(RepeatDot)')
     nmap . <Plug>(operator-sandwich-predot)<Plug>(RepeatDot)
 else
