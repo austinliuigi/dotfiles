@@ -58,6 +58,32 @@ function padMiddle () {
     fi
 }
 
+function sshPromptUpdate () {
+    # Use default zsh options
+    emulate -L zsh
+
+    # Initialize ssh prompt
+    typeset -g SSH_PROMPT=''
+
+    # Set prompt for ssh sessions
+    if [[ "${SSH_TTY}" ]]; then
+	    SSH_PROMPT="(ssh)-"
+    fi
+}
+
+function venvPromptUpdate () {
+    # Use default zsh options
+    emulate -L zsh
+
+    # Initialize venv prompt
+    typeset -g VENV_PROMPT=''
+
+    # Set prompt for virtual environments
+    if [[ "${VIRTUAL_ENV}" ]]; then
+	    VENV_PROMPT="(venv)-"
+    fi
+}
+
 # Source gitstatus plugin
 if [ -f ~/.zsh/zsh_plugins/gitstatus/gitstatus.plugin.zsh ]; then
     source ~/.zsh/zsh_plugins/gitstatus/gitstatus.plugin.zsh
@@ -79,12 +105,13 @@ function gitstatusPromptUpdate () {
     [[ $VCS_STATUS_RESULT == 'ok-sync' ]] || return 0  # not a git repo
 
     local g='%F{142}'   # green foreground
-    local y='%F{178}'   # yellow foreground
+    local y='%F{220}'   # yellow foreground
     local b='%F{152}'   # blue foreground
-    local r='%F{131}'   # red foreground
+    local r='%F{174}'   # red foreground
 
     # Initialize temporary git prompt holder
     local p
+    local branch_color='%F{188}'
 
     # Determine location of HEAD
     local where  # branch name, tag or commit
@@ -99,16 +126,16 @@ function gitstatusPromptUpdate () {
     fi
 
     (( $#where > 32 )) && where[13,-13]="…" # truncate long branch names and tags
-    p+="%F{15}[${clean}${where//\%/%%}"     # escape %
+    p+="${branch_color}[${clean}${where//\%/%%}"     # escape %
 
     # $ if have stashes.
     (( VCS_STATUS_STASHES        )) && p+=" ${g}$"
     # ? if have untracked files.
     (( VCS_STATUS_NUM_UNTRACKED  )) && p+=" ${r}?"
     # + if have unstaged changes.
-    (( VCS_STATUS_NUM_UNSTAGED   )) && p+=" ${y}+"
+    (( VCS_STATUS_NUM_UNSTAGED   )) && p+=" ${y}-"
     # ! if have staged changes.
-    (( VCS_STATUS_NUM_STAGED     )) && p+=" ${g}!"
+    (( VCS_STATUS_NUM_STAGED     )) && p+=" ${g}+"
     # ⇣ if behind the remote.
     (( VCS_STATUS_COMMITS_BEHIND )) && p+=" ${b}⇣"
     # ⇡ if ahead of the remote; no leading space if also behind the remote: ⇣⇡.
@@ -124,12 +151,18 @@ function gitstatusPromptUpdate () {
     # 'merge' if the repo is in an unusual state.
     [[ -n $VCS_STATUS_ACTION     ]] && p+=" ${r}${VCS_STATUS_ACTION}"
 
-    GITSTATUS_PROMPT="${p}%F{15}]"
+    GITSTATUS_PROMPT="-${p}${branch_color}]%f"
 }
 
 function setPrompt () {
     # Use default zsh options
     emulate -L zsh
+
+    # Update ssh status
+    sshPromptUpdate
+
+    # Update venv status
+    venvPromptUpdate
 
     # Get git information
     gitstatusPromptUpdate
@@ -137,12 +170,12 @@ function setPrompt () {
     # Set prompt information
     local default_color='%F{white}'
     local user_color='%F{152}'
-    local path_color='%F{yellow}'
+    local path_color='%F{181}'
 
-    local top_left=$'\n'"${default_color}╭─${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color}"
-    local top_right="${GITSTATUS_PROMPT}─╮"
+    local top_left=$'\n'"${default_color}╭─${SSH_PROMPT}${VENV_PROMPT}${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color}${GITSTATUS_PROMPT}${default_color}"
+    local top_right="%@ ${default_color}─╮"
     local bottom_left="${default_color}╰─ %F{white}ᛋ %f"
-    local bottom_right="${default_color}%@ ─╯"
+    local bottom_right="${default_color}ﳞ ─╯"
 
     # Call padMiddle to set RETURN
     padMiddle "$top_left" "$top_right"
@@ -161,10 +194,11 @@ add-zsh-hook precmd setPrompt
 function setTransientPrompt () {
     local default_color='%F{white}'
     local user_color='%F{152}'
-    local path_color='%F{yellow}'
+    local path_color='%F{181}'
+    local branch_color='%F{178}'
 
     # PROMPT=$'\n'"${default_color}» ${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color} ᛋ "
-    PROMPT=$'\n'"${default_color}╭─${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color}"$'\n'"${default_color}╰─ %F{white}ᛋ %f"
+    PROMPT=$'\n'"${default_color}╭─${SSH_PROMPT}${VENV_PROMPT}${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${branch_color}${GITSTATUS_PROMPT}${default_color}"$'\n'"${default_color}╰─ %F{white}ᛋ %f"
     RPROMPT=''
 }
 
