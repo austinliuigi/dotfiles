@@ -16,10 +16,14 @@ return require('packer').startup({
     -- Packer
     use { 'wbthomason/packer.nvim', opt = true }
 
+    -- Impatient
+    use 'lewis6991/impatient.nvim'
+
     -- Align
     use {
       'junegunn/vim-easy-align',
-      config = [[require('austin.config.easy-align')]]
+      config = [[require('austin.config.easy-align')]],
+      keys = { 'ga' }
     }
 
     -- Colors
@@ -34,14 +38,14 @@ return require('packer').startup({
     -- Comments
     use {
       'numToStr/Comment.nvim',
-      config = [[require('austin.config.comment')]]
+      config = [[require('austin.config.comment')]],
+      keys = { 'gc', 'gb' }
     }
 
-    -- Completion & Snippets
+    -- Completion
     use {
       'hrsh7th/nvim-cmp',
       requires = {
-        'L3MON4D3/LuaSnip',
         { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
@@ -51,7 +55,8 @@ return require('packer').startup({
         { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' }
       },
       config = [[require('austin.config.cmp')]],
-      -- event = 'InsertEnter,CmdlineEnter *'
+      -- after = 'LuaSnip',
+      event = { 'InsertEnter', 'CmdlineEnter' }
     }
 
     -- Explorer
@@ -96,8 +101,8 @@ return require('packer').startup({
     use {
       "iamcco/markdown-preview.nvim",
       run = "cd app && npm install",
-      setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
-      ft = { "markdown" }
+      setup = [[vim.g.mkdp_filetypes = { "markdown" }]],
+      ft = { "markdown" },
     }
 
     -- Marks
@@ -115,20 +120,36 @@ return require('packer').startup({
     -- Pairs
     use {
       'windwp/nvim-autopairs',
-      config = [[require('austin.config.autopairs')]]
+      config = [[require('austin.config.autopairs')]],
+      after = 'nvim-cmp'
     }
     use 'andymass/vim-matchup'
     use {
       'machakann/vim-sandwich',
       requires = { 'tpope/vim-repeat' },
-      config = [[require('austin.config.sandwich')]]
+      config = [[require('austin.config.sandwich')]],
+      keys = { 'gs', {'n','ds'}, {'n','cs'} }
     }
-    use 'p00f/nvim-ts-rainbow'
+    -- use 'p00f/nvim-ts-rainbow'
+
+    -- Profiling
+    use {
+      'dstein64/vim-startuptime',
+      config = [[vim.g.startuptime_tries = 10]],
+      cmd = 'StartupTime'
+    }
 
     -- Scrolling
     use {
       'psliwka/vim-smoothie',
-      commit = '10fd0aa'
+      commit = '10fd0aa',
+      keys = { {'n','<C-d>'}, {'n','<C-u>'}, {'n','<C-f>'}, {'n','<C-b>'} }
+    }
+
+    -- Snippets
+    use {
+      'L3MON4D3/LuaSnip',
+      event = 'InsertEnter'
     }
 
     -- Statusline
@@ -153,7 +174,10 @@ return require('packer').startup({
         { 'kyazdani42/nvim-web-devicons' },
         { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
       },
-      config = [[require('austin.config.telescope')]]
+      config = [[require('austin.config.telescope')]],
+      cmd = 'Telescope',
+      module = 'telescope',
+      keys = { '<Space>f' }
     }
 
     -- Treesitter
@@ -166,7 +190,8 @@ return require('packer').startup({
     -- Undo
     use {
       'simnalamburt/vim-mundo',
-      config = [[require('austin.config.mundo')]]
+      config = [[require('austin.config.mundo')]],
+      cmd = 'MundoToggle'
     }
 
     -- Whitespace

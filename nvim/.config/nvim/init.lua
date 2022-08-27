@@ -1,14 +1,17 @@
+P = function(table)
+  print(vim.inspect(table))
+  return table
+end
+
 local disabled_built_ins = {
---  'gzip',
---  'man',
- 'matchit',
- 'matchparen',
---  'shada_plugin',
---  'tarPlugin',
---  'tar',
---  'zipPlugin',
---  'zip',
+  'gzip',
+  -- 'man',
+  'matchit',
+  'matchparen',
   'netrwPlugin',
+  'shada_plugin',
+  'tarPlugin',
+  'zipPlugin',
 }
 
 for i = 1, #disabled_built_ins do
@@ -18,7 +21,6 @@ end
 require('austin.options')
 require('austin.keymaps')
 require('austin.plugins')
-require('austin.colors')
--- if not packer_bootstrap then
---   require('austin.colors')
--- end
+if not packer_bootstrap then
+  require('austin.colors')
+end
