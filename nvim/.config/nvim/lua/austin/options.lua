@@ -61,7 +61,7 @@ vim.opt.shortmess:remove('S')
 vim.opt.belloff = {'esc', 'cursor', 'error'}
 
 -- Turn on signcolumn
-vim.opt.signcolumn = "auto:1-3"
+vim.opt.signcolumn = "yes:1"
 
 -- Global statusline
 vim.opt.laststatus = 3
@@ -167,7 +167,7 @@ vim.cmd([[
 vim.opt.foldtext = 'MyFoldText()'
 vim.opt.fillchars:append({fold = ' '})
 -- }}}
--- Diff
+-- Diff {{{
 -- vim.opt.fillchars += diff:╱
 vim.opt.fillchars:append({diff = '╱'})
 -- vim.opt.diffopt += algorithm:histogram
