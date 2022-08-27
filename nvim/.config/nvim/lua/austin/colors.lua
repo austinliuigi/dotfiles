@@ -1,15 +1,3 @@
---[[ Global SignColumn Highlight ]]
-
-vim.api.nvim_create_augroup('SignColumnHL', {clear = true})
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'SignColumnHL',
-  pattern = {'*'},
-  command = 'hi! link SignColumn Normal',
-  desc = 'Make signcolumn same color as background'
-})
-
-
-
 --[[ Useful Variables ]]
 
 -- Global transparency variable (for all colorschemes)
@@ -51,11 +39,15 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 --[[ Toggle transparency mapping ]]
 
-vim.keymap.set('n', '<leader>ttr', function()
-  transparent_bg = not transparent_bg
+local SetTransparencyOpts = function()
   for _, v in ipairs(transparent_opts) do
     vim.g[v] = transparent_bg
   end
+end
+
+vim.keymap.set('n', '<leader>ttr', function()
+  transparent_bg = not transparent_bg
+  SetTransparencyOpts()
   vim.cmd('colorscheme ' .. vim.g.colors_name)
 end)
 
@@ -67,11 +59,9 @@ end)
 -- Look at :h nvim_create_autocmd and scroll down to parameters
 local SetKittyThemeFunc = function(arg)
   local nvim_colorscheme = arg.match
-  if nvim_colorscheme == kitty_to_nvim[kitty_theme] then
-    return
-  end
   if nvim_colorscheme ~= kitty_to_nvim[kitty_theme] and os.getenv('TERM') == 'xterm-kitty' and nvim_to_kitty[nvim_colorscheme] ~= nil then
     os.execute('kitty +kitten themes --reload-in=all ' .. nvim_to_kitty[nvim_colorscheme])
+    kitty_theme = nvim_to_kitty[nvim_colorscheme]
   end
 end
 
@@ -97,6 +87,8 @@ local InitialColorschemeFunc = function()
   end
 end
 
+-- Set Colorscheme-Specific Transparency Opts
+SetTransparencyOpts()
 -- Call func to set initial colorscheme
 InitialColorschemeFunc()
 
