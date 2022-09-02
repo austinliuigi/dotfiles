@@ -107,16 +107,18 @@ set termguicolors               " use gui colors in terminal; NOTE: must come be
 set background=dark
 
 " Change iterm colorscheme to match vim colorscheme
-augroup itermcolor
-    autocmd!
+" augroup itermcolor
+"     autocmd!
     " autocmd Colorscheme * execute 'silent !echo -e "\033]50;SetProfile=<amatch>\a"'
-    autocmd Colorscheme * if expand("<amatch>") ==# "gruvbox8" | execute 'silent !echo -e "\033]50;SetProfile=gruvbox\a"' | endif
-    autocmd Colorscheme * if expand("<amatch>") ==# "github" | execute 'silent !echo -e "\033]50;SetProfile=github\a"' | endif
-    autocmd Colorscheme * if expand("<amatch>") ==# "solarized8" | execute 'silent !echo -e "\033]50;SetProfile=solarized\a"' | endif
+
+    " autocmd Colorscheme * if (expand("<amatch>") ==# "gruvbox8") | execute 'silent !echo -e "\033]50;SetProfile=gruvbox\a"' | endif
+    " autocmd Colorscheme * if (expand("<amatch>") ==# "github") | execute 'silent !echo -e "\033]50;SetProfile=github\a"' | endif
+    " autocmd Colorscheme * if (expand("<amatch>") ==# "solarized8") | execute 'silent !echo -e "\033]50;SetProfile=solarized\a"' | endif
+
     " autocmd Colorscheme * echo expand("<amatch>") ==# "gruvbox8"
     " autocmd Colorscheme * echo g:colors_name ==# "gruvbox8"
     " autocmd Colorscheme * echo "<amatch>" ==# "gruvbox8"
-augroup END
+" augroup END
 
 " Set highlighting of folds
 augroup foldcolor
@@ -773,11 +775,12 @@ let g:airline_extensions = ['branch', 'mundo']
 let g:airline#extensions#branch#vcs_checks = []
 " let g:airline#extensions#branch#vcs_checks = ['untracked', 'dirty']
 
-let g:airline_theme='gruvbox8'
+let g:airline_theme='tintin'
+" let g:airline_theme='gruvbox8'
 " Set highlight color of modified symbol
 augroup AirlineModifiedHL
     autocmd!
-    autocmd User AirlineAfterTheme execute 'let g:airline_c_bg = g:airline#themes#'.g:airline_theme.'#palette.normal.airline_c[1]' | execute 'hi! airline_modified guifg='.synIDattr(hlID('Function'), "fg").' guibg='.g:airline_c_bg
+    autocmd User AirlineAfterTheme execute 'let g:airline_c_bg = g:airline#themes#'.g:airline_theme.'#palette.normal.airline_c[1]' | execute 'hi! airline_modified guifg='.synIDattr(hlID('Special'), "fg").' guibg='.g:airline_c_bg
 augroup END
 
 " Usage: %{%AirlineModifiedHighlightStatusLine()%}
