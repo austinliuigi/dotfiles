@@ -69,7 +69,16 @@ return require('packer').startup({
     -- Git
     use {
       'lewis6991/gitsigns.nvim',
-      config = [[require('austin.config.gitsigns')]]
+      config = [[require('austin.config.gitsigns')]],
+    }
+    use {
+      'TimUntersberger/neogit',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'sindrets/diffview.nvim' },
+      },
+      config = [[require('austin.config.neogit')]],
+    }
     }
 
     -- Highlighting
