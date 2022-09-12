@@ -215,8 +215,9 @@ return require('packer').startup({
     use {
       'machakann/vim-sandwich',
       requires = { 'tpope/vim-repeat' },
+      setup = [[require('austin.setup.sandwich')]],
       config = [[require('austin.config.sandwich')]],
-      keys = { 'gs', {'n','ds'}, {'n','cs'} }
+      keys = { 'gs', {'n','ds'}, {'n','cs'} },
     }
     -- use 'p00f/nvim-ts-rainbow'
 
@@ -266,16 +267,9 @@ return require('packer').startup({
 
     -- Statusline
     use {
-      {
         'nvim-lualine/lualine.nvim',
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-        config = [[require('austin.config.lualine')]]
-      },
-      {
-        'b0o/incline.nvim',
         requires = { 'kyazdani42/nvim-web-devicons' },
-        config = [[require('austin.config.incline')]]
-      }
+        config = [[require('austin.config.lualine')]],
     }
     -- use {
     --   'b0o/incline.nvim',
