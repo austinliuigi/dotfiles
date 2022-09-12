@@ -23,7 +23,7 @@ return require('packer').startup({
     use {
       'junegunn/vim-easy-align',
       config = [[require('austin.config.easy-align')]],
-      keys = { 'ga' }
+      keys = { 'ga' },
     }
 
     -- Colors
@@ -32,14 +32,14 @@ return require('packer').startup({
     use 'folke/tokyonight.nvim'
     use {
       'NvChad/nvim-colorizer.lua',
-      config = [[require('austin.config.colorizer')]]
+      config = [[require('austin.config.colorizer')]],
     }
 
     -- Comments
     use {
       'numToStr/Comment.nvim',
       config = [[require('austin.config.comment')]],
-      keys = { 'gc', 'gb' }
+      keys = { 'gc', 'gb' },
     }
 
     -- Completion
@@ -62,7 +62,6 @@ return require('packer').startup({
       event = { 'InsertEnter', 'CmdlineEnter' },
     }
 
-    -- Explorer
     -- Debugging
     use {
       'mfussenegger/nvim-dap',
@@ -83,11 +82,26 @@ return require('packer').startup({
       after = 'nvim-dap',
     }
 
+    -- Exploration
     use {
       'kyazdani42/nvim-tree.lua',
       requires = { 'kyazdani42/nvim-web-devicons' },
       config = [[require('austin.config.nvimtree')]]
     }
+    use {
+      'nvim-telescope/telescope.nvim',
+      branch = '0.1.x',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'kyazdani42/nvim-web-devicons' },
+        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+      },
+      setup = [[require('austin.setup.telescope')]],
+      config = [[require('austin.config.telescope')]],
+      cmd = 'Telescope',
+      module = 'telescope',
+    }
+
 
     -- Git
     use {
@@ -117,11 +131,8 @@ return require('packer').startup({
       -- ft = 'gitcommit',
     }
 
-    -- Highlighting
     -- Icons
     use {
-      'junegunn/vim-slash',
-      config = vim.keymap.set('n', '<Plug>(slash-after)', '"zz"..slash#blink(3, 65)', {noremap = true, expr = true})
       'kyazdani42/nvim-web-devicons',
       config = [[require('austin.config.devicons')]],
     }
@@ -155,20 +166,20 @@ return require('packer').startup({
     use {
       "iamcco/markdown-preview.nvim",
       run = "cd app && npm install",
-      setup = [[vim.g.mkdp_filetypes = { "markdown" }]],
+      -- setup = [[vim.g.mkdp_filetypes = { "markdown" }]],
       ft = { "markdown" },
     }
 
     -- Marks
     use {
       'kshenoy/vim-signature',
-      config = [[require('austin.config.signature')]]
+      config = [[require('austin.config.signature')]],
     }
 
-    -- Motions
+    -- Motions/Text Objects
     use {
       'chaoren/vim-wordmotion',
-      config = [[require('austin.config.wordmotion')]]
+      config = [[require('austin.config.wordmotion')]],
     }
 
     -- Pairs
@@ -197,7 +208,15 @@ return require('packer').startup({
     use {
       'psliwka/vim-smoothie',
       commit = '10fd0aa',
-      keys = { {'n','<C-d>'}, {'n','<C-u>'}, {'n','<C-f>'}, {'n','<C-b>'} }
+      keys = { {'n','<C-d>'}, {'n','<C-u>'}, {'n','<C-f>'}, {'n','<C-b>'} },
+    }
+
+    -- Search
+    use {
+      'junegunn/vim-slash',
+      config = vim.keymap.set('n', '<Plug>(slash-after)', '"zz"..slash#blink(3, 65)', {noremap = true, expr = true}),
+    }
+
     -- Sessions
     use {
       'ethanholz/nvim-lastplace',
@@ -226,19 +245,8 @@ return require('packer').startup({
       }
     }
 
-    -- Telescope
     -- Terminal
     use {
-      'nvim-telescope/telescope.nvim',
-      requires = {
-        { 'nvim-lua/plenary.nvim' },
-        { 'kyazdani42/nvim-web-devicons' },
-        { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-      },
-      config = [[require('austin.config.telescope')]],
-      cmd = 'Telescope',
-      module = 'telescope',
-      keys = { '<Space>f' }
       'numToStr/FTerm.nvim',
       config = [[require('austin.config.fterm')]],
     }
@@ -247,7 +255,9 @@ return require('packer').startup({
     use {
       'nvim-treesitter/nvim-treesitter',
       config = [[require('austin.config.treesitter')]],
-      run = ':TSUpdate'
+      run = ':TSUpdate',
+    }
+
     -- UI
     use {
       'goolord/alpha-nvim',
@@ -258,14 +268,15 @@ return require('packer').startup({
     -- Undo
     use {
       'simnalamburt/vim-mundo',
+      setup = [[require('austin.setup.mundo')]],
       config = [[require('austin.config.mundo')]],
-      cmd = 'MundoToggle'
+      cmd = 'MundoToggle',
     }
 
     -- Whitespace
     use {
       'lukas-reineke/indent-blankline.nvim',
-      config = [[require('austin.config.indent-blankline')]]
+      config = [[require('austin.config.indent-blankline')]],
     }
 
     -- Zoom
