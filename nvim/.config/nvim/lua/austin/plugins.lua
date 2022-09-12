@@ -114,6 +114,12 @@ return require('packer').startup({
         'neovim/nvim-lspconfig',
         after = { 'nvim-lsp-installer', 'cmp-nvim-lsp' },
         config = [[require('austin.config.lsp')]]
+    use {
+      'jose-elias-alvarez/null-ls.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = [[require('austin.config.null-ls')]],
+      after = 'nvim-lspconfig',
+    }
       },
       -- {
       --   'kosayoda/nvim-lightbulb',
