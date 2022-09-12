@@ -176,6 +176,7 @@ return require('packer').startup({
     }
 
     -- Telescope
+    -- Terminal
     use {
       'nvim-telescope/telescope.nvim',
       requires = {
@@ -187,6 +188,8 @@ return require('packer').startup({
       cmd = 'Telescope',
       module = 'telescope',
       keys = { '<Space>f' }
+      'numToStr/FTerm.nvim',
+      config = [[require('austin.config.fterm')]],
     }
 
     -- Treesitter
