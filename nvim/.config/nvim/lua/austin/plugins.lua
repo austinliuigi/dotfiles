@@ -139,17 +139,21 @@ return require('packer').startup({
       config = [[require('austin.config.devicons')]],
     }
 
-    -- LSP & Linting
+    -- LSP
     use {
-      'williamboman/nvim-lsp-installer',
-      {
-        'RRethy/vim-illuminate',
-        config = [[require('austin.config.illuminate')]]
-      },
-      {
-        'neovim/nvim-lspconfig',
-        after = { 'nvim-lsp-installer', 'cmp-nvim-lsp' },
-        config = [[require('austin.config.lsp')]]
+      'williamboman/mason.nvim',
+      config = [[require('austin.config.mason')]],
+    }
+    use {
+      'williamboman/mason-lspconfig.nvim',
+      config = [[require('austin.config.mason-lspconfig')]],
+      after = { 'mason.nvim' },
+    }
+    use {
+      'neovim/nvim-lspconfig',
+      after = { 'mason-lspconfig.nvim', 'cmp-nvim-lsp' },
+      config = [[require('austin.config.lsp')]],
+    }
     use {
       'jose-elias-alvarez/null-ls.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
