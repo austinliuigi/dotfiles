@@ -205,7 +205,9 @@ return require('packer').startup({
     -- Snippets
     use {
       'L3MON4D3/LuaSnip',
-      event = 'InsertEnter'
+      tag = "v1.*",
+      event = 'InsertEnter',
+      config = [[require('austin.config.luasnip')]],
     }
 
     -- Statusline
