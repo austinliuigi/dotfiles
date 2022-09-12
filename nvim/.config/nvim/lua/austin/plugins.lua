@@ -204,6 +204,10 @@ return require('packer').startup({
       'dstein64/vim-startuptime',
       config = [[vim.g.startuptime_tries = 10]],
       cmd = 'StartupTime'
+    -- Registers
+    use {
+      'tversteeg/registers.nvim',
+      config = [[require('austin.config.registers')]],
     }
 
     -- Scrolling
