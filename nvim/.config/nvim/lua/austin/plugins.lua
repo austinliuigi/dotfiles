@@ -169,6 +169,10 @@ return require('packer').startup({
       'psliwka/vim-smoothie',
       commit = '10fd0aa',
       keys = { {'n','<C-d>'}, {'n','<C-u>'}, {'n','<C-f>'}, {'n','<C-b>'} }
+    -- Sessions
+    use {
+      'ethanholz/nvim-lastplace',
+      config = [[require('austin.config.lastplace')]],
     }
 
     -- Snippets
