@@ -79,7 +79,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 --[[ Set Initial Colorscheme ]]
 
 -- Set colorscheme to kitty theme if possible, otherwise set to nord
-local InitialColorschemeFunc = function()
+local SetInitialColorscheme = function()
   if kitty_to_nvim[kitty_theme] ~= nil then
     vim.cmd('colorscheme ' .. kitty_to_nvim[kitty_theme])
   else
@@ -89,15 +89,12 @@ end
 
 -- Set Colorscheme-Specific Transparency Opts
 SetTransparencyOpts()
--- Call func to set initial colorscheme
-InitialColorschemeFunc()
 
--- vim.api.nvim_create_augroup('SetInitialColorscheme', {clear = true})
--- vim.api.nvim_create_autocmd('VimEnter', {
---   group = 'SetInitialColorscheme',
---   pattern = {'*'},
---   nested = true,
---   -- command = 'colorscheme nord',
---   callback = InitialColorschemeFunc,
---   desc = "Set initial colorscheme; setting it without the autocmd causes undefined behavior when switching colorschemes if nord is initial colorscheme"
--- })
+vim.api.nvim_create_augroup('InitialColorscheme', {clear = true})
+vim.api.nvim_create_autocmd('VimEnter', {
+  group = 'InitialColorscheme',
+  pattern = {'*'},
+  nested = true,
+  callback = SetInitialColorscheme,
+  desc = "Set initial colorscheme; setting it without the autocmd causes undefined behavior when switching colorschemes if nord is initial colorscheme"
+})
