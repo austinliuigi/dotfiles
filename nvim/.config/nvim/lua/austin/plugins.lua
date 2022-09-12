@@ -170,6 +170,10 @@ return require('packer').startup({
       },
       config = [[require('austin.config.lightbulb')]],
     }
+    use {
+      'RRethy/vim-illuminate',
+      config = [[require('austin.config.illuminate')]],
+    }
     }
 
     -- Markdown
