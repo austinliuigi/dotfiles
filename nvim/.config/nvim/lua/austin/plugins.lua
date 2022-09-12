@@ -215,11 +215,17 @@ return require('packer').startup({
     }
     -- use 'p00f/nvim-ts-rainbow'
 
-    -- Profiling
+    -- Performance
+    -- use {
+    --   'tweekmonster/startuptime.vim',
+    --   cmd = 'StartupTime',
+    -- }
     use {
       'dstein64/vim-startuptime',
       config = [[vim.g.startuptime_tries = 10]],
-      cmd = 'StartupTime'
+      cmd = 'StartupTime',
+    }
+
     -- Registers
     use {
       'tversteeg/registers.nvim',
