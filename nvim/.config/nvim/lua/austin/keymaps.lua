@@ -10,9 +10,9 @@ keymap("n", "<leader>", "<nop>", {noremap = true})
 -- }}}
 -- Motion mappings {{{
 
-keymap("n", "k", "v:count ? 'k' : 'gk'", {noremap = true, expr = true})
+keymap({ "n", "v" }, "k", "v:count ? 'k' : 'gk'", {noremap = true, expr = true})
 
-keymap("n", "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
+keymap({ "n", "v" }, "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
 
 -- }}}
 -- Register mappings {{{
