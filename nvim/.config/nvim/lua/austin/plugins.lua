@@ -95,9 +95,12 @@ return require('packer').startup({
     }
 
     -- Highlighting
+    -- Icons
     use {
       'junegunn/vim-slash',
       config = vim.keymap.set('n', '<Plug>(slash-after)', '"zz"..slash#blink(3, 65)', {noremap = true, expr = true})
+      'kyazdani42/nvim-web-devicons',
+      config = [[require('austin.config.devicons')]],
     }
 
     -- LSP & Linting
