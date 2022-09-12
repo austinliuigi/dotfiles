@@ -48,6 +48,7 @@ return require('packer').startup({
       requires = {
         { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
+        { 'rcarriga/cmp-dap', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp' },
@@ -60,6 +61,26 @@ return require('packer').startup({
     }
 
     -- Explorer
+    -- Debugging
+    use {
+      'mfussenegger/nvim-dap',
+      setup = [[require('austin.setup.dap')]],
+      config = [[require('austin.config.dap')]],
+      module = 'dap',
+    }
+    use {
+      'rcarriga/nvim-dap-ui',
+      requires = { 'mfussenegger/nvim-dap' },
+      config = [[require('austin.config.dapui')]],
+      after = 'nvim-dap',
+    }
+    use {
+      'theHamsta/nvim-dap-virtual-text',
+      requires = { 'mfussenegger/nvim-dap' },
+      config = [[require('austin.config.dap-virtual-text')]],
+      after = 'nvim-dap',
+    }
+
     use {
       'kyazdani42/nvim-tree.lua',
       requires = { 'kyazdani42/nvim-web-devicons' },
