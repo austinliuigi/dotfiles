@@ -1,7 +1,3 @@
-vim.g.sandwich_no_default_key_mappings = 1
-vim.g.operator_sandwich_no_default_key_mappings = 1
-vim.g.textobj_sandwich_no_default_key_mappings = 1
-
 vim.keymap.set({'n'}, 'gs', '<Plug>(sandwich-add)', { noremap = true })
 vim.keymap.set({'n'}, 'ds', '<Plug>(sandwich-delete)', { noremap = true })
 vim.keymap.set({'n'}, 'cs', '<Plug>(sandwich-replace)', { noremap = true })
