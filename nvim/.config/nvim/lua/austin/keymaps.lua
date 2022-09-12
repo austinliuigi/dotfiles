@@ -109,11 +109,13 @@ keymap("n", "<leader><leader>t", ":tabs<CR>:tabn<Space>", {noremap = true, silen
 
 keymap("n", "<leader>tc", "<cmd>HexokinaseToggle<CR>", {noremap = true, silent = true})
 
-keymap("n", "<leader>th", "v:hlsearch ? '<cmd>nohl<CR>' : '<cmd>set hlsearch<CR>'", {noremap = true, silent = true, expr = true})
+keymap("n", "<leader>th", "v:hlsearch ? '<cmd>nohl<CR>' : '<cmd>set hlsearch<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
 
 keymap("n", "<leader>tl", "<cmd>ToggleSpaceChar<CR>", {noremap = true, silent = true})
 
 keymap("n", "<leader>tn", "<cmd>set relativenumber!<CR>", {noremap = true, silent = true})
+
+keymap("n", "<leader>tv", "empty(&virtualedit) ? '<cmd>set virtualedit+=all<CR>' : '<cmd>set virtualedit-=all<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
 
 keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", {noremap = true, silent = true})
 
@@ -128,18 +130,16 @@ keymap("n", "<leader>p", "<cmd>put<CR>", {noremap = true, silent = true})
 
 keymap("n", "<leader>P", "<cmd>put!<CR>", {noremap = true, silent = true})
 
-keymap("n", "<leader>v", "empty(&virtualedit) ? '<cmd>set virtualedit+=all<CR>' : '<cmd>set virtualedit-=all<CR>'", {noremap = true, silent = true, expr = true})
-
 keymap("n", "zC", "zCvzC", {noremap = true})
 
 -- }}}
 -- Insert mode mappings {{{
 
-keymap("i", "<Left>", "pumvisible() ? '<C-e>' : '<Left>'", {noremap = true, expr = true})
+keymap("i", "<S-Left>", "pumvisible() ? '<C-e>' : '<S-Left>'", {noremap = true, expr = true,  replace_keycodes = false})
 
-keymap("i", "<Right>", "pumvisible() ? '<C-y>' : '<Right>'", {noremap = true, expr = true})
+keymap("i", "<S-Right>", "pumvisible() ? '<C-y>' : '<S-Right>'", {noremap = true, expr = true,  replace_keycodes = false})
 
-keymap("i", "<CR>", "pumvisible() ? '<C-e><CR>' : '<CR>'", {noremap = true, expr = true})
+keymap("i", "<CR>", "pumvisible() ? '<C-e><CR>' : '<CR>'", {noremap = true, expr = true,  replace_keycodes = false})
 
 -- }}}
 -- Visual mode mappings {{{
