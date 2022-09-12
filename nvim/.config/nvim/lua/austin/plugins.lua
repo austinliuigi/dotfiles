@@ -160,12 +160,16 @@ return require('packer').startup({
       config = [[require('austin.config.null-ls')]],
       after = 'nvim-lspconfig',
     }
+    use {
+      'kosayoda/nvim-lightbulb',
+      requires = {
+        {
+          'antoinemadec/FixCursorHold.nvim',
+          config = [[vim.g.cursorhold_updatetime = 100]]
+        },
       },
-      -- {
-      --   'kosayoda/nvim-lightbulb',
-      --   requires = 'antoinemadec/FixCursorHold.nvim',
-      --   config = [[require('austin.config.lightbulb']]
-      -- },
+      config = [[require('austin.config.lightbulb')]],
+    }
     }
 
     -- Markdown
