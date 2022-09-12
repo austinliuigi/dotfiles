@@ -153,6 +153,11 @@ keymap("v", "<", "<gv", {noremap = true})
 keymap("v", ">", ">gv", {noremap = true})
 
 -- }}}
+-- Terminal mode mappings {{{
+
+keymap("t", "<S-Esc>", "<C-\\><C-n>", {noremap = true})
+
+-- }}}
 -- Custom text objects {{{
 
 -- File text object
