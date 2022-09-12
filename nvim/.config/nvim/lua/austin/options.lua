@@ -195,15 +195,15 @@ vim.opt.ttimeoutlen = 0
 -- }}}
 -- Backup {{{
 vim.cmd([[
-  let &directory = expand('~/.nvimdata/Swap//')
+  let &directory = expand('~/.local/share/nvim/.nvimdata/Swap//')
   if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
   
   set backup
-  let &backupdir = expand('~/.nvimdata/Backup//')
+  let &backupdir = expand('~/.local/share/nvim/.nvimdata/Backup//')
   if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
 
   set undofile
-  let &undodir = expand('~/.nvimdata/Undo//')
+  let &undodir = expand('~/.local/share/nvim/.nvimdata/Undo//')
   if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 ]])
 -- }}}
