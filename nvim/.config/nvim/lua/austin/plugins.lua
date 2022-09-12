@@ -197,6 +197,11 @@ return require('packer').startup({
       'nvim-treesitter/nvim-treesitter',
       config = [[require('austin.config.treesitter')]],
       run = ':TSUpdate'
+    -- UI
+    use {
+      'goolord/alpha-nvim',
+      config = [[require('austin.config.alpha')]],
+    }
     }
 
     -- Undo
