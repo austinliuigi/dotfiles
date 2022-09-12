@@ -201,12 +201,17 @@ return require('packer').startup({
     }
 
     -- Pairs
+    use 'andymass/vim-matchup'
     use {
       'windwp/nvim-autopairs',
       config = [[require('austin.config.autopairs')]],
-      after = 'nvim-cmp'
+      after = 'nvim-cmp', -- config includes nvim-cmp options for function parentheses completion
     }
-    use 'andymass/vim-matchup'
+    use {
+      'windwp/nvim-ts-autotag',
+      config = [[require('nvim-ts-autotag').setup()]],
+      event = 'InsertEnter',
+    }
     use {
       'machakann/vim-sandwich',
       requires = { 'tpope/vim-repeat' },
