@@ -173,6 +173,18 @@ vim.opt.fillchars:append({diff = '╱'})
 -- vim.opt.diffopt += algorithm:histogram
 vim.opt.diffopt:append('algorithm:histogram')
 -- }}}
+-- Terminal {{{
+  vim.api.nvim_create_augroup("TermBufInsertOnEnter", {clear = true})
+  vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+    group = "TermBufInsertOnEnter",
+    pattern = {"*"},
+    callback = function()
+      if vim.o.buftype == "terminal" then
+        vim.cmd("startinsert")
+      end
+    end
+  })
+-- }}}
 -- Timeout {{{
 -- Wait indefinitely for a mapping, but a set time for key-codes
 vim.opt.timeout = false
