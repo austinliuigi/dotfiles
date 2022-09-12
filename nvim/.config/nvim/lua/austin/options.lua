@@ -108,9 +108,11 @@ vim.api.nvim_create_autocmd('Colorscheme', {
 -- Highlight yanked text
 vim.api.nvim_create_augroup('HighlightYank', {clear = true})
 vim.api.nvim_create_autocmd('TextYankPost', {
-  command = 'silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}',
   group = 'HighlightYank',
   pattern = {'*'},
+  callback = function()
+    vim.highlight.on_yank{higroup="IncSearch", timeout=700}
+  end
 })
 -- }}}
 -- Whitespace {{{
