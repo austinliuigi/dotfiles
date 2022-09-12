@@ -10,3 +10,5 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   pattern = {'*'},
   command = 'hi! link IndentBlanklineContextChar Type',
 })
+
+vim.cmd('hi! link IndentBlanklineContextChar Type')
