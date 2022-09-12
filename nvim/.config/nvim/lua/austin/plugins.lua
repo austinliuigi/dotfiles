@@ -174,6 +174,10 @@ return require('packer').startup({
       'RRethy/vim-illuminate',
       config = [[require('austin.config.illuminate')]],
     }
+    use {
+      'SmiteshP/nvim-navic',
+      requires = 'neovim/nvim-lspconfig',
+      config = [[require('austin.config.navic')]],
     }
 
     -- Markdown
@@ -262,6 +266,11 @@ return require('packer').startup({
         config = [[require('austin.config.incline')]]
       }
     }
+    -- use {
+    --   'b0o/incline.nvim',
+    --   requires = { 'kyazdani42/nvim-web-devicons' },
+    --   config = [[require('austin.config.incline')]],
+    -- }
 
     -- Terminal
     use {
