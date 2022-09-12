@@ -297,6 +297,12 @@ return require('packer').startup({
       config = [[require('austin.config.alpha')]],
     }
     }
+    -- use {
+    --   'akinsho/bufferline.nvim',
+    --   tag = "v2.*",
+    --   requires = 'kyazdani42/nvim-web-devicons',
+    --   config = [[require('austin.config.bufferline')]],
+    -- }
 
     -- Undo
     use {
