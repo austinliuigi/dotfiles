@@ -79,6 +79,19 @@ return require('packer').startup({
       },
       config = [[require('austin.config.neogit')]],
     }
+    use {
+      'sindrets/diffview.nvim',
+      requires = {
+        { 'nvim-lua/plenary.nvim' },
+        { 'kyazdani42/nvim-web-devicons' },
+      },
+      config = [[require('austin.config.diffview')]],
+      cmd = { 'DiffviewOpen' }
+    }
+    use {
+      'rhysd/committia.vim',
+      config = [[require('austin.config.committia')]],
+      -- ft = 'gitcommit',
     }
 
     -- Highlighting
