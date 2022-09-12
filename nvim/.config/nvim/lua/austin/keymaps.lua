@@ -33,6 +33,10 @@ keymap({ "n", "v" }, "<leader>x", 'x', {noremap = true})
 
 keymap({ "n", "v" }, "<leader>X", 'X', {noremap = true})
 
+keymap({ "v" }, "<leader>p", 'p', {noremap = true})
+
+keymap({ "v" }, "<leader>P", 'P', {noremap = true})
+
 keymap({ "n", "v" }, "c", '"_c', {noremap = true})
 
 keymap({ "n", "v" }, "C", '"_C', {noremap = true})
@@ -48,6 +52,10 @@ keymap({ "n", "v" }, "S", '"_S', {noremap = true})
 keymap({ "n", "v" }, "x", '"_x', {noremap = true})
 
 keymap({ "n", "v" }, "X", '"_X', {noremap = true})
+
+keymap({ "v" }, "p", '"_dP', {noremap = true})
+
+keymap({ "v" }, "p", '"_dP', {noremap = true})
 
 -- }}}
 -- Buffer list mappins {{{
