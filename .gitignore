@@ -5,3 +5,5 @@ kitty/.config/kitty/kitty.conf.bak
 nvim/.config/nvim/plugin/packer_compiled.lua
 vim/.vim/plugged
 vim/.vim/autoload/plug.vim
+
+lazygit/.config/lazygit/state.yml
