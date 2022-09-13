@@ -104,7 +104,6 @@ return require('packer').startup({
       module = 'telescope',
     }
 
-
     -- Git
     use {
       'lewis6991/gitsigns.nvim',
@@ -117,6 +116,8 @@ return require('packer').startup({
         { 'sindrets/diffview.nvim' },
       },
       config = [[require('austin.config.neogit')]],
+      cmd = 'Neogit',
+    }
     use {
       'tpope/vim-fugitive',
       cmd = 'Git',
@@ -246,6 +247,7 @@ return require('packer').startup({
     use {
       'tversteeg/registers.nvim',
       config = [[require('austin.config.registers')]],
+      keys = { {'n','"'}, {'v','"'},{'i','<C-r>'} }
     }
 
     -- Scrolling
