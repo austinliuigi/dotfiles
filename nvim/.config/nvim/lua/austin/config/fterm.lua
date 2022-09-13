@@ -52,9 +52,9 @@ fterm.setup({
     on_stderr = nil,
 })
 
-vim.api.nvim_create_user_command('FTermOpen', require('FTerm').open, { bang = true }) -- open the terminal
-vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = true }) -- close the terminal but preserve session
-vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true }) -- close and remove terminal session
+vim.api.nvim_create_user_command('FTermOpen', require('FTerm').open, { bang = true })     -- open the terminal
+vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = true })   -- close the terminal but preserve session
+vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })     -- close and remove terminal session
 vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true }) -- toggle terminal (open/close)
 
 local lazygit = fterm:new({
