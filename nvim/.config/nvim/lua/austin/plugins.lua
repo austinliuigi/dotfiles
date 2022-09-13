@@ -117,6 +117,16 @@ return require('packer').startup({
         { 'sindrets/diffview.nvim' },
       },
       config = [[require('austin.config.neogit')]],
+    use {
+      'tpope/vim-fugitive',
+      cmd = 'Git',
+    }
+    use {
+      'rbong/vim-flog',
+      requires = {
+        { 'tpope/vim-fugitive' },
+      },
+      cmd = 'Flog',
     }
     use {
       'sindrets/diffview.nvim',
