@@ -27,9 +27,11 @@ return require('packer').startup({
     }
 
     -- Colors
-    use 'lifepillar/vim-gruvbox8'
-    use 'shaunsingh/nord.nvim'
-    use 'folke/tokyonight.nvim'
+    use {
+        'lifepillar/vim-gruvbox8',
+        'shaunsingh/nord.nvim',
+        'folke/tokyonight.nvim',
+    }
     use {
       'NvChad/nvim-colorizer.lua',
       config = [[require('austin.config.colorizer')]],
@@ -332,7 +334,7 @@ return require('packer').startup({
     -- Zoom
     -- use {
     --   'dhruvasagar/vim-zoom',
-    --   config = [[require('austin.config.zoom')]]
+    --   config = [[require('austin.config.zoom')]],
     -- }
 
     -- Automatically set up configuration after cloning packer.nvim
