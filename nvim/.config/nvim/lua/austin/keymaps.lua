@@ -128,7 +128,7 @@ keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", {noremap = true, silent = true})
 
 keymap("n", "!", "<cmd>so %<CR>", {noremap = true, silent = true})
 
-keymap("n", "<BS>", "<cmd>nohl<CR>", {noremap = true, silent = true})
+keymap("n", "<esc>", "<cmd>nohl<CR>", {noremap = true, silent = true})
 
 keymap("n", "<leader>p", "<cmd>put<CR>", {noremap = true, silent = true})
 
