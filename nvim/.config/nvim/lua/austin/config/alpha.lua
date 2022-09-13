@@ -71,10 +71,13 @@ dashboard.config.opts.noautocmd = false
 vim.cmd[[autocmd User AlphaReady echo 'ready']]
 
 --[[ Layout ]]
+local marginTopPercent = 0.15
+local headerPadding = vim.fn.max({2, vim.fn.floor(vim.fn.winheight(0) * marginTopPercent) })
+
 dashboard.config.layout = {
   -- { type = "padding", val = 1 },
   -- dashboard.section.terminal,
-  { type = "padding", val = 4 },
+  { type = "padding", val = headerPadding },
   dashboard.section.header,
   { type = "padding", val = 4 },
   dashboard.section.buttons,
