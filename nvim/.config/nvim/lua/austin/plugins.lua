@@ -256,6 +256,13 @@ return require('packer').startup({
       keys = { {'n','"'}, {'v','"'},{'i','<C-r>'} }
     }
 
+    -- REPL
+    use {
+      'hkupty/iron.nvim',
+      config = [[require('austin.config.iron')]],
+      cmd = 'IronRepl',
+    }
+
     -- Scrolling
     use {
       'psliwka/vim-smoothie',
