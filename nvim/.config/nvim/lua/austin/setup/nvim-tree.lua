@@ -9,3 +9,5 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     end
   end
 })
+
+vim.keymap.set("n", "<leader>te", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true})
