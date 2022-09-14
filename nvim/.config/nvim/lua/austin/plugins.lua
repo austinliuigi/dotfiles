@@ -36,6 +36,10 @@ return require('packer').startup({
       'NvChad/nvim-colorizer.lua',
       config = [[require('austin.config.colorizer')]],
     }
+    use {
+      'uga-rosa/ccc.nvim',
+      config = [[require('austin.config.ccc')]],
+    }
 
     -- Comments
     use {
