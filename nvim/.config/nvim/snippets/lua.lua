@@ -70,7 +70,6 @@ local snippets = {
       local dir = vim.fn.split(vim.fn.expand("%:p:h"), "/")
       return dir[#dir] == "snippets"
     end,
-
   }),
 }
 

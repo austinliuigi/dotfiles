@@ -20,6 +20,27 @@ local rep = require("luasnip.extras").rep
 
 
 local snippets = {
+  s("modeline", fmt([[
+    {} vim: set {} :{}
+  ]], {
+    f(function(_, parent, _)
+      local env = parent.snippet.env
+      return env.LINE_COMMENT == "//" and env.BLOCK_COMMENT_START or env.LINE_COMMENT
+    end),
+    i(0, "opt=value opt=value"),
+    f(function(_, parent, _)
+      local env = parent.snippet.env
+      return env.LINE_COMMENT == "//" and " " .. env.BLOCK_COMMENT_END or ""
+    end),
+  }), {
+    -- callbacks = {
+    --   [0] = {
+    --     [events.enter] = function()
+    --       require("Comment.api").toggle.linewise.current()
+    --     end
+    --   }
+    -- },
+  }),
 }
 
 return snippets
