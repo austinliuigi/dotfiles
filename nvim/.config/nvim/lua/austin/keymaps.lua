@@ -126,7 +126,7 @@ keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", {noremap = true, silent = true})
 -- }}}
 -- Normal mode mappings {{{
 
-keymap("n", "!", "<cmd>so %<CR>", {noremap = true, silent = true})
+keymap("n", "!", "<cmd>so %<CR><cmd>echohl GitSignsAdd | echo 'Sourced :)' | echohl None<CR>", {noremap = true, silent = false})
 
 keymap("n", "<esc>", "<cmd>nohl<CR>", {noremap = true, silent = true})
 
