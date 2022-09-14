@@ -3,8 +3,8 @@ local neogit = require("neogit")
 neogit.setup {
   disable_signs = false,
   disable_hint = false,
-  disable_context_highlighting = false,
-  disable_commit_confirmation = false,
+  disable_context_highlighting = true,
+  disable_commit_confirmation = true,
   -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size. 
   -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
   auto_refresh = true,
@@ -23,16 +23,14 @@ neogit.setup {
   -- customize displayed signs
   signs = {
     -- { CLOSED, OPENED }
-    -- section = { ">", "v" },
     section = { "", "" },
-    -- item = { ">", "v" },
     item = { "", "" },
     hunk = { "", "" },
   },
   integrations = {
     -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `sindrets/diffview.nvim`.
     -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
-    diffview = true  
+    diffview = true,
   },
   -- Setting any section to `false` will make the section not render at all
   sections = {
@@ -62,11 +60,22 @@ neogit.setup {
   mappings = {
     -- modify status buffer mappings
     status = {
-      ["a"] = "Stage",
-      ["A"] = "StageAll",
-      ["<CR>"] = "Toggle",
+      -- ["a"] = "Stage",
+      -- ["A"] = "StageAll",
+      ["zo"] = "Toggle",
+      ["zc"] = "Toggle",
       -- Removes the default mapping of "u"
-      ["u"] = "",
+      ["1"] = "",
+      ["2"] = "",
+      ["3"] = "",
+      ["4"] = "",
     }
   }
 }
+
+vim.api.nvim_create_augroup("Neogit", {clear = true})
+vim.api.nvim_create_autocmd("FileType", {
+  group   = "Neogit",
+  pattern = {'NeogitStatus'},
+  command = "set relativenumber"
+})
