@@ -125,17 +125,6 @@ return require('packer').startup({
       cmd = 'Neogit',
     }
     use {
-      'tpope/vim-fugitive',
-      cmd = 'Git',
-    }
-    use {
-      'rbong/vim-flog',
-      requires = {
-        { 'tpope/vim-fugitive' },
-      },
-      cmd = 'Flog',
-    }
-    use {
       'sindrets/diffview.nvim',
       requires = {
         { 'nvim-lua/plenary.nvim' },
@@ -144,6 +133,17 @@ return require('packer').startup({
       config = [[require('austin.config.diffview')]],
       cmd = { 'DiffviewOpen' }
     }
+    -- use {
+    --   'tpope/vim-fugitive',
+    --   cmd = 'Git',
+    -- }
+    -- use {
+    --   'rbong/vim-flog',
+    --   requires = {
+    --     { 'tpope/vim-fugitive' },
+    --   },
+    --   cmd = 'Flog',
+    -- }
     use {
       'rhysd/committia.vim',
       config = [[require('austin.config.committia')]],
