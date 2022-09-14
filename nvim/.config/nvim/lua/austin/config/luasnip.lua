@@ -135,3 +135,6 @@ au User LuasnipChoiceNodeLeave lua choice_popup_close()
 au User LuasnipChangeChoice lua update_choice_popup(require("luasnip").session.event_node)
 augroup END
 ]])
+
+
+vim.api.nvim_create_user_command('LuaSnipEdit', require("luasnip.loaders").edit_snippet_files, {})
