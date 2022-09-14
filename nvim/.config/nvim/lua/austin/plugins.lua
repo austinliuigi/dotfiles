@@ -302,6 +302,12 @@ return require('packer').startup({
     --   config = [[require('austin.config.incline')]],
     -- }
 
+    -- Sugar
+    use {
+      'tpope/vim-eunuch',
+      cmd = { "Remove", "Delete", "Copy", "Duplicate", "Move", "Rename", "Chmod", "Mkdir", "Cfind", "Lfind", "Clocate", "Llocate", "Wall", },
+    }
+
     -- Terminal
     use {
       'numToStr/FTerm.nvim',
