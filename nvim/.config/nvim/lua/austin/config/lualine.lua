@@ -32,23 +32,23 @@ local function cwd()
   return string.gsub(vim.fn.getcwd(), vim.env.HOME, '~')
 end
 
--- Use shorthand filepath in windows narrower than trunc_width
+-- Use shorthand filepath when vim is narrower than trunc_width
 local function trunc_path(trunc_width)
   return function(str)
-    local win_width = vim.fn.winwidth(0)
-    if trunc_width and win_width < trunc_width then
+    local current_width = vim.o.columns
+    if trunc_width and current_width < trunc_width then
       return vim.fn.pathshorten(str)
     end
     return str
   end
 end
 
--- Truncate to trunc_len in windows narrower than trunc_width
+-- Truncate to trunc_len when vim is narrower than trunc_width
 local function trunc(trunc_width, trunc_len, hide_width, no_ellipsis)
   return function(str)
-    local win_width = vim.fn.winwidth(0)
-    if hide_width and win_width < hide_width then return ''
-    elseif trunc_width and trunc_len and win_width < trunc_width and #str > trunc_len then
+    local current_width = vim.o.columns
+    if hide_width and current_width < hide_width then return ''
+    elseif trunc_width and trunc_len and current_width < trunc_width and #str > trunc_len then
        return str:sub(1, trunc_len) .. (no_ellipsis and '' or '...')
     end
     return str

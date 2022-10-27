@@ -10,6 +10,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 local M = {}
 
 M.trunc_width     = 80
+M.readonly_icon   = ""
 M.modified_icon   = "●"
 M.centerside_left_edge_icon  = ""
 M.centerside_right_edge_icon = ""
@@ -28,6 +29,7 @@ M.colors = function()
     leftside_background   = GetHiVal("TabLine", "background"),
     shroom                = GetHiVal("Comment", "foreground"),
     filepath              = GetHiVal("Normal",  "foreground"),
+    readonly              = "lightblue",
     modified              = "lightpink", -- "#db4b4b",
   }
   return colors
@@ -40,6 +42,7 @@ M.highlights = function(self)
     WinbarShroom                  = { fg = colors.leftside_background,   bg = colors.shroom,                reverse = true},
     WinbarLeftsideEdge            = { fg = colors.leftside_background,   bg = "NONE",                       },
     WinbarFilepath                = { fg = colors.filepath,              bg = colors.centerside_background, },
+    WinbarReadonly                = { fg = colors.readonly,              bg = colors.centerside_background, },
     WinbarModified                = { fg = colors.modified,              bg = colors.centerside_background, },
     WinbarFilepathModified        = { fg = colors.filepath,              bg = colors.centerside_background, italic = true},
     WinbarCentersideEdge          = { fg = colors.centerside_background, bg = "NONE",                       },
@@ -102,6 +105,18 @@ M.get_filepath = function(self)
     highlight = is_modified and "%#WinbarFilepathModified#" or "%#WinbarFilepath#",
     text      = filepath,
     length    = vim.fn.strchars(filepath)
+  }
+end
+
+-- Readonly indicator
+M.get_readonly = function(self)
+  local is_readonly = vim.opt.readonly:get()
+  local readonly_text = is_readonly and " " .. self.readonly_icon or ""
+
+  return {
+    highlight = "%#WinbarReadonly#",
+    text      = readonly_text,
+    length    = vim.fn.strchars(readonly_text),
   }
 end
 
@@ -276,6 +291,7 @@ M.set_active = function(self)
   local centerside_left_edge_table  = self:get_centerside_left_edge().active
   local devicon_table               = self:get_devicon()
   local filepath_table              = self:get_filepath()
+  local readonly_table              = self:get_readonly()
   local modified_table              = self:get_modified()
   local centerside_right_edge_table = self:get_centerside_right_edge()
   local right_center_padding_table  = self:get_right_center_padding().active
@@ -291,6 +307,7 @@ M.set_active = function(self)
   local centerside_left_edge  = centerside_left_edge_table.highlight  .. centerside_left_edge_table.text
   local devicon               = devicon_table.highlight               .. devicon_table.text
   local filepath              = filepath_table.highlight              .. filepath_table.text
+  local readonly              = readonly_table.highlight              .. readonly_table.text
   local modified              = modified_table.highlight              .. modified_table.text
   local centerside_right_edge = centerside_right_edge_table.highlight .. centerside_right_edge_table.text
   local right_center_padding  = right_center_padding_table.highlight  .. right_center_padding_table.text
@@ -307,6 +324,7 @@ M.set_active = function(self)
     devicon,
     space,
     filepath,
+    readonly,
     modified,
     centerside_right_edge,
     right_center_padding,
@@ -326,6 +344,7 @@ M.set_inactive = function(self)
   local centerside_left_edge_table  = self:get_centerside_left_edge().inactive
   local devicon_table               = self:get_devicon()
   local filepath_table              = self:get_filepath()
+  local readonly_table              = self:get_readonly()
   local modified_table              = self:get_modified()
   local centerside_right_edge_table = self:get_centerside_right_edge()
   local right_center_padding_table  = self:get_right_center_padding().inactive
@@ -341,6 +360,7 @@ M.set_inactive = function(self)
   local centerside_left_edge  = centerside_left_edge_table.highlight  .. centerside_left_edge_table.text
   local devicon               = devicon_table.highlight               .. devicon_table.text
   local filepath              = filepath_table.highlight              .. filepath_table.text
+  local readonly              = readonly_table.highlight              .. readonly_table.text
   local modified              = modified_table.highlight              .. modified_table.text
   local centerside_right_edge = centerside_right_edge_table.highlight .. centerside_right_edge_table.text
   local right_center_padding  = right_center_padding_table.highlight  .. right_center_padding_table.text
@@ -354,6 +374,7 @@ M.set_inactive = function(self)
     devicon,
     space,
     filepath,
+    readonly,
     modified,
     centerside_right_edge,
     right_center_padding,

@@ -66,6 +66,9 @@ vim.opt.signcolumn = "yes:1"
 -- Global statusline
 vim.opt.laststatus = 3
 
+-- Default .tex filetype
+vim.g.tex_flavor = "latex"
+
 -- Set format options
 vim.api.nvim_create_augroup('FormatOptions', {clear = true})
 vim.api.nvim_create_autocmd('FileType', {

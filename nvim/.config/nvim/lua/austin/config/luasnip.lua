@@ -6,13 +6,18 @@ ls.config.set_config {
   history = true, -- allow jumping back into a snippet
   update_events = 'TextChanged,TextChangedI', -- update canges as you type
   enable_autosnippets = false,
-  -- ext_opts = {
-  --   [require("luasnip.util.types").choiceNode] = {
-  --     active = {
-  --       virt_text = { { "dot", "Green" } }
-  --     }
-  --   }
-  -- }
+  ext_opts = {
+    [require("luasnip.util.types").choiceNode] = {
+      active = {
+        virt_text = {{"●", "GruvboxOrange"}}
+      }
+    },
+    [require("luasnip.util.types").insertNode] = {
+      active = {
+        virt_text = {{"●", "GruvboxBlue"}}
+      }
+    }
+  },
 }
 
 

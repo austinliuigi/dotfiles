@@ -10,55 +10,57 @@ keymap("n", "<leader>", "<nop>", {noremap = true})
 -- }}}
 -- Motion mappings {{{
 
-keymap({ "n", "v" }, "k", "v:count ? 'k' : 'gk'", {noremap = true, expr = true})
+keymap({ "n", "x" }, "k", "v:count ? 'k' : 'gk'", {noremap = true, expr = true})
 
-keymap({ "n", "v" }, "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
+keymap({ "n", "x" }, "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
 
 -- }}}
 -- Register mappings {{{
 
-keymap({ "n", "v" }, "<leader>c", 'c', {noremap = true})
+keymap({ "n", "x" }, "<leader>c", 'c', {noremap = true})
 
-keymap({ "n", "v" }, "<leader>C", 'C', {noremap = true})
+keymap({ "n", "x" }, "<leader>C", 'C', {noremap = true})
 
-keymap({ "n", "v" }, "<leader>d", 'd', {noremap = true})
+keymap({ "n", "x" }, "<leader>d", 'd', {noremap = true})
 
-keymap({ "n", "v" }, "<leader>D", 'D', {noremap = true})
+keymap({ "n", "x" }, "<leader>D", 'D', {noremap = true})
 
-keymap({ "n", "v" }, "<leader>s", 's', {noremap = true})
+keymap({ "n", "x" }, "<leader>s", 's', {noremap = true})
 
-keymap({ "n", "v" }, "<leader>S", 'S', {noremap = true})
+keymap({ "n", "x" }, "<leader>S", 'S', {noremap = true})
 
-keymap({ "n", "v" }, "<leader>x", 'x', {noremap = true})
+keymap({ "n", "x" }, "<leader>x", 'x', {noremap = true})
 
-keymap({ "n", "v" }, "<leader>X", 'X', {noremap = true})
+keymap({ "n", "x" }, "<leader>X", 'X', {noremap = true})
 
-keymap({ "v" }, "<leader>p", 'p', {noremap = true})
+keymap({ "x" }, "<leader>p", 'p', {noremap = true})
 
-keymap({ "v" }, "<leader>P", 'P', {noremap = true})
+keymap({ "x" }, "<leader>P", 'P', {noremap = true})
 
-keymap({ "n", "v" }, "c", '"_c', {noremap = true})
+keymap({ "n", "x" }, "c", '"_c', {noremap = true})
 
-keymap({ "n", "v" }, "C", '"_C', {noremap = true})
+keymap({ "n", "x" }, "C", '"_C', {noremap = true})
 
-keymap({ "n", "v" }, "d", '"_d', {noremap = true})
+keymap({ "n", "x" }, "d", '"_d', {noremap = true})
 
-keymap({ "n", "v" }, "D", '"_D', {noremap = true})
+keymap({ "n", "x" }, "D", '"_D', {noremap = true})
 
-keymap({ "n", "v" }, "s", '"_s', {noremap = true})
+keymap({ "n", "x" }, "s", '"_s', {noremap = true})
 
-keymap({ "n", "v" }, "S", '"_S', {noremap = true})
+keymap({ "n", "x" }, "S", '"_S', {noremap = true})
 
-keymap({ "n", "v" }, "x", '"_x', {noremap = true})
+keymap({ "n", "x" }, "x", '"_x', {noremap = true})
 
-keymap({ "n", "v" }, "X", '"_X', {noremap = true})
+keymap({ "n", "x" }, "X", '"_X', {noremap = true})
 
-keymap({ "v" }, "p", '"_dP', {noremap = true})
+keymap({ "x" }, "p", '"_dP', {noremap = true})
 
-keymap({ "v" }, "p", '"_dP', {noremap = true})
+keymap({ "x" }, "p", '"_dP', {noremap = true})
+
+keymap({ "n" }, "<leader>V", "V<leader>", {remap = true})
 
 -- }}}
--- Buffer list mappins {{{
+-- Buffer list mappings {{{
 
 keymap("n", "]b", "<cmd>bn<CR>", {noremap = true, silent = true})
 
@@ -69,7 +71,7 @@ keymap("n", "\\b", "<cmd>bp<CR>", {noremap = true, silent = true})
 keymap("n", "<leader><leader>b", ":ls<CR>:b<Space>", {noremap = true, silent = true})
 
 -- }}}
--- Argument list mappins {{{
+-- Argument list mappings {{{
 
 keymap("n", "]a", "<cmd>n<CR>", {noremap = true, silent = true})
 
@@ -78,7 +80,7 @@ keymap("n", "[a", "<cmd>N<CR>", {noremap = true, silent = true})
 keymap("n", "<leader><leader>a", "<cmd>args<CR>", {noremap = true, silent = true})
 
 -- }}}
--- Quickfix list mappins {{{
+-- Quickfix list mappings {{{
 
 keymap("n", "]c", "<cmd>cn<CR>", {noremap = true, silent = true})
 
@@ -148,9 +150,9 @@ keymap("i", "<CR>", "pumvisible() ? '<C-e><CR>' : '<CR>'", {noremap = true, expr
 -- }}}
 -- Visual mode mappings {{{
 
-keymap("v", "<", "<gv", {noremap = true})
+keymap("x", "<", "<gv", {noremap = true})
 
-keymap("v", ">", ">gv", {noremap = true})
+keymap("x", ">", ">gv", {noremap = true})
 
 -- }}}
 -- Terminal mode mappings {{{
@@ -161,31 +163,64 @@ keymap("t", "<S-Esc>", "<C-\\><C-n>", {noremap = true})
 -- Custom text objects {{{
 
 -- File text object
-keymap("v", "af", ":<C-u>normal! ggVG<CR>", {noremap = true, silent = true})
+keymap("x", "af", ":<C-u>normal! ggVG<CR>", {noremap = true, silent = true})
 
 keymap("o", "af", "<cmd>normal Vaf<CR>", {noremap = false})
 
-keymap("v", "if", ":<C-u>call MoveToLastNonBlankLine()|call MoveToFirstNonBlankLine()|normal! V''<CR>", {noremap = true, silent = true})
+keymap("x", "if", ":<C-u>call MoveToLastNonBlankLine()|call MoveToFirstNonBlankLine()|normal! V''<CR>", {noremap = true, silent = true})
 
 keymap("o", "if", "<cmd>normal Vif<CR>", {noremap = false})
 
 -- Line text object
-keymap ("v", "al", ":<C-u>normal! 0v$h<CR>", {noremap = true, silent = true})
+keymap ("x", "al", ":<C-u>normal! 0v$h<CR>", {noremap = true, silent = true})
 
 keymap("o", "al", "<cmd>normal Val<CR>", {noremap = false})
 
-keymap ("v", "il", ":<C-u>normal! ^vg_<CR>", {noremap = true, silent = true})
+keymap ("x", "il", ":<C-u>normal! ^vg_<CR>", {noremap = true, silent = true})
 
 keymap("o", "il", "<cmd>normal Vil<CR>", {noremap = false})
 
 -- Fold text object
-keymap("v", "az", ":<C-u>normal! [zV]z<CR>", {noremap = true, silent = true})
+keymap("x", "az", ":<C-u>normal! [zV]z<CR>", {noremap = true, silent = true})
 
 keymap("o", "az", "<cmd>normal Vaz<CR>", {noremap = false})
 
-keymap("v", "iz", ":<C-u>normal! [zjV]zk<CR>", {noremap = true, silent = true})
+keymap("x", "iz", ":<C-u>normal! [zjV]zk<CR>", {noremap = true, silent = true})
 
 keymap("o", "iz", "<cmd>normal Viz<CR>", {noremap = false})
+
+-- }}}
+-- Misc {{{
+
+-- Unbind <CR> in command line window
+vim.api.nvim_create_augroup('CmdWin', {clear = true})
+vim.api.nvim_create_autocmd('CmdwinEnter', {
+  command = 'nnoremap <buffer> <CR> <CR>',
+  group = 'CmdWin',
+  pattern = {'*'}
+})
+
+if vim.fn.has("mac") == 1 then
+  vim.keymap.set({"n"}, "gx", function()
+    vim.fn.jobstart({"open", vim.fn.expand("<cfile>")}, {detach = true})
+  end)
+  -- TODO: implement when get_visual_selection is implemented (https://github.com/neovim/neovim/pull/13896)
+  -- vim.keymap.set({"x"}, "gx", function()
+    -- vim.fn.jobstart({"open", get_visual_selection(),}, {detach = true})
+  -- end)
+elseif vim.fn.has("unix") == 1 then
+  vim.keymap.set({"n"}, "gx", function()
+    vim.fn.jobstart({"xdg-open", vim.fn.expand("<cfile>")}, {detach = true})
+  end)
+  -- TODO: implement when get_visual_selection is implemented (https://github.com/neovim/neovim/pull/13896)
+  -- vim.keymap.set({"x"}, "gx", function()
+    -- vim.fn.jobstart({"xdg-open", get_visual_selection(),}, {detach = true})
+  -- end)
+else
+  vim.keymap.set({"n", "x"}, "gx", function()
+    print("Error: gx is not supported on this OS!")
+  end)
+end
 
 -- }}}
 

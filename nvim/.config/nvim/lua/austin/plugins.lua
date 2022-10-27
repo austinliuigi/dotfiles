@@ -23,7 +23,7 @@ return require('packer').startup({
     use {
       'junegunn/vim-easy-align',
       config = [[require('austin.config.easy-align')]],
-      keys = { 'ga' },
+      keys = { {'n', 'ga'}, {'x', 'ga'} },
     }
 
     -- Colors
@@ -45,7 +45,8 @@ return require('packer').startup({
     use {
       'numToStr/Comment.nvim',
       config = [[require('austin.config.comment')]],
-      keys = { 'gc', 'gb' },
+      module = 'Comment',
+      keys = { {'n', 'gc'}, {'n', 'gb'}, {'x', 'gc'}, {'x', 'gb'} },
     }
 
     -- Completion
@@ -77,15 +78,15 @@ return require('packer').startup({
     }
     use {
       'rcarriga/nvim-dap-ui',
+      after = 'nvim-dap',
       requires = { 'mfussenegger/nvim-dap' },
       config = [[require('austin.config.dapui')]],
-      after = 'nvim-dap',
     }
     use {
       'theHamsta/nvim-dap-virtual-text',
+      after = 'nvim-dap',
       requires = { 'mfussenegger/nvim-dap' },
       config = [[require('austin.config.dap-virtual-text')]],
-      after = 'nvim-dap',
     }
 
     -- Exploration
@@ -98,7 +99,7 @@ return require('packer').startup({
     }
     use {
       'nvim-telescope/telescope.nvim',
-      branch = '0.1.x',
+      tag = '0.1.*',
       requires = {
         { 'nvim-lua/plenary.nvim' },
         { 'kyazdani42/nvim-web-devicons' },
@@ -156,6 +157,12 @@ return require('packer').startup({
       config = [[require('austin.config.devicons')]],
     }
 
+    -- LaTeX
+    use {
+      'jbyuki/nabla.nvim',
+      config = [[require('austin.config.nabla')]],
+    }
+
     -- LSP
     use {
       'williamboman/mason.nvim',
@@ -163,19 +170,20 @@ return require('packer').startup({
     }
     use {
       'williamboman/mason-lspconfig.nvim',
-      config = [[require('austin.config.mason-lspconfig')]],
       after = { 'mason.nvim' },
+      config = [[require('austin.config.mason-lspconfig')]],
     }
     use {
       'neovim/nvim-lspconfig',
+      -- tag = "v0.1.*",
       after = { 'mason-lspconfig.nvim', 'cmp-nvim-lsp' },
       config = [[require('austin.config.lsp')]],
     }
     use {
       'jose-elias-alvarez/null-ls.nvim',
+      after = 'nvim-lspconfig',
       requires = { 'nvim-lua/plenary.nvim' },
       config = [[require('austin.config.null-ls')]],
-      after = 'nvim-lspconfig',
     }
     use {
       'kosayoda/nvim-lightbulb',
@@ -193,16 +201,16 @@ return require('packer').startup({
     }
     use {
       'SmiteshP/nvim-navic',
-      requires = 'neovim/nvim-lspconfig',
+      requires = { 'neovim/nvim-lspconfig' },
       config = [[require('austin.config.navic')]],
     }
 
     -- Markdown
     use {
       "iamcco/markdown-preview.nvim",
-      run = "cd app && npm install",
       -- setup = [[vim.g.mkdp_filetypes = { "markdown" }]],
       ft = { "markdown" },
+      run = "cd app && npm install",
     }
 
     -- Marks
@@ -217,12 +225,24 @@ return require('packer').startup({
       config = [[require('austin.config.wordmotion')]],
     }
 
+    -- Org
+    use {
+      "nvim-neorg/neorg",
+      tag = '*',
+      after = "nvim-treesitter",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = [[require('austin.config.neorg')]],
+      ft = "norg",
+      cmd = "Neorg",
+      run = ":Neorg sync-parsers",
+    }
+
     -- Pairs
     use 'andymass/vim-matchup'
     use {
       'windwp/nvim-autopairs',
-      config = [[require('austin.config.autopairs')]],
       after = 'nvim-cmp', -- config includes nvim-cmp options for function parentheses completion
+      config = [[require('austin.config.autopairs')]],
     }
     use {
       'windwp/nvim-ts-autotag',
@@ -234,7 +254,7 @@ return require('packer').startup({
       requires = { 'tpope/vim-repeat' },
       setup = [[require('austin.setup.sandwich')]],
       config = [[require('austin.config.sandwich')]],
-      keys = { 'gs', {'n','ds'}, {'n','cs'} },
+      keys = { {'n', 'gs'}, {'n','ds'}, {'n','cs'}, {'x', 'gs'} },
     }
     -- use 'p00f/nvim-ts-rainbow'
 
@@ -253,7 +273,7 @@ return require('packer').startup({
     use {
       'tversteeg/registers.nvim',
       config = [[require('austin.config.registers')]],
-      keys = { {'n','"'}, {'v','"'},{'i','<C-r>'} }
+      keys = { {'n','"'}, {'x','"'},{'i','<C-r>'} }
     }
 
     -- REPL
@@ -273,7 +293,7 @@ return require('packer').startup({
     -- Search
     use {
       'junegunn/vim-slash',
-      config = vim.keymap.set('n', '<Plug>(slash-after)', '"zz"..slash#blink(3, 65)', {noremap = true, expr = true}),
+      config = [[require('austin.config.slash')]],
     }
 
     -- Sessions
@@ -288,6 +308,7 @@ return require('packer').startup({
       tag = "v1.*",
       event = 'InsertEnter',
       config = [[require('austin.config.luasnip')]],
+      cmd = "LuaSnipEdit",
     }
 
     -- Statusline
@@ -326,7 +347,14 @@ return require('packer').startup({
       'goolord/alpha-nvim',
       config = [[require('austin.config.alpha')]],
     }
+    use {
+      'stevearc/dressing.nvim',
+      config = [[require('austin.config.dressing')]],
     }
+    -- use {
+    --   'rcarriga/nvim-notify',
+    --   config = [[require('austin.config.notify')]],
+    -- }
     -- use {
     --   'akinsho/bufferline.nvim',
     --   tag = "v2.*",

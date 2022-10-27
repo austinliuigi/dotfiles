@@ -57,6 +57,11 @@ vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = 
 vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })     -- close and remove terminal session
 vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true }) -- toggle terminal (open/close)
 
+vim.keymap.set('n', '<A-CR>', function()
+  require("FTerm").open()
+end)
+
+
 local lazygit = fterm:new({
     ft = 'fterm_gitui', -- You can also override the default filetype, if you want
     cmd = "lazygit",

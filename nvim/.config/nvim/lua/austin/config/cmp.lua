@@ -9,17 +9,18 @@ cmp.setup {
     completeopt = 'menu,menuone,noinsert'
   },
   mapping = cmp.mapping.preset.insert({
-    ['<S-Left>'] = cmp.mapping(cmp.mapping.close(), { 'i', 'c' }),
-    ['<S-Right>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }), { 'i', 'c' }),
+    ['<Left>'] = cmp.mapping(cmp.mapping.close(), { 'i', 'c' }),
+    ['<Right>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }), { 'i', 'c' }),
     -- ['<Esc>'] = cmp.mapping(cmp.mapping.close(), { 'i', 'c' }),
     -- ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }), { 'i', 'c' }),
-    ['<S-Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
-    ['<S-Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
+    ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
+    ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
     ['<C-Up>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Down>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
     ['<S-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
   }),
   sources = {
+    { name = 'neorg' },
     { name = 'luasnip' },
     { name = 'nvim_lsp_signature_help' },
     { name = 'nvim_lsp' },
@@ -106,7 +107,7 @@ cmp.setup.cmdline(':', {
   sources = {
     { name = 'path' },
     { name = 'cmdline', max_item_count = 5 },
-    { name = 'cmdline_history', max_item_count = 2, keyword_length = 3 },
+    -- { name = 'cmdline_history', max_item_count = 2, keyword_length = 3 },
   },
   formatting = {
     fields = { 'kind', 'abbr', 'menu' },
@@ -134,4 +135,18 @@ for _, cmd_type in ipairs({'/', '?'}) do
   })
 end
 
+-- Overall max_item_count
+vim.o.pumheight = 10
+
 vim.api.nvim_exec_autocmds("User", { pattern = "CmpConfigLoaded" })
+
+-- Load neorg completion
+vim.api.nvim_create_augroup("NeorgLoadCompletion", {clear = true})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+  group   = "NeorgLoadCompletion",
+  pattern = {'norg'},
+  callback = function()
+    require("neorg").modules.load_module("core.norg.completion", nil, { engine = "nvim-cmp" })
+  end,
+  once = true,
+})

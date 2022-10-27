@@ -62,7 +62,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Set up servers
-local servers = { "clangd", "pyright", "sumneko_lua", "yamlls" }
+local servers = { "clangd", "julials", "pyright", "sumneko_lua", "texlab", "yamlls", }
 for _, server in ipairs(servers) do
   lspconfig[server].setup {
     on_attach = on_attach,
@@ -77,6 +77,45 @@ lspconfig["sumneko_lua"].setup {
     Lua = {
       diagnostics = {
         globals = { 'vim' }
+      }
+    }
+  }
+}
+
+local latex_forwardsearch_executable, latex_forwardsearch_args
+if vim.fn.has("macos") then
+  latex_forwardsearch_executable = "/Applications/Skim.app/Contents/SharedSupport/displayline"
+  latex_forwardsearch_args = {"-g", "-b", "%l", "%p", "%f",}
+elseif vim.fn.has("linux") then
+  latex_forwardsearch_executable = "zathura"
+  latex_forwardsearch_args = {"--synctex-forward", "%l:1:%f", "%p"}
+end
+lspconfig["texlab"].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    texlab = {
+      auxDirectory = ".",
+      bibtexFormatter = "texlab",
+      build = {
+        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-shell-escape","%f" },
+        executable = "latexmk",
+        forwardSearchAfter = true,
+        onSave = true
+      },
+      chktex = {
+        onEdit = false,
+        onOpenAndSave = false
+      },
+      diagnosticsDelay = 300,
+      formatterLineLength = 80,
+      forwardSearch = {
+        executable = latex_forwardsearch_executable,
+        args = latex_forwardsearch_args
+      },
+      latexFormatter = "latexindent",
+      latexindent = {
+        modifyLineBreaks = false
       }
     }
   }

@@ -14,3 +14,4 @@ vim.keymap.set({'n'}, '<leader>fh/', '<cmd>lua require("telescope.builtin").sear
 vim.keymap.set({'n'}, '<leader>fm', '<cmd>lua require("telescope.builtin").man_pages()<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>fo', '<cmd>lua require("telescope.builtin").vim_options()<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>f/', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
+vim.keymap.set({'n'}, '<leader>f*', '<cmd>lua require("telescope.builtin").builtin()<CR>', { noremap = true, silent = true })

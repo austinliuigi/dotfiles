@@ -41,6 +41,28 @@ local snippets = {
     --   }
     -- },
   }),
+  s("dish", fmt([[
+    # {}
+
+    ## Ingredients
+
+    {}
+
+    ## Steps
+
+    {}
+  ]], {
+    i(1, "Dish"),
+    i(2),
+    i(3),
+  }), {
+    condition = function()
+      return vim.fn.expand("%:t") == "cookbook.md"
+    end,
+    show_condition = function()
+      return vim.fn.expand("%:t") == "cookbook.md"
+    end,
+  }),
 }
 
 return snippets

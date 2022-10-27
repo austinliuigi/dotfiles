@@ -71,6 +71,23 @@ local snippets = {
       return dir[#dir] == "snippets"
     end,
   }),
+
+  s("autocmd", fmt([[
+    vim.api.nvim_create_augroup("{}", {{clear = true}})
+    vim.api.nvim_create_autocmd({{ "{}" }}, {{
+      group   = "{}",
+      pattern = {{'{}'}},
+      callback = function()
+        {}
+      end,
+    }})
+  ]], {
+    i(1),
+    i(2, "BufEnter"),
+    rep(1),
+    i(3, "*"),
+    i(0),
+  })),
 }
 
 return snippets

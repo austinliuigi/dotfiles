@@ -1,4 +1,4 @@
-vim.g.committia_open_only_vim_starting = 1 -- (default: 1)
+vim.g.committia_open_only_vim_starting = 0 -- (default: 1)
 -- If the value is 0, committia.vim always attempts to open committia's buffer when COMMIT_EDITMSG buffer is opened. If you use vim-fugitive, I recommend to set this value to 1.
 
 vim.g.committia_use_singlecolumn = 'fallback' -- (default: 'fallback')
