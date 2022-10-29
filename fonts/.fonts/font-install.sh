@@ -1,1 +1,0 @@
-../.local/share/fonts/font-install.sh
