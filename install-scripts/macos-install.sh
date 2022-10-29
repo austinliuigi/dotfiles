@@ -30,12 +30,15 @@ brew install --cask captin
 brew install --cask gimp
 brew install --cask google-chrome
 brew install --cask kitty
+brew install --cask mactex-no-gui
 brew install --cask macvim
 brew install --cask neovide
+brew install --cask skim
 
 # Install brew formulae
 brew install fzf
 brew install go
+brew install julia
 brew install neovim
 brew install node
 brew install python
