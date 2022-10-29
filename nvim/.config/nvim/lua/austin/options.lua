@@ -100,13 +100,13 @@ vim.api.nvim_create_autocmd('Syntax', {
 })
 
 -- Re-source filetype specific highlighting after changing colorschemes
-vim.api.nvim_create_augroup('FiletypeHLReSource', {clear = true})
+--[[ vim.api.nvim_create_augroup('FiletypeHLReSource', {clear = true})
 vim.api.nvim_create_autocmd('Colorscheme', {
   command = 'let &filetype = &filetype',
   group = 'FiletypeHLReSource',
   pattern = {'*'},
-  desc = "Resource filetype specific highlighting after changing colorschemes"
-})
+  desc = "Re-source filetype specific highlighting after changing colorschemes"
+}) ]]
 
 -- Highlight yanked text
 vim.api.nvim_create_augroup('HighlightYank', {clear = true})
