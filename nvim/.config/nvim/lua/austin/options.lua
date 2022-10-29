@@ -61,10 +61,13 @@ vim.opt.shortmess:remove('S')
 vim.opt.belloff = {'esc', 'cursor', 'error'}
 
 -- Turn on signcolumn
-vim.opt.signcolumn = "auto:1-3"
+vim.opt.signcolumn = "yes:1"
 
 -- Global statusline
 vim.opt.laststatus = 3
+
+-- Default .tex filetype
+vim.g.tex_flavor = "latex"
 
 -- Set format options
 vim.api.nvim_create_augroup('FormatOptions', {clear = true})
@@ -108,9 +111,11 @@ vim.api.nvim_create_autocmd('Colorscheme', {
 -- Highlight yanked text
 vim.api.nvim_create_augroup('HighlightYank', {clear = true})
 vim.api.nvim_create_autocmd('TextYankPost', {
-  command = 'silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}',
   group = 'HighlightYank',
   pattern = {'*'},
+  callback = function()
+    vim.highlight.on_yank{higroup="IncSearch", timeout=700}
+  end
 })
 -- }}}
 -- Whitespace {{{
@@ -167,11 +172,23 @@ vim.cmd([[
 vim.opt.foldtext = 'MyFoldText()'
 vim.opt.fillchars:append({fold = ' '})
 -- }}}
--- Diff
+-- Diff {{{
 -- vim.opt.fillchars += diff:╱
 vim.opt.fillchars:append({diff = '╱'})
 -- vim.opt.diffopt += algorithm:histogram
 vim.opt.diffopt:append('algorithm:histogram')
+-- }}}
+-- Terminal {{{
+  vim.api.nvim_create_augroup("TermBufInsertOnEnter", {clear = true})
+  vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+    group = "TermBufInsertOnEnter",
+    pattern = {"*"},
+    callback = function()
+      if vim.o.buftype == "terminal" then
+        vim.cmd("startinsert")
+      end
+    end
+  })
 -- }}}
 -- Timeout {{{
 -- Wait indefinitely for a mapping, but a set time for key-codes
@@ -183,15 +200,15 @@ vim.opt.ttimeoutlen = 0
 -- }}}
 -- Backup {{{
 vim.cmd([[
-  let &directory = expand('~/.nvimdata/Swap//')
+  let &directory = expand('~/.local/share/nvim/.nvimdata/Swap//')
   if !isdirectory(&directory) | call mkdir(&directory, "p") | endif
   
   set backup
-  let &backupdir = expand('~/.nvimdata/Backup//')
+  let &backupdir = expand('~/.local/share/nvim/.nvimdata/Backup//')
   if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
 
   set undofile
-  let &undodir = expand('~/.nvimdata/Undo//')
+  let &undodir = expand('~/.local/share/nvim/.nvimdata/Undo//')
   if !isdirectory(&undodir) | call mkdir(&undodir, "p") | endif
 ]])
 -- }}}

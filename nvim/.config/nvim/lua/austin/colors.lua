@@ -1,98 +1,100 @@
--- Kitty Theme
-vim.api.nvim_create_augroup('SetKittyTheme', {clear = true})
+--[[ Useful Variables ]]
 
--- Gruvbox
-vim.g.gruvbox_transp_bg = true
+-- Global transparency variable (for all colorschemes)
+local transparent_bg = true
+-- Colorscheme-specific global vim variables for transparency
+local transparent_opts = { 'nord_disable_background', 'tokyonight_transparent', 'gruvbox_transp_bg'}
+-- Hex colors to dodge kitty transparency bug (#2E3440 -> #2E3441)
+local nvim_to_opaquebg = { ['nord'] = '#2E3441', ['tokyonight'] = '#24283C', ['gruvbox8'] = '#282829' }
+-- Map of neovim colorscheme names to kitty theme names
+local nvim_to_kitty = { ['nord'] = 'Nord', ['tokyonight'] = 'Tokyo Night Storm', ['gruvbox8'] = 'Gruvbox Dark' }
+-- Map of kitty theme names to neovim colorscheme names
+local kitty_to_nvim = {}
+for k, v in pairs(nvim_to_kitty) do
+  kitty_to_nvim[v] = k
+end
+-- Current kitty theme; Note: $1 is '##' and $2 is 'name:' and $3 is the kitty theme name
+local kitty_theme = os.getenv('TERM') == 'xterm-kitty' and vim.fn.trim(vim.fn.system("awk '/name/ {print substr($0, index($0,$3))}' ~/.config/kitty/current-theme.conf")) or nil
 
-vim.api.nvim_create_augroup('GruvboxBackground', {clear = true})
+
+
+--[[ Opaque Backgrounds ]]
+
+local OpaqueBackgroundFunc = function(arg)
+  local nvim_colorscheme = arg.match
+  if transparent_bg == false then
+    vim.cmd('silent hi Normal guibg = ' .. nvim_to_opaquebg[nvim_colorscheme])
+  end
+end
+
+vim.api.nvim_create_augroup('OpaqueBackground', {clear = true})
 vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'GruvboxBackground',
+  group = 'OpaqueBackground',
   pattern = {'*'},
-  command = 'if (expand("<amatch>") ==# "gruvbox8") && !g:gruvbox_transp_bg | silent hi Normal guibg=#282829 | endif',
+  callback = OpaqueBackgroundFunc,
+  desc = 'Change background hex color when transparency is disabled (kitty issue)'
 })
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'SetKittyTheme',
-  pattern = {'*'},
-  command = 'if (expand("<amatch>") ==# "gruvbox8") && ($TERM ==# "xterm-kitty") | execute "silent !kitty +kitten themes --reload-in=all Gruvbox Dark" | endif',
-})
 
--- Nord
-vim.g.nord_disable_background = true
-vim.g.nord_borders = true
-
-vim.api.nvim_create_augroup('NordBackground', {clear = true})
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'NordBackground',
-  pattern = {'*'},
-  command = 'if (expand("<amatch>") ==# "nord") && !g:nord_disable_background | silent hi Normal guibg=#2E3441 | endif',
-})
-
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'SetKittyTheme',
-  pattern = {'*'},
-  command = 'if (expand("<amatch>") ==# "nord") && ($TERM ==# "xterm-kitty") | execute "silent !kitty +kitten themes --reload-in=all Nord" | endif',
-})
-
--- Tokyonight
-vim.g.tokyonight_transparent = true
-
-vim.api.nvim_create_augroup('TokyoNightBackground', {clear = true})
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'TokyoNightBackground',
-  pattern = {'*'},
-  command = 'if (expand("<amatch>") ==# "tokyonight") && !g:tokyonight_transparent | silent hi Normal guibg=#24283C | endif',
-})
-
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'SetKittyTheme',
-  pattern = {'*'},
-  command = 'if (expand("<amatch>") ==# "tokyonight") && ($TERM ==# "xterm-kitty") | execute "silent !kitty +kitten themes --reload-in=all Tokyo Night Storm" | endif',
-})
-
---[[ Global SignColumn Highlight ]]
-vim.api.nvim_create_augroup('SignColumnHL', {clear = true})
-vim.api.nvim_create_autocmd('ColorScheme', {
-  group = 'SignColumnHL',
-  pattern = {'*'},
-  command = 'hi! link SignColumn Normal',
-})
 
 --[[ Toggle transparency mapping ]]
-vim.keymap.set('n', '<leader>ttr', function()
-  if vim.g.colors_name == 'nord' then
-    vim.g.nord_disable_background = not vim.g.nord_disable_background
-    -- vim.cmd('colorscheme nord')
-  elseif vim.g.colors_name == 'tokyonight' then
-    vim.g.tokyonight_transparent = not vim.g.tokyonight_transparent
-    -- vim.cmd('colorscheme tokyonight')
-  elseif vim.g.colors_name == 'gruvbox8' then
-    vim.g.gruvbox_transp_bg = not vim.g.gruvbox_transp_bg
-    -- vim.cmd('colorscheme gruvbox8')
+
+local SetTransparencyOpts = function()
+  for _, v in ipairs(transparent_opts) do
+    vim.g[v] = transparent_bg
   end
+end
+
+vim.keymap.set('n', '<leader>ttr', function()
+  transparent_bg = not transparent_bg
+  SetTransparencyOpts()
   vim.cmd('colorscheme ' .. vim.g.colors_name)
 end)
 
---[[ Initial Colorscheme ]]
-local kitty_theme = os.getenv('TERM') == 'xterm-kitty' and vim.fn.trim(vim.fn.system("awk '/name/ {print substr($0, index($0,$3))}' ~/.config/kitty/current-theme.conf")) or nil
--- print(kitty_theme)
-local kitty_to_nvim = { ['Nord'] = 'nord', ['Tokyo Night Storm' ]= 'tokyonight', ['Gruvbox Dark' ]= 'gruvbox8' }
--- print(kitty_to_nvim[kitty_theme])
 
-local function InitialColorschemeFunc()
-  if kitty_theme ~= nil then
+
+--[[ Set Kitty Theme ]]
+
+-- Set kitty theme if colorscheme is in nvim_to_kitty table and if in kitty terminal
+-- Look at :h nvim_create_autocmd and scroll down to parameters
+local SetKittyThemeFunc = function(arg)
+  local nvim_colorscheme = arg.match
+  if nvim_colorscheme ~= kitty_to_nvim[kitty_theme] and os.getenv('TERM') == 'xterm-kitty' and nvim_to_kitty[nvim_colorscheme] ~= nil then
+    os.execute('kitty +kitten themes --reload-in=all ' .. nvim_to_kitty[nvim_colorscheme])
+    kitty_theme = nvim_to_kitty[nvim_colorscheme]
+  end
+end
+
+-- Call SetKittyThemeFunc after changing colorscheme
+vim.api.nvim_create_augroup('SetKittyTheme', {clear = true})
+vim.api.nvim_create_autocmd('ColorScheme', {
+  group = 'SetKittyTheme',
+  pattern = {'*'},
+  callback = SetKittyThemeFunc,
+  desc = 'Set kitty theme based on current neovim colorscheme'
+})
+
+
+
+--[[ Set Initial Colorscheme ]]
+
+-- Set colorscheme to kitty theme if possible, otherwise set to nord
+local SetInitialColorscheme = function()
+  if kitty_to_nvim[kitty_theme] ~= nil then
     vim.cmd('colorscheme ' .. kitty_to_nvim[kitty_theme])
   else
     vim.cmd('colorscheme nord')
   end
 end
 
+-- Set Colorscheme-Specific Transparency Opts
+SetTransparencyOpts()
+
 vim.api.nvim_create_augroup('InitialColorscheme', {clear = true})
 vim.api.nvim_create_autocmd('VimEnter', {
   group = 'InitialColorscheme',
   pattern = {'*'},
   nested = true,
-  -- command = 'colorscheme nord',
-  callback = InitialColorschemeFunc,
+  callback = SetInitialColorscheme,
   desc = "Set initial colorscheme; setting it without the autocmd causes undefined behavior when switching colorschemes if nord is initial colorscheme"
 })

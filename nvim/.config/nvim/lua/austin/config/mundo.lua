@@ -27,5 +27,3 @@ vim.g.mundo_mappings = {
   ['<nowait> <Down>'] = 'move_older',
   ['<nowait> <Up>'] = 'move_newer'
 }
-
-vim.keymap.set('n', '<leader>tu', '<cmd>MundoToggle<CR>', {noremap = true, silent = true})

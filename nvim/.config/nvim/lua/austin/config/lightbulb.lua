@@ -1,14 +1,18 @@
+vim.fn.sign_define('LightBulbSign', { text = "", texthl = "" })
+
 require('nvim-lightbulb').setup({
     -- LSP client names to ignore
     -- Example: {"sumneko_lua", "null-ls"}
     ignore = {},
     sign = {
         enabled = true,
+        -- Priority of the gutter sign
         priority = 10,
     },
     float = {
         enabled = false,
-        text = "💡",
+        -- Text to show in the popup float
+        text = "",
         -- Available keys for window options:
         -- - height     of floating window
         -- - width      of floating window
@@ -27,7 +31,8 @@ require('nvim-lightbulb').setup({
     },
     virtual_text = {
         enabled = false,
-        text = "💡",
+        -- Text to show at virtual text
+        text = "",
         -- highlight mode to use for virtual text (replace, combine, blend), see :help nvim_buf_set_extmark() for reference
         hl_mode = "replace",
     },
@@ -40,7 +45,9 @@ require('nvim-lightbulb').setup({
     },
     autocmd = {
         enabled = true,
+        -- see :help autocmd-pattern
         pattern = {"*"},
+        -- see :help autocmd-events
         events = {"CursorHold", "CursorHoldI"}
     }
 })

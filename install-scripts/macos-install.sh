@@ -13,6 +13,7 @@ brew install bat
 brew install fd
 brew install gawk
 brew install imagemagick
+brew install lazygit
 brew install lsd
 brew install neofetch
 brew install ncdu

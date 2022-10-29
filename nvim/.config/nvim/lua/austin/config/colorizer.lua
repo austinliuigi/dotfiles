@@ -1,6 +1,6 @@
 require('colorizer').setup(
   -- Add filetypes as first parameter
-  { '*' },
+  -- { '*' },
   -- Use default_options as second parameter
   { mode = 'background' }
 )

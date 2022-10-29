@@ -1,10 +1,14 @@
 local lspconfig = require('lspconfig')
+local navic = require('nvim-navic')
 
 -- Configure diagnostics
 local diagnostic_config = {
   underline = false,
   virtual_text = true,
-  signs = true,
+  signs = false,
+  -- signs = {
+  --   priority = 8
+  -- },
   update_in_insert = false,
   severity_sort = true,
   float = {
@@ -37,13 +41,8 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
     border = 'rounded',
 })
 
--- Set up nvim-lsp-installer (must be done before setting up servers)
-require("nvim-lsp-installer").setup {}
-
 -- Function that is called whenever a server attaches
 local on_attach = function(client, bufnr)
-  -- vim-illuminate plugin
-  -- require('illuminate').on_attach(client)
   -- Set lsp keymaps
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
   vim.keymap.set('n', '\\d', vim.diagnostic.open_float, bufopts)
@@ -51,8 +50,11 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
+
+  -- nvim-navic plugin
+  navic.attach(client, bufnr)
 end
 
 -- Make capabilities compatible with cmp
@@ -60,7 +62,7 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- Set up servers
-local servers = { "clangd", "pyright", "sumneko_lua" }
+local servers = { "clangd", "julials", "pyright", "sumneko_lua", "texlab", "yamlls", }
 for _, server in ipairs(servers) do
   lspconfig[server].setup {
     on_attach = on_attach,
@@ -75,6 +77,45 @@ lspconfig["sumneko_lua"].setup {
     Lua = {
       diagnostics = {
         globals = { 'vim' }
+      }
+    }
+  }
+}
+
+local latex_forwardsearch_executable, latex_forwardsearch_args
+if vim.fn.has("macos") then
+  latex_forwardsearch_executable = "/Applications/Skim.app/Contents/SharedSupport/displayline"
+  latex_forwardsearch_args = {"-g", "-b", "%l", "%p", "%f",}
+elseif vim.fn.has("linux") then
+  latex_forwardsearch_executable = "zathura"
+  latex_forwardsearch_args = {"--synctex-forward", "%l:1:%f", "%p"}
+end
+lspconfig["texlab"].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    texlab = {
+      auxDirectory = ".",
+      bibtexFormatter = "texlab",
+      build = {
+        args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "-shell-escape","%f" },
+        executable = "latexmk",
+        forwardSearchAfter = true,
+        onSave = true
+      },
+      chktex = {
+        onEdit = false,
+        onOpenAndSave = false
+      },
+      diagnosticsDelay = 300,
+      formatterLineLength = 80,
+      forwardSearch = {
+        executable = latex_forwardsearch_executable,
+        args = latex_forwardsearch_args
+      },
+      latexFormatter = "latexindent",
+      latexindent = {
+        modifyLineBreaks = false
       }
     }
   }
