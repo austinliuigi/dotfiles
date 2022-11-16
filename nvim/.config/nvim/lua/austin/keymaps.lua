@@ -81,20 +81,20 @@ keymap("n", "[c", "<cmd>cp<CR>", {noremap = true, silent = true})
 -- }}}
 -- Window mappings {{{
 
-keymap({"n", "i"}, "<C-h>", "<cmd>wincmd h<CR>", {noremap = true})
+keymap({"n", "i", "t"}, "<C-h>", "<cmd>wincmd h<CR>", {noremap = true})
 
-keymap({"n", "i"}, "<C-j>", "<cmd>wincmd j<CR>", {noremap = true})
+keymap({"n", "i", "t"}, "<C-j>", "<cmd>wincmd j<CR>", {noremap = true})
 
-keymap({"n", "i"}, "<C-k>", "<cmd>wincmd k<CR>", {noremap = true})
+keymap({"n", "i", "t"}, "<C-k>", "<cmd>wincmd k<CR>", {noremap = true})
 
-keymap({"n", "i"}, "<C-l>", "<cmd>wincmd l<CR>", {noremap = true})
+keymap({"n", "i", "t"}, "<C-l>", "<cmd>wincmd l<CR>", {noremap = true})
 
 -- }}}
 -- Tab mappings {{{
 
-keymap({"n", "i"}, "<A-h>", "<cmd>tabprev<CR>", {noremap = true, silent = true})
+keymap({"n", "i", "t"}, "<A-h>", "<cmd>tabprev<CR>", {noremap = true, silent = true})
 
-keymap({"n", "i"}, "<A-l>", "<cmd>tabnext<CR>", {noremap = true, silent = true})
+keymap({"n", "i", "t"}, "<A-l>", "<cmd>tabnext<CR>", {noremap = true, silent = true})
 
 keymap("n", "<C-t>L", "<cmd>+tabmove<CR>", {noremap = true, silent = true})
 
