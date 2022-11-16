@@ -20,6 +20,10 @@ dap.configurations.python = {
     name = "Launch file",
     program = "${file}",
     pythonPath = function()
+      local mason_path = require("mason-core.package"):get_install_path() .. "/debugpy/venv"
+      if vim.fn.isdirectory(mason_path) ~= 0 then
+        return mason_path .. "/bin/python"
+      end
       local venv_path = vim.fn.getenv("VIRTUAL_ENV")
       if venv_path ~= vim.NIL and venv_path ~= '' then
         return venv_path .. "/bin/python"
