@@ -28,17 +28,29 @@ return require('packer').startup({
 
     -- Colors
     use {
-        'lifepillar/vim-gruvbox8',
+        'ellisonleao/gruvbox.nvim',
+        'shaunsingh/seoul256.nvim',
+        { 'rose-pine/neovim', as = "rose-pine", },
+        'EdenEast/nightfox.nvim',
+        'rebelot/kanagawa.nvim',
         'shaunsingh/nord.nvim',
+        'navarasu/onedark.nvim',
         'folke/tokyonight.nvim',
+        'marko-cerovac/material.nvim',
+        'tomasiser/vim-code-dark',
     }
     use {
       'NvChad/nvim-colorizer.lua',
       config = [[require('austin.config.colorizer')]],
     }
     use {
+      'levouh/tint.nvim',
+      config = [[require('austin.config.tint')]],
+    }
+    use {
       'uga-rosa/ccc.nvim',
       config = [[require('austin.config.ccc')]],
+      cmd = "CccPick",
     }
 
     -- Comments
@@ -54,16 +66,17 @@ return require('packer').startup({
       'hrsh7th/nvim-cmp',
       requires = {
         { 'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
+        -- { 'amarakon/nvim-cmp-buffer-lines', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-calc', after = 'nvim-cmp' },
+        { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
+        { 'dmitmel/cmp-cmdline-history', after = 'nvim-cmp' },
+        { 'rcarriga/cmp-dap', after = 'nvim-cmp' },
+        -- { 'dmitmel/cmp-digraphs', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-nvim-lsp' }, -- Needed to load lspconfig
         { 'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp' },
         { 'hrsh7th/cmp-path', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-calc', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-buffer', after = 'nvim-cmp' },
-        { 'rcarriga/cmp-dap', after = 'nvim-cmp' },
-        { 'dmitmel/cmp-cmdline-history', after = 'nvim-cmp' },
-        { 'hrsh7th/cmp-cmdline', after = 'nvim-cmp' },
-        -- { 'dmitmel/cmp-digraphs', after = 'nvim-cmp' },
       },
       config = [[require('austin.config.cmp')]],
       event = { 'InsertEnter', 'CmdlineEnter' },
@@ -157,6 +170,13 @@ return require('packer').startup({
       config = [[require('austin.config.devicons')]],
     }
 
+    -- Images
+    use {
+      "narutoxy/silicon.lua",
+      requires = { "nvim-lua/plenary.nvim" },
+      config = [[require('austin.config.silicon')]],
+    }
+
     -- LaTeX
     use {
       'jbyuki/nabla.nvim',
@@ -185,6 +205,12 @@ return require('packer').startup({
       requires = { 'nvim-lua/plenary.nvim' },
       config = [[require('austin.config.null-ls')]],
     }
+    use({
+      'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+      config = function()
+        require("lsp_lines").setup()
+      end,
+    })
     use {
       'kosayoda/nvim-lightbulb',
       requires = {
@@ -220,6 +246,11 @@ return require('packer').startup({
     }
 
     -- Motions/Text Objects
+    use {
+      'ggandor/leap.nvim',
+      requires = { 'ggandor/leap-spooky.nvim' },
+      config = [[require('austin.config.leap')]],
+    }
     use {
       'chaoren/vim-wordmotion',
       config = [[require('austin.config.wordmotion')]],
@@ -317,6 +348,10 @@ return require('packer').startup({
         requires = { 'kyazdani42/nvim-web-devicons' },
         config = [[require('austin.config.lualine')]],
     }
+    use {
+      'austinliuigi/tinbar.nvim',
+      config = [[require('austin.config.tinbar')]],
+    }
     -- use {
     --   'b0o/incline.nvim',
     --   requires = { 'kyazdani42/nvim-web-devicons' },
@@ -348,12 +383,28 @@ return require('packer').startup({
       config = [[require('austin.config.alpha')]],
     }
     use {
-      'stevearc/dressing.nvim',
-      config = [[require('austin.config.dressing')]],
+      'folke/noice.nvim',
+      requires = {
+        "MunifTanjim/nui.nvim",
+        "rcarriga/nvim-notify",
+      },
+      config = [[require('austin.config.noice')]],
+    }
+    use({
+      'https://gitlab.com/yorickpeterse/nvim-pqf.git',
+      config = function()
+        require('pqf').setup()
+      end,
+    })
+    use {
+      'lukas-reineke/virt-column.nvim',
+      config = function()
+        require('virt-column').setup({char = "┃", virtcolumn = "+1"})
+      end,
     }
     -- use {
-    --   'rcarriga/nvim-notify',
-    --   config = [[require('austin.config.notify')]],
+    --   'stevearc/dressing.nvim',
+    --   config = [[require('austin.config.dressing')]],
     -- }
     -- use {
     --   'akinsho/bufferline.nvim',

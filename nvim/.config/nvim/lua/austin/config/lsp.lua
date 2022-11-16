@@ -5,6 +5,8 @@ local navic = require('nvim-navic')
 local diagnostic_config = {
   underline = false,
   virtual_text = true,
+  virtual_lines = false,
+  -- virtual_lines = { only_current_line = true },
   signs = false,
   -- signs = {
   --   priority = 8
@@ -58,8 +60,7 @@ local on_attach = function(client, bufnr)
 end
 
 -- Make capabilities compatible with cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Set up servers
 local servers = { "clangd", "julials", "pyright", "sumneko_lua", "texlab", "yamlls", }

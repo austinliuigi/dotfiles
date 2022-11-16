@@ -7,6 +7,7 @@ require('neorg').setup {
       ["core.keybinds"] = {
           config = {
               default_keybinds = true,
+              neorg_leader = "\\",
           }
       },
 

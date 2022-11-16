@@ -33,10 +33,6 @@ keymap({ "n", "x" }, "<leader>x", 'x', {noremap = true})
 
 keymap({ "n", "x" }, "<leader>X", 'X', {noremap = true})
 
-keymap({ "x" }, "<leader>p", 'p', {noremap = true})
-
-keymap({ "x" }, "<leader>P", 'P', {noremap = true})
-
 keymap({ "n", "x" }, "c", '"_c', {noremap = true})
 
 keymap({ "n", "x" }, "C", '"_C', {noremap = true})
@@ -52,10 +48,6 @@ keymap({ "n", "x" }, "S", '"_S', {noremap = true})
 keymap({ "n", "x" }, "x", '"_x', {noremap = true})
 
 keymap({ "n", "x" }, "X", '"_X', {noremap = true})
-
-keymap({ "x" }, "p", '"_dP', {noremap = true})
-
-keymap({ "x" }, "p", '"_dP', {noremap = true})
 
 keymap({ "n" }, "<leader>V", "V<leader>", {remap = true})
 
@@ -128,7 +120,7 @@ keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", {noremap = true, silent = true})
 -- }}}
 -- Normal mode mappings {{{
 
-keymap("n", "!", "<cmd>so %<CR><cmd>echohl GitSignsAdd | echo 'Sourced :)' | echohl None<CR>", {noremap = true, silent = false})
+keymap("n", "<leader>!", "<cmd>so %<CR><cmd>echohl GitSignsAdd | echo 'Sourced :)' | echohl None<CR>", {noremap = true, silent = false})
 
 keymap("n", "<esc>", "<cmd>nohl<CR>", {noremap = true, silent = true})
 

@@ -29,7 +29,7 @@ require("nvim-navic").setup {
   },
   highlight = true,
   separator = " » ",
-  depth_limit = 3,
+  depth_limit = 0,
   depth_limit_indicator = "..",
 }
 
@@ -67,17 +67,16 @@ local set_navic_icon_highlights = function()
     -- Link navic highlight to corresponding cmp highlight if possible
     if vim.fn.hlexists("CmpItemKind" .. kind) ~= 0 then
       vim.api.nvim_set_hl(0, "NavicIcons" .. kind, { link = "CmpItemKind" .. kind })
-      -- print("CmpItemKind" .. kind) -- DEBUG
     -- Link navic highlight to corresponding builtin highlight if possible
     elseif vim.fn.hlexists(kind) ~= 0 then
       vim.api.nvim_set_hl(0, "NavicIcons" .. kind, { link = kind })
-      -- print(kind) -- DEBUG
     -- Default to linking to special
     else
       vim.api.nvim_set_hl(0, "NavicIcons" .. kind, { link = "Special" })
-      -- print("Special" .. kind) -- DEBUG
     end
   end
+  vim.api.nvim_set_hl(0, "NavicText", { link = "Comment" })
+  vim.api.nvim_set_hl(0, "NavicSeparator", { link = "Normal" })
 end
 
 -- Set navic highlights after changing colorschemes

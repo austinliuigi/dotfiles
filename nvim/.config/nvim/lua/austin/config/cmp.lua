@@ -17,7 +17,7 @@ cmp.setup {
     ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }), { 'i', 'c' }),
     ['<C-Up>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
     ['<C-Down>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<S-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    -- ['<S-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
   }),
   sources = {
     { name = 'neorg' },
@@ -27,7 +27,8 @@ cmp.setup {
     { name = 'nvim_lua' },
     { name = 'path' },
     { name = 'calc' },
-    { name = 'buffer', keyword_length = 2, max_item_count = 4},
+    { name = 'buffer', keyword_length = 2, max_item_count = 4, },
+    -- { name = 'buffer-lines', keyword_length = 4, max_item_count = 4, leading_whitespace = false, },
     -- { name = 'digraphs' },
   },
   snippet = {
@@ -68,16 +69,17 @@ cmp.setup {
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
       -- vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind], vim_item.kind)
       vim_item.menu = ({
+        buffer = '[BUF]',
+        -- ["buffer-lines"] = '[LINE]',
+        calc = '[CALC]',
+        cmdline = '[CMD]',
+        cmdline_history = '[HIST]',
+        dap = '[DAP]',
         luasnip = '[SNIP]',
         nvim_lsp_signature_help = '[SIG]',
         nvim_lsp = '[LSP]',
         nvim_lua = '[API]',
         path = '[PATH]',
-        calc = '[CALC]',
-        buffer = '[BUF]',
-        dap = '[DAP]',
-        cmdline_history = '[HIST]',
-        cmdline = '[CMD]',
       })[entry.source.name]
       return vim_item
     end
