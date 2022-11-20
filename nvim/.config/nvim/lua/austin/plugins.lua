@@ -205,12 +205,12 @@ return require('packer').startup({
       requires = { 'nvim-lua/plenary.nvim' },
       config = [[require('austin.config.null-ls')]],
     }
-    use({
-      'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-      config = function()
-        require("lsp_lines").setup()
-      end,
-    })
+    -- use({
+    --   'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+    --   config = function()
+    --     require("lsp_lines").setup()
+    --   end,
+    -- })
     use {
       'kosayoda/nvim-lightbulb',
       requires = {
@@ -313,6 +313,10 @@ return require('packer').startup({
       config = [[require('austin.config.iron')]],
       cmd = 'IronRepl',
     }
+    use {
+      'untitled-ai/jupyter_ascending.vim',
+      config = [[require('austin.config.jupyter_ascending')]],
+    }
 
     -- Scrolling
     use {
@@ -396,6 +400,10 @@ return require('packer').startup({
         require('pqf').setup()
       end,
     })
+    use {
+      'lukas-reineke/headlines.nvim',
+      config = [[require('austin.config.headlines')]],
+    }
     use {
       'lukas-reineke/virt-column.nvim',
       config = function()
