@@ -15,8 +15,7 @@ end
 require('austin.utils')
 require('austin.options')
 require('austin.keymaps')
-require('austin.winbar')
-require('austin.waldo')
+-- require('austin.waldo')
 require('austin.plugins')
 if not packer_bootstrap then
   require('austin.colors')

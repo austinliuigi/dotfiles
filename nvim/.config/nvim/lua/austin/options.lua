@@ -32,6 +32,9 @@ vim.opt.relativenumber = true
 -- Set vertical split window to appear on the right by default
 vim.opt.splitright = true
 
+-- Don't show cmdline
+vim.opt.cmdheight = 0
+
 -- Command-line completion
 vim.opt.wildmenu = true
 vim.opt.wildoptions = {'pum'}
