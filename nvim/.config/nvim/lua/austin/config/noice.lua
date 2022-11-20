@@ -25,8 +25,8 @@ require("noice").setup {
     -- This is a current Neovim limitation.
     enabled = true, -- enables the Noice messages UI
     view = "notify", -- default view for messages
-    view_error = "notify", -- view for errors
-    view_warn = "notify", -- view for warnings
+    view_error = "mini", -- view for errors
+    view_warn = "mini", -- view for warnings
     view_history = "messages", -- view for :messages
     view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
   },
@@ -174,13 +174,14 @@ require("noice").setup {
     -- you can also add custom presets that you can enable/disable with enabled=true
     bottom_search = false, -- use a classic bottom cmdline for search
     command_palette = false, -- position the cmdline and popupmenu together
-    long_message_to_split = false, -- long messages will be sent to a split
+    long_message_to_split = true, -- long messages will be sent to a split
     inc_rename = false, -- enables an input dialog for inc-rename.nvim
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
   throttle = 1000 / 30, -- how frequently does Noice need to check for ui updates? This has no effect when in blocking mode.
   ---@type NoiceConfigViews
-  views = {}, ---@see section on views
+  views = {
+  }, ---@see section on views
   ---@type NoiceRouteConfig[]
   routes = {
     {

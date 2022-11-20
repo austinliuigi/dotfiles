@@ -5,7 +5,7 @@ local navic = require('nvim-navic')
 local diagnostic_config = {
   underline = false,
   virtual_text = true,
-  virtual_lines = false,
+  -- virtual_lines = false,
   -- virtual_lines = { only_current_line = true },
   signs = false,
   -- signs = {
