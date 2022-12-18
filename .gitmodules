@@ -1,6 +1,3 @@
-[submodule "vim/.vim/pack/plugins/opt/AutoComplPop"]
-	path = vim/.vim/pack/plugins/opt/AutoComplPop
-	url = https://github.com/vim-scripts/AutoComplPop.git
 [submodule "zsh/.zsh/zsh_plugins/zsh-syntax-highlighting"]
 	path = zsh/.zsh/zsh_plugins/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
