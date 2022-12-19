@@ -2,7 +2,8 @@ require('nightfox').setup({
   options = {
     -- Compiled file's destination location
     compile_path = vim.fn.stdpath("cache") .. "/nightfox",
-    compile_file_suffix = "_compiled", -- Compiled file suffix
+    compile_file_suffix = "_compiled" .. (require("austin.colors").transparent and "_transparent" or ""), -- Compiled file suffix
+    -- compile_file_suffix = "_compiled", -- Compiled file suffix
     transparent = require("austin.colors").transparent,    -- Disable setting background
     terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
     dim_inactive = false,   -- Non focused panes set to alternative background
