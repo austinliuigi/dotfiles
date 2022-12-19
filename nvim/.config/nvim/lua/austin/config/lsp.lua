@@ -1,11 +1,24 @@
 local lspconfig = require('lspconfig')
 local navic = require('nvim-navic')
+local toggle = require("austin.keymaps").toggle_key
+
+
+
+-- Add borders to floating windows
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = 'rounded',
+})
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+    border = 'rounded',
+})
+
+
 
 -- Configure diagnostics
 local diagnostic_config = {
-  underline = false,
-  virtual_text = true,
-  -- virtual_lines = false,
+  underline = true,
+  virtual_text = false,
+  virtual_lines = true,
   -- virtual_lines = { only_current_line = true },
   signs = false,
   -- signs = {
@@ -20,7 +33,6 @@ local diagnostic_config = {
     prefix = '',
   }
 }
-
 vim.diagnostic.config(diagnostic_config)
 
 -- Define signs for diagnostics
@@ -34,14 +46,7 @@ for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
--- Add borders to floating windows
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded',
-})
 
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = 'rounded',
-})
 
 -- Function that is called whenever a server attaches
 local on_attach = function(client, bufnr)
@@ -54,8 +59,16 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', toggle..'d', function()
+    local prev_text = diagnostic_config.virtual_text
+    local prev_lines = diagnostic_config.virtual_lines
 
-  -- nvim-navic plugin
+    diagnostic_config.virtual_text = prev_lines
+    diagnostic_config.virtual_lines = not (prev_text or prev_lines)
+
+    vim.diagnostic.config(diagnostic_config)
+  end, bufopts)
+
   navic.attach(client, bufnr)
 end
 
