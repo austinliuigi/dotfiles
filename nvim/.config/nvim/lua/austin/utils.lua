@@ -18,6 +18,7 @@ end
 
 -- Copy output of command into given register
 -- If no registers are given, use default ones
+-- e.g. `Cp "echo 'hello' "a`
 vim.api.nvim_create_user_command("Cp", function(args)
   local fargs = args.fargs
 
@@ -46,3 +47,7 @@ end, { nargs = "+" })
 vim.api.nvim_create_user_command("Cd", function(args)
   vim.cmd("tcd %:p:h")
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("StripTrailing", function(args)
+  vim.cmd(args.line1..","..args.line2 .. "s/\\s\\+$//")
+end, { nargs = 0, range = true })
