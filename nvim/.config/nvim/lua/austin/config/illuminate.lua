@@ -1,3 +1,5 @@
+local toggle_key = require("austin.keymaps").toggle_key
+
 require('illuminate').configure({
     -- providers: provider used to get references in the buffer, ordered by priority
     providers = {
@@ -34,4 +36,4 @@ require('illuminate').configure({
     under_cursor = true,
 })
 
-vim.keymap.set("n", "<leader>til", "<cmd>IlluminateToggle<CR>", {noremap = true, silent = true})
+vim.keymap.set("n", toggle_key.."il", "<cmd>IlluminateToggle<CR>", {noremap = true, silent = true})

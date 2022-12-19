@@ -12,6 +12,6 @@ map('n', "<S-Right>", function() return require("dap").continue() end, {})
 
 map('n', "<CR>", function() return require("dap").toggle_breakpoint() end, {})
 map('n', "<S-CR>", function() return require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: ")) end, {})
-map('n', "<leader>tb", function() return require("dap").toggle_breakpoint() end, {})
-map('n', "<leader>tB", function() return require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: ")) end, {})
+-- map('n', "<leader>tb", function() return require("dap").toggle_breakpoint() end, {})
+-- map('n', "<leader>tB", function() return require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: ")) end, {})
 -- map('n', "<leader>tB", function() return vim.ui.input({ prompt = 'Breakpoint Condition: ' }, function(input) return require('dap').toggle_breakpoint(input) end) end, {})

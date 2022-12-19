@@ -1,3 +1,5 @@
+local toggle_key = require("austin.keymaps").toggle_key
+
 local M = {
   transparent = true
 }
@@ -55,7 +57,7 @@ vim.api.nvim_create_user_command("ToggleTransparency", function()
   vim.cmd('colorscheme ' .. vim.g.colors_name)
 end, { nargs = 0 })
 
-vim.keymap.set('n', '<leader>ttr', '<cmd>ToggleTransparency<CR>')
+vim.keymap.set('n', toggle_key..'tr', '<cmd>ToggleTransparency<CR>')
 
 
 

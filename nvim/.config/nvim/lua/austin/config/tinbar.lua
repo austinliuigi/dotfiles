@@ -1,3 +1,4 @@
-require("tinbar")
+local toggle_key = require("austin.keymaps").toggle_key
 
-vim.keymap.set({"n"}, "<leader>tf", function() require("tinbar"):toggle_filepath_type() end, {})
+require("tinbar")
+vim.keymap.set({"n"}, toggle_key.."f", function() require("tinbar"):toggle_filepath_type() end, {})

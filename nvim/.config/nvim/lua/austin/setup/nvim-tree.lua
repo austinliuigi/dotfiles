@@ -1,3 +1,5 @@
+local toggle_key = require("austin.keymaps").toggle_key
+
 vim.api.nvim_create_augroup("NvimTreeLazyLoad", {clear = true})
 vim.api.nvim_create_autocmd("BufWinEnter", {
   group   = "NvimTreeLazyLoad",
@@ -10,5 +12,5 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end
 })
 
-vim.keymap.set("n", "<leader>te", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true})
+vim.keymap.set("n", toggle_key.."e", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true})
 vim.keymap.set("n", "!", "<cmd>NvimTreeToggle<CR>", {noremap = true, silent = true})

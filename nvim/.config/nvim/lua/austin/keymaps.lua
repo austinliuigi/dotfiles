@@ -1,4 +1,8 @@
 local keymap = vim.keymap.set
+local keys = {
+  toggle_key = "-"
+}
+toggle = keys.toggle_key
 
 -- Leader key {{{
 
@@ -58,7 +62,7 @@ keymap("n", "]b", "<cmd>bn<CR>", {noremap = true, silent = true})
 
 keymap("n", "[b", "<cmd>bp<CR>", {noremap = true, silent = true})
 
-keymap("n", "\\b", "<cmd>bp<CR>", {noremap = true, silent = true})
+keymap("n", toggle.."b", "<cmd>bp<CR>", {noremap = true, silent = true})
 
 keymap("n", "<leader><leader>b", ":ls<CR>:b<Space>", {noremap = true, silent = true})
 
@@ -77,6 +81,33 @@ keymap("n", "<leader><leader>a", "<cmd>args<CR>", {noremap = true, silent = true
 keymap("n", "]c", "<cmd>cn<CR>", {noremap = true, silent = true})
 
 keymap("n", "[c", "<cmd>cp<CR>", {noremap = true, silent = true})
+
+keymap("n", toggle.."c", function()
+  for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if vim.fn.getwininfo(winid)[1].quickfix == 1 then
+      vim.cmd("cclose")
+      return
+    end
+  end
+  vim.cmd("copen")
+end, {noremap = true, silent = true})
+
+-- }}}
+-- Local list mappings {{{
+
+keymap("n", "]l", "<cmd>ln<CR>", {noremap = true, silent = true})
+
+keymap("n", "[l", "<cmd>lp<CR>", {noremap = true, silent = true})
+
+keymap("n", toggle.."l", function()
+  for _, winid in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    if vim.fn.getwininfo(winid)[1].loclist == 1 then
+      vim.cmd("lclose")
+      return
+    end
+  end
+  vim.cmd("lopen")
+end, {noremap = true, silent = true})
 
 -- }}}
 -- Window mappings {{{
@@ -105,17 +136,23 @@ keymap("n", "<leader><leader>t", ":tabs<CR>:tabn<Space>", {noremap = true, silen
 -- }}}
 -- Toggle mappings {{{
 
-keymap("n", "<leader>tc", "<cmd>HexokinaseToggle<CR>", {noremap = true, silent = true})
+keymap("n", toggle.."h", "v:hlsearch ? '<cmd>nohl<CR>' : '<cmd>set hlsearch<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
 
-keymap("n", "<leader>th", "v:hlsearch ? '<cmd>nohl<CR>' : '<cmd>set hlsearch<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
+keymap("n", toggle.."L", "<cmd>ToggleSpaceChar<CR>", {noremap = true, silent = true})
 
-keymap("n", "<leader>tl", "<cmd>ToggleSpaceChar<CR>", {noremap = true, silent = true})
+keymap("n", toggle.."n", "<cmd>set relativenumber!<CR>", {noremap = true, silent = true})
 
-keymap("n", "<leader>tn", "<cmd>set relativenumber!<CR>", {noremap = true, silent = true})
+keymap("n", toggle.."v", "empty(&virtualedit) ? '<cmd>set virtualedit+=all<CR>' : '<cmd>set virtualedit-=all<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
 
-keymap("n", "<leader>tv", "empty(&virtualedit) ? '<cmd>set virtualedit+=all<CR>' : '<cmd>set virtualedit-=all<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
+keymap("n", toggle.."w", "<cmd>set wrap!<CR>", {noremap = true, silent = true})
 
-keymap("n", "<leader>tw", "<cmd>set wrap!<CR>", {noremap = true, silent = true})
+keymap("n", toggle.."B", function()
+  if vim.o.background == "dark" then
+    vim.o.background = "light"
+  else
+    vim.o.background = "dark"
+  end
+end, {noremap = true, silent = true})
 
 -- }}}
 -- Normal mode mappings {{{
@@ -249,4 +286,6 @@ vim.cmd [[
 ]]
 
 -- }}}
+
+return keys
 -- vim: foldmethod=marker

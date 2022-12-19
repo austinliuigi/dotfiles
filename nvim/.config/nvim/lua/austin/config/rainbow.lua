@@ -1,3 +1,5 @@
+local toggle_key = require("austin.keymaps").toggle_key
+
 vim.g.rainbow_active = 0
 
 vim.g.rainbow_conf = {
@@ -7,4 +9,4 @@ vim.g.rainbow_conf = {
   ['cterms'] = {}
 }
 
-vim.keymap.set('n', '<leader>tr', '<cmd>RainbowToggle<CR>', {noremap = true, silent = true})
+vim.keymap.set('n', toggle_key..'r', '<cmd>RainbowToggle<CR>', {noremap = true, silent = true})
