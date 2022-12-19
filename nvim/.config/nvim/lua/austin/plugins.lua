@@ -335,6 +335,7 @@ return require('packer').startup({
     -- Scrolling
     use {
       'psliwka/vim-smoothie',
+      config = [[require("austin.config.smoothie")]],
       commit = '10fd0aa',
       keys = { {'n','<C-d>'}, {'n','<C-u>'}, {'n','<C-f>'}, {'n','<C-b>'} },
     }
