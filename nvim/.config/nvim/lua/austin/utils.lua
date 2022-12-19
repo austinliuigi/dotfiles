@@ -43,6 +43,6 @@ vim.api.nvim_create_user_command("Cp", function(args)
   end
 end, { nargs = "+" })
 
-vim.api.nvim_create_user_command("Cp", function(args)
-  vim.cmd("tcd %:t")
+vim.api.nvim_create_user_command("Cd", function(args)
+  vim.cmd("tcd %:p:h")
 end, { nargs = 0 })
