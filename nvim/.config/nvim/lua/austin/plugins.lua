@@ -20,6 +20,10 @@ return require('packer').startup({
     use 'lewis6991/impatient.nvim'
 
     -- Align
+    -- use {
+    --   'echasnovski/mini.align',
+    --   config = [[require('austin.config.mini-align')]],
+    -- }
     use {
       'junegunn/vim-easy-align',
       config = [[require('austin.config.easy-align')]],
@@ -124,6 +128,10 @@ return require('packer').startup({
       cmd = 'Telescope',
       module = 'telescope',
     }
+    use {
+      'echasnovski/mini.nvim',
+      config = [[require("austin.config.mini-map")]]
+    }
 
     -- Git
     use {
@@ -207,12 +215,12 @@ return require('packer').startup({
       requires = { 'nvim-lua/plenary.nvim' },
       config = [[require('austin.config.null-ls')]],
     }
-    -- use({
-    --   'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-    --   config = function()
-    --     require("lsp_lines").setup()
-    --   end,
-    -- })
+    use({
+      'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
+      config = function()
+        require("lsp_lines").setup()
+      end,
+    })
     use {
       'kosayoda/nvim-lightbulb',
       requires = {
@@ -256,6 +264,10 @@ return require('packer').startup({
     use {
       'chaoren/vim-wordmotion',
       config = [[require('austin.config.wordmotion')]],
+    }
+    use {
+      'echasnovski/mini.ai',
+      config = [[require('austin.config.mini-ai')]],
     }
 
     -- Org
