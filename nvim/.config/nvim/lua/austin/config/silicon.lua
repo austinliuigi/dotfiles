@@ -17,12 +17,12 @@ require('silicon').setup({
   shadowOffsetX = 8,
   shadowOffsetY = 8,
   gobble = false, -- enable lsautogobble like feature
-  debug = false, -- enable debug output
+  debug = true, -- enable debug output
 })
 
 
 local silicon = require("silicon")
-vim.keymap.set('v', '<Leader>y',  function() silicon.visualise_api({to_clip = true}) end )
+vim.keymap.set('v', '<leader>y',  function() silicon.visualise_api({to_clip = true}) end )
 -- Generate image of a whole buffer, with lines in a visual selection highlighted
 -- vim.keymap.set('v', '<Leader>bs', function() silicon.visualise_api({to_clip = false, show_buf = true}) end )
 -- Generate visible portion of a buffer

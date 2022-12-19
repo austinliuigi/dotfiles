@@ -174,6 +174,7 @@ return require('packer').startup({
     -- Images
     use {
       "narutoxy/silicon.lua",
+      -- "~/.local/projects/neovim/forks/silicon.lua/",
       requires = { "nvim-lua/plenary.nvim" },
       config = [[require('austin.config.silicon')]],
     }
