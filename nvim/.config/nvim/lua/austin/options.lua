@@ -33,7 +33,7 @@ vim.opt.relativenumber = true
 vim.opt.splitright = true
 
 -- Don't show cmdline
-vim.opt.cmdheight = 0
+-- vim.opt.cmdheight = 0
 
 -- Command-line completion
 vim.opt.wildmenu = true

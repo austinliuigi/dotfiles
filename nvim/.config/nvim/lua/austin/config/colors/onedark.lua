@@ -1,7 +1,7 @@
-local M = {
+require('onedark').setup({
     -- Main options --
     style = 'dark', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-    transparent = true,  -- Show/hide background
+    transparent = require("austin.colors").transparent,  -- Show/hide background
     term_colors = true, -- Change terminal color as per the selected theme style
     ending_tildes = true, -- Show the end-of-buffer tildes. By default they are hidden
     cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
@@ -36,6 +36,4 @@ local M = {
         undercurl = true,   -- use undercurl instead of underline for diagnostics
         background = true,    -- use background color for virtual text
     },
-}
-
-return M
+})

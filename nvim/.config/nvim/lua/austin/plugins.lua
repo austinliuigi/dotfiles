@@ -37,6 +37,7 @@ return require('packer').startup({
         'navarasu/onedark.nvim',
         'folke/tokyonight.nvim',
         'marko-cerovac/material.nvim',
+        'Mofiqul/vscode.nvim',
         'tomasiser/vim-code-dark',
     }
     use {
@@ -356,11 +357,6 @@ return require('packer').startup({
       'austinliuigi/tinbar.nvim',
       config = [[require('austin.config.tinbar')]],
     }
-    -- use {
-    --   'b0o/incline.nvim',
-    --   requires = { 'kyazdani42/nvim-web-devicons' },
-    --   config = [[require('austin.config.incline')]],
-    -- }
 
     -- Sugar
     use {
@@ -410,16 +406,6 @@ return require('packer').startup({
         require('virt-column').setup({char = "┃", virtcolumn = "+1"})
       end,
     }
-    -- use {
-    --   'stevearc/dressing.nvim',
-    --   config = [[require('austin.config.dressing')]],
-    -- }
-    -- use {
-    --   'akinsho/bufferline.nvim',
-    --   tag = "v2.*",
-    --   requires = 'kyazdani42/nvim-web-devicons',
-    --   config = [[require('austin.config.bufferline')]],
-    -- }
 
     -- Undo
     use {
@@ -450,6 +436,7 @@ return require('packer').startup({
   config = {
     display = {
       open_fn = require('packer.util').float,
-    }
+    },
+    max_jobs = 50,
   }
 })

@@ -1,68 +1,57 @@
---[[ Useful Variables ]]
+local M = {
+  transparent = true
+}
 
--- Global transparency variable (for all colorschemes)
-local transparent_bg = true
--- Colorscheme-specific transparency settings
-local transparent_opts_lua = {
-  ["gruvbox"]    = '["transparent_mode"]',
-  ["kanagawa"]   = '["transparent"]',
-  ["material"]   = '["disable"]["background"]',
-  ["nightfox"]   = '["options"]["transparent"]',
-  ["onedark"]    = '["transparent"]',
-  ["rose-pine"]  = '["disable_background"]',
-  ["tokyonight"] = '["transparent"]',
-}
-local transparent_opts_viml = {
-  'nord_disable_background',
-  'seoul256_disable_background',
-  'codedark_transparent',
-}
 -- Map of neovim colorscheme names(g:colors_name) to kitty theme names (## name:)
 local nvim_to_kitty = {
-  ['carbonfox']  = 'carbonfox',
-  ['codedark']   = 'vscode-dark',
-  ['dawnfox']    = 'dawnfox',
-  ['dayfox']     = 'dayfox',
-  ['duskfox']    = 'duskfox',
-  ['gruvbox']    = 'gruvbox',
-  ['kanagawa']   = 'kanagawa',
-  ['material']   = 'palenight',
-  ['nightfox']   = 'nightfox',
-  ['nord']       = 'nord',
-  ['nordfox']    = 'nordfox',
-  ['onedark']    = 'onedark',
-  ['rose-pine']  = 'rosepine',
-  ['seoul256']   = 'seoul256',
-  ['terafox']    = 'terafox',
-  ['tokyonight'] = 'tokyonight-storm',
+  ['carbonfox']  = { dark = 'carbonfox',        light = 'carbonfox' },
+  ['codedark']   = { dark = 'vscode-dark',      light = 'vscode-dark' },
+  ['dawnfox']    = { dark = 'dawnfox',          light = 'dawnfox' },
+  ['dayfox']     = { dark = 'dayfox',           light = 'dayfox' },
+  ['duskfox']    = { dark = 'duskfox',          light = 'duskfox' },
+  ['gruvbox']    = { dark = 'gruvbox-dark',     light = 'gruvbox-light' },
+  ['kanagawa']   = { dark = 'kanagawa-dark',    light = 'kanagawa-light' },
+  ['material']   = { dark = 'palenight',        light = 'palenight' },
+  ['nightfox']   = { dark = 'nightfox',         light = 'nightfox' },
+  ['nord']       = { dark = 'nord-dark',        light = 'nord-light' },
+  ['nordfox']    = { dark = 'nordfox',          light = 'nordfox' },
+  ['onedark']    = { dark = 'onedark',          light = 'onelight' },
+  ['rose-pine']  = { dark = 'rosepine',         light = 'rosepine-dawn' },
+  ['seoul256']   = { dark = 'seoul256',         light = 'seoul256' },
+  ['terafox']    = { dark = 'terafox',          light = 'terafox' },
+  ['tokyonight'] = { dark = 'tokyonight-storm', light = 'tokyonight-day' },
+  -- ['vscode']     = { dark = 'vscode-dark',      light = 'vscode-light' },
 }
 -- Map of kitty theme names to neovim colorscheme names
-local kitty_to_nvim = {}
-for k, v in pairs(nvim_to_kitty) do
-  kitty_to_nvim[v] = k
+local kitty_to_nvim = { dark = {}, light = {} }
+for nvim_color, kitty in pairs(nvim_to_kitty) do
+  kitty_to_nvim.dark[kitty.dark] = nvim_color
+  kitty_to_nvim.light[kitty.light] = nvim_color
 end
 -- Current kitty theme; Note: $1 is '##' and $2 is 'name:' and $3 is the kitty theme name
 local kitty_theme = os.getenv('TERM') == 'xterm-kitty' and vim.fn.trim(vim.fn.system("awk '/name/ {print substr($0, index($0,$3))}' ~/.config/kitty/current-theme.conf")) or nil
 
 
 
---[[ Toggle Transparency ]]
+--[[ Config Options ]]
 
-local SetTransparencyOpts = function()
-  -- Plugins that use lua setup
-  for k, v in pairs(transparent_opts_lua) do
-    vim.fn.execute("lua require('austin.config.colors." .. k .. "')" .. v .. " = " .. tostring(transparent_bg))
-    require(k).setup(require("austin.config.colors." .. k))
-  end
-  -- Plugins that use vim variable options
-  for _, v in pairs(transparent_opts_viml) do
-    vim.g[v] = transparent_bg
+local SetConfigOpts = function()
+  local config_dir_path = vim.api.nvim_get_runtime_file("lua/austin/config/colors/", true)[1]
+  for colorscheme, _ in pairs(nvim_to_kitty) do
+    local config_file_path = config_dir_path .. colorscheme .. ".lua"
+    if vim.fn.glob(config_file_path) ~= "" then
+      vim.cmd("source " .. config_file_path)
+    end
   end
 end
 
+
+
+--[[ Toggle Transparency ]]
+
 vim.api.nvim_create_user_command("ToggleTransparency", function()
-  transparent_bg = not transparent_bg
-  SetTransparencyOpts()
+  M.transparent = not M.transparent
+  SetConfigOpts()
   vim.cmd('colorscheme ' .. vim.g.colors_name)
 end, { nargs = 0 })
 
@@ -80,8 +69,8 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   pattern = {'*'},
   callback = function(arg)
     local nvim_colorscheme = arg.match
-    if nvim_colorscheme ~= kitty_to_nvim[kitty_theme] and os.getenv('TERM') == 'xterm-kitty' and nvim_to_kitty[nvim_colorscheme] ~= nil then
-      kitty_theme = nvim_to_kitty[nvim_colorscheme]
+    if nvim_colorscheme ~= kitty_to_nvim[vim.o.background][kitty_theme] and os.getenv('TERM') == 'xterm-kitty' and nvim_to_kitty[nvim_colorscheme] ~= nil then
+      kitty_theme = nvim_to_kitty[nvim_colorscheme][vim.o.background]
       os.execute('kitty +kitten themes --reload-in=all ' .. kitty_theme)
     end
   end,
@@ -94,14 +83,18 @@ vim.api.nvim_create_autocmd('ColorScheme', {
 
 -- Set colorscheme to kitty theme if possible, otherwise set to nord
 local SetInitialColorscheme = function()
-  SetTransparencyOpts()
-  if kitty_to_nvim[kitty_theme] ~= nil then
-    vim.cmd('colorscheme ' .. kitty_to_nvim[kitty_theme])
+  SetConfigOpts()
+  if kitty_to_nvim["light"][kitty_theme] ~= nil then
+    vim.o.background = "light"
+    vim.cmd('colorscheme ' .. kitty_to_nvim[vim.o.background][kitty_theme])
+  elseif kitty_to_nvim["dark"][kitty_theme] ~= nil then
+    vim.o.background = "dark"
+    vim.cmd('colorscheme ' .. kitty_to_nvim[vim.o.background][kitty_theme])
   else
     vim.cmd('colorscheme kanagawa')
   end
 end
--- SetInitialColorscheme()
+-- vim.schedule(SetInitialColorscheme)
 
 vim.api.nvim_create_augroup('InitialColorscheme', {clear = true})
 vim.api.nvim_create_autocmd('VimEnter', {
@@ -111,3 +104,5 @@ vim.api.nvim_create_autocmd('VimEnter', {
   callback = SetInitialColorscheme,
   desc = "Set initial colorscheme; setting on 'VimEnter' allows for highlights set by 'Colorscheme' autocmd to fire"
 })
+
+return M

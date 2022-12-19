@@ -1,7 +1,6 @@
 vim.g.material_style = "palenight"
 
-local M = {
-
+require('material').setup({
     contrast = {
         terminal = false, -- Enable contrast for the built-in terminal
         sidebars = false, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
@@ -44,7 +43,7 @@ local M = {
     disable = {
         colored_cursor = false, -- Disable the colored cursor
         borders = false, -- Disable borders between verticaly split windows
-        background = true, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+        background = require("austin.colors").transparent, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
         term_colors = false, -- Prevent the theme from setting terminal colors
         eob_lines = false -- Hide the end-of-buffer lines
     },
@@ -61,6 +60,4 @@ local M = {
     custom_colors = nil, -- If you want to everride the default colors, set this to a function
 
     custom_highlights = {}, -- Overwrite highlights with your own
-}
-
-return M
+})
