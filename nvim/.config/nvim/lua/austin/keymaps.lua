@@ -2,7 +2,7 @@ local keymap = vim.keymap.set
 local keys = {
   toggle_key = "-"
 }
-toggle = keys.toggle_key
+local toggle = keys.toggle_key
 
 -- Leader key {{{
 
@@ -189,36 +189,6 @@ keymap("x", ">", ">gv", {noremap = true})
 keymap("t", "<S-Esc>", "<C-\\><C-n>", {noremap = true})
 
 -- }}}
--- Custom text objects {{{
-
--- File text object
-keymap("x", "af", ":<C-u>normal! ggVG<CR>", {noremap = true, silent = true})
-
-keymap("o", "af", "<cmd>normal Vaf<CR>", {noremap = false})
-
-keymap("x", "if", ":<C-u>call MoveToLastNonBlankLine()|call MoveToFirstNonBlankLine()|normal! V''<CR>", {noremap = true, silent = true})
-
-keymap("o", "if", "<cmd>normal Vif<CR>", {noremap = false})
-
--- Line text object
-keymap ("x", "al", ":<C-u>normal! 0v$h<CR>", {noremap = true, silent = true})
-
-keymap("o", "al", "<cmd>normal Val<CR>", {noremap = false})
-
-keymap ("x", "il", ":<C-u>normal! ^vg_<CR>", {noremap = true, silent = true})
-
-keymap("o", "il", "<cmd>normal Vil<CR>", {noremap = false})
-
--- Fold text object
-keymap("x", "az", ":<C-u>normal! [zV]z<CR>", {noremap = true, silent = true})
-
-keymap("o", "az", "<cmd>normal Vaz<CR>", {noremap = false})
-
-keymap("x", "iz", ":<C-u>normal! [zjV]zk<CR>", {noremap = true, silent = true})
-
-keymap("o", "iz", "<cmd>normal Viz<CR>", {noremap = false})
-
--- }}}
 -- Misc {{{
 
 -- Unbind <CR> in command line window
@@ -269,20 +239,6 @@ vim.cmd [[
       let &l:concealevel = &l:concealevel ? 0 : 2
   endfunction
   command! ToggleConcealLevel call ToggleConcealLevel()
-
-  function! MoveToFirstNonBlankLine()
-      normal! gg
-      if empty(substitute(getline(line('.')), '\s', '', "g"))
-          call search('^\s*\S\+')
-      endif
-  endfunction
-
-  function! MoveToLastNonBlankLine()
-      normal! G
-      if empty(substitute(getline(line('.')), '\s', '', "g"))
-          call search('^\s*\S\+', 'b')
-      endif
-  endfunction
 ]]
 
 -- }}}

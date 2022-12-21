@@ -15,6 +15,7 @@ end
 require('austin.utils')
 require('austin.options')
 require('austin.keymaps')
+require('austin.text-objects')
 -- require('austin.waldo')
 require('austin.plugins')
 if not packer_bootstrap then
