@@ -612,7 +612,7 @@ Plug 'wellle/targets.vim'
 
 Plug 'markonm/traces.vim'
 
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 
 Plug 'vim-airline/vim-airline'
 
@@ -973,7 +973,7 @@ nmap <C-w><C-m> <Plug>(zoom-toggle)
 
 " let g:acp_enableAtStartup=0
 
-packadd AutoComplPop
+" packadd AutoComplPop
 
 " }}}
 " blank-line {{{
