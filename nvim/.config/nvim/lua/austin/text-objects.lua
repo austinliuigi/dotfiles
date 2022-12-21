@@ -3,7 +3,7 @@ local config = {
   -- table: list of strings that are consecutive viml commands
   -- function: return string type
   motions = {
-    ["f"] = {
+    ["F"] = {
       inside = {
         "lua require('austin.text-objects').MoveToFirstNonBlankLine()",
         "lua require('austin.text-objects').MoveToLastNonBlankLine()",
@@ -88,9 +88,9 @@ local SelectBetweenLiterals = function(type, char)
     end
   elseif first_char < cursor_col and last_char >= cursor_col then
     if type == "inside" then
-      string.format(":<C-u>normal! T%svt%s<CR>", char, char)
+      return string.format(":<C-u>normal! T%svt%s<CR>", char, char)
     elseif type == "around" then
-      string.format(":<C-u>normal! F%svf%s<CR>", char, char)
+      return string.format(":<C-u>normal! F%svf%s<CR>", char, char)
     end
   end
   return ""
