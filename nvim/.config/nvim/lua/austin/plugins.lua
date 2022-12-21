@@ -129,7 +129,7 @@ return require('packer').startup({
       module = 'telescope',
     }
     use {
-      'echasnovski/mini.nvim',
+      'echasnovski/mini.map',
       config = [[require("austin.config.mini-map")]]
     }
 
@@ -255,7 +255,7 @@ return require('packer').startup({
       config = [[require('austin.config.signature')]],
     }
 
-    -- Motions/Text Objects
+    -- Motions/Text Objects/Operators
     use {
       'ggandor/leap.nvim',
       requires = { 'ggandor/leap-spooky.nvim' },
@@ -266,8 +266,7 @@ return require('packer').startup({
       config = [[require('austin.config.wordmotion')]],
     }
     use {
-      'echasnovski/mini.ai',
-      config = [[require('austin.config.mini-ai')]],
+      'austinliuigi/staticyank.vim'
     }
 
     -- Org
@@ -389,6 +388,14 @@ return require('packer').startup({
       'nvim-treesitter/nvim-treesitter',
       config = [[require('austin.config.treesitter')]],
       run = ':TSUpdate',
+    }
+    use {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+      config = [[require('austin.config.treesitter-textobjects')]],
+    }
+    use {
+      'nvim-treesitter/playground',
+      config = [[require('austin.config.treesitter-playground')]],
     }
 
     -- UI
