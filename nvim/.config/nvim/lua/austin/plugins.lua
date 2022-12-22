@@ -278,7 +278,7 @@ return require('packer').startup({
       config = [[require('austin.config.neorg')]],
       ft = "norg",
       cmd = "Neorg",
-      run = ":Neorg sync-parsers",
+      run = ':if exists(":Neorg") | execute "Neorg sync-parsers" | endif',
     }
 
     -- Pairs
