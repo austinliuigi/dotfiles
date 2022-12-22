@@ -387,14 +387,16 @@ return require('packer').startup({
     use {
       'nvim-treesitter/nvim-treesitter',
       config = [[require('austin.config.treesitter')]],
-      run = ':TSUpdate',
+      run = 'require("nvim-treesitter.install").update({ with_sync = true })',
     }
     use {
       'nvim-treesitter/nvim-treesitter-textobjects',
+      requires = "nvim-treesitter/nvim-treesitter",
       config = [[require('austin.config.treesitter-textobjects')]],
     }
     use {
       'nvim-treesitter/playground',
+      requires = "nvim-treesitter/nvim-treesitter",
       config = [[require('austin.config.treesitter-playground')]],
     }
 

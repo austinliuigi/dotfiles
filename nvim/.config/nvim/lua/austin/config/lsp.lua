@@ -16,7 +16,7 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 
 -- Configure diagnostics
 local diagnostic_config = {
-  underline = true,
+  underline = false,
   virtual_text = false,
   virtual_lines = true,
   -- virtual_lines = { only_current_line = true },

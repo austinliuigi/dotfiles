@@ -49,7 +49,7 @@ require("nvim-tree").setup {
         { key = 'Y',      action = 'copy_absolute_path' },
         { key = '<C-y>',  action = 'copy' },
         { key = '<C-x>',  action = 'split' },
-        { key = '?',      action = 'toggle_help' }
+        { key = 'g?',      action = 'toggle_help' }
       },
     },
     float = {
