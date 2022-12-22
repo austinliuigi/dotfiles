@@ -2,7 +2,7 @@ local treesitter = require('nvim-treesitter.configs')
 
 treesitter.setup {
   auto_install = true,
-  ensure_installed = { "markdown", "norg", "org", "python" },
+  ensure_installed = { "markdown", "norg", "org", "python", "vim", },
   sync_install = true,
   highlight = {
     enable = true,
