@@ -196,6 +196,7 @@ return require('packer').startup({
     -- LSP
     use {
       'williamboman/mason.nvim',
+      after = "nvim-treesitter",
       config = [[require('austin.config.mason')]],
     }
     use {
