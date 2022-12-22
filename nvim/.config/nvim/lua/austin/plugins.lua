@@ -392,6 +392,7 @@ return require('packer').startup({
     use {
       'nvim-treesitter/nvim-treesitter-textobjects',
       requires = "nvim-treesitter/nvim-treesitter",
+      after = "nvim-treesitter",
       config = [[require('austin.config.treesitter-textobjects')]],
     }
     use {
