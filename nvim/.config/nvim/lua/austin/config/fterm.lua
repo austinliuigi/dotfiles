@@ -57,7 +57,7 @@ vim.api.nvim_create_user_command('FTermClose', require('FTerm').close, { bang = 
 vim.api.nvim_create_user_command('FTermExit', require('FTerm').exit, { bang = true })     -- close and remove terminal session
 vim.api.nvim_create_user_command('FTermToggle', require('FTerm').toggle, { bang = true }) -- toggle terminal (open/close)
 
-vim.keymap.set('n', '<A-CR>', function()
+vim.keymap.set('n', '<C-CR>', function()
   require("FTerm").open()
 end)
 
@@ -70,6 +70,6 @@ local lazygit = fterm:new({
         width = 0.9
     }
 })
-vim.keymap.set('n', '<A-g>', function()
-    lazygit:toggle()
-end)
+-- vim.keymap.set('n', '<M-g>', function()
+--     lazygit:toggle()
+-- end)
