@@ -324,7 +324,7 @@ return require('packer').startup({
     use {
       'hkupty/iron.nvim',
       config = [[require('austin.config.iron')]],
-      cmd = 'IronRepl',
+      -- cmd = 'IronRepl',
     }
     use {
       'untitled-ai/jupyter_ascending.vim',

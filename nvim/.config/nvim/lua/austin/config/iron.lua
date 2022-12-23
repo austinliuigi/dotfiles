@@ -1,5 +1,6 @@
 local iron = require("iron.core")
 local view = require("iron.view")
+local toggle = require("austin.keymaps").toggle_key
 
 iron.setup{
   config = {
@@ -23,7 +24,7 @@ iron.setup{
 
     repl_definition = {
       -- forcing a default
-      python = require("iron.fts.python").python,
+      python = require("iron.fts.python").python
       -- new, custom repl
       --[[ lua = {
         command = {"my-lua-repl", "-arg"}
@@ -43,7 +44,7 @@ iron.setup{
   -- All the keymaps are set individually
   keymaps = {
     -- send_motion = "<space>sc",
-    -- visual_send = "<space>sc",
+    visual_send = "<leader><right>",
     -- send_file = "<space>sf",
     -- send_line = "<space>sl",
     -- send_mark = "<space>sm",
@@ -62,3 +63,6 @@ iron.setup{
     italic = true
   }
 }
+
+vim.keymap.set("n", "<leader><CR>", "<cmd>IronRepl<CR><Esc>", { remap = false, silent = true })
+vim.keymap.set("n", toggle.."<CR>", "<cmd>IronRepl<CR><Esc>", { remap = false, silent = true })
