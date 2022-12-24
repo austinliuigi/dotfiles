@@ -69,9 +69,9 @@ keymap("n", "<leader><leader>b", ":ls<CR>:b<Space>", {noremap = true, silent = t
 -- }}}
 -- Argument list mappings {{{
 
-keymap("n", "]a", "<cmd>n<CR>", {noremap = true, silent = true})
+keymap("n", "]a", "<cmd>n!<CR>", {noremap = true, silent = true})
 
-keymap("n", "[a", "<cmd>N<CR>", {noremap = true, silent = true})
+keymap("n", "[a", "<cmd>N!<CR>", {noremap = true, silent = true})
 
 keymap("n", "<leader><leader>a", "<cmd>args<CR>", {noremap = true, silent = true})
 
