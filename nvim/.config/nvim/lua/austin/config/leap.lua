@@ -1,7 +1,20 @@
 -- Leap
-require('leap').setup {
-  -- Disable auto-jump
-  -- safe_labels = {}
+local leap = require("leap")
+leap.opts.max_phase_one_targets = nil
+leap.opts.highlight_unlabeled_phase_one_targets = false
+leap.opts.max_highlighted_traversal_targets = 10
+leap.opts.case_sensitive = false
+leap.opts.equivalence_classes = { '\r\n', }
+leap.opts.safe_labels = {}
+leap.opts.special_keys = {
+  repeat_search = '',
+  next_phase_one_target = '',
+  next_target = '',
+  prev_target = '',
+  next_group = '<Tab>',
+  prev_group = '<S-Tab>',
+  multi_accept = '',
+  multi_revert = '',
 }
 
 vim.keymap.set({'n'}, 's', '<Plug>(leap-forward-to)', { noremap = true })
