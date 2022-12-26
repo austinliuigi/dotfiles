@@ -34,7 +34,6 @@ require("nvim-tree").setup {
       list = {
         -- user mappings go here
         { key = '<CR>',   action = 'edit' },
-        { key = '<S-CR>', action = 'cd' },
         { key = 'cd',     action = 'cd' },
         { key = 'a',      action = 'create' },
         { key = 'd',      action = 'remove' },
@@ -43,13 +42,22 @@ require("nvim-tree").setup {
         { key = 'l',      action = 'edit' },
         { key = 'q',      action = 'close' },
         { key = 'r',      action = 'rename' },
+        { key = '<Tab>',  action = 'toggle_mark' },
+        { key = 'm', action = 'move', action_cb = function()
+          local marks = require("nvim-tree.marks").get_marks()
+          if #marks == 0 then
+            require("nvim-tree.actions.fs.rename-file").fn(":p")()
+          else
+            require("nvim-tree.marks.bulk-move").bulk_move()
+          end
+        end },
         { key = '<C-t>',  action = 'tabnew' },
         { key = '<C-v>',  action = 'vsplit' },
         { key = 'y',      action = 'copy_path' },
         { key = 'Y',      action = 'copy_absolute_path' },
         { key = '<C-y>',  action = 'copy' },
         { key = '<C-x>',  action = 'split' },
-        { key = 'g?',      action = 'toggle_help' }
+        { key = 'g?',     action = 'toggle_help' }
       },
     },
     float = {
