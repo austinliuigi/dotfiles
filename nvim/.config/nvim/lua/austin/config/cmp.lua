@@ -108,7 +108,7 @@ cmp.setup.cmdline(':', {
   -- },
   sources = {
     { name = 'path' },
-    { name = 'cmdline', max_item_count = 5 },
+    { name = 'cmdline', max_item_count = 10 },
     -- { name = 'cmdline_history', max_item_count = 2, keyword_length = 3 },
   },
   formatting = {

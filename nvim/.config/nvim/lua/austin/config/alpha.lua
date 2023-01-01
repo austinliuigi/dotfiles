@@ -68,7 +68,7 @@ dashboard.section.footer.val = footer()
 -- default: false (disabled)
 dashboard.config.opts.noautocmd = false
 
-vim.cmd[[autocmd User AlphaReady echo 'ready']]
+-- vim.cmd[[autocmd User AlphaReady echo 'ready']]
 
 --[[ Layout ]]
 local marginTopPercent = 0.15
