@@ -8,7 +8,10 @@ vim.api.nvim_create_augroup('IndentBlanklineCustomHighlight', {clear = true})
 vim.api.nvim_create_autocmd('ColorScheme', {
   group = 'IndentBlanklineCustomHighlight',
   pattern = {'*'},
-  command = 'hi! link IndentBlanklineContextChar Type',
+  callback = function()
+    vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", {link = "Type"})
+    vim.api.nvim_set_hl(0, "IndentBlanklineChar", {link = "Whitespace"})
+  end
 })
 
 vim.cmd('hi! link IndentBlanklineContextChar Type')
