@@ -15,3 +15,14 @@ vim.keymap.set({'n'}, '<leader>fm', '<cmd>lua require("telescope.builtin").man_p
 vim.keymap.set({'n'}, '<leader>fo', '<cmd>lua require("telescope.builtin").vim_options()<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>f/', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>', { noremap = true, silent = true })
 vim.keymap.set({'n'}, '<leader>f*', '<cmd>lua require("telescope.builtin").builtin()<CR>', { noremap = true, silent = true })
+vim.keymap.set({'n'}, '<C-/>', '<cmd>lua require("telescope.builtin").builtin()<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_create_augroup("TelescopeHighlights", {clear = true})
+vim.api.nvim_create_autocmd({ "ColorScheme" }, {
+  group   = "TelescopeHighlights",
+  pattern = {'*'},
+  callback = function()
+    vim.api.nvim_set_hl(0, "TelescopeMatching", {underline = true})
+  end,
+})
+
