@@ -1,4 +1,5 @@
 local ls = require('luasnip')
+local types = require("luasnip.util.types")
 
 require("luasnip.loaders.from_lua").load({paths = vim.fn.stdpath("config") .. "/snippets"})
 
@@ -7,16 +8,22 @@ ls.config.set_config {
   update_events = 'TextChanged,TextChangedI', -- update canges as you type
   enable_autosnippets = false,
   ext_opts = {
-    [require("luasnip.util.types").choiceNode] = {
-      active = {
-        virt_text = {{"●", "GruvboxOrange"}}
-      }
+    [types.insertNode] = {
+      passive = {
+        virt_text = {{"", "Normal"}}
+      },
+      visited = {
+        virt_text = {{""}}
+      },
     },
-    [require("luasnip.util.types").insertNode] = {
-      active = {
-        virt_text = {{"●", "GruvboxBlue"}}
-      }
-    }
+    [types.choiceNode] = {
+      passive = {
+        virt_text = {{"", "Normal"}}
+      },
+      visited = {
+        virt_text = {{""}}
+      },
+    },
   },
 }
 
