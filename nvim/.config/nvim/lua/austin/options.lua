@@ -23,11 +23,25 @@ vim.cmd([[
 ]])
 
 -- Highlight the line that the cursor is on
-vim.opt.cursorline = true
+vim.api.nvim_create_augroup("Cursorline", {clear = true})
+vim.api.nvim_create_autocmd({ "VimEnter", "BufWinEnter", "WinEnter" }, {
+  group   = "Cursorline",
+  pattern = {'*'},
+  callback = function()
+    vim.wo.cursorline = true
+  end,
+})
+vim.api.nvim_create_autocmd({ "WinLeave" }, {
+  group   = "Cursorline",
+  pattern = {'*'},
+  callback = function()
+    vim.wo.cursorline = false
+  end,
+})
 
 -- Show line numbers and make them relative to current line
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.number = false
+vim.opt.relativenumber = false
 
 -- Set vertical split window to appear on the right by default
 vim.opt.splitright = true
