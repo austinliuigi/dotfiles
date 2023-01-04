@@ -18,6 +18,16 @@ keymap({ "n", "x" }, "k", "v:count ? 'k' : 'gk'", {noremap = true, expr = true})
 
 keymap({ "n", "x" }, "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
 
+keymap({ "n", "x" }, "<leader><C-u>", function()
+  local count = math.floor(vim.fn.winheight(0)/4 + 0.5)
+  return count.."<C-u><cmd>set scroll=0<CR>"
+end, { remap = true, expr = true })
+
+keymap({ "n", "x" }, "<leader><C-d>", function()
+  local count = math.floor(vim.fn.winheight(0)/4 + 0.5)
+  return count.."<C-d><cmd>set scroll=0<CR>"
+end, { remap = true, expr = true })
+
 -- }}}
 -- Register mappings {{{
 
