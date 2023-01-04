@@ -150,7 +150,11 @@ keymap("n", toggle.."h", "v:hlsearch ? '<cmd>nohl<CR>' : '<cmd>set hlsearch<CR>'
 
 keymap("n", toggle.."L", "<cmd>ToggleSpaceChar<CR>", {noremap = true, silent = true})
 
-keymap("n", toggle.."n", "<cmd>set relativenumber!<CR>", {noremap = true, silent = true})
+keymap("n", toggle.."n", function()
+  local prev_num = vim.o.number
+  vim.o.number = not vim.o.relativenumber
+  vim.o.relativenumber = prev_num and vim.o.number
+end, {noremap = true, silent = true})
 
 keymap("n", toggle.."v", "empty(&virtualedit) ? '<cmd>set virtualedit+=all<CR>' : '<cmd>set virtualedit-=all<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
 
@@ -169,7 +173,7 @@ end, {noremap = true, silent = true})
 
 keymap("n", "<leader>!", "<cmd>so %<CR><cmd>echohl GitSignsAdd | echo 'Sourced :)' | echohl None<CR>", {noremap = true, silent = false})
 
-keymap("n", "<esc>", "<cmd>nohl<CR>", {noremap = true, silent = true})
+keymap("n", "<esc>", "<cmd>nohl<CR><cmd>echo ''<CR>", {noremap = true, silent = true})
 
 keymap("n", "<leader>p", "<cmd>put<CR>", {noremap = true, silent = true})
 
@@ -188,6 +192,8 @@ keymap("i", "<CR>", "pumvisible() ? '<C-e><CR>' : '<CR>'", {noremap = true, expr
 
 -- }}}
 -- Visual mode mappings {{{
+
+keymap("x", "$", "g_", {noremap = true})
 
 keymap("x", "<", "<gv", {noremap = true})
 
