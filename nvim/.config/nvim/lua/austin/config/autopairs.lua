@@ -1,7 +1,7 @@
 require('nvim-autopairs').setup {
   check_ts = true,
   break_undo = false,
-  ignored_next_char = "",
+  ignored_next_char = "[%w%d]",
 }
 
 -- Insert `(` after completing function or method item
