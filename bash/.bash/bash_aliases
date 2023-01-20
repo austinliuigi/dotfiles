@@ -18,8 +18,15 @@ alias ll='ls -AFl'
 alias grep='grep --color=auto'
 
 # Git
-
-alias gs='git status'
+alias ga="git add"
+alias gb="git branch"
+alias gc="git commit"
+alias gd="git diff"
+alias gf="git fetch"
+alias gco="git checkout"
+alias gs="git status"
+alias gl="git log"
+alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 
 alias cdr='cd "$(git rev-parse --show-toplevel)"'
 
@@ -29,6 +36,9 @@ alias config='[ -d ~/dotfiles ] && cd ~/dotfiles || echo "~/dotfiles does not ex
 
 alias :q='exit'
 
-# alias fuk='sudo !!'
+# alias oops='sudo $(fc -nl -1)'
+function oops() {
+    sudo $(fc -nl -1)
+}
 
 # vim:ft=bash
