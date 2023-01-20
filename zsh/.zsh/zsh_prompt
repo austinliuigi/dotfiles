@@ -78,9 +78,14 @@ function venvPromptUpdate () {
     # Initialize venv prompt
     typeset -g VENV_PROMPT=''
 
+    # Set prompt for conda
+    if [[ "${CONDA_DEFAULT_ENV}" ]]; then
+	    VENV_PROMPT="(${CONDA_DEFAULT_ENV})-"
+    fi
+
     # Set prompt for virtual environments
     if [[ "${VIRTUAL_ENV}" ]]; then
-	    VENV_PROMPT="(venv)-"
+	    VENV_PROMPT="(${VIRTUAL_ENV})-"
     fi
 }
 
@@ -111,7 +116,7 @@ function gitstatusPromptUpdate () {
 
     # Initialize temporary git prompt holder
     local p
-    local branch_color='%F{188}'
+    local branch_color="$PROMPT_COLOR_BRANCH"
 
     # Determine location of HEAD
     local where  # branch name, tag or commit
@@ -154,6 +159,10 @@ function gitstatusPromptUpdate () {
     GITSTATUS_PROMPT="-${p}${branch_color}]%f"
 }
 
+PROMPT_COLOR_USER='%F{152}'
+PROMPT_COLOR_PATH='%F{181}'
+PROMPT_COLOR_BRANCH='%F{188}'
+
 function setPrompt () {
     # Use default zsh options
     emulate -L zsh
@@ -169,8 +178,8 @@ function setPrompt () {
 
     # Set prompt information
     local default_color='%F{white}'
-    local user_color='%F{152}'
-    local path_color='%F{181}'
+    local user_color="$PROMPT_COLOR_USER"
+    local path_color="$PROMPT_COLOR_PATH"
 
     local top_left=$'\n'"${default_color}╭─${SSH_PROMPT}${VENV_PROMPT}${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color}${GITSTATUS_PROMPT}${default_color}"
     local top_right="%@ ${default_color}─╮"
@@ -193,9 +202,9 @@ add-zsh-hook precmd setPrompt
 
 function setTransientPrompt () {
     local default_color='%F{white}'
-    local user_color='%F{152}'
-    local path_color='%F{181}'
-    local branch_color='%F{178}'
+    local user_color="$PROMPT_COLOR_USER"
+    local path_color="$PROMPT_COLOR_PATH"
+    local branch_color="$PROMPT_COLOR_BRANCH"
 
     # PROMPT=$'\n'"${default_color}» ${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color} ᛋ "
     PROMPT=$'\n'"${default_color}╭─${SSH_PROMPT}${VENV_PROMPT}${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${branch_color}${GITSTATUS_PROMPT}${default_color}"$'\n'"${default_color}╰─ %F{white}ᛋ %f"
