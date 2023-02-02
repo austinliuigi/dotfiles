@@ -147,9 +147,9 @@ keymap({"n", "i", "t"}, "<C-l>", "<cmd>wincmd l<CR>", {noremap = true})
 -- }}}
 -- Tab mappings {{{
 
-keymap({"n", "i", "t"}, "<A-h>", "<cmd>tabprev<CR>", {noremap = true, silent = true})
+keymap({"n", "i", "t"}, "<C-[>", "<cmd>tabprev<CR>", {noremap = true, silent = true})
 
-keymap({"n", "i", "t"}, "<A-l>", "<cmd>tabnext<CR>", {noremap = true, silent = true})
+keymap({"n", "i", "t"}, "<C-]>", "<cmd>tabnext<CR>", {noremap = true, silent = true})
 
 keymap("n", "<C-t>L", "<cmd>+tabmove<CR>", {noremap = true, silent = true})
 
@@ -271,6 +271,16 @@ vim.cmd [[
   command! ToggleConcealLevel call ToggleConcealLevel()
 ]]
 
+-- }}}
+
+-- Conflict Mappings {{{
+  -- for _, mode in ipairs({"n", "v", "o", "i", "c", "s", "x", "l", "t"}) do
+  --   local mapping = vim.fn.maparg("<esc>", mode)
+  --   if mapping == vim.fn.maparg("<C-[>", mode) and mapping ~= "" then
+  --     vim.keymap.del(mode, "<esc>", {})
+  --   end
+  -- end
+  vim.keymap.del({"i", "t"}, "<esc>", {})
 -- }}}
 
 return keys
