@@ -28,6 +28,20 @@ keymap({ "n", "x" }, "<leader><C-d>", function()
   return count.."<C-d><cmd>set scroll=0<CR>"
 end, { remap = true, expr = true })
 
+keymap({ "n", "x" }, "<leader>/", function()
+  local cursor_line = vim.fn.line(".")
+  local win_bot_line = vim.fn.line("w$")
+
+  return "/\\%>"..(cursor_line-1).."l\\%<"..(win_bot_line+1).."l"
+end, {remap = false, expr = true})
+
+keymap({ "n", "x" }, "<leader>?", function()
+  local win_top_line = vim.fn.line("w0")
+  local cursor_line = vim.fn.line(".")
+
+  return "/\\%>"..(win_top_line-1).."l\\%<"..(cursor_line+1).."l"
+end, {remap = false, expr = true})
+
 -- }}}
 -- Register mappings {{{
 
