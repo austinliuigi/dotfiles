@@ -32,6 +32,18 @@ require('neorg').setup {
         },
       },
 
+      ["core.export"] = {
+        config = {
+          export_dir = "<export-dir>/<language>-export"
+        }
+      },
+
+      ["core.export.markdown"] = {
+        config = {
+          extensions = "all"
+        }
+      }
+
       -- ["core.gtd.base"] = {
       --   config = {
       --     workspace = "gtd",

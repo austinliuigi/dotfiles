@@ -12,9 +12,9 @@ leap.opts.equivalence_classes = {
 leap.opts.safe_labels = {}
 leap.opts.special_keys = {
   repeat_search = '<C-.>',
-  next_phase_one_target = '', -- go to next target in phase 1 (after pressing <char1>)
-  next_target = '', -- go to next target in phase 2 (after pressing <char2>)
-  prev_target = '', -- reverse last "next_phase_one_target or next target" jump
+  next_phase_one_target = '<C-n>', -- go to next target in phase 1 (after pressing <char1>)
+  next_target = '<C-n>', -- go to next target in phase 2 (after pressing <char2>)
+  prev_target = '<C-p>', -- reverse last "next_phase_one_target or next target" jump
   next_group = '<Tab>',
   prev_group = '<S-Tab>',
   multi_accept = '',
@@ -22,65 +22,65 @@ leap.opts.special_keys = {
 }
 
 -- Mappings
--- vim.keymap.set({'n'}, 's', '<Plug>(leap-forward-to)', { noremap = true })
--- vim.keymap.set({'n'}, 'S', '<Plug>(leap-backward-to)', { noremap = true })
--- vim.keymap.set({'x', 'o'}, 's', function() require('leap').leap({ offset = 0, inclusive_op = true }) end, { noremap = true })
--- vim.keymap.set({'x', 'o'}, 'S', function() require('leap').leap({ offset = 0, inclusive_op = true, backward = true }) end, { noremap = true })
--- vim.keymap.set({'x', 'o'}, 'x', function() require('leap').leap({ offset = -1, inclusive_op = true }) end, { noremap = true })
--- vim.keymap.set({'x', 'o'}, 'X', function() require('leap').leap({ offset = 1, inclusive_op = true, backward = true }) end, { noremap = true })
+vim.keymap.set({'n'}, 's', '<Plug>(leap-forward-to)', { noremap = true })
+vim.keymap.set({'n'}, 'S', '<Plug>(leap-backward-to)', { noremap = true })
+vim.keymap.set({'x', 'o'}, 's', function() require('leap').leap({ offset = 0, inclusive_op = true }) end, { noremap = true })
+vim.keymap.set({'x', 'o'}, 'S', function() require('leap').leap({ offset = 0, inclusive_op = true, backward = true }) end, { noremap = true })
+vim.keymap.set({'x', 'o'}, 'x', function() require('leap').leap({ offset = -1, inclusive_op = true }) end, { noremap = true })
+vim.keymap.set({'x', 'o'}, 'X', function() require('leap').leap({ offset = 1, inclusive_op = true, backward = true }) end, { noremap = true })
 
-vim.keymap.set({'n', 'x'}, 's', function()
-  require("leap").leap({
-    target_windows = { vim.fn.win_getid() },
-    inclusive_op = true
-  })
-end, { noremap = true })
-
-vim.keymap.set({'o'}, 's', function()
-  local pre_leap_pos = vim.fn.getpos(".")
-  require("leap").leap({
-    target_windows = { vim.fn.win_getid() },
-    inclusive_op = true
-  })
-  local post_leap_pos = vim.fn.getpos(".")
-
-  -- If jumping behind original position
-  if (pre_leap_pos[2] > post_leap_pos[2]) or ((pre_leap_pos[2] == post_leap_pos[2]) and (pre_leap_pos[3] > post_leap_pos[3])) then
-    vim.cmd("normal! h")
-  end
-end, { remap = false })
-
-vim.keymap.set({'x'}, 'x', function()
-  local pre_leap_pos = vim.fn.getpos(".")
-  require("leap").leap({
-    target_windows = { vim.fn.win_getid() },
-    inclusive_op = true
-  })
-  local post_leap_pos = vim.fn.getpos(".")
-
-  -- If jumping behind original position
-  if (pre_leap_pos[2] > post_leap_pos[2]) or ((pre_leap_pos[2] == post_leap_pos[2]) and (pre_leap_pos[3] > post_leap_pos[3])) then
-    vim.cmd("normal! l")
-  else
-    vim.cmd("normal! h")
-  end
-end, { remap = false })
-
-vim.keymap.set({'o'}, 'x', function()
-  local pre_leap_pos = vim.fn.getpos(".")
-  require("leap").leap({
-    target_windows = { vim.fn.win_getid() },
-    inclusive_op = true
-  })
-  local post_leap_pos = vim.fn.getpos(".")
-
-  -- If jumping forward from original position
-  if (pre_leap_pos[2] > post_leap_pos[2]) or ((pre_leap_pos[2] == post_leap_pos[2]) and (pre_leap_pos[3] < post_leap_pos[3])) then
-    vim.cmd("normal! h")
-  end
-end, { remap = false })
-
-vim.keymap.set({'n', 'x', 'o'}, 'S', '<Plug>(leap-cross-window)', { noremap = true })
+-- vim.keymap.set({'n', 'x'}, 's', function()
+--   require("leap").leap({
+--     target_windows = { vim.fn.win_getid() },
+--     inclusive_op = true
+--   })
+-- end, { noremap = true })
+--
+-- vim.keymap.set({'o'}, 's', function()
+--   local pre_leap_pos = vim.fn.getpos(".")
+--   require("leap").leap({
+--     target_windows = { vim.fn.win_getid() },
+--     inclusive_op = true
+--   })
+--   local post_leap_pos = vim.fn.getpos(".")
+--
+--   -- If jumping behind original position
+--   if (pre_leap_pos[2] > post_leap_pos[2]) or ((pre_leap_pos[2] == post_leap_pos[2]) and (pre_leap_pos[3] > post_leap_pos[3])) then
+--     vim.cmd("normal! h")
+--   end
+-- end, { remap = false })
+--
+-- vim.keymap.set({'x'}, 'x', function()
+--   local pre_leap_pos = vim.fn.getpos(".")
+--   require("leap").leap({
+--     target_windows = { vim.fn.win_getid() },
+--     inclusive_op = true
+--   })
+--   local post_leap_pos = vim.fn.getpos(".")
+--
+--   -- If jumping behind original position
+--   if (pre_leap_pos[2] > post_leap_pos[2]) or ((pre_leap_pos[2] == post_leap_pos[2]) and (pre_leap_pos[3] > post_leap_pos[3])) then
+--     vim.cmd("normal! l")
+--   else
+--     vim.cmd("normal! h")
+--   end
+-- end, { remap = false })
+--
+-- vim.keymap.set({'o'}, 'x', function()
+--   local pre_leap_pos = vim.fn.getpos(".")
+--   require("leap").leap({
+--     target_windows = { vim.fn.win_getid() },
+--     inclusive_op = true
+--   })
+--   local post_leap_pos = vim.fn.getpos(".")
+--
+--   -- If jumping forward from original position
+--   if (pre_leap_pos[2] > post_leap_pos[2]) or ((pre_leap_pos[2] == post_leap_pos[2]) and (pre_leap_pos[3] < post_leap_pos[3])) then
+--     vim.cmd("normal! h")
+--   end
+-- end, { remap = false })
+--
+-- vim.keymap.set({'n', 'x', 'o'}, 'S', '<Plug>(leap-cross-window)', { noremap = true })
 
 
 

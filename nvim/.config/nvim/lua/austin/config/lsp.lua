@@ -16,18 +16,19 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.s
 
 -- Configure diagnostics
 local diagnostic_config = {
-  underline = false,
-  virtual_text = true,
+  underline = true,
+  virtual_text = false,
   virtual_lines = false,
   -- virtual_lines = { only_current_line = true },
-  signs = false,
-  -- signs = {
-  --   priority = 8
-  -- },
+  -- signs = false,
+  signs = {
+    priority = 8
+  },
   update_in_insert = false,
   severity_sort = true,
   float = {
     scope = 'line',
+    border = 'rounded',
     header = '',
     source = true,
     prefix = '',
@@ -52,19 +53,21 @@ end
 local on_attach = function(client, bufnr)
   -- Set lsp keymaps
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', '\\d', vim.diagnostic.open_float, bufopts)
+  vim.keymap.set('n', toggle..'d', vim.diagnostic.open_float, bufopts)
   vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, bufopts)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', toggle..'d', function()
+  vim.keymap.set('n', toggle..'D', function()
+    local prev_underline = diagnostic_config.underline
     local prev_text = diagnostic_config.virtual_text
     local prev_lines = diagnostic_config.virtual_lines
 
-    diagnostic_config.virtual_text = prev_lines
-    diagnostic_config.virtual_lines = not (prev_text or prev_lines)
+    diagnostic_config.underline = not (prev_underline or prev_text or prev_lines)
+    diagnostic_config.virtual_text = prev_underline
+    diagnostic_config.virtual_lines = prev_text
 
     vim.diagnostic.config(diagnostic_config)
   end, bufopts)

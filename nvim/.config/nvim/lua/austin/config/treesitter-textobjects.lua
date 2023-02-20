@@ -10,12 +10,12 @@ require'nvim-treesitter.configs'.setup {
         -- You can use the capture groups defined in textobjects.scm
         ["ia"] = "@parameter.inner",
         ["aa"] = "@parameter.outer",
-        ["if"] = "@function.inner",
-        ["af"] = "@function.outer",
+        -- ["if"] = "@function.inner",
+        -- ["af"] = "@function.outer",
         -- You can optionally set descriptions to the mappings (used in the desc parameter of
         -- nvim_buf_set_keymap) which plugins like which-key display
-        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-        ["ac"] = { query = "@class.outer", desc = "Select outer part of a class region"},
+        -- ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+        -- ["ac"] = { query = "@class.outer", desc = "Select outer part of a class region"},
       },
 
       -- You can choose the select mode (default is charwise 'v')
@@ -27,9 +27,9 @@ require'nvim-treesitter.configs'.setup {
       -- mapping query_strings to modes.
       selection_modes = {
         ['@parameter.outer'] = 'v', -- charwise
-        ['@function.inner'] = 'V', -- linewise
-        ['@function.outer'] = 'V', -- linewise
-        ['@class.outer'] = '<c-v>', -- blockwise
+        -- ['@function.inner'] = 'V', -- linewise
+        -- ['@function.outer'] = 'V', -- linewise
+        -- ['@class.outer'] = '<c-v>', -- blockwise
       },
 
       -- If you set this to `true` (default is `false`) then any textobject is

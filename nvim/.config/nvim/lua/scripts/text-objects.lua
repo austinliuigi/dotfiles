@@ -1,13 +1,16 @@
 local config = {
   -- string: keys to press in normal mode to visually select region
-  -- table: list of strings that are consecutive viml commands
+  -- table: list of strings that are consecutive viml commands; visually selects region
   -- function: return string type
   motions = {
-    ["F"] = {
+    ["f"] = {
       inside = {
-        "lua require('austin.text-objects').MoveToFirstNonBlankLine()",
-        "lua require('austin.text-objects').MoveToLastNonBlankLine()",
-        "normal! V''",
+        "lua require('scripts.text-objects').MoveToFirstNonBlankLine()",
+        "normal! V",
+        "lua require('scripts.text-objects').MoveToLastNonBlankLine()",
+        -- "execute(nextnonblank(1))",
+        -- "normal! V",
+        -- "execute(prevnonblank(line('$')))",
       },
       around = "ggVG"
     },
@@ -36,7 +39,6 @@ local config = {
     ':', ';',
     '.', ',',
     '/', '?',
-    ' ',
   }
 }
 

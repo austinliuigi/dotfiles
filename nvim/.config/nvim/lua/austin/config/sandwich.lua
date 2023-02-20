@@ -1,6 +1,6 @@
 vim.keymap.set({'n'}, 'gs', '<Plug>(sandwich-add)', { noremap = true })
-vim.keymap.set({'n'}, 'gsd', '<Plug>(sandwich-delete)', { noremap = true })
-vim.keymap.set({'n'}, 'gsc', '<Plug>(sandwich-replace)', { noremap = true })
+vim.keymap.set({'n'}, 'dz', '<Plug>(sandwich-delete)', { noremap = true })
+vim.keymap.set({'n'}, 'cz', '<Plug>(sandwich-replace)', { noremap = true })
 vim.keymap.set({'x'}, 'gs', '<Plug>(sandwich-add)', { noremap = true })
 
 vim.cmd('runtime autoload/repeat.vim')

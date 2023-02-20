@@ -1,7 +1,7 @@
 require("indent_blankline").setup {
-  show_current_context = true, -- color line cursor is in differently
+  show_current_context = false, -- color line cursor is highlighted differently
   show_current_context_start = false, -- underline beginning of context
-  show_end_of_line = true, -- show eol char
+  show_end_of_line = false,
 }
 
 vim.api.nvim_create_augroup('IndentBlanklineCustomHighlight', {clear = true})

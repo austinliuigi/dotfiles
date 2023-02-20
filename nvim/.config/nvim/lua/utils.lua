@@ -18,17 +18,15 @@ end
 
 -- Copy output of command into given register
 -- If no registers are given, use default ones
--- e.g. `Cp "echo 'hello' "a`
+-- e.g. `Cp "echo 'hello'" "a`
 vim.api.nvim_create_user_command("Cp", function(args)
   local fargs = args.fargs
 
-  -- Register passed in as arg (including quote); nil if none provided
-  local provided_reg = string.match(fargs[#fargs], '".')
-
   -- If a register was explicity given
-  if provided_reg ~= nil then
+  if #fargs[#fargs] == 2 and string.match(fargs[#fargs], '".') then
     -- Remove last element in fargs (provided register) and set the last char to reg
     local reg = string.sub(table.remove(fargs), -1, -1)
+    print(reg)
     -- Redirect output of command to given register
     vim.cmd('redir @' .. reg .. ' | execute ' .. table.concat(args.fargs, " ") .. ' | redir END')
   else
@@ -46,6 +44,17 @@ end, { nargs = "+" })
 
 vim.api.nvim_create_user_command("Cd", function(args)
   vim.cmd("tcd %:p:h")
+end, { nargs = 0 })
+
+vim.api.nvim_create_user_command("Cdr", function(args)
+  local buffer_dir = vim.fn.expand("%:p:h")
+  local project_root = vim.fn.trim(vim.fn.system(string.format("cd %s; git rev-parse --show-toplevel", buffer_dir)))
+  local msg_hl = "Error"
+  if not project_root:find("fatal") then
+    vim.cmd("tcd "..project_root)
+    msg_hl = "Type"
+  end
+  vim.api.nvim_echo({ { project_root, msg_hl } }, true, {})
 end, { nargs = 0 })
 
 vim.api.nvim_create_user_command("StripTrailing", function(args)

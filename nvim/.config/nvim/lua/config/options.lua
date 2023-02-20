@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd({ "WinLeave" }, {
 })
 
 -- Show line numbers and make them relative to current line
-vim.opt.number = false
+vim.opt.number = true
 vim.opt.relativenumber = false
 
 -- Set vertical split window to appear on the right by default
@@ -134,6 +134,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank{higroup="IncSearch", timeout=700}
   end
 })
+
+vim.api.nvim_create_autocmd('ColorScheme', {
+  pattern = {'*'},
+  callback = function()
+    vim.api.nvim_set_hl(0, "WinSeparator", {link = "Type"})
+  end
+})
 -- }}}
 -- Whitespace {{{
 -- Indent to previous lines indentation
@@ -145,6 +152,9 @@ vim.opt.listchars = {tab = '▸ ',eol = '↴', precedes = '‹', extends = '›'
 
 -- Set modes where conceal chars can be hidden on cursor line
 vim.opt.concealcursor = ''
+
+-- Set conceal level
+vim.o.conceallevel = 2
 
 -- Make wrapped lines have same indentation as original line
 vim.opt.breakindent = true

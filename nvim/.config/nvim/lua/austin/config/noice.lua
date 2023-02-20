@@ -24,7 +24,7 @@ require("noice").setup {
     -- NOTE: If you enable messages, then the cmdline is enabled automatically.
     -- This is a current Neovim limitation.
     enabled = false, -- enables the Noice messages UI
-    view = "notify", -- default view for messages
+    view = "popup", -- default view for messages
     view_error = "mini", -- view for errors
     view_warn = "mini", -- view for warnings
     view_history = "messages", -- view for :messages
@@ -174,7 +174,7 @@ require("noice").setup {
     -- you can also add custom presets that you can enable/disable with enabled=true
     bottom_search = false, -- use a classic bottom cmdline for search
     command_palette = false, -- position the cmdline and popupmenu together
-    long_message_to_split = true, -- long messages will be sent to a split
+    long_message_to_split = false, -- long messages will be sent to a split
     inc_rename = false, -- enables an input dialog for inc-rename.nvim
     lsp_doc_border = false, -- add a border to hover docs and signature help
   },
@@ -185,9 +185,13 @@ require("noice").setup {
   ---@type NoiceRouteConfig[]
   routes = {
     {
-    view = "mini",
-    filter = { event = "msg_showmode" },
-    }
+      view = "mini",
+      filter = { event = "msg_showmode" },
+    },
+    {
+      view = "split",
+      filter = { event = "msg_show", min_height = 20 },
+    },
   }, --- @see section on routes
   ---@type table<string, NoiceFilter>
   status = {}, --- @see section on statusline components

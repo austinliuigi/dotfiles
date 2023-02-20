@@ -8,8 +8,9 @@ dap.defaults.fallback.external_terminal = {
 -- Debugpy
 dap.adapters.python = {
   type = "executable",
-  command = "python",
-  args = { "-m", "debugpy.adapter" },
+  command = "debugpy-adapter",
+  -- command = "python",
+  -- args = { "-m", "debugpy.adapter" },
 }
 
 dap.configurations.python = {
@@ -20,16 +21,18 @@ dap.configurations.python = {
     name = "Launch file",
     program = "${file}",
     pythonPath = function()
-      local mason_path = require("mason-core.package"):get_install_path() .. "/debugpy/venv"
-      if vim.fn.isdirectory(mason_path) ~= 0 then
-        return mason_path .. "/bin/python"
-      end
-      local venv_path = vim.fn.getenv("VIRTUAL_ENV")
-      if venv_path ~= vim.NIL and venv_path ~= '' then
+      local venv_path = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_PREFIX")
+      local default_python3 = vim.fn.trim(vim.fn.system("command -v python3"))
+      local default_python = vim.fn.trim(vim.fn.system("command -v python"))
+
+      if venv_path ~= nil and venv_path ~= '' then
         return venv_path .. "/bin/python"
-      else
-        return "/usr/bin/python"
+      elseif default_python3 ~= "" then
+        return default_python3
+      elseif default_python ~= "" then
+        return default_python
       end
+      return nil
     end,
     console = "integratedTerminal",
   },
