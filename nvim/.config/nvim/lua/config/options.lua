@@ -116,15 +116,6 @@ vim.api.nvim_create_autocmd('Syntax', {
   desc = "Highlight TODO everywhere (not just in comments) for text and markdown files"
 })
 
--- Re-source filetype specific highlighting after changing colorschemes
---[[ vim.api.nvim_create_augroup('FiletypeHLReSource', {clear = true})
-vim.api.nvim_create_autocmd('Colorscheme', {
-  command = 'let &filetype = &filetype',
-  group = 'FiletypeHLReSource',
-  pattern = {'*'},
-  desc = "Re-source filetype specific highlighting after changing colorschemes"
-}) ]]
-
 -- Highlight yanked text
 vim.api.nvim_create_augroup('HighlightYank', {clear = true})
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -135,12 +126,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end
 })
 
-vim.api.nvim_create_autocmd('ColorScheme', {
-  pattern = {'*'},
-  callback = function()
-    vim.api.nvim_set_hl(0, "WinSeparator", {link = "Type"})
-  end
-})
 -- }}}
 -- Whitespace {{{
 -- Indent to previous lines indentation
@@ -206,16 +191,14 @@ vim.opt.fillchars:append({diff = '╱'})
 vim.opt.diffopt:append('algorithm:histogram')
 -- }}}
 -- Terminal {{{
-  vim.api.nvim_create_augroup("TermBufInsertOnEnter", {clear = true})
-  vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-    group = "TermBufInsertOnEnter",
-    pattern = {"*"},
-    callback = function()
-      if vim.o.buftype == "terminal" then
-        vim.cmd("startinsert")
-      end
-    end
-  })
+  -- vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+  --   pattern = {"*"},
+  --   callback = function()
+  --     if vim.o.buftype == "terminal" then
+  --       vim.cmd("startinsert")
+  --     end
+  --   end
+  -- })
 -- }}}
 -- Timeout {{{
 -- Wait indefinitely for a mapping, but a set time for key-codes

@@ -1,10 +1,8 @@
--- local colors = require("austin.colors")
-
 require("config.keymaps")
 require("config.options")
+require("config.highlights")
 require("config.colors")
 require("config.lazy")
 require("utils")
 require("scripts.lastplace")
 require("scripts.text-objects")
--- require("austin.packer")

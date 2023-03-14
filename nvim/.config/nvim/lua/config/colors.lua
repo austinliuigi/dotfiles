@@ -37,6 +37,7 @@ local nvim_to_kitty = {
   ['seoul256']   = { dark = 'seoul256',         light = 'seoul256' },
   ['terafox']    = { dark = 'terafox',          light = 'terafox' },
   ['tokyonight'] = { dark = 'tokyonight-storm', light = 'tokyonight-day' },
+  ['everforest'] = { dark = 'everforest-dark',  light = 'everforest-light'}
   -- ['vscode']     = { dark = 'vscode-dark',      light = 'vscode-light' },
 }
 -- Map of kitty theme names to neovim colorscheme names

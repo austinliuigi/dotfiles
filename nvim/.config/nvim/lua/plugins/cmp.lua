@@ -4,7 +4,7 @@ local nvim_autopairs = {
     require('nvim-autopairs').setup {
       check_ts = true,
       break_undo = false,
-      ignored_next_char = "[%w%d]",
+      ignored_next_char = "[%S]",
     }
 
     -- Insert `(` after completing function or method item
@@ -33,33 +33,33 @@ local nvim_autopairs = {
     )
 
     -- Insert extra space
-    local npairs = require'nvim-autopairs'
-    local Rule   = require'nvim-autopairs.rule'
-    npairs.add_rules {
-      Rule(' ', ' ')
-        :with_pair(function (opts)
-          local pair = opts.line:sub(opts.col - 1, opts.col)
-          return vim.tbl_contains({ '()', '[]', '{}' }, pair)
-        end),
-      Rule('( ', ' )')
-          :with_pair(function() return false end)
-          :with_move(function(opts)
-              return opts.prev_char:match('.%)') ~= nil
-          end)
-          :use_key(')'),
-      Rule('{ ', ' }')
-          :with_pair(function() return false end)
-          :with_move(function(opts)
-              return opts.prev_char:match('.%}') ~= nil
-          end)
-          :use_key('}'),
-      Rule('[ ', ' ]')
-          :with_pair(function() return false end)
-          :with_move(function(opts)
-              return opts.prev_char:match('.%]') ~= nil
-          end)
-          :use_key(']')
-    }
+    -- local npairs = require'nvim-autopairs'
+    -- local Rule   = require'nvim-autopairs.rule'
+    -- npairs.add_rules {
+    --   Rule(' ', ' ')
+    --     :with_pair(function (opts)
+    --       local pair = opts.line:sub(opts.col - 1, opts.col)
+    --       return vim.tbl_contains({ '()', '[]', '{}' }, pair)
+    --     end),
+    --   Rule('( ', ' )')
+    --       :with_pair(function() return false end)
+    --       :with_move(function(opts)
+    --           return opts.prev_char:match('.%)') ~= nil
+    --       end)
+    --       :use_key(')'),
+    --   Rule('{ ', ' }')
+    --       :with_pair(function() return false end)
+    --       :with_move(function(opts)
+    --           return opts.prev_char:match('.%}') ~= nil
+    --       end)
+    --       :use_key('}'),
+    --   Rule('[ ', ' ]')
+    --       :with_pair(function() return false end)
+    --       :with_move(function(opts)
+    --           return opts.prev_char:match('.%]') ~= nil
+    --       end)
+    --       :use_key(']')
+    -- }
   end
 }
 
@@ -74,7 +74,7 @@ return {
       'hrsh7th/cmp-calc',
       'hrsh7th/cmp-cmdline',
       'dmitmel/cmp-cmdline-history',
-      'rcarriga/cmp-dap',
+      -- 'rcarriga/cmp-dap',
       -- 'dmitmel/cmp-digraphs',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-nvim-lsp',
@@ -87,8 +87,9 @@ return {
 
       cmp.setup {
         enabled = function()
+          local dap_loaded, dap pcall(require, "cmp_dap")
           return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-              or require("cmp_dap").is_dap_buffer()
+              or (dap_loaded and dap.is_dap_buffer())
         end,
         completion = {
           completeopt = 'menu,menuone,noinsert'

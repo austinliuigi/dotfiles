@@ -1,71 +1,5 @@
 return {
   {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    dependencies = {
-      "nvim-lua/plenary.nvim"
-    },
-    opts = {
-      load = {
-        ["core.defaults"] = {
-          config = {}
-        },
-
-        ["core.keybinds"] = {
-            config = {
-                default_keybinds = true,
-                neorg_leader = "\\",
-            }
-        },
-
-        ["core.norg.concealer"] = {
-          config = { -- Note that this table is optional and doesn't need to be provided
-            icon_preset = "diamond",
-            -- icons = nil,
-            -- dim_code_blocks = nil,
-            content_only = true,
-            adaptive = true,
-            width = "fullwidth",
-            -- padding = nil,
-            conceal = true,
-          }
-        },
-
-        ["core.norg.completion"] = {
-          config = {
-            engine = "nvim-cmp",
-          }
-        },
-
-        ["core.norg.dirman"] = {
-          config = {
-            workspaces = {
-              gtd = "~/.local/gtd",
-            },
-          },
-        },
-
-        ["core.export"] = {
-          config = {
-            export_dir = "<export-dir>/<language>-export"
-          }
-        },
-
-        ["core.export.markdown"] = {
-          config = {
-            extensions = "all"
-          }
-        }
-
-        -- ["core.gtd.base"] = {
-        --   config = {
-        --     workspace = "gtd",
-        --   },
-        -- },
-      },
-    },
-  },
-  {
     'stevearc/oil.nvim',
     opts = {
       -- See :help oil-columns
@@ -189,10 +123,9 @@ return {
   },
   {
     "junegunn/vim-easy-align",
-    config = function()
-      vim.keymap.set('n', 'ga', '<Plug>(LiveEasyAlign)', {noremap = true})
-      vim.keymap.set('x', 'ga', '<Plug>(LiveEasyAlign)', {noremap = true})
-    end,
+    keys = {
+      { "ga", "<Plug>(LiveEasyAlign)", mode = {"n", "x"}}
+    }
   },
   {
     'numToStr/Comment.nvim',
@@ -237,6 +170,12 @@ return {
   },
   {
     'kylechui/nvim-surround',
+    keys = {
+      {"gs", mode = {"n", "x"}},
+      {"gS", mode = {"n", "x"}},
+      {"dz", mode = {"n"}},
+      {"cz", mode = {"n"}},
+    },
     opts = {
       keymaps = {
         insert = false,
@@ -270,8 +209,73 @@ return {
   {
     'austinliuigi/lasso.nvim',
     -- dir = '~/tin/projects/neovim/personal/lasso.nvim/',
+    keys = {
+      {"y"}
+    },
     config = function()
       require("lasso").setup()
     end
   },
+  {
+    "narutoxy/silicon.lua",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    keys = {
+      { '<leader>y', function() require("silicon").visualise_api({to_clip = true}) end, mode = {'x'} },
+    },
+    opts = {
+      theme = "auto",
+      output = "SILICON_${year}-${month}-${date}_${time}.png",
+      bgColor = "#fff0",
+      bgImage = "", -- path to image, must be png
+      roundCorner = true,
+      windowControls = true,
+      lineNumber = true,
+      font = "monospace",
+      lineOffset = 1, -- from where to start line number
+      linePad = 2, -- padding between lines
+      padHoriz = 80, -- Horizontal padding
+      padVert = 100, -- vertical padding
+      shadowBlurRadius = 15,
+      shadowColor = "#444444",
+      shadowOffsetX = 8,
+      shadowOffsetY = 8,
+      gobble = false, -- enable lsautogobble like feature
+      debug = true, -- enable debug output
+    }
+  },
+  {
+    'simnalamburt/vim-mundo',
+    keys = {
+      { "_", "<cmd>MundoToggle<CR>", mode = {"n"} }
+    },
+    cmd = "MundoToggle",
+    config = function()
+      vim.g.mundo_preview_bottom = 1  -- Force preview window to be below windows instead of below graph
+      vim.g.mundo_mappings = {
+        ['<nowait> <CR>'] = 'preview',
+        ['<nowait> o'] = 'preview',
+        ['<nowait> J'] = 'move_older_write',
+        ['<nowait> K'] = 'move_newer_write',
+        ['<nowait> gg'] = 'move_top',
+        ['<nowait> G'] = 'move_bottom',
+        ['<nowait> P'] = 'play_to',
+        ['<nowait> d'] = 'diff',
+        ['<nowait> i'] = 'toggle_inline',
+        ['<nowait> /'] = 'search',
+        ['<nowait> n'] = 'next_match',
+        ['<nowait> N'] = 'previous_match',
+        ['<nowait> p'] = 'diff_current_buffer',
+        ['<nowait> r'] = 'rdiff',
+        ['<nowait> ?'] = 'toggle_help',
+        ['<nowait> q'] = 'quit',
+        ['<nowait> <2-LeftMouse>'] = 'mouse_click',
+        ['<nowait> j'] = 'move_older',
+        ['<nowait> k'] = 'move_newer',
+        ['<nowait> <Down>'] = 'move_older',
+        ['<nowait> <Up>'] = 'move_newer'
+      }
+    end
+  }
 }

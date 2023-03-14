@@ -15,7 +15,33 @@ return {
       { "<CR>", function() return require("dap").toggle_breakpoint() end },
       { "<S-CR>", function() return require("dap").set_breakpoint(vim.fn.input("Breakpoint Condition: ")) end },
     },
+    config = function()
+      local dap = require("dap")
+
+      for lang, configuration in pairs(require("plugins.dap.configurations")) do
+        dap.configurations[lang] = configuration
+      end
+
+      for lang, adapter in pairs(require("plugins.dap.adapters")) do
+        dap.adapters[lang] = adapter
+      end
+
+      -- TODO: Decouple from kitty
+      dap.defaults.fallback.external_terminal = {
+        command = tostring(io.popen("command -v kitty"):read("*line"));
+        args = {};
+      }
+
+      vim.fn.sign_define("DapBreakpoint", {text="ﴫ", texthl="GitSignsDelete", linehl="", numhl=""}) -- ●    ﴫ
+      vim.fn.sign_define("DapBreakpointCondition", {text="ﴫ", texthl="GitSignsChange", linehl="", numhl=""})
+    end,
     dependencies = {
+      {
+        'rcarriga/cmp-dap',
+        dependencies = {
+          "hrsh7th/nvim-cmp",
+        }
+      },
       {
         'rcarriga/nvim-dap-ui',
         config = function()
@@ -109,25 +135,5 @@ return {
         },
       },
     },
-    config = function()
-      local dap = require("dap")
-
-      for lang, configuration in pairs(require("plugins.dap.configurations")) do
-        dap.configurations[lang] = configuration
-      end
-
-      for lang, adapter in pairs(require("plugins.dap.adapters")) do
-        dap.adapters[lang] = adapter
-      end
-
-      -- TODO: Decouple from kitty
-      dap.defaults.fallback.external_terminal = {
-        command = tostring(io.popen("command -v kitty"):read("*line"));
-        args = {};
-      }
-
-      vim.fn.sign_define("DapBreakpoint", {text="ﴫ", texthl="GitSignsDelete", linehl="", numhl=""}) -- ●    ﴫ
-      vim.fn.sign_define("DapBreakpointCondition", {text="ﴫ", texthl="GitSignsChange", linehl="", numhl=""})
-    end
   },
 }
