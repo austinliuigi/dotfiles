@@ -1,5 +1,8 @@
 return {
   {
+    'andymass/vim-matchup'
+  },
+  {
     'stevearc/oil.nvim',
     opts = {
       -- See :help oil-columns
@@ -67,10 +70,10 @@ return {
     keys = {
       { 's', '<Plug>(leap-forward-to)', mode = {'n'} },
       { 'S', '<Plug>(leap-backward-to)', mode = {'n'} },
-      { 's', function() require('leap').leap({ offset = 0, inclusive_op = true }) end, mode = {'x', 'o'} },
-      { 'S', function() require('leap').leap({ offset = 0, inclusive_op = true, backward = true }) end, mode = {'x', 'o'} },
-      { 'x', function() require('leap').leap({ offset = -1, inclusive_op = true }) end, mode = {'x', 'o'} },
-      { 'X', function() require('leap').leap({ offset = 1, inclusive_op = true, backward = true }) end, mode = {'x', 'o'} },
+      { 's', function() require('leap').leap({ offset = 0, inclusive_op = true }) end, mode = {'x'--[[ , 'o' ]]} },
+      { 'S', function() require('leap').leap({ offset = 0, inclusive_op = true, backward = true }) end, mode = {'x'--[[ , 'o' ]]} },
+      { 'x', function() require('leap').leap({ offset = -1, inclusive_op = true }) end, mode = {'x'--[[ , 'o' ]]} },
+      { 'X', function() require('leap').leap({ offset = 1, inclusive_op = true, backward = true }) end, mode = {'x'--[[ , 'o' ]]} },
     },
     config = function()
       local leap = require("leap")
@@ -128,53 +131,12 @@ return {
     }
   },
   {
-    'numToStr/Comment.nvim',
-    keys = {
-      { "gc", mode = {"n", "x"}},
-      { "gb", mode = {"n", "x"}},
-      { "gC", ":<C-b>keeppatterns <C-e>g/./lua require('Comment.api').toggle.linewise.current()<CR>", mode = {"x"} }
-    },
-    config = function()
-      require("Comment").setup({
-        padding = true, ---Add a space b/w comment and the line
-        sticky = true, ---Whether the cursor should stay at its position
-        ignore = nil, ---Lines to be ignored while (un)comment
-        ---LHS of toggle mappings in NORMAL mode
-        toggler = {
-            line = 'gcc',
-            block = 'gbc',
-        },
-        ---LHS of operator-pending mappings in NORMAL and VISUAL mode
-        opleader = {
-            line = 'gc',
-            block = 'gb',
-        },
-        ---LHS of extra mappings
-        extra = {
-            above = 'gcO',
-            below = 'gco',
-            eol = 'gcA',
-        },
-        ---Enable keybindings
-        ---NOTE: If given `false` then the plugin won't create any mappings
-        mappings = {
-            ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
-            basic = true,
-            ---Extra mapping; `gco`, `gcO`, `gcA`
-            extra = true,
-        },
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(), ---Function to call before (un)comment
-        post_hook = nil, ---Function to call after (un)comment
-      })
-    end
-  },
-  {
     'kylechui/nvim-surround',
     keys = {
       {"gs", mode = {"n", "x"}},
       {"gS", mode = {"n", "x"}},
-      {"dz", mode = {"n"}},
-      {"cz", mode = {"n"}},
+      {"ds", mode = {"n"}},
+      {"cs", mode = {"n"}},
     },
     opts = {
       keymaps = {
@@ -186,8 +148,8 @@ return {
         normal_cur_line = "gss",
         visual = "gs",
         visual_line = "gS",
-        delete = "dz",
-        change = "cz",
+        delete = "ds",
+        change = "cs",
     },
       surrounds = {},
       aliases = {},
@@ -205,6 +167,11 @@ return {
   },
   {
     'psliwka/vim-smoothie',
+    config = function()
+      vim.keymap.set("n", toggle_key.."s", function()
+        vim.g.smoothie_enabled = not vim.g.smoothie_enabled
+      end, {})
+    end
   },
   {
     'austinliuigi/lasso.nvim',
@@ -277,5 +244,28 @@ return {
         ['<nowait> <Up>'] = 'move_newer'
       }
     end
-  }
+  },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify")
+
+      local term_bg = os.getenv('TERM') == 'xterm-kitty' and vim.fn.system("awk '$1 ~ /^background$/ {print $2}' ~/.config/kitty/current-theme.conf") or "#000000"
+      require("notify").setup {
+        background_colour = term_bg
+      }
+    end
+  },
+  {
+    'willothy/flatten.nvim',
+    priority = 1001, -- ensure that it runs first to minimize delay when opening file from terminal
+    config = function()
+      require("flatten").setup({
+        window = {
+          open = "tab",
+          focus = "first",
+        }
+      })
+    end
+  },
 }

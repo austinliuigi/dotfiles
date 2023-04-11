@@ -8,7 +8,9 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
     keys = {
-      { '<leader>f', '<cmd>lua require("telescope.builtin").find_files({hidden = true, follow=true})<CR>' },
+      { '<leader>ff', '<cmd>lua require("telescope.builtin").find_files({hidden = true, follow=true})<CR>' },
+      { '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep({})<CR>' },
+      { '<leader>f/', '<cmd>lua require("telescope.builtin").current_buffer_fuzzy_find({})<CR>' },
       { '<C-/>', '<cmd>lua require("telescope.builtin").builtin()<CR>' },
     },
     config = function()

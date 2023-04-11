@@ -40,7 +40,7 @@ keymap({ "n", "x" }, "<leader>?", function()
   local win_top_line = vim.fn.line("w0")
   local cursor_line = vim.fn.line(".")
 
-  return "/\\%>"..(win_top_line-1).."l\\%<"..(cursor_line+1).."l"
+  return "?\\%>"..(win_top_line-1).."l\\%<"..(cursor_line+1).."l"
 end, {remap = false, expr = true})
 
 -- }}}

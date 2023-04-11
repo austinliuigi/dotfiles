@@ -21,23 +21,23 @@ local M = {
 
 -- Map of neovim colorscheme names(g:colors_name) to kitty theme names (## name:)
 local nvim_to_kitty = {
-  ['carbonfox']  = { dark = 'carbonfox',        light = 'carbonfox' },
-  ['codedark']   = { dark = 'vscode-dark',      light = 'vscode-dark' },
-  ['dawnfox']    = { dark = 'dawnfox',          light = 'dawnfox' },
-  ['dayfox']     = { dark = 'dayfox',           light = 'dayfox' },
-  ['duskfox']    = { dark = 'duskfox',          light = 'duskfox' },
-  ['gruvbox']    = { dark = 'gruvbox-dark',     light = 'gruvbox-light' },
-  ['kanagawa']   = { dark = 'kanagawa-dark',    light = 'kanagawa-light' },
-  ['material']   = { dark = 'palenight',        light = 'palenight' },
-  ['nightfox']   = { dark = 'nightfox',         light = 'nightfox' },
-  ['nord']       = { dark = 'nord-dark',        light = 'nord-light' },
-  ['nordfox']    = { dark = 'nordfox',          light = 'nordfox' },
-  ['onedark']    = { dark = 'onedark',          light = 'onelight' },
-  ['rose-pine']  = { dark = 'rosepine',         light = 'rosepine-dawn' },
-  ['seoul256']   = { dark = 'seoul256',         light = 'seoul256' },
-  ['terafox']    = { dark = 'terafox',          light = 'terafox' },
-  ['tokyonight'] = { dark = 'tokyonight-storm', light = 'tokyonight-day' },
-  ['everforest'] = { dark = 'everforest-dark',  light = 'everforest-light'}
+  ['carbonfox']        = { dark = 'carbonfox',        light = 'carbonfox' },
+  ['codedark']         = { dark = 'vscode-dark',      light = 'vscode-dark' },
+  ['dawnfox']          = { dark = 'dawnfox',          light = 'dawnfox' },
+  ['dayfox']           = { dark = 'dayfox',           light = 'dayfox' },
+  ['duskfox']          = { dark = 'duskfox',          light = 'duskfox' },
+  ['gruvbox']          = { dark = 'gruvbox-dark',     light = 'gruvbox-light' },
+  ['kanagawa']         = { dark = 'kanagawa-dark',    light = 'kanagawa-light' },
+  ['material']         = { dark = 'palenight',        light = 'palenight' },
+  ['nightfox']         = { dark = 'nightfox',         light = 'nightfox' },
+  ['nord']             = { dark = 'nord-dark',        light = 'nord-light' },
+  ['nordfox']          = { dark = 'nordfox',          light = 'nordfox' },
+  ['onedark']          = { dark = 'onedark',          light = 'onelight' },
+  ['rose-pine']        = { dark = 'rosepine-moon',    light = 'rosepine-dawn' },
+  ['seoul256']         = { dark = 'seoul256',         light = 'seoul256' },
+  ['terafox']          = { dark = 'terafox',          light = 'terafox' },
+  ['tokyonight-night'] = { dark = 'tokyonight-night', light = 'tokyonight-day' },
+  ['everforest']       = { dark = 'everforest-dark',  light = 'everforest-light'}
   -- ['vscode']     = { dark = 'vscode-dark',      light = 'vscode-light' },
 }
 -- Map of kitty theme names to neovim colorscheme names
