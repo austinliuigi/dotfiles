@@ -184,7 +184,7 @@ return {
     end
   },
   {
-    "narutoxy/silicon.lua",
+    "austinliuigi/silicon.lua",
     dependencies = {
       "nvim-lua/plenary.nvim"
     },

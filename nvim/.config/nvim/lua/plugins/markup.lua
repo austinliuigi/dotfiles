@@ -41,16 +41,16 @@ return {
           img_name = function()
             return vim.fn.input("Filename: ")
           end,
-          img_handler = function(img)
-            local size = string.match(vim.fn.input("Size (300x300): "), "%d+x%d+") or "300x300"
-            os.execute(string.format(
-              'mogrify -unsharp 0x0.25+8+0.065 -resize "%s" "%s"', size, img.path
-            ))
-          end,
+          -- img_handler = function(img)
+          --   local size = string.match(vim.fn.input("Size (300x300): "), "%d+x%d+") or "300x300"
+          --   os.execute(string.format(
+          --     'mogrify -unsharp 0x0.25+8+0.065 -resize "%s" "%s"', size, img.path
+          --   ))
+          -- end,
           affix = "<\n  %s\n>" -- Multi-line affix
         },
         markdown = {
-          affix = '<div align="center">\n\n![](%s)\n\n**\n\n</div>'
+          affix = '<div align="center">\n\n<img src=%s width=300 />\n\n**\n\n</div>'
         },
         norg = {
           affix = '.image %s'

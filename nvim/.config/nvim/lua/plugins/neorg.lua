@@ -20,7 +20,7 @@ return {
             }
         },
 
-        ["core.norg.concealer"] = {
+        ["core.concealer"] = {
           config = { -- Note that this table is optional and doesn't need to be provided
             icon_preset = "diamond",
             -- icons = nil,
@@ -33,13 +33,13 @@ return {
           }
         },
 
-        ["core.norg.completion"] = {
+        ["core.completion"] = {
           config = {
             engine = "nvim-cmp",
           }
         },
 
-        ["core.norg.dirman"] = {
+        ["core.dirman"] = {
           config = {
             workspaces = {
               gtd = "~/.local/gtd",

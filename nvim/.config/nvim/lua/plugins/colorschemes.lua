@@ -348,4 +348,25 @@ return {
       end)
     end
   },
+  {
+    "austinliuigi/smoke.nvim",
+    dev = true,
+    config = function()
+      create_colorscheme_refresh_autocmd(function(transparent)
+        require('smoke').setup({
+          bold_vert_split = false,
+          dim_nc_background = false,
+          disable_background = transparent,
+          disable_float_background = false,
+          disable_italics = false,
+          disable_undercurl = true,
+
+          -- Change specific vim highlight groups
+          highlight_groups = {
+            Cursor = { reverse = true }
+          }
+        })
+      end)
+    end
+  },
 }
