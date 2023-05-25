@@ -1,0 +1,48 @@
+###########
+# Hotkeys #
+###########
+
+# Open terminal
+cmd - return : open -n -a /Applications/kitty.app/
+
+
+#########
+# Yabai #
+#########
+
+### Quick Start ###
+alt + cmd - s : yabai --start-service
+
+### Quick Close ###
+alt + cmd - c : yabai --stop-service
+
+### Quick restart ###
+alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+
+### Spaces ###
+
+# Creation
+# alt + shift - c : yabai -m space --create  && afplay /System/Library/Sounds/Glass.aiff
+# alt + shift - w : yabai -m space --destroy && afplay /System/Library/Sounds/Bottle.aiff
+
+# alt + shift - left : curr_index=$(yabai -m query --spaces --space | jq '.index') && yabai -m space --create && yabai -m space --focus last && sleep .01 && yabai -m space --move "${curr_index}" ; afplay /System/Library/Sounds/Glass.aiff
+
+# alt + shift - right : curr_index=$(yabai -m query --spaces --space | jq '.index') && yabai -m space --create && yabai -m space --focus last && sleep .01 && yabai -m space --move "$((1+${curr_index}))" ; afplay /System/Library/Sounds/Glass.aiff
+
+# Motion
+cmd - 0x21 : yabai -m space --focus prev || yabai -m space --focus last
+
+cmd - 0x1E : yabai -m space --focus next || yabai -m space --focus first
+
+# Focus
+cmd - h : yabai -m window --focus west || yabai -m window --focus last
+
+cmd - l : yabai -m window --focus east || yabai -m window --focus first
+
+cmd - j : yabai -m window --focus south
+
+cmd - k : yabai -m window --focus north
+
+cmd - f : yabai -m window --toggle zoom-fullscreen
+
+cmd - t : yabai -m window --toggle float
