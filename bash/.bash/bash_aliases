@@ -27,6 +27,7 @@ alias gco="git checkout"
 alias gs="git status"
 alias gl="git log"
 alias glg="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+alias g$s="git stash show -p"
 
 alias cdr='cd "$(git rev-parse --show-toplevel)"'
 

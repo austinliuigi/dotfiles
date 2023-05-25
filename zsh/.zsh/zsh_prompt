@@ -11,12 +11,13 @@ function promptLength () {
     local -i l m u=${#1}
     # If u is non-zero
     if (( u )); then
-        # Let's say p_len($1) is the length of the first argument as it is on the prompt (after escaping)
-        # While p_len($1) >= $u
+        # http://zsh.zle.lc/zsh-conditional-substrings-prompts.html
+	# https://zsh.sourceforge.io/Doc/Release/Expansion.html (look at section 14.3.1 for explanation of ${(%):-""})
+	# While length of $1 (after escaping) is less than u
         # Note: there is nothing before :- therefore what comes after it is ALWAYS substituted
-        # Note: $1%$u(l.1.0) gives you the first argument (as it appears on the prompt after escaping)
-        # concatenated by a 1/0 if p_len($1) is >=/< $u characters long
-        # Note: indexing a neg. gives you the last element of an array
+        # Note: $1%$u(l.1.0) appends 1 if length of $1 is greater than u, else 0
+	# Note: the [-1] index gets the last character of the string (the 1/0 that was appended)
+	# After this while loop, l is smaller than length of $1 (after escaping), and u is larger
         while (( ${${(%):-$1%$u(l.1.0)}[-1]} )); do
             l=u
             (( u *= 2 ))
@@ -86,6 +87,19 @@ function venvPromptUpdate () {
     # Set prompt for virtual environments
     if [[ "${VIRTUAL_ENV}" ]]; then
 	    VENV_PROMPT="(${VIRTUAL_ENV})-"
+    fi
+}
+
+function abducoPromptUpdate () {
+    # Use default zsh options
+    emulate -L zsh
+
+    # Initialize venv prompt
+    typeset -g ABDUCO_PROMPT=''
+
+    # Set prompt for virtual environments
+    if [[ "${ABDUCO_SESSION}" ]]; then
+	    ABDUCO_PROMPT=" %B${ABDUCO_SESSION}%b "
     fi
 }
 
@@ -159,9 +173,9 @@ function gitstatusPromptUpdate () {
     GITSTATUS_PROMPT="-${p}${branch_color}]%f"
 }
 
-PROMPT_COLOR_USER='%F{152}'
-PROMPT_COLOR_PATH='%F{181}'
-PROMPT_COLOR_BRANCH='%F{188}'
+PROMPT_COLOR_USER='%F{blue}'
+PROMPT_COLOR_PATH='%F{cyan}'
+PROMPT_COLOR_BRANCH='%F{magenta}'
 
 function setPrompt () {
     # Use default zsh options
@@ -173,6 +187,9 @@ function setPrompt () {
     # Update venv status
     venvPromptUpdate
 
+    # Update abduco session status
+    abducoPromptUpdate
+
     # Get git information
     gitstatusPromptUpdate
 
@@ -181,10 +198,10 @@ function setPrompt () {
     local user_color="$PROMPT_COLOR_USER"
     local path_color="$PROMPT_COLOR_PATH"
 
-    local top_left=$'\n'"${default_color}╭─${SSH_PROMPT}${VENV_PROMPT}${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color}${GITSTATUS_PROMPT}${default_color}"
-    local top_right="%@ ${default_color}─╮"
-    local bottom_left="${default_color}╰─ %F{white}ᛋ %f"
-    local bottom_right="${default_color}ﳞ ─╯"
+    local top_left=$'\n'"%f╭─${SSH_PROMPT}${VENV_PROMPT}${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)%f-${path_color}[%~]%f${GITSTATUS_PROMPT}%f"
+    local top_right="${ABDUCO_PROMPT}%f─╮"
+    local bottom_left="%f╰─ ᛋ "
+    local bottom_right="%F{green}ﳞ%f ─╯"
 
     # Call padMiddle to set RETURN
     padMiddle "$top_left" "$top_right"
@@ -207,7 +224,7 @@ function setTransientPrompt () {
     local branch_color="$PROMPT_COLOR_BRANCH"
 
     # PROMPT=$'\n'"${default_color}» ${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${default_color} ᛋ "
-    PROMPT=$'\n'"${default_color}╭─${SSH_PROMPT}${VENV_PROMPT}${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)${default_color}-${path_color}[%~]${branch_color}${GITSTATUS_PROMPT}${default_color}"$'\n'"${default_color}╰─ %F{white}ᛋ %f"
+    PROMPT=$'\n'"%f╭─${SSH_PROMPT}${VENV_PROMPT}${user_color}(%(!.%F{196}.)%n%(!.${user_color}.) @ %m)%f-${path_color}[%~]${branch_color}${GITSTATUS_PROMPT}%f"$'\n'"%f╰─ ᛋ "
     RPROMPT=''
 }
 
