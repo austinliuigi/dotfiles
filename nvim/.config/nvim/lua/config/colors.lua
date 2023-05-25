@@ -87,7 +87,7 @@ local function change_term_transparency()
   -- print(string.format("sed -i%s '/^background_opacity/ s/[^ ][^ ]*$/%s/' %s", vim.fn.has("mac") == 1 and " ''" or '', term_opacity, kitty_config))
   -- TODO: check if works on linux
   -- os.execute(string.format("sed -i%s '/^background_opacity/ s/[^ ][^ ]*$/%s/' %s", vim.fn.has("mac") == 1 and " ''" or '', term_opacity, kitty_config))
-  local term_opacity = M.transparent and 0.97 or 1.00
+  local term_opacity = M.transparent and 0.92 or 1.00
 
   local tempfile = vim.fn.tempname()
   os.execute(string.format("sed '/^background_opacity/ s/[^ ][^ ]*$/%s/' ~/.config/kitty/kitty.conf > %s", term_opacity, tempfile))

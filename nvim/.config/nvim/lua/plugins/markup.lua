@@ -57,5 +57,10 @@ return {
         }
       }
     end
-  }
+  },
+  -- {
+  --   "lervag/vimtex",
+  --   config = function()
+  --   end
+  -- },
 }
