@@ -1,13 +1,25 @@
 local diagnostic_config = require("plugins.lsp.diagnostics")
 
-function toggle_diagnostics()
-  local prev_underline = diagnostic_config.underline
-  local prev_text = diagnostic_config.virtual_text
-  local prev_lines = diagnostic_config.virtual_lines
+local diagnostic_idx = 1
+local diagnostic_order = {
+  {
+    underline = false,
+    virtual_text = false,
+  },
+  {
+    underline = false,
+    virtual_text = true,
+  },
+  {
+    underline = true,
+    virtual_text = false,
+  },
+}
 
-  diagnostic_config.underline = not (prev_underline or prev_text or prev_lines)
-  diagnostic_config.virtual_text = prev_underline
-  diagnostic_config.virtual_lines = prev_text
+function toggle_diagnostics()
+  diagnostic_idx = (diagnostic_idx % #diagnostic_order) + 1
+  diagnostic_config.underline = diagnostic_order[diagnostic_idx]["underline"]
+  diagnostic_config.virtual_text = diagnostic_order[diagnostic_idx]["virtual_text"]
 
   vim.diagnostic.config(diagnostic_config)
 end

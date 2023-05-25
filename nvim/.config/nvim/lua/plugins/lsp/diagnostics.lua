@@ -9,7 +9,7 @@ for _, sign in ipairs(signs) do
 end
 
 local diagnostic_config = {
-  underline = true,
+  underline = false,
   virtual_text = false,
   virtual_lines = false,
   signs = { priority = 8 },
