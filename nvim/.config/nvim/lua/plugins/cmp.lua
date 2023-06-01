@@ -1,67 +1,38 @@
-local nvim_autopairs = {
-  'windwp/nvim-autopairs',
-  config = function()
-    require('nvim-autopairs').setup {
-      check_ts = true,
-      break_undo = false,
-      ignored_next_char = "[%w%d]",
-    }
-
-    -- Insert `(` after completing function or method item
-    local cmp = require('cmp')
-    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-    local handlers = require('nvim-autopairs.completion.handlers')
-    cmp.event:on(
-      'confirm_done',
-      cmp_autopairs.on_confirm_done({
-        filetypes = {
-          -- "*" is a alias to all filetypes
-          ["*"] = {
-            ["("] = {
-              kind = {
-                cmp.lsp.CompletionItemKind.Function,
-                cmp.lsp.CompletionItemKind.Method,
-              },
-              handler = handlers["*"]
-            }
-          },
-          -- Disable for tex
-          tex = false,
-          plaintex = false,
-        }
-      })
-    )
-
-    -- Insert extra space
-    local npairs = require'nvim-autopairs'
-    local Rule   = require'nvim-autopairs.rule'
-    npairs.add_rules {
-      Rule(' ', ' ')
-        :with_pair(function (opts)
-          local pair = opts.line:sub(opts.col - 1, opts.col)
-          return vim.tbl_contains({ '()', '[]', '{}' }, pair)
-        end),
-      Rule('( ', ' )')
-          :with_pair(function() return false end)
-          :with_move(function(opts)
-              return opts.prev_char:match('.%)') ~= nil
-          end)
-          :use_key(')'),
-      Rule('{ ', ' }')
-          :with_pair(function() return false end)
-          :with_move(function(opts)
-              return opts.prev_char:match('.%}') ~= nil
-          end)
-          :use_key('}'),
-      Rule('[ ', ' ]')
-          :with_pair(function() return false end)
-          :with_move(function(opts)
-              return opts.prev_char:match('.%]') ~= nil
-          end)
-          :use_key(']')
-    }
-  end
-}
+-- local nvim_autopairs = {
+--   'windwp/nvim-autopairs',
+--   config = function()
+--     require('nvim-autopairs').setup {
+--       check_ts = true,
+--       break_undo = false,
+--       ignored_next_char = "[%S]",
+--     }
+--
+--     -- Insert `(` after completing function or method item
+--     local cmp = require('cmp')
+--     local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+--     local handlers = require('nvim-autopairs.completion.handlers')
+--     cmp.event:on(
+--       'confirm_done',
+--       cmp_autopairs.on_confirm_done({
+--         filetypes = {
+--           -- "*" is a alias to all filetypes
+--           ["*"] = {
+--             ["("] = {
+--               kind = {
+--                 cmp.lsp.CompletionItemKind.Function,
+--                 cmp.lsp.CompletionItemKind.Method,
+--               },
+--               handler = handlers["*"]
+--             }
+--           },
+--           -- Disable for tex
+--           tex = false,
+--           plaintex = false,
+--         }
+--       })
+--     )
+--   end
+-- }
 
 return {
   {
@@ -74,21 +45,22 @@ return {
       'hrsh7th/cmp-calc',
       'hrsh7th/cmp-cmdline',
       'dmitmel/cmp-cmdline-history',
-      'rcarriga/cmp-dap',
+      -- 'rcarriga/cmp-dap',
       -- 'dmitmel/cmp-digraphs',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
       'hrsh7th/cmp-path',
-      nvim_autopairs,
+      -- nvim_autopairs,
     },
     config = function()
       local cmp = require('cmp')
 
       cmp.setup {
         enabled = function()
+          local dap_loaded, dap pcall(require, "cmp_dap")
           return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
-              or require("cmp_dap").is_dap_buffer()
+              or (dap_loaded and dap.is_dap_buffer())
         end,
         completion = {
           completeopt = 'menu,menuone,noinsert'
@@ -174,7 +146,7 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         experimental = {
-          ghost_text = true
+          ghost_text = {}
         }
       }
 

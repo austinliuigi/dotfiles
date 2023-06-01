@@ -1,14 +1,24 @@
 local servers = {}
 
- servers.clangd = {}
+servers.clangd = {}
 
- servers.julials = {}
+servers.julials = {}
 
- servers.pyright = {}
+servers.pyright = {}
 
- servers.sumneko_lua = {}
+servers.lua_ls = {
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {
+          "vim"
+        }
+      }
+    }
+  }
+}
 
- servers.yamlls = {}
+servers.yamlls = {}
 
 -- local latex_forwardsearch_executable, latex_forwardsearch_args
 -- if vim.fn.has("macos") then

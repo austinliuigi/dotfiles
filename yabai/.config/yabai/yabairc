@@ -1,0 +1,70 @@
+# For Monterey, these are needed for yabai to load the scripting-addition upon startup
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# Application specific rules
+yabai -m rule --add app="^System Preferences$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Finder$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Disk Utility$" sticky=on layer=above manage=off
+yabai -m rule --add app="^System Information$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Activity Monitor$" sticky=on layer=above manage=off
+yabai -m rule --add app="^Spotify$" manage=off
+yabai -m rule --add app="^Preview$" manage=off
+yabai -m rule --add app="^Messages$" manage=off
+
+# Don't manage windows by default
+# yabai -m config layout float
+yabai -m config layout bsp
+
+# Spawn windows to right/bottom
+yabai -m config window_placement second_child
+
+# Windows don't occupy the same amount of space
+yabai -m config auto_balance off
+
+# Set percentage of available space that old window occupies when a new window is created
+yabai -m config split_ratio 0.5
+
+# Set padding between windows
+yabai -m config top_padding    7
+yabai -m config bottom_padding 7
+yabai -m config left_padding   7
+yabai -m config right_padding  7
+yabai -m config window_gap     7
+
+# Set mouse interaction modifier key
+yabai -m config mouse_modifier cmd
+
+# Set modifier + left-click drag to move window
+yabai -m config mouse_action1 resize
+
+# Set modifier + right-click drag to resize window
+yabai -m config mouse_action2 move
+
+# Set stack to form when a tiled window is dropped in center of another tiled window
+yabai -m config mouse_drop_action stack
+
+# Set focus follows mouse mode
+yabai -m config focus_follows_mouse autoraise
+
+# Set mouse follows focus mode
+yabai -m config mouse_follows_focus off
+
+# Floating windows are always on top
+yabai -m config window_topmost on
+
+# Show shadows only for floating windows
+yabai -m config window_shadow float
+
+# Render all unfocused windows with 95% opacity
+yabai -m config window_opacity on
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 1.0
+
+# Draw border for windows (color in 0xAARRGGBB format; AA is alpha channel, 255 is full opacity)
+yabai -m config window_border on
+yabai -m config window_border_width 2
+yabai -m config active_window_border_color 0xff7a99b7
+yabai -m config normal_window_border_color 0xdd888888
+
+echo "yabai config loaded..."

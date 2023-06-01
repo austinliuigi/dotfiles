@@ -12,7 +12,6 @@ end
 
 
 return {
-  -- Colorschemes
   {
     "EdenEast/nightfox.nvim",
     lazy = true,
@@ -52,6 +51,16 @@ return {
           specs = {},
           groups = {},
         })
+      end)
+    end
+  },
+  {
+    "sainnhe/everforest",
+    lazy = true,
+    config = function()
+      create_colorscheme_refresh_autocmd(function(transparent)
+        -- vim.g.everforest_background = "hard"
+        vim.g.everforest_transparent_background = transparent and 1 or 0
       end)
     end
   },
@@ -267,7 +276,9 @@ return {
             globalStatus = true,        -- adjust window separators highlight for laststatus=3
             terminalColors = true,      -- define vim.g.terminal_color_{0,17}
             colors = {},
-            overrides = {},
+            overrides = function(colors)
+              return {}
+            end,
             theme = "default"           -- Load "default" theme or the experimental "light" theme
         })
       end)
@@ -337,17 +348,25 @@ return {
       end)
     end
   },
-  -- Plugins
   {
-    'NvChad/nvim-colorizer.lua',
+    "austinliuigi/smoke.nvim",
+    dev = true,
     config = function()
-      require('colorizer').setup(
-        -- Add filetypes as first parameter
-        -- { '*' },
-        -- Use default_options as second parameter
-        { mode = 'background' }
-      )
-      vim.keymap.set("n", toggle_key.."C", "<cmd>ColorizerToggle<CR>", {noremap = true, silent = true})
+      create_colorscheme_refresh_autocmd(function(transparent)
+        require('smoke').setup({
+          bold_vert_split = false,
+          dim_nc_background = false,
+          disable_background = transparent,
+          disable_float_background = false,
+          disable_italics = false,
+          disable_undercurl = true,
+
+          -- Change specific vim highlight groups
+          highlight_groups = {
+            Cursor = { reverse = true }
+          }
+        })
+      end)
     end
   },
 }

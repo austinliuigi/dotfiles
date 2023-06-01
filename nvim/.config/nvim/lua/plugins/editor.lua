@@ -1,69 +1,6 @@
 return {
   {
-    "nvim-neorg/neorg",
-    build = ":Neorg sync-parsers",
-    dependencies = {
-      "nvim-lua/plenary.nvim"
-    },
-    opts = {
-      load = {
-        ["core.defaults"] = {
-          config = {}
-        },
-
-        ["core.keybinds"] = {
-            config = {
-                default_keybinds = true,
-                neorg_leader = "\\",
-            }
-        },
-
-        ["core.norg.concealer"] = {
-          config = { -- Note that this table is optional and doesn't need to be provided
-            icon_preset = "diamond",
-            -- icons = nil,
-            -- dim_code_blocks = nil,
-            content_only = true,
-            adaptive = true,
-            width = "fullwidth",
-            -- padding = nil,
-            conceal = true,
-          }
-        },
-
-        ["core.norg.completion"] = {
-          config = {
-            engine = "nvim-cmp",
-          }
-        },
-
-        ["core.norg.dirman"] = {
-          config = {
-            workspaces = {
-              gtd = "~/.local/gtd",
-            },
-          },
-        },
-
-        ["core.export"] = {
-          config = {
-            export_dir = "<export-dir>/<language>-export"
-          }
-        },
-
-        ["core.export.markdown"] = {
-          config = {
-            extensions = "all"
-          }
-        }
-
-        -- ["core.gtd.base"] = {
-        --   config = {
-        --     workspace = "gtd",
-        --   },
-        -- },
-      },
-    },
+    'andymass/vim-matchup'
   },
   {
     'stevearc/oil.nvim',
@@ -133,10 +70,10 @@ return {
     keys = {
       { 's', '<Plug>(leap-forward-to)', mode = {'n'} },
       { 'S', '<Plug>(leap-backward-to)', mode = {'n'} },
-      { 's', function() require('leap').leap({ offset = 0, inclusive_op = true }) end, mode = {'x', 'o'} },
-      { 'S', function() require('leap').leap({ offset = 0, inclusive_op = true, backward = true }) end, mode = {'x', 'o'} },
-      { 'x', function() require('leap').leap({ offset = -1, inclusive_op = true }) end, mode = {'x', 'o'} },
-      { 'X', function() require('leap').leap({ offset = 1, inclusive_op = true, backward = true }) end, mode = {'x', 'o'} },
+      { 's', function() require('leap').leap({ offset = 0, inclusive_op = true }) end, mode = {'x'--[[ , 'o' ]]} },
+      { 'S', function() require('leap').leap({ offset = 0, inclusive_op = true, backward = true }) end, mode = {'x'--[[ , 'o' ]]} },
+      { 'x', function() require('leap').leap({ offset = -1, inclusive_op = true }) end, mode = {'x'--[[ , 'o' ]]} },
+      { 'X', function() require('leap').leap({ offset = 1, inclusive_op = true, backward = true }) end, mode = {'x'--[[ , 'o' ]]} },
     },
     config = function()
       local leap = require("leap")
@@ -189,54 +126,18 @@ return {
   },
   {
     "junegunn/vim-easy-align",
-    config = function()
-      vim.keymap.set('n', 'ga', '<Plug>(LiveEasyAlign)', {noremap = true})
-      vim.keymap.set('x', 'ga', '<Plug>(LiveEasyAlign)', {noremap = true})
-    end,
-  },
-  {
-    'numToStr/Comment.nvim',
     keys = {
-      { "gc", mode = {"n", "x"}},
-      { "gb", mode = {"n", "x"}},
-      { "gC", ":<C-b>keeppatterns <C-e>g/./lua require('Comment.api').toggle.linewise.current()<CR>", mode = {"x"} }
-    },
-    config = function()
-      require("Comment").setup({
-        padding = true, ---Add a space b/w comment and the line
-        sticky = true, ---Whether the cursor should stay at its position
-        ignore = nil, ---Lines to be ignored while (un)comment
-        ---LHS of toggle mappings in NORMAL mode
-        toggler = {
-            line = 'gcc',
-            block = 'gbc',
-        },
-        ---LHS of operator-pending mappings in NORMAL and VISUAL mode
-        opleader = {
-            line = 'gc',
-            block = 'gb',
-        },
-        ---LHS of extra mappings
-        extra = {
-            above = 'gcO',
-            below = 'gco',
-            eol = 'gcA',
-        },
-        ---Enable keybindings
-        ---NOTE: If given `false` then the plugin won't create any mappings
-        mappings = {
-            ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
-            basic = true,
-            ---Extra mapping; `gco`, `gcO`, `gcA`
-            extra = true,
-        },
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(), ---Function to call before (un)comment
-        post_hook = nil, ---Function to call after (un)comment
-      })
-    end
+      { "ga", "<Plug>(LiveEasyAlign)", mode = {"n", "x"}}
+    }
   },
   {
     'kylechui/nvim-surround',
+    keys = {
+      {"gs", mode = {"n", "x"}},
+      {"gS", mode = {"n", "x"}},
+      {"ds", mode = {"n"}},
+      {"cs", mode = {"n"}},
+    },
     opts = {
       keymaps = {
         insert = false,
@@ -247,8 +148,8 @@ return {
         normal_cur_line = "gss",
         visual = "gs",
         visual_line = "gS",
-        delete = "dz",
-        change = "cz",
+        delete = "ds",
+        change = "cs",
     },
       surrounds = {},
       aliases = {},
@@ -266,12 +167,105 @@ return {
   },
   {
     'psliwka/vim-smoothie',
+    config = function()
+      vim.keymap.set("n", toggle_key.."s", function()
+        vim.g.smoothie_enabled = not vim.g.smoothie_enabled
+      end, {})
+    end
   },
   {
     'austinliuigi/lasso.nvim',
     -- dir = '~/tin/projects/neovim/personal/lasso.nvim/',
+    keys = {
+      {"y"}
+    },
     config = function()
       require("lasso").setup()
+    end
+  },
+  {
+    "austinliuigi/silicon.lua",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    },
+    keys = {
+      { '<leader>y', function() require("silicon").visualise_api({to_clip = true}) end, mode = {'x'} },
+    },
+    opts = {
+      theme = "auto",
+      output = "SILICON_${year}-${month}-${date}_${time}.png",
+      bgColor = "#fff0",
+      bgImage = "", -- path to image, must be png
+      roundCorner = true,
+      windowControls = true,
+      lineNumber = true,
+      font = "monospace",
+      lineOffset = 1, -- from where to start line number
+      linePad = 2, -- padding between lines
+      padHoriz = 80, -- Horizontal padding
+      padVert = 100, -- vertical padding
+      shadowBlurRadius = 15,
+      shadowColor = "#444444",
+      shadowOffsetX = 8,
+      shadowOffsetY = 8,
+      gobble = false, -- enable lsautogobble like feature
+      debug = true, -- enable debug output
+    }
+  },
+  {
+    'simnalamburt/vim-mundo',
+    keys = {
+      { "_", "<cmd>MundoToggle<CR>", mode = {"n"} }
+    },
+    cmd = "MundoToggle",
+    config = function()
+      vim.g.mundo_preview_bottom = 1  -- Force preview window to be below windows instead of below graph
+      vim.g.mundo_mappings = {
+        ['<nowait> <CR>'] = 'preview',
+        ['<nowait> o'] = 'preview',
+        ['<nowait> J'] = 'move_older_write',
+        ['<nowait> K'] = 'move_newer_write',
+        ['<nowait> gg'] = 'move_top',
+        ['<nowait> G'] = 'move_bottom',
+        ['<nowait> P'] = 'play_to',
+        ['<nowait> d'] = 'diff',
+        ['<nowait> i'] = 'toggle_inline',
+        ['<nowait> /'] = 'search',
+        ['<nowait> n'] = 'next_match',
+        ['<nowait> N'] = 'previous_match',
+        ['<nowait> p'] = 'diff_current_buffer',
+        ['<nowait> r'] = 'rdiff',
+        ['<nowait> ?'] = 'toggle_help',
+        ['<nowait> q'] = 'quit',
+        ['<nowait> <2-LeftMouse>'] = 'mouse_click',
+        ['<nowait> j'] = 'move_older',
+        ['<nowait> k'] = 'move_newer',
+        ['<nowait> <Down>'] = 'move_older',
+        ['<nowait> <Up>'] = 'move_newer'
+      }
+    end
+  },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify")
+
+      local term_bg = os.getenv('TERM') == 'xterm-kitty' and vim.fn.system("awk '$1 ~ /^background$/ {print $2}' ~/.config/kitty/current-theme.conf") or "#000000"
+      require("notify").setup {
+        background_colour = term_bg
+      }
+    end
+  },
+  {
+    'willothy/flatten.nvim',
+    priority = 1001, -- ensure that it runs first to minimize delay when opening file from terminal
+    config = function()
+      require("flatten").setup({
+        window = {
+          open = "tab",
+          focus = "first",
+        }
+      })
     end
   },
 }

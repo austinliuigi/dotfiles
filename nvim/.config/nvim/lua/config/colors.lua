@@ -21,22 +21,24 @@ local M = {
 
 -- Map of neovim colorscheme names(g:colors_name) to kitty theme names (## name:)
 local nvim_to_kitty = {
-  ['carbonfox']  = { dark = 'carbonfox',        light = 'carbonfox' },
-  ['codedark']   = { dark = 'vscode-dark',      light = 'vscode-dark' },
-  ['dawnfox']    = { dark = 'dawnfox',          light = 'dawnfox' },
-  ['dayfox']     = { dark = 'dayfox',           light = 'dayfox' },
-  ['duskfox']    = { dark = 'duskfox',          light = 'duskfox' },
-  ['gruvbox']    = { dark = 'gruvbox-dark',     light = 'gruvbox-light' },
-  ['kanagawa']   = { dark = 'kanagawa-dark',    light = 'kanagawa-light' },
-  ['material']   = { dark = 'palenight',        light = 'palenight' },
-  ['nightfox']   = { dark = 'nightfox',         light = 'nightfox' },
-  ['nord']       = { dark = 'nord-dark',        light = 'nord-light' },
-  ['nordfox']    = { dark = 'nordfox',          light = 'nordfox' },
-  ['onedark']    = { dark = 'onedark',          light = 'onelight' },
-  ['rose-pine']  = { dark = 'rosepine',         light = 'rosepine-dawn' },
-  ['seoul256']   = { dark = 'seoul256',         light = 'seoul256' },
-  ['terafox']    = { dark = 'terafox',          light = 'terafox' },
-  ['tokyonight'] = { dark = 'tokyonight-storm', light = 'tokyonight-day' },
+  ['carbonfox']        = { dark = 'carbonfox',        light = 'carbonfox' },
+  ['codedark']         = { dark = 'vscode-dark',      light = 'vscode-dark' },
+  ['dawnfox']          = { dark = 'dawnfox',          light = 'dawnfox' },
+  ['dayfox']           = { dark = 'dayfox',           light = 'dayfox' },
+  ['duskfox']          = { dark = 'duskfox',          light = 'duskfox' },
+  ['gruvbox']          = { dark = 'gruvbox-dark',     light = 'gruvbox-light' },
+  ['kanagawa']         = { dark = 'kanagawa-dark',    light = 'kanagawa-light' },
+  ['material']         = { dark = 'palenight',        light = 'palenight' },
+  ['nightfox']         = { dark = 'nightfox',         light = 'nightfox' },
+  ['nord']             = { dark = 'nord-dark',        light = 'nord-light' },
+  ['nordfox']          = { dark = 'nordfox',          light = 'nordfox' },
+  ['onedark']          = { dark = 'onedark',          light = 'onelight' },
+  ['rose-pine']        = { dark = 'rosepine-moon',    light = 'rosepine-dawn' },
+  ['seoul256']         = { dark = 'seoul256',         light = 'seoul256' },
+  ['terafox']          = { dark = 'terafox',          light = 'terafox' },
+  ['tokyonight-night'] = { dark = 'tokyonight-night', light = 'tokyonight-day' },
+  ['everforest']       = { dark = 'everforest-dark',  light = 'everforest-light'},
+  ['smoke']            = { dark = 'smoke-dark',       light = 'smoke-light'},
   -- ['vscode']     = { dark = 'vscode-dark',      light = 'vscode-light' },
 }
 -- Map of kitty theme names to neovim colorscheme names
@@ -85,7 +87,7 @@ local function change_term_transparency()
   -- print(string.format("sed -i%s '/^background_opacity/ s/[^ ][^ ]*$/%s/' %s", vim.fn.has("mac") == 1 and " ''" or '', term_opacity, kitty_config))
   -- TODO: check if works on linux
   -- os.execute(string.format("sed -i%s '/^background_opacity/ s/[^ ][^ ]*$/%s/' %s", vim.fn.has("mac") == 1 and " ''" or '', term_opacity, kitty_config))
-  local term_opacity = M.transparent and 0.97 or 1.00
+  local term_opacity = M.transparent and 0.92 or 1.00
 
   local tempfile = vim.fn.tempname()
   os.execute(string.format("sed '/^background_opacity/ s/[^ ][^ ]*$/%s/' ~/.config/kitty/kitty.conf > %s", term_opacity, tempfile))

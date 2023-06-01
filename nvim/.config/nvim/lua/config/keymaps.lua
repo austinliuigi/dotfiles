@@ -15,6 +15,10 @@ keymap({ "n", "x" }, "k", "v:count ? 'k' : 'gk'", {noremap = true, expr = true})
 
 keymap({ "n", "x" }, "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
 
+keymap({ "n", "x" }, "0", function() return vim.o.wrap and "g0" or "0" end, {expr = true})
+
+keymap({ "n", "x" }, "$", function() return vim.o.wrap and "g$" or "$" end, {expr = true})
+
 keymap({ "n", "x" }, "<leader><C-u>", function()
   local count = math.floor(vim.fn.winheight(0)/4 + 0.5)
   return count.."<C-u><cmd>set scroll=0<CR>"
@@ -36,7 +40,7 @@ keymap({ "n", "x" }, "<leader>?", function()
   local win_top_line = vim.fn.line("w0")
   local cursor_line = vim.fn.line(".")
 
-  return "/\\%>"..(win_top_line-1).."l\\%<"..(cursor_line+1).."l"
+  return "?\\%>"..(win_top_line-1).."l\\%<"..(cursor_line+1).."l"
 end, {remap = false, expr = true})
 
 -- }}}

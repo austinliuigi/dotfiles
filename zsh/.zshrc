@@ -14,25 +14,25 @@ function center_text() {
 }
 
 # local welcome_message=$(printf "Welcome $USER! It is currently %s\n\n" "$(date "+%A, %B %d %Y, %I:%M %p")")
-local welcome_message=$(printf "Welcome $USER!")
-center_text $welcome_message
-echo "\n\n"
-center_text "                    --------          \|/                           "
-center_text "           \|/     |  moo?  |                                       "
-center_text "                    --------       --------          \|/            "
-center_text " \|/            (__)  /           |  moo.. |                        "
-center_text "         \------(oo) /             --------                         "
-center_text "          ||    (__)                     \  ^__^                    "
-center_text "          ||w--||          \|/            \ (oo)\_______       \|/  "
-center_text "                                            (__)\       )\/\        "
-center_text "                                    \|/        ||----w |            "
-center_text "         \|/                                   ||     ||          \n"
+# local welcome_message=$(printf "Welcome $USER!")
+# center_text $welcome_message
+# echo "\n\n"
+# center_text "                    --------          \|/                           "
+# center_text "           \|/     |  moo?  |                                       "
+# center_text "                    --------       --------          \|/            "
+# center_text " \|/            (__)  /           |  moo.. |                        "
+# center_text "         \------(oo) /             --------                         "
+# center_text "          ||    (__)                     \  ^__^                    "
+# center_text "          ||w--||          \|/            \ (oo)\_______       \|/  "
+# center_text "                                            (__)\       )\/\        "
+# center_text "                                    \|/        ||----w |            "
+# center_text "         \|/                                   ||     ||          \n"
 
 #############################
 # Set environment variables #
 #############################
 export EDITOR="nvim"
-export PATH=~/.local/bin:$PATH
+export PATH="$HOME/.local/bin:$HOME/tin/scripts:${PATH}"
 export MANPAGER='nvim +Man!'
 
 ###########
@@ -72,7 +72,7 @@ setopt nocaseglob   # Case insensitive globbing
 # Fzf #
 #-----#
 
-export FZF_DEFAULT_OPTS="--bind right:accept"
+export FZF_DEFAULT_OPTS="--bind right:accept --color='bg+:-1,fg:gray,fg+:white,bg+:gray,border:black,spinner:0,hl:red,header:blue,info:green,pointer:red,marker:blue,prompt:gray,hl+:red'"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -187,3 +187,19 @@ setopt glob_dots                                            # Match hidden files
 if [ -f ~/.zsh/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
     source ~/.zsh/zsh_plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/opt/homebrew/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ 1 -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
