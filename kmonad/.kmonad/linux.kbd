@@ -60,7 +60,7 @@
 ;; )
 
 (defcfg
-  input (device-file "/dev/input/event19")
+  input (device-file "$KBD_DEV")
   output (uinput-sink "kmonad kbd")
   fallthrough true
 )
