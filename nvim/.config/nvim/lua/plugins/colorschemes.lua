@@ -350,7 +350,7 @@ return {
   },
   {
     "austinliuigi/smoke.nvim",
-    dev = true,
+    -- dev = true,
     config = function()
       create_colorscheme_refresh_autocmd(function(transparent)
         require('smoke').setup({
