@@ -27,7 +27,12 @@ return {
           mappings = {
             n = {
               ['q'] = 'close',
-              ['<C-w><C-l>'] = require('telescope.actions').select_vertical
+            },
+            i = {
+              ['<C-h>'] = 'file_split',
+              ['<C-c>'] = require("telescope.actions").send_selected_to_qflist + require("telescope.actions").open_qflist,
+              ['<C-x>'] = false,
+              ['<C-q>'] = false,
             }
           }
         },

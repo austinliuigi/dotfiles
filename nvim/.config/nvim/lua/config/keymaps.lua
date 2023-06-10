@@ -17,7 +17,7 @@ keymap({ "n", "x" }, "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
 
 keymap({ "n", "x" }, "0", function() return vim.o.wrap and "g0" or "0" end, {expr = true})
 
-keymap({ "n", "x" }, "$", function() return vim.o.wrap and "g$" or "$" end, {expr = true})
+keymap({ "n", "x" }, "$", function() return vim.o.wrap and "g$" or "$h" end, {expr = true})
 
 keymap({ "n", "x" }, "<leader><C-u>", function()
   local count = math.floor(vim.fn.winheight(0)/4 + 0.5)
@@ -137,6 +137,10 @@ end, {noremap = true, silent = true})
 -- }}}
 -- Window mappings {{{
 
+keymap({"n"}, "<leader><C-h>", "<cmd>new<CR>", {noremap = true})
+
+keymap({"n"}, "<leader><C-v>", "<cmd>vnew<CR>", {noremap = true})
+
 keymap({"n", "i", "t"}, "<C-h>", "<cmd>wincmd h<CR>", {noremap = true})
 
 keymap({"n", "i", "t"}, "<C-j>", "<cmd>wincmd j<CR>", {noremap = true})
@@ -147,6 +151,8 @@ keymap({"n", "i", "t"}, "<C-l>", "<cmd>wincmd l<CR>", {noremap = true})
 
 -- }}}
 -- Tab mappings {{{
+
+keymap({"n"}, "<leader><C-t>", "<cmd>tabnew<CR>", {noremap = true})
 
 keymap({"n", "i", "t"}, "<C-[>", "<cmd>tabprev<CR>", {noremap = true, silent = true})
 
@@ -208,14 +214,16 @@ keymap("i", "<CR>", "pumvisible() ? '<C-e><CR>' : '<CR>'", {noremap = true, expr
 -- }}}
 -- Visual mode mappings {{{
 
-keymap("x", "$", "g_", {noremap = true})
-
 keymap("x", "<", "<gv", {noremap = true})
 
 keymap("x", ">", ">gv", {noremap = true})
 
 -- }}}
 -- Terminal mode mappings {{{
+
+keymap({"n", "i", "t"}, "<C-CR>", "<cmd>tabnew | term<CR>", {noremap = true})
+
+keymap({"n"}, "<leader><C-CR>", "<cmd>term<CR>", {noremap = true})
 
 keymap("t", "<S-Esc>", "<C-\\><C-n>", {noremap = true})
 

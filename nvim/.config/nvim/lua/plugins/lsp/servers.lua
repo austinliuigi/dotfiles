@@ -1,14 +1,29 @@
+local lspconfig = require("lspconfig")
+local util = lspconfig.util
+
 local servers = {}
 
 servers.clangd = {}
 
-servers.julials = {}
-
-servers.pyright = {}
+local python_root_files = {
+  'pyproject.toml',
+  'setup.py',
+  'setup.cfg',
+  'requirements.txt',
+  'Pipfile',
+  'pyrightconfig.json',
+  '.git',
+}
+servers.pyright = {
+  root_dir = util.root_pattern(unpack(python_root_files))
+}
 
 servers.lua_ls = {
   settings = {
     Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
       diagnostics = {
         globals = {
           "vim"
