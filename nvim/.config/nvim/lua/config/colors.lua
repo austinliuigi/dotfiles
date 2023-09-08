@@ -14,7 +14,7 @@ end
 -- TODO: Exit early if in windows or config file doesn't exist
 
 local M = {
-  default_theme = "default",
+  default_theme = "smoke",
   term_theme = "",
   transparent = false,
 }

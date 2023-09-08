@@ -1,5 +1,5 @@
 local keymap = vim.keymap.set
-toggle_key = "-"
+toggle_key = "\\"
 
 -- Leader key {{{
 
@@ -17,7 +17,18 @@ keymap({ "n", "x" }, "j", "v:count ? 'j' : 'gj'", {noremap = true, expr = true})
 
 keymap({ "n", "x" }, "0", function() return vim.o.wrap and "g0" or "0" end, {expr = true})
 
-keymap({ "n", "x" }, "$", function() return vim.o.wrap and "g$" or "$h" end, {expr = true})
+keymap({ "x" }, "$", function()
+  local is_wrapped = vim.api.nvim_win_text_height(0, {
+    start_row = (vim.fn.line('.') - 1),
+    end_row = (vim.fn.line('.') - 1),
+    start_vcol = 0})["all"] > 1
+
+  -- If current line is wrapped
+  if is_wrapped then
+    return "g$"
+  end
+  return "$h"
+end, {expr = true})
 
 keymap({ "n", "x" }, "<leader><C-u>", function()
   local count = math.floor(vim.fn.winheight(0)/4 + 0.5)
@@ -42,6 +53,30 @@ keymap({ "n", "x" }, "<leader>?", function()
 
   return "?\\%>"..(win_top_line-1).."l\\%<"..(cursor_line+1).."l"
 end, {remap = false, expr = true})
+
+keymap({ "n", "x" }, "*", "*N", {remap = false})
+
+keymap({ "n", "x" }, "#", "#N", {remap = false})
+
+keymap({ "n", "x" }, "n", function()
+  local char
+  if vim.v.searchforward == 0 then
+    char = "N"
+  else
+    char = "n"
+  end
+  return char .. "zz"
+end, {expr = true, remap = false})
+
+keymap({ "n", "x" }, "N", function()
+  local char
+  if vim.v.searchforward == 0 then
+    char = "n"
+  else
+    char = "N"
+  end
+  return char .. "zz"
+end, {expr = true, remap = false})
 
 -- }}}
 -- Register mappings {{{
@@ -87,7 +122,7 @@ keymap("n", "]b", "<cmd>bn<CR>", {noremap = true, silent = true})
 
 keymap("n", "[b", "<cmd>bp<CR>", {noremap = true, silent = true})
 
-keymap("n", toggle_key.."b", "<cmd>bp<CR>", {noremap = true, silent = true})
+keymap("n", toggle_key.."b", "<cmd>b#<CR>", {noremap = true, silent = true, desc = "Switch to alternate buffer"})
 
 keymap("n", "<leader><leader>b", ":ls<CR>:b<Space>", {noremap = true, silent = true})
 
@@ -115,7 +150,7 @@ keymap("n", toggle_key.."c", function()
     end
   end
   vim.cmd("copen")
-end, {noremap = true, silent = true})
+end, {noremap = true, silent = true, desc = "Toggle quickfix list"})
 
 -- }}}
 -- Local list mappings {{{
@@ -132,7 +167,7 @@ keymap("n", toggle_key.."l", function()
     end
   end
   vim.cmd("lopen")
-end, {noremap = true, silent = true})
+end, {noremap = true, silent = true, desc = "Toggle location list"})
 
 -- }}}
 -- Window mappings {{{
@@ -149,6 +184,14 @@ keymap({"n", "i", "t"}, "<C-k>", "<cmd>wincmd k<CR>", {noremap = true})
 
 keymap({"n", "i", "t"}, "<C-l>", "<cmd>wincmd l<CR>", {noremap = true})
 
+keymap({"n", "i", "t"}, "<C-S-h>", "<cmd>wincmd H<CR>", {noremap = true})
+
+keymap({"n", "i", "t"}, "<C-S-j>", "<cmd>wincmd J<CR>", {noremap = true})
+
+keymap({"n", "i", "t"}, "<C-S-k>", "<cmd>wincmd K<CR>", {noremap = true})
+
+keymap({"n", "i", "t"}, "<C-S-l>", "<cmd>wincmd L<CR>", {noremap = true})
+
 -- }}}
 -- Tab mappings {{{
 
@@ -158,28 +201,28 @@ keymap({"n", "i", "t"}, "<C-[>", "<cmd>tabprev<CR>", {noremap = true, silent = t
 
 keymap({"n", "i", "t"}, "<C-]>", "<cmd>tabnext<CR>", {noremap = true, silent = true})
 
-keymap("n", "<C-t>L", "<cmd>+tabmove<CR>", {noremap = true, silent = true})
+keymap("n", "<C-S-]>", "<cmd>+tabmove<CR>", {noremap = true, silent = true})
 
-keymap("n", "<C-t>H", "<cmd>-tabmove<CR>", {noremap = true, silent = true})
+keymap("n", "<C-S-[>", "<cmd>-tabmove<CR>", {noremap = true, silent = true})
 
 keymap("n", "<leader><leader>t", ":tabs<CR>:tabn<Space>", {noremap = true, silent = true})
 
 -- }}}
 -- Toggle mappings {{{
 
-keymap("n", toggle_key.."h", "v:hlsearch ? '<cmd>nohl<CR>' : '<cmd>set hlsearch<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
+keymap("n", toggle_key.."h", "v:hlsearch ? '<cmd>nohl<CR>' : '<cmd>set hlsearch<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false, desc = "Toggle search highlighting"})
 
-keymap("n", toggle_key.."L", "<cmd>ToggleSpaceChar<CR>", {noremap = true, silent = true})
+keymap("n", toggle_key.."L", "<cmd>ToggleSpaceChar<CR>", {noremap = true, silent = true, desc = "Toggle space characters"})
 
 keymap("n", toggle_key.."n", function()
   local prev_num = vim.o.number
   vim.o.number = not vim.o.relativenumber
   vim.o.relativenumber = prev_num and vim.o.number
-end, {noremap = true, silent = true})
+end, {noremap = true, silent = true, desc = "Toggle line numbers (number -> relativenumber -> nonumber"})
 
-keymap("n", toggle_key.."v", "empty(&virtualedit) ? '<cmd>set virtualedit+=all<CR>' : '<cmd>set virtualedit-=all<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false})
+keymap("n", toggle_key.."v", "empty(&virtualedit) ? '<cmd>set virtualedit+=all<CR>' : '<cmd>set virtualedit-=all<CR>'", {noremap = true, silent = true, expr = true, replace_keycodes = false, desc = "Toggle virtual edit"})
 
-keymap("n", toggle_key.."w", "<cmd>set wrap!<CR>", {noremap = true, silent = true})
+keymap("n", toggle_key.."w", "<cmd>set wrap!<CR>", {noremap = true, silent = true, desc = "Toggle line wrap"})
 
 keymap("n", toggle_key.."B", function()
   if vim.o.background == "dark" then
@@ -187,7 +230,7 @@ keymap("n", toggle_key.."B", function()
   else
     vim.o.background = "dark"
   end
-end, {noremap = true, silent = true})
+end, {noremap = true, silent = true, desc = "Toggle background theme"})
 
 -- }}}
 -- Normal mode mappings {{{
@@ -214,6 +257,10 @@ keymap("i", "<CR>", "pumvisible() ? '<C-e><CR>' : '<CR>'", {noremap = true, expr
 -- }}}
 -- Visual mode mappings {{{
 
+keymap("x", "p", "P", {noremap = true})
+
+keymap("x", "P", "p", {noremap = true})
+
 keymap("x", "<", "<gv", {noremap = true})
 
 keymap("x", ">", ">gv", {noremap = true})
@@ -231,10 +278,8 @@ keymap("t", "<S-Esc>", "<C-\\><C-n>", {noremap = true})
 -- Misc {{{
 
 -- Unbind <CR> in command line window
-vim.api.nvim_create_augroup('CmdWin', {clear = true})
 vim.api.nvim_create_autocmd('CmdwinEnter', {
   command = 'nnoremap <buffer> <CR> <CR>',
-  group = 'CmdWin',
   pattern = {'*'}
 })
 

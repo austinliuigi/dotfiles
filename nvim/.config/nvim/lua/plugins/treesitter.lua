@@ -72,20 +72,20 @@ return {
         autotag = {
           enable = true,
         },
-        rainbow = {
-          enable = true,
-          -- Enable only for lisp like languages
-          disable = vim.tbl_filter(
-            function(p)
-              local disable = true
-              for _, lang in pairs(rainbow_filetypes) do
-                if p==lang then disable = false end
-              end
-              return disable
-            end,
-            parsers.available_parsers()
-          )
-        },
+        -- rainbow = {
+        --   enable = true,
+        --   -- Enable only for lisp like languages
+        --   disable = vim.tbl_filter(
+        --     function(p)
+        --       local disable = true
+        --       for _, lang in pairs(rainbow_filetypes) do
+        --         if p==lang then disable = false end
+        --       end
+        --       return disable
+        --     end,
+        --     parsers.available_parsers()
+        --   )
+        -- },
       })
     end
   }

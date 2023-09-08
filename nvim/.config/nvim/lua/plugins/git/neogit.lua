@@ -1,16 +1,23 @@
 return {
   {
-    "TimUntersberger/neogit",
+    "NeogitOrg/neogit",
+    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("neogit").setup {
         disable_signs = false,
         disable_hint = false,
         disable_context_highlighting = true,
-        disable_commit_confirmation = true,
+        disable_commit_confirmation = false,
         -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size. 
         -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
         auto_refresh = true,
+        sort_branches = "-committerdate",
         disable_builtin_notifications = false,
+        -- Allows a different telescope sorter. Defaults to 'fuzzy_with_index_bias'. The example
+        -- below will use the native fzf sorter instead.
+        telescope_sorter = function()
+          return require("telescope").extensions.fzf.native_fzf_sorter()
+        end,
         use_magit_keybindings = false,
         -- Change the default way of opening neogit
         kind = "tab",
@@ -30,20 +37,19 @@ return {
           hunk = { "", "" },
         },
         integrations = {
-          -- Neogit only provides inline diffs. If you want a more traditional way to look at diffs, you can use `sindrets/diffview.nvim`.
-          -- The diffview integration enables the diff popup, which is a wrapper around `sindrets/diffview.nvim`.
+          telescope = true,
           diffview = true,
         },
         -- Setting any section to `false` will make the section not render at all
         sections = {
           untracked = {
-            folded = true
+            folded = false
           },
           unstaged = {
-            folded = true
+            folded = false
           },
           staged = {
-            folded = true
+            folded = false
           },
           stashes = {
             folded = true
@@ -52,7 +58,7 @@ return {
             folded = true
           },
           unmerged = {
-            folded = true
+            folded = false
           },
           recent = {
             folded = true
@@ -62,15 +68,10 @@ return {
         mappings = {
           -- modify status buffer mappings
           status = {
-            ["a"] = "Stage",
-            ["A"] = "StageAll",
-            ["zo"] = "Toggle",
-            ["zc"] = "Toggle",
-            -- Removes the default mapping of "u"
-            ["1"] = "",
-            ["2"] = "",
-            ["3"] = "",
-            ["4"] = "",
+            -- ["a"] = "Stage",
+            -- ["A"] = "StageAll",
+            -- ["zo"] = "Toggle",
+            -- ["zc"] = "Toggle",
           }
         }
       }

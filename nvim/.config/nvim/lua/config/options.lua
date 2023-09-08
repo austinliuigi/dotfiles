@@ -89,7 +89,7 @@ vim.g.tex_flavor = "latex"
 -- Set format options
 vim.api.nvim_create_augroup('FormatOptions', {clear = true})
 vim.api.nvim_create_autocmd('FileType', {
-  command = 'set formatoptions=tcqnjp',
+  command = 'set formatoptions=qnjp',
   group = 'FormatOptions',
   pattern = {'*'}
 })
@@ -128,6 +128,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- }}}
 -- Whitespace {{{
+-- Default indent settings
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+
 -- Indent to previous lines indentation
 vim.opt.autoindent = true
 
