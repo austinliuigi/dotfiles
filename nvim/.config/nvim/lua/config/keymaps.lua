@@ -197,13 +197,25 @@ keymap({"n", "i", "t"}, "<C-S-l>", "<cmd>wincmd L<CR>", {noremap = true})
 
 keymap({"n"}, "<leader><C-t>", "<cmd>tabnew<CR>", {noremap = true})
 
-keymap({"n", "i", "t"}, "<C-[>", "<cmd>tabprev<CR>", {noremap = true, silent = true})
+keymap({"n", "i", "t"}, "<C-,>", "<cmd>tabprev<CR>", {noremap = true, silent = true})
 
-keymap({"n", "i", "t"}, "<C-]>", "<cmd>tabnext<CR>", {noremap = true, silent = true})
+keymap({"n", "i", "t"}, "<C-.>", "<cmd>tabnext<CR>", {noremap = true, silent = true})
 
-keymap("n", "<C-S-]>", "<cmd>+tabmove<CR>", {noremap = true, silent = true})
+keymap("n", "<C-S-,>", function()
+  if vim.fn.tabpagenr() == 1 then
+    vim.cmd("$tabmove")
+  else
+    vim.cmd("-tabmove")
+  end
+end, {noremap = true, silent = true})
 
-keymap("n", "<C-S-[>", "<cmd>-tabmove<CR>", {noremap = true, silent = true})
+keymap("n", "<C-S-.>", function()
+  if vim.fn.tabpagenr() == vim.fn.tabpagenr("$") then
+    vim.cmd("0tabmove")
+  else
+    vim.cmd("+tabmove")
+  end
+end, {noremap = true, silent = true})
 
 keymap("n", "<leader><leader>t", ":tabs<CR>:tabn<Space>", {noremap = true, silent = true})
 
@@ -334,7 +346,7 @@ vim.cmd [[
   --     vim.keymap.del(mode, "<esc>", {})
   --   end
   -- end
-  vim.keymap.del({"i", "t"}, "<esc>", {})
+  -- vim.keymap.del({"i", "t"}, "<esc>", {})
 -- }}}
 
 -- vim: foldmethod=marker
