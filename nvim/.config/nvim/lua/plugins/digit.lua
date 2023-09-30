@@ -1,7 +1,7 @@
 return {
   {
     "austinliuigi/digit.nvim",
-    dev = true,
+    dev = false,
     config = function()
       require("digit")
     end

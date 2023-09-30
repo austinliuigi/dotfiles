@@ -27,8 +27,6 @@ return {
   },
   {
     "austinliuigi/clipboard-image.nvim",
-    branch = "debug",
-    dev = true,
     config = function()
       require'clipboard-image'.setup {
         default = {

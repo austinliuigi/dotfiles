@@ -21,7 +21,8 @@ keymap({ "x" }, "$", function()
   local is_wrapped = vim.api.nvim_win_text_height(0, {
     start_row = (vim.fn.line('.') - 1),
     end_row = (vim.fn.line('.') - 1),
-    start_vcol = 0})["all"] > 1
+    start_vcol = 0
+  })["all"] > 1
 
   -- If current line is wrapped
   if is_wrapped then
